@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veri Madenciliği — Görsel Notlar</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --color-background-primary:#fff;
+    --color-background-secondary:#f5f5f3;
+    --color-background-info:#e6f1fb;
+    --color-background-success:#eaf3de;
+    --color-background-warning:#faeeda;
+    --color-background-danger:#fcebeb;
+    --color-text-primary:#1a1a18;
+    --color-text-secondary:#5a5a56;
+    --color-text-tertiary:#9a9a94;
+    --color-text-info:#185fa5;
+    --color-text-success:#3b6d11;
+    --color-text-warning:#854f0b;
+    --color-text-danger:#a32d2d;
+    --color-border-tertiary:rgba(0,0,0,0.1);
+    --color-border-secondary:rgba(0,0,0,0.2);
+    --color-border-primary:rgba(0,0,0,0.3);
+    --color-border-info:#85b7eb;
+    --font-sans:system-ui,-apple-system,sans-serif;
+    --border-radius-md:8px;
+    --border-radius-lg:12px;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --color-background-primary:#1e1e1c;
+      --color-background-secondary:#2a2a28;
+      --color-background-info:#042c53;
+      --color-background-success:#173404;
+      --color-background-warning:#412402;
+      --color-background-danger:#501313;
+      --color-text-primary:#e8e8e2;
+      --color-text-secondary:#a8a89e;
+      --color-text-tertiary:#68685e;
+      --color-text-info:#85b7eb;
+      --color-text-success:#97c459;
+      --color-text-warning:#ef9f27;
+      --color-text-danger:#f09595;
+      --color-border-tertiary:rgba(255,255,255,0.1);
+      --color-border-secondary:rgba(255,255,255,0.2);
+      --color-border-primary:rgba(255,255,255,0.3);
+      --color-border-info:#185fa5;
+    }
+  }
+  body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);min-height:100vh}
+  .page{padding:24px 20px;max-width:720px;margin:0 auto}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+  .nav button{font-size:12px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+  .nav button.active,.nav button:hover{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+  .section{display:none}.section.active{display:block}
+  h2{font-size:20px;font-weight:500;margin-bottom:16px;color:var(--color-text-primary)}
+  h3{font-size:15px;font-weight:500;margin:16px 0 8px;color:var(--color-text-primary)}
+  p,li{font-size:14px;line-height:1.6;color:var(--color-text-secondary)}
+  ul{padding-left:16px;margin:6px 0}
+  .card{background:var(--color-background-secondary);border-radius:12px;padding:14px 16px;margin-bottom:12px;border:0.5px solid var(--color-border-tertiary)}
+  .badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;margin:2px}
+  .b-blue{background:var(--color-background-info);color:var(--color-text-info)}
+  .b-green{background:var(--color-background-success);color:var(--color-text-success)}
+  .b-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .b-red{background:var(--color-background-danger);color:var(--color-text-danger)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+  .step-flow{display:flex;flex-direction:column;gap:0}
+  .step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .15s;border:0.5px solid transparent}
+  .step-item:hover{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+  .step-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;background:var(--color-background-info);color:var(--color-text-info)}
+  .step-arrow{text-align:center;color:var(--color-text-tertiary);font-size:16px;padding:2px 0}
+  .step-detail{font-size:13px;color:var(--color-text-secondary);margin-top:4px;padding:8px 12px;border-left:2px solid var(--color-border-secondary);margin-left:14px;display:none}
+  .step-detail.show{display:block}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th{text-align:left;padding:8px 10px;background:var(--color-background-secondary);font-weight:500;font-size:12px;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
+  td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+  td:first-child{font-weight:500;color:var(--color-text-primary)}
+  .algo-card{border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:all .15s}
+  .algo-card:hover{border-color:var(--color-border-secondary);background:var(--color-background-secondary)}
+  .algo-head{display:flex;justify-content:space-between;align-items:center}
+  .algo-body{margin-top:10px;display:none;font-size:13px;color:var(--color-text-secondary)}
+  .algo-body.open{display:block}
+  .algo-body ul{padding-left:14px}
+  .algo-body li{margin:4px 0}
+  .dikw{display:grid;gap:4px;margin:12px 0}
+  .dikw-level{border-radius:8px;padding:12px 16px;position:relative;overflow:hidden}
+  .dikw-level .lbl{font-size:11px;font-weight:500;letter-spacing:.04em;margin-bottom:4px}
+  .d-data{background:#F1EFE8;border:0.5px solid #B4B2A9}
+  .d-info{background:#E6F1FB;border:0.5px solid #85B7EB}
+  .d-know{background:#EAF3DE;border:0.5px solid #97C459}
+  .d-wis{background:#FAEEDA;border:0.5px solid #EF9F27}
+  @media(prefers-color-scheme:dark){
+    .d-data{background:#2C2C2A;border-color:#5F5E5A}.d-data .lbl{color:#D3D1C7}.d-data p{color:#B4B2A9}
+    .d-info{background:#042C53;border-color:#185FA5}.d-info .lbl{color:#B5D4F4}.d-info p{color:#85B7EB}
+    .d-know{background:#173404;border-color:#639922}.d-know .lbl{color:#C0DD97}.d-know p{color:#97C459}
+    .d-wis{background:#412402;border-color:#BA7517}.d-wis .lbl{color:#FAC775}.d-wis p{color:#EF9F27}
+  }
+  .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .pill{font-size:12px;padding:4px 10px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary)}
+  .highlight-box{border-left:3px solid var(--color-border-info);padding:10px 14px;background:var(--color-background-info);border-radius:0 8px 8px 0;margin:10px 0}
+  .highlight-box p{color:var(--color-text-info);font-size:13px}
+  .kv{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
+  .kv:last-child{border-bottom:none}
+  .kv-k{color:var(--color-text-secondary)}
+  .kv-v{color:var(--color-text-primary);font-weight:500}
+</style>
+</head>
+<body>
+<div class="page">
+<h2 style="font-size:22px;margin-bottom:6px">Veri Madenciliği</h2>
+<p style="margin-bottom:16px">Ders Notları — Görsel Özet</p>
+
+<div class="nav" id="nav">
+  <button class="active" onclick="show('giris')">🧭 Giriş</button>
+  <button onclick="show('kdd')">🔄 KDD Süreci</button>
+  <button onclick="show('temizleme')">🧹 Veri Temizleme</button>
+  <button onclick="show('donusum')">🔀 Veri Dönüşümü</button>
+  <button onclick="show('eda')">🔍 EDA</button>
+  <button onclick="show('algoritmalar')">⚙️ Algoritmalar</button>
+  <button onclick="show('ml')">🤖 Makine Öğrenmesi</button>
+  <button onclick="show('dikw')">📐 DIKW</button>
+</div>
+
+<!-- GİRİŞ -->
+<div id="giris" class="section active">
+  <h2>Veri Madenciliği Nedir?</h2>
+  <div class="highlight-box">
+    <p>Büyük verilerden değerli bilgileri bulma, ilişkiler kurup örüntü oluşturma ve anlamlı hale getirme sürecidir <strong>(Knowledge Discovery in Databases)</strong>. Karar destek sistemlerinde ve geleceğe yönelik tahminlerde kullanılır.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <p style="font-size:13px;color:var(--color-text-tertiary);font-weight:500;margin-bottom:10px">TEMEL AYRIMI</p>
+    <div class="grid2">
+      <div style="padding:10px;background:var(--color-background-primary);border-radius:8px;border:0.5px solid var(--color-border-tertiary)">
+        <div class="badge b-red">❌ Veri Madenciliği DEĞİL</div>
+        <p style="font-size:13px;margin-top:6px">Bu ay kaç ürün satıldı?</p>
+      </div>
+      <div style="padding:10px;background:var(--color-background-primary);border-radius:8px;border:0.5px solid var(--color-border-tertiary)">
+        <div class="badge b-green">✓ Veri Madenciliği</div>
+        <p style="font-size:13px;margin-top:6px">X alan müşteriler Y'yi de alır</p>
+      </div>
+    </div>
+  </div>
+  <h3>Disiplinler</h3>
+  <div class="grid3">
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">🏗️</div><p style="font-size:12px">Data Warehouse</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">📊</div><p style="font-size:12px">İstatistik</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">📈</div><p style="font-size:12px">Görselleştirme</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">🗄️</div><p style="font-size:12px">Veri Tabanları</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">🧠</div><p style="font-size:12px">Makine Öğrenmesi</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:4px">🔢</div><p style="font-size:12px">Algoritmalar</p></div>
+  </div>
+  <h3>Tarihçe</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">1950</div><div><p style="font-size:13px;color:var(--color-text-primary)">İlk bilgisayarlar</p><p>Sayım işlemleri için</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">1960</div><div><p style="font-size:13px;color:var(--color-text-primary)">Veri tabanı oluşumları</p><p>Hiyerarşik ve ağ modelleri</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">1970</div><div><p style="font-size:13px;color:var(--color-text-primary)">RDBMS uygulamaları</p><p>İlişkisel veri tabanı yönetim sistemleri</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-info);color:var(--color-text-info)">1989</div><div><p style="font-size:13px;color:var(--color-text-primary)">KDD çalışmaları başladı</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-info);color:var(--color-text-info)">1992</div><div><p style="font-size:13px;color:var(--color-text-primary)">İlk yazılımlar</p><p>IBM Intelligent Miner + SAS Enterprise Miner + WEKA</p></div></div>
+  </div>
+  <h3>Cevap Aradığı Sorular</h3>
+  <div class="pill-row">
+    <span class="pill">Potansiyel en iyi 10 müşteri kim?</span>
+    <span class="pill">Kanser erken teşhisi mümkün mü?</span>
+    <span class="pill">Hangi müşteri krediyi ödemez?</span>
+    <span class="pill">Dolandırıcılık davranışları?</span>
+    <span class="pill">Hangi yatırım araçları?</span>
+    <span class="pill">Churn riski kimde?</span>
+    <span class="pill">Ne zaman promosyon?</span>
+  </div>
+</div>
+
+<!-- KDD SÜRECİ -->
+<div id="kdd" class="section">
+  <h2>KDD — Bilgi Keşfi Süreci</h2>
+  <p style="margin-bottom:16px">Her adım, bir öncekinden gelen veriyi daha kullanışlı hale getirir. Üzerine tıklayarak detay gör.</p>
+  <div id="kdd-steps"></div>
+  <h3 style="margin-top:20px">Yöntemler — İki Ana Grup</h3>
+  <div class="grid2">
+    <div class="card" style="border-left:3px solid #378ADD">
+      <div class="badge b-blue">Öngörü / Predictive</div>
+      <p style="font-size:13px;margin-top:8px;margin-bottom:8px"><strong>Soru:</strong> Ne olacak?</p>
+      <ul><li>Karar Ağaçları</li><li>Bayes Sınıflandırması</li><li>En Yakın Komşu (KNN)</li><li>Yapay Sinir Ağları</li><li>SVM</li><li>Regresyon</li></ul>
+    </div>
+    <div class="card" style="border-left:3px solid #1D9E75">
+      <div class="badge b-green">Tanımlayıcı / Descriptive</div>
+      <p style="font-size:13px;margin-top:8px;margin-bottom:8px"><strong>Soru:</strong> Şu an ne oluyor?</p>
+      <ul><li>Kümeleme (Clustering)</li><li>Birliktelik Analizi</li><li>Sıralı Dizi Analizi</li><li>Özetleme</li><li>İstisna Analizi</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- VERİ TEMİZLEME -->
+<div id="temizleme" class="section">
+  <h2>Veri Temizleme</h2>
+  <div class="grid3">
+    <div class="card" style="text-align:center"><div style="font-size:22px;margin-bottom:6px">❓</div><p style="font-size:12px;font-weight:500">Eksik Veri</p><p style="font-size:11px;margin-top:4px">Missing Data / NaN</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:22px;margin-bottom:6px">⚠️</div><p style="font-size:12px;font-weight:500">Tutarsız Veri</p><p style="font-size:11px;margin-top:4px">Inconsistent</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:22px;margin-bottom:6px">🔊</div><p style="font-size:12px;font-weight:500">Gürültülü Veri</p><p style="font-size:11px;margin-top:4px">Noisy / Hatalı</p></div>
+  </div>
+  <h3>Eksik Veri Çözüm Yöntemleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Null / Unknown ile doldur</span><span class="kv-v">Belirsiz ama izlenebilir</span></div>
+    <div class="kv"><span class="kv-k">Ortalama ile doldur</span><span class="kv-v">Tüm veri veya grup ort.</span></div>
+    <div class="kv"><span class="kv-k">Mod ile doldur</span><span class="kv-v">En sık tekrar eden değer</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Mantıksal çıkarım</span><span class="kv-v">Bağlam bilgisiyle</span></div>
+  </div>
+  <h3>Gürültülü Veri — Düzeltme Teknikleri</h3>
+  <div id="noise-cards"></div>
+  <h3>Bölmeleme (Binning) Yöntemi</h3>
+  <table>
+    <thead><tr><th>Özellik</th><th>Eşit Genişlik</th><th>Eşit Frekans</th></tr></thead>
+    <tbody>
+      <tr><td>Aykırı değer riski</td><td>Yüksek</td><td>Düşük</td></tr>
+      <tr><td>Boş kutu riski</td><td>Var</td><td>Yok</td></tr>
+      <tr><td>Veri dağılımı</td><td>Dengesiz</td><td>Dengeli</td></tr>
+      <tr><td>Aralık genişliği</td><td>Sabit</td><td>Değişken</td></tr>
+    </tbody>
+  </table>
+  <h3>Doğru Veri Akışı</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><p style="font-size:13px">Ham veri alınır</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><p style="font-size:13px">İlk temizlik — tip ve anahtar kontrolleri</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><p style="font-size:13px">Birleştirme (Join)</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">4</div><p style="font-size:13px">İkinci temizlik — NaN, duplicate, mantık</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">5</div><p style="font-size:13px">Özellik mühendisliği</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">6</div><p style="font-size:13px">Modelleme</p></div>
+  </div>
+</div>
+
+<!-- VERİ DÖNÜŞÜMÜ -->
+<div id="donusum" class="section">
+  <h2>Veri Dönüşümü</h2>
+  <div class="highlight-box">
+    <p>Veriyi analize uygun hale getirme sürecidir. Farklı veri türlerini standart hale getirir. Ölçek farkları ve aykırı değerler giderilir.</p>
+  </div>
+  <h3>Sayısal Veri Ölçeklendirme</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Normalizasyon (Min-Max)</span><span class="kv-v badge b-blue">0 – 1 arası</span></div>
+    <div class="kv"><span class="kv-k">Standartlaştırma (Z-Score)</span><span class="kv-v badge b-green">Ort=0, Yayılım=1</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Logaritmik Dönüşüm</span><span class="kv-v badge b-amber">Büyük sayıları küçült</span></div>
+  </div>
+  <h3>Kategorik → Sayı (Encoding)</h3>
+  <div class="grid2">
+    <div class="card">
+      <div class="badge b-blue">Label Encoding</div>
+      <p style="font-size:13px;margin-top:8px">Her kategoriye bir numara verir.</p>
+      <p style="font-size:12px;margin-top:4px;color:var(--color-text-tertiary)">Bilgisayar=0, Elektrik=1, Makine=2</p>
+    </div>
+    <div class="card">
+      <div class="badge b-green">One Hot Encoding</div>
+      <p style="font-size:13px;margin-top:8px">Her kategoriye yeni sütun açar.</p>
+      <p style="font-size:12px;margin-top:4px;color:var(--color-text-tertiary)">İkili: 1 veya 0 yazar</p>
+    </div>
+  </div>
+  <h3>Veri Türleri</h3>
+  <table>
+    <thead><tr><th>Tür</th><th>Alt Tür</th><th>Örnek</th></tr></thead>
+    <tbody>
+      <tr><td>Sayısal</td><td>Sürekli / Aralıklı</td><td>Boy 1.75m / Çocuk sayısı</td></tr>
+      <tr><td>Nominal</td><td>Binary / Çok kategorili</td><td>Erkek/Kadın / Göz rengi</td></tr>
+      <tr><td>Ordinal</td><td>Sıralı isimsel</td><td>İlkokul, lise, üniversite</td></tr>
+      <tr><td>Ratio</td><td>Oransal sayısal</td><td>Gerçek sıfır noktası var</td></tr>
+    </tbody>
+  </table>
+  <h3>Join Türleri</h3>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="padding:10px;border-radius:8px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)"><div class="badge b-blue">Inner Join</div><p style="font-size:12px;margin-top:6px">Ortak alanlar birleşir</p></div>
+      <div style="padding:10px;border-radius:8px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)"><div class="badge b-green">Left Join</div><p style="font-size:12px;margin-top:6px">Sol tablo korunur</p></div>
+      <div style="padding:10px;border-radius:8px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)"><div class="badge b-amber">Right Join</div><p style="font-size:12px;margin-top:6px">Sağ tablo korunur</p></div>
+      <div style="padding:10px;border-radius:8px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)"><div class="badge b-red">Full Outer Join</div><p style="font-size:12px;margin-top:6px">Her iki tablo da korunur</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDA -->
+<div id="eda" class="section">
+  <h2>EDA — Keşifsel Veri Analizi</h2>
+  <div class="highlight-box">
+    <p>Verileri modellemeden önce tanımak, anlamak, problemleri görmek ve yapısını çözmek için kullanılan analiz sürecidir.</p>
+  </div>
+  <h3>Neden Yapılır?</h3>
+  <div id="eda-why"></div>
+  <h3>EDA Türleri</h3>
+  <div class="grid3">
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:6px">1️⃣</div><p style="font-size:12px;font-weight:500">Univariate</p><p style="font-size:11px;margin-top:4px">Tek değişken: Histogram, Boxplot</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:6px">2️⃣</div><p style="font-size:12px;font-weight:500">Bivariate</p><p style="font-size:11px;margin-top:4px">İki değişken: Scatter, Korelasyon</p></div>
+    <div class="card" style="text-align:center"><div style="font-size:20px;margin-bottom:6px">♾️</div><p style="font-size:12px;font-weight:500">Multivariate</p><p style="font-size:11px;margin-top:4px">Çoklu: Heatmap, Pairplot</p></div>
+  </div>
+  <h3>EDA Akış Adımları</h3>
+  <div id="eda-steps"></div>
+</div>
+
+<!-- ALGORİTMALAR -->
+<div id="algoritmalar" class="section">
+  <h2>Algoritmalar</h2>
+  <p style="margin-bottom:16px">Tıkla, detayları gör.</p>
+  <h3>Sınıflandırma Algoritmaları</h3>
+  <div id="clf-algos"></div>
+  <h3>Kümeleme Algoritmaları</h3>
+  <div id="clust-algos"></div>
+  <h3>K-Means Adımları</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><p style="font-size:13px">Başlangıç küme merkezleri <strong>rastgele</strong> belirlenir (K adet)</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><p style="font-size:13px">Her veri noktası en yakın merkeze atanır (Öklid mesafesi)</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><p style="font-size:13px">Küme merkezleri güncellenir (atanan noktaların ortalaması)</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">4</div><p style="font-size:13px">Merkezler sabit kalana kadar <strong>tekrarla</strong></p></div>
+  </div>
+  <h3>Birliktelik Analizi — Apriori Metrikleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Support</span><span class="kv-v">Birlikte görünme sıklığı</span></div>
+    <div class="kv"><span class="kv-k">Confidence</span><span class="kv-v">X alırsa Y alma olasılığı</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Lift</span><span class="kv-v">Olasılık artış katsayısı</span></div>
+  </div>
+</div>
+
+<!-- MAKİNE ÖĞRENMESİ -->
+<div id="ml" class="section">
+  <h2>Makine Öğrenmesi</h2>
+  <div class="grid3" style="margin-bottom:16px">
+    <div class="card" style="border-top:3px solid #378ADD"><div class="badge b-blue">Denetimli</div><p style="font-size:12px;margin-top:8px">Etiketli veriyle eğitim. Soru + cevap verilir.</p><p style="font-size:11px;margin-top:6px;color:var(--color-text-tertiary)">Sınıflandırma, Regresyon</p></div>
+    <div class="card" style="border-top:3px solid #1D9E75"><div class="badge b-green">Denetimsiz</div><p style="font-size:12px;margin-top:8px">Ham veri verilir, gizli ilişkiler bulunur.</p><p style="font-size:11px;margin-top:6px;color:var(--color-text-tertiary)">Kümeleme, Birliktelik</p></div>
+    <div class="card" style="border-top:3px solid #BA7517"><div class="badge b-amber">Pekiştirmeli</div><p style="font-size:12px;margin-top:8px">Ödül/ceza sistemiyle öğrenir.</p><p style="font-size:11px;margin-top:6px;color:var(--color-text-tertiary)">Oyunlar, robotik</p></div>
+  </div>
+  <h3>Karar Ağacı vs Random Forest</h3>
+  <table>
+    <thead><tr><th>Özellik</th><th>Decision Tree</th><th>Random Forest</th></tr></thead>
+    <tbody>
+      <tr><td>Ağaç sayısı</td><td>1</td><td>100+</td></tr>
+      <tr><td>Veri kullanımı</td><td>Tüm veri</td><td>Rastgele alt örneklem</td></tr>
+      <tr><td>Overfitting</td><td><span class="badge b-red">Riskli</span></td><td><span class="badge b-green">Dayanıklı</span></td></tr>
+      <tr><td>Doğruluk</td><td>Daha düşük</td><td>Daha yüksek</td></tr>
+      <tr><td>Yorumlama</td><td>Çok kolay</td><td>Orman karmaşık</td></tr>
+      <tr><td>Hız</td><td>Hızlı</td><td>Biraz yavaş</td></tr>
+    </tbody>
+  </table>
+  <h3>Model Değerlendirme Metrikleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Accuracy</span><span class="kv-v">Tüm tahminlerin doğruluk oranı</span></div>
+    <div class="kv"><span class="kv-k">Precision</span><span class="kv-v">Tahmin edilen 0'ların gerçekten 0 oranı</span></div>
+    <div class="kv"><span class="kv-k">Recall</span><span class="kv-v">Gerçek 0'ların doğru bulunma oranı</span></div>
+    <div class="kv"><span class="kv-k">F1 Score</span><span class="kv-v">Precision + Recall harmonik ortalaması</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Confusion Matrix</span><span class="kv-v">Sınıflandırma tablosu görsel özeti</span></div>
+  </div>
+  <h3>KNN vs Decision Tree</h3>
+  <table>
+    <thead><tr><th>Özellik</th><th>Decision Tree</th><th>KNN</th></tr></thead>
+    <tbody>
+      <tr><td>Model yapısı</td><td>Kural tabanlı ağaç</td><td>Mesafe tabanlı</td></tr>
+      <tr><td>Eğitim</td><td>Model kurar</td><td>Veriyi saklar (lazy)</td></tr>
+      <tr><td>Tahmin hızı</td><td>Hızlı</td><td>Yavaş</td></tr>
+      <tr><td>Ölçekleme</td><td>Gerekmez</td><td>Çok önemli</td></tr>
+      <tr><td>Yorumlama</td><td>Yüksek</td><td>Düşük</td></tr>
+    </tbody>
+  </table>
+  <h3>ML Pipeline</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><p style="font-size:13px">Veriyi yükle</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><p style="font-size:13px">EDA</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><p style="font-size:13px">X / Y ayrımı</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">4</div><p style="font-size:13px">Eğitim (%70) / Test (%30) ayrımı</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">5</div><p style="font-size:13px">Ön işleme + Model oluşturma</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">6</div><p style="font-size:13px">Değerlendirme + Dağıtım</p></div>
+  </div>
+</div>
+
+<!-- DIKW -->
+<div id="dikw" class="section">
+  <h2>DIKW Piramidi</h2>
+  <p style="margin-bottom:16px">Bilgelik Hiyerarşisi — Data → Information → Knowledge → Wisdom</p>
+  <div class="dikw">
+    <div class="dikw-level d-wis" style="border-radius:8px 8px 0 0;padding:16px 20px">
+      <div class="lbl" style="color:#854F0B">WISDOM — BİLGELİK</div>
+      <p>Deneyimden yararlanarak bilgiyi doğru kararlar için kullanmak. <em>"Stokları aşırı artırmak yerine kontrollü planlayalım."</em></p>
+    </div>
+    <div class="dikw-level d-know">
+      <div class="lbl" style="color:#3B6D11">KNOWLEDGE — BİLGİ</div>
+      <p>Bilginin amaca yönelik uygulanmış hali. <em>"Satışlar %20 arttı → stok planını yapalım."</em></p>
+    </div>
+    <div class="dikw-level d-info">
+      <div class="lbl" style="color:#185FA5">INFORMATION — ENFORMASYon</div>
+      <p>İşlenmiş ve anlamlı hale getirilmiş veriler. <em>"Bu hafta satışlar geçen haftaya göre %20 arttı."</em></p>
+    </div>
+    <div class="dikw-level d-data" style="border-radius:0 0 8px 8px">
+      <div class="lbl" style="color:#5F5E5A">DATA — VERİ</div>
+      <p>Kendi başına anlamı olmayan gözlemler. Sayılar, ölçümler, kayıtlar.</p>
+    </div>
+  </div>
+  <div style="margin-top:12px;padding:12px;border:0.5px solid var(--color-border-tertiary);border-radius:8px">
+    <p style="font-size:13px;font-weight:500;margin-bottom:8px">Sınav hatırlatması</p>
+    <p>Vize %35 · Final %50 · Ödev %15</p>
+    <p style="margin-top:4px">Sınavlar test — en az 40 soru</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const ids = ['giris','kdd','temizleme','donusum','eda','algoritmalar','ml','dikw'];
+  document.querySelectorAll('.nav button').forEach((b,i) => b.classList.toggle('active', ids[i] === id));
+}
+
+const kddData = [
+  {num:1, title:'Veri Seçimi', sub:'Hedef veriyi belirle', detail:'Analiz için hangi verinin gerekli olduğuna karar verilir. Çıktı: Hedef Veri.'},
+  {num:2, title:'Ön İşleme', sub:'Veriyi temizle', detail:'Gürültülü, eksik ve tutarsız veriler düzeltilir. GIGO (Garbage in, Garbage Out). Çıktı: Ön İşlenmiş Veri.'},
+  {num:3, title:'Dönüştürme', sub:'Analiz formuna sok', detail:'Veri analiz için uygun forma getirilir (normalizasyon, encoding vb.). Çıktı: Dönüştürülmüş Veri.'},
+  {num:4, title:'Veri Madenciliği', sub:'Örüntüleri bul', detail:'Veriler içindeki gizli ilişkiler ve kalıplar (pattern) bulunur. Çıktı: Örüntüler.'},
+  {num:5, title:'Örüntü Değerlendirme', sub:'İşe yarar mı?', detail:'Bulunan sonuçların gerçekten işe yarayıp yaramadığı test edilir.'},
+  {num:6, title:'Bilgi Sunumu', sub:'Kullanıcıya aktar', detail:'Keşfedilen bilgi anlaşılır biçimde sunulur. Çıktı: BİLGİ.'},
+];
+const kddEl = document.getElementById('kdd-steps');
+kddData.forEach((s,i) => {
+  const div = document.createElement('div');
+  div.innerHTML = `<div class="step-item" onclick="toggleKDD(${i})">
+    <div class="step-num">${s.num}</div>
+    <div style="flex:1"><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">${s.title}</p><p style="font-size:12px">${s.sub}</p></div>
+    <span style="color:var(--color-text-tertiary);font-size:12px">›</span>
+  </div>
+  <div class="step-detail" id="kdd-d-${i}">${s.detail}</div>
+  ${i < kddData.length-1 ? '<div class="step-arrow">↓</div>' : ''}`;
+  kddEl.appendChild(div);
+});
+function toggleKDD(i) { document.getElementById('kdd-d-'+i).classList.toggle('show'); }
+
+const noiseData = [
+  {title:'Hareketli Ortalama', badge:'SMA/WMA/EMA', color:'b-blue', detail:'Verideki dalgalanmaları azaltır. Basit (SMA) her veriye eşit davranır. Ağırlıklı (WMA) yeni verilere öncelik. Üstel (EMA) borsada popüler.'},
+  {title:'Bölmeleme Yöntemi', badge:'Binning', color:'b-green', detail:'Dağınık veriyi gruplayarak düzeltir. Eşit Genişlik: aralıklar eşit (0-10, 10-20...). Eşit Frekans: her kutuda eşit veri sayısı.'},
+  {title:'Eğri Uydurma', badge:'Curve Fitting', color:'b-amber', detail:'Noktalar üzerinden en ideal çizgiyi matematiksel bulma. Lineer, Polinom, Spline, Gaussian.'},
+];
+const noiseEl = document.getElementById('noise-cards');
+noiseData.forEach(n => {
+  const d = document.createElement('div');d.className='algo-card';
+  d.innerHTML = `<div class="algo-head" onclick="toggleAlgo(this)"><div><span class="badge ${n.color}">${n.badge}</span><span style="font-size:14px;font-weight:500;margin-left:8px">${n.title}</span></div><span style="color:var(--color-text-tertiary)">›</span></div><div class="algo-body"><p>${n.detail}</p></div>`;
+  noiseEl.appendChild(d);
+});
+
+const edaWhy = [
+  ['Veri kaç satır?','Az ise model ezber yapabilir'],
+  ['Eksik değer var mı?','Eksikler sütunları yanıltabilir'],
+  ['Outlier var mı?','Garip değerler istatistiği bozar'],
+  ['Dağılım normal mi?','Çan eğrisi şeklinde olması istenir'],
+  ['Sınıf dengesi var mı?','10/1 oranı varsa model hep çoğunluğu der'],
+  ['Değişkenler arası ilişki?','Boy ↑ → kilo da ↑ mü?'],
+];
+const edaWhyEl = document.getElementById('eda-why');
+const c = document.createElement('div');c.className='card';
+edaWhy.forEach(([k,v]) => { c.innerHTML += `<div class="kv"><span class="kv-k">${k}</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">${v}</span></div>`; });
+edaWhyEl.appendChild(c);
+
+const edaSteps = [
+  {n:1,t:'Veri Yükleme', d:'Dosya okuma (Excel, CSV). İlk 5 satır, boyut kontrolü.'},
+  {n:2,t:'Yapıyı Anlama', d:'Sayısal/Kategorik ayrımı. Hedef değişken belirleme. Sınıflandırma mı? Regresyon mu?'},
+  {n:3,t:'Veri Kalitesi', d:'Eksik değer, yanlış tip, tutarsız değer, duplicate kayıt kontrolü.'},
+  {n:4,t:'Univariate Analiz', d:'Histogram, Boxplot, Countplot. Dağılım nasıl? Outlier var mı?'},
+  {n:5,t:'Bivariate Analiz', d:'Korelasyon, Scatter plot, Kategori vs hedef analizi.'},
+  {n:6,t:'Multivariate Analiz', d:'Heatmap, Pairplot, Gruplama analizleri.'},
+  {n:7,t:'Model Öncesi Karar', d:'Dönüşüm gerekli mi? Özellik çıkarılmalı mı? Class imbalance?'},
+];
+const edaEl = document.getElementById('eda-steps');
+edaSteps.forEach((s,i) => {
+  const d = document.createElement('div');
+  d.innerHTML = `<div class="step-item" onclick="toggleEDA(${i})"><div class="step-num">${s.n}</div><div style="flex:1"><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">${s.t}</p></div><span style="color:var(--color-text-tertiary);font-size:12px">›</span></div><div class="step-detail" id="eda-d-${i}">${s.d}</div>${i < edaSteps.length-1 ? '<div class="step-arrow">↓</div>' : ''}`;
+  edaEl.appendChild(d);
+});
+function toggleEDA(i) { document.getElementById('eda-d-'+i).classList.toggle('show'); }
+
+const clfData = [
+  {title:'Karar Ağacı (Decision Tree)', badge:'Sınıflandırma', color:'b-blue', detail:'Ardışık sorularla veri bölünür. Kök → En saf ayırım. Entropy veya Gini Index ile saflık ölçülür. Avantaj: Yorumlaması kolay. Dezavantaj: Overfitting riski.'},
+  {title:'Random Forest', badge:'Ensemble', color:'b-green', detail:'100+ karar ağacının birleşimi. Her ağaç farklı veri+özellik alt kümesi kullanır. Majority voting ile karar. Overfitting azalır, feature importance hesaplanabilir.'},
+  {title:'KNN — En Yakın Komşu', badge:'Lazy Learner', color:'b-amber', detail:'Gözlemlerin mesafeleri üzerinden tahmin. K küçükse overfitting, büyükse underfitting. Ölçekleme (StandardScaler) çok önemli. Eğitim hızlı ama tahmin yavaş.'},
+  {title:'Naive Bayes', badge:'Olasılık', color:'b-blue', detail:'Bayes teoremi tabanlı sınıflandırma. Özellikler bağımsız varsayılır. Metin sınıflandırmada çok kullanılır.'},
+  {title:'Lojistik Regresyon', badge:'Binary', color:'b-green', detail:'İki sınıf arasında sınır çizer. Sigmoid fonksiyonu kullanır. Hızlı ve yorumlanabilir.'},
+];
+const clfEl = document.getElementById('clf-algos');
+clfData.forEach(a => {
+  const d = document.createElement('div');d.className='algo-card';
+  d.innerHTML = `<div class="algo-head" onclick="toggleAlgo(this)"><div><span class="badge ${a.color}">${a.badge}</span><span style="font-size:14px;font-weight:500;margin-left:8px">${a.title}</span></div><span style="color:var(--color-text-tertiary)">›</span></div><div class="algo-body"><p>${a.detail}</p></div>`;
+  clfEl.appendChild(d);
+});
+
+const clustData = [
+  {title:'K-Means', badge:'Kümeleme', color:'b-blue', detail:'K küme merkezi seçilir, her nokta en yakın merkeze atanır, merkezler güncellenir, tekrarlanır. Elbow Metodu ile K seçilir. Outlierdan etkilenir.'},
+  {title:'DBSCAN', badge:'Yoğunluk', color:'b-green', detail:'Yoğunluk bazlı kümeleme. K sayısı vermene gerek yok. Düzensiz şekilli kümeleri bulur. Gürültüyü (noise) otomatik tespit eder.'},
+  {title:'PCA — Boyut Azaltma', badge:'Denetimsiz', color:'b-amber', detail:'Boyutluluk Laneti (Curse of Dimensionality) çözümü. Varyansı en çok taşıyan bileşenleri korur. Görselleştirme kolaylığı sağlar. 2-3 boyuta indirgeme mümkün.'},
+  {title:'Apriori Algoritması', badge:'Birliktelik', color:'b-blue', detail:'Hangi ürünler birlikte alınır? Support, Confidence, Lift metrikleri. Sepet analizi, öneri sistemleri.'},
+];
+const clustEl = document.getElementById('clust-algos');
+clustData.forEach(a => {
+  const d = document.createElement('div');d.className='algo-card';
+  d.innerHTML = `<div class="algo-head" onclick="toggleAlgo(this)"><div><span class="badge ${a.color}">${a.badge}</span><span style="font-size:14px;font-weight:500;margin-left:8px">${a.title}</span></div><span style="color:var(--color-text-tertiary)">›</span></div><div class="algo-body"><p>${a.detail}</p></div>`;
+  clustEl.appendChild(d);
+});
+
+function toggleAlgo(head) { head.parentElement.querySelector('.algo-body').classList.toggle('open'); }
+</script>
+</body>
+</html>
