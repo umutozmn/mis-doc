@@ -1,388 +1,319 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizational Behavior</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .card { background: white; border-radius: 12px; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-        .card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .hint-info { background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; border-radius: 0 8px 8px 0; }
-        .hint-warning { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0 8px 8px 0; }
-        .hint-danger { background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; border-radius: 0 8px 8px 0; }
-        .hint-success { background-color: #f0fdf4; border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0 8px 8px 0; }
-        details summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
-        details[open] summary { border-bottom: 1px solid #e2e8f0; padding-bottom: 0.75rem; margin-bottom: 1rem; }
-        .footnote { font-size: 0.75rem; color: #64748b; vertical-align: super; cursor: help; border-bottom: 1px dotted; }
-        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
-        .cover-image { height: 300px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); background-size: cover; background-position: center; position: relative; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Örgütsel Davranış | Notlar</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --color-background-primary:#fff;
+    --color-background-secondary:#f5f5f3;
+    --color-background-info:#e6f1fb;
+    --color-background-success:#eaf3de;
+    --color-background-warning:#faeeda;
+    --color-background-danger:#fcebeb;
+    --color-text-primary:#1a1a18;
+    --color-text-secondary:#5a5a56;
+    --color-text-tertiary:#9a9a94;
+    --color-text-info:#185fa5;
+    --color-text-success:#3b6d11;
+    --color-text-warning:#854f0b;
+    --color-text-danger:#a32d2d;
+    --color-border-tertiary:rgba(0,0,0,0.1);
+    --color-border-secondary:rgba(0,0,0,0.2);
+    --color-border-primary:rgba(0,0,0,0.3);
+    --color-border-info:#85b7eb;
+    --font-sans:system-ui,-apple-system,sans-serif;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --color-background-primary:#1e1e1c;
+      --color-background-secondary:#2a2a28;
+      --color-background-info:#042c53;
+      --color-background-success:#173404;
+      --color-background-warning:#412402;
+      --color-background-danger:#501313;
+      --color-text-primary:#e8e8e2;
+      --color-text-secondary:#a8a89e;
+      --color-text-tertiary:#68685e;
+      --color-text-info:#85b7eb;
+      --color-text-success:#97c459;
+      --color-text-warning:#ef9f27;
+      --color-text-danger:#f09595;
+      --color-border-tertiary:rgba(255,255,255,0.1);
+      --color-border-secondary:rgba(255,255,255,0.2);
+      --color-border-primary:rgba(255,255,255,0.3);
+      --color-border-info:#185fa5;
+    }
+  }
+  body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);min-height:100vh}
+  .page{padding:24px 20px;max-width:720px;margin:0 auto}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+  .nav button{font-size:12px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+  .nav button.active,.nav button:hover{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+  .section{display:none}.section.active{display:block}
+  h2{font-size:20px;font-weight:600;margin-bottom:16px;color:var(--color-text-primary); border-bottom: 1px solid var(--color-border-tertiary); padding-bottom: 8px;}
+  h3{font-size:15px;font-weight:600;margin:20px 0 10px;color:var(--color-text-primary); text-transform: uppercase; letter-spacing: 0.05em;}
+  p,li{font-size:14px;line-height:1.6;color:var(--color-text-secondary); margin-bottom: 8px;}
+  ul{padding-left:18px;margin:8px 0}
+  .card{background:var(--color-background-secondary);border-radius:12px;padding:14px 16px;margin-bottom:12px;border:0.5px solid var(--color-border-tertiary)}
+  .badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;margin:2px}
+  .b-blue{background:var(--color-background-info);color:var(--color-text-info)}
+  .b-green{background:var(--color-background-success);color:var(--color-text-success)}
+  .b-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .b-red{background:var(--color-background-danger);color:var(--color-text-danger)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .highlight-box{border-left:3px solid var(--color-border-info);padding:10px 14px;background:var(--color-background-info);border-radius:0 8px 8px 0;margin:10px 0}
+  .highlight-box p{color:var(--color-text-info);font-size:13px; margin-bottom:0}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0; border-radius: 8px; overflow: hidden;}
+  th{text-align:left;padding:10px;background:var(--color-background-secondary);font-weight:600;color:var(--color-text-primary);border-bottom:1px solid var(--color-border-secondary)}
+  td{padding:10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+  .step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;border:0.5px solid transparent; transition: 0.2s;}
+  .step-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;background:var(--color-background-info);color:var(--color-text-info)}
+  .eng-term { font-style: italic; color: var(--color-text-tertiary); font-size: 12px; cursor: help; border-bottom: 1px dotted var(--color-text-tertiary); }
+  .eng-term:hover::after { content: " (İngilizce Terim)"; font-size: 10px; opacity: 0.7; }
+</style>
 </head>
-<body class="pb-20">
-    <div class="max-w-5xl mx-auto px-4 pt-6">
-    <a href="index.html" class="text-slate-500 hover:text-blue-500 flex items-center gap-2 transition-colors">
-        <i class="fa-solid fa-arrow-left"></i> ← Ana Menüye Dön
-    </a>
+<body>
+<div class="page">
+<h2 style="font-size:24px;margin-bottom:4px; border:none">Örgütsel Davranış</h2>
+<p style="color:var(--color-text-tertiary); margin-bottom:20px">YBS Çalışma Portalı — Umut Not Arşivi</p>
+
+<div class="nav" id="nav">
+  <button class="active" onclick="show('giris')">🎯 Giriş</button>
+  <button onclick="show('tutumlar')">😊 Tutumlar</button>
+  <button onclick="show('duygular')">🎭 Duygular</button>
+  <button onclick="show('kisilik')">🧠 Kişilik</button>
+  <button onclick="show('karar')">⚖️ Karar Verme</button>
+  <button onclick="show('motivasyon')">🔥 Motivasyon</button>
+  <button onclick="show('uygulamalar')">🛠️ Uygulamalar</button>
+  <button onclick="show('icerik')">📋 Ders İçeriği</button>
 </div>
 
-    <!-- Hero Header -->
-    <div class="cover-image flex items-end p-8 md:p-16">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="relative z-10 text-white max-w-4xl">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">📌 Organizational Behavior</h1>
-        </div>
+<div id="giris" class="section active">
+  <h2>Örgütsel Davranışa Giriş</h2>
+  <div class="highlight-box">
+    <p>İnsanların iş ortamındaki davranışını ve bu durumun şirket üzerindeki etkisini inceleyen bilim dalıdır.</p>
+  </div>
+  
+  <h3>İnceleme Katmanları</h3>
+  <div class="card">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div><p><strong>Bireysel Düzey</strong> <span class="eng-term">Individual Level</span></p><ul><li>Kişilik, algı, motivasyon, değerler. (Umut neden böyle davranıyor?)</li></ul></div>
     </div>
-
-    <!-- Main Content -->
-    <div class="max-w-5xl mx-auto mt-10 px-4">
-        
-        <div class="grid grid-cols-1 gap-6">
-
-            <!-- 1. Örgütsel Davranışa Giriş -->
-            <div class="card p-6">
-                <details open>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>1. Örgütsel Davranışa Giriş</span>
-                        <i class="fa-solid fa-chevron-down text-sm transition-transform"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <div>
-                            <h4 class="text-lg font-semibold border-b pb-2 mb-3">Temel Tanımlar</h4>
-                            <ul class="list-disc ml-5 space-y-2">
-                                <li><span class="text-red-600 font-bold">Örgütsel Davranış:</span> İnsanların iş ortamındaki davranışını ve bu durumun şirket üzerindeki etkisini inceler.</li>
-                                <li><span class="text-red-600 font-bold">Örgüt:</span> Bireylerden oluşan ve bir amaç doğrultusunda kurulan yapılar.</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="text-lg font-semibold border-b pb-2 mb-3">Bireyden Örgüte</h4>
-                            <p class="mb-3">Şirket davranışlarını anlamak için 3 katmana bakmak gerekir:</p>
-                            <div class="hint-warning">
-                                <div class="flex gap-3">
-                                    <i class="fa-solid fa-users mt-1"></i>
-                                    <div class="space-y-3">
-                                        <p><strong>Bireysel Düzey <span class="footnote" title="Individual Level">[1]</span>:</strong> İnsanları tek tek inceleriz. Kişilik, algı, motivasyon ve değerler. (Ör: Umut neden böyle davranıyor?)</p>
-                                        <p><strong>Grup Düzeyi:</strong> İnsanlar bir araya gelince ne oluyor. Liderlik, iletişim, güç ve çatışma. (Ör: Ekip neden birbirine girdi?)</p>
-                                        <p><strong>Örgütsel Düzey:</strong> Örgüt kültürü, yapısı ve değişimi. (Ör: Şirket havası neden böyle?)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 class="text-lg font-semibold border-b pb-2 mb-3">Örgütsel Davranışın Temelleri</h4>
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full border rounded-lg">
-                                    <thead class="bg-slate-50">
-                                        <tr>
-                                            <th class="px-4 py-2 border text-left">Bilim Dalı</th>
-                                            <th class="px-4 py-2 border text-left">Katkı</th>
-                                            <th class="px-4 py-2 border text-left">Odak</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td class="px-4 py-2 border font-medium">Psikoloji</td><td class="px-4 py-2 border">Bireysel Davranış</td><td class="px-4 py-2 border">Öğrenme, motivasyon, kişilik</td></tr>
-                                        <tr><td class="px-4 py-2 border font-medium">Sosyal Psikoloji</td><td class="px-4 py-2 border">Değişim ve süreçler</td><td class="px-4 py-2 border">Grup davranışı, Tutum değişimi</td></tr>
-                                        <tr><td class="px-4 py-2 border font-medium">Sosyoloji</td><td class="px-4 py-2 border">Grup ve org. yapısı</td><td class="px-4 py-2 border">Örgüt kültürü</td></tr>
-                                        <tr><td class="px-4 py-2 border font-medium">Antropoloji</td><td class="px-4 py-2 border">İnsan kültürleri</td><td class="px-4 py-2 border">Kültürlerarası farklılıklar</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 class="text-lg font-semibold border-b pb-2 mb-3">Örgütsel Davranışın Önemi</h4>
-                            <blockquote class="italic text-slate-600 border-l-4 pl-4 mb-4">"Yöneticilere kanıtlanmış veriler sunar."</blockquote>
-                            <ul class="space-y-4">
-                                <li><strong>Açıklama <span class="footnote" title="Explanation">[2]</span> (Neden):</strong> Geçmişi anlamak. "Geçen ay neden 5 kişi işi bıraktı?"</li>
-                                <li><strong>Öngörü <span class="footnote" title="Prediction">[3]</span>:</strong> Geleceği tahmin etmek. "Yeni prim verirsem motivasyon artar mı?"</li>
-                                <li><strong>Kontrol:</strong> Müdahale zamanı. Verimlilik ve tatmin nasıl sağlanır?</li>
-                                <li><strong>Çeşitlilik:</strong> X, Y, Z kuşaklarını aynı hedefte birleştirmek.</li>
-                                <li><strong>Uzaktan Çalışma ve Teknolji:</strong> "Gözden ırak olan gönülden de ırak olur" mu? <i>"İşe gelmeden çalışanın şirkete olan bağlılığını nasıl koruruz?"</i></li>
-                                <li><strong>İş Yaşam Dengesi:</strong> Burnout sendromu ve teknoloji baskısını yönetmek.</li>
-                                <li><strong>Etik ve Sosyal Sorumluluk:</strong> Sadece kâr değil, değer üretmek. Z kuşağı "Dünyaya bir faydam var mı?" diye sorar. </li>
-
-                               
-
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-           <!-- 2. Tutumlar ve İş Tatmini -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>2. Tutumlar ve İş Tatmini</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-8 text-slate-700">
-                        
-                        <!-- Tutum -->
-                        <section>
-                            <h4 class="text-xl font-bold mb-4 text-slate-900 border-l-4 border-blue-500 pl-3">Tutum</h4>
-                            <ul class="list-disc ml-6 space-y-2 mb-4">
-                                <li>Bir olay veya kişi hakkındaki yargımızdır.</li>
-                                <li>3 bileşeni vardır: <strong>Düşün > Hisset > Yap</strong></li>
-                            </ul>
-                            <ol class="list-decimal ml-6 space-y-3">
-                                <li><span class="border-b-2 border-slate-200 font-semibold italic">Bilişsel</span> <strong>Bileşen:</strong> <span class="text-slate-500 italic">"Maaşım oldukça az"</span></li>
-                                <li><span class="border-b-2 border-slate-200 font-semibold italic">Duygusal</span> <strong>Bileşen:</strong> <span class="text-slate-500 italic">"Maaşımdan dolayı kızgınım"</span></li>
-                                <li><span class="border-b-2 border-slate-200 font-semibold italic">Davranışsal</span> <strong>Bileşen:</strong> <span class="text-slate-500 italic">"İşten çıkacağım"</span></li>
-                            </ol>
-                        </section>
-
-                        <!-- İş Tutumları -->
-                        <section>
-                            <h4 class="text-xl font-bold mb-4 text-slate-900 border-l-4 border-blue-500 pl-3">İş Tutumları</h4>
-                            <ul class="space-y-4">
-                                <li><span class="border-b-2 border-slate-200 font-bold">İş Tatmini:</span> Çalışanın işine karşı olumlu veya olumsuz duygusal değerlendirmesidir.</li>
-                                <li><span class="border-b-2 border-slate-200 font-bold">İşe Katılım:</span> Kişinin işiyle psikolojik olarak ne kadar özdeşleştiğidir. Başarım = Benim Değerim. <span class="text-slate-500 italic">"Proje benim ismimle anılmalı"</span></li>
-                                <li><span class="border-b-2 border-slate-200 font-bold">Psikolojik Güçlendirme:</span> Kişinin iş yerindeki özerklik hissidir. <span class="italic">Ben önemli bir iş yapıyorum ve benim bir gücüm var</span> düşüncesidir.</li>
-                                <li><span class="border-b-2 border-slate-200 font-bold">Algılanan Örgütsel Destek:</span> Çalışan, emeğini şirketin önemsediğine inanmasıdır. <span class="text-slate-500 italic">"Şirket beni düşünüyor mu?"</span></li>
-                                <li><span class="border-b-2 border-slate-200 font-bold">Örgütsel Bağlılık:</span> Bir çalışanı şirkette tutan nedenlerdir.
-                                    <ol class="list-decimal ml-8 mt-3 space-y-2 text-sm">
-                                        <li><strong>Normatif Bağlılık:</strong> <span class="text-slate-500 italic">"Gitmek bana yakışmaz"</span>.. Ahlaki yükümlülük, vefa nedenli bağlılıktır.</li>
-                                        <li><span class="border-b border-slate-300 font-semibold italic">Devam Bağlılığı:</span> <span class="text-slate-500 italic">"İhtiyacım var, gidemem"</span>.. Zaruriyet nedenli bağlılıktır.</li>
-                                        <li><span class="border-b border-slate-300 font-semibold italic">Duygusal Bağlılık:</span> <span class="text-slate-500 italic">"Burayı seviyorum"</span>.. Sevgi nedenli bağlılıktır.</li>
-                                    </ol>
-                                </li>
-                            </ul>
-                        </section>
-
-                        <!-- İş Tatminini Etkileyen Faktörler -->
-                        <section>
-                            <h4 class="text-xl font-bold mb-4 text-slate-900 border-l-4 border-emerald-500 pl-3">İş Tatminini Etkileyen Faktörler</h4>
-                            <ul class="space-y-4">
-                                <li><strong>İşin Şartları:</strong> Çift Faktörde hijyen faktörüne örnektir. Sağlanmazsa iş tatmini düşer ve uzun vadede burnout yaşanır. <span class="font-bold">örn:</span> Sürekli mesai yapan biri bir süre sonra işten soğur.</li>
-                                <li><strong>Kişilik:</strong> Kişinin hayata bakış açısının işine yansımasıdır. Bazı insanlar hep mutsuzdur, karamsardır, bazıları da zor şartlarda bile pozitif kalır.</li>
-                                <li><strong>Ücret:</strong> Herzberg’in Çift Faktör Teorisinde bir hijyen faktörüdür. <span class="italic">"Yokluğu derttir, varlığı marifet değildir"</span>. Az olmasında tatminsizlik başlar ama fazla olması tatmini artırır diyemeyiz.</li>
-                                <li><strong>Kurumsal Sosyal Sorumluluk:</strong> Çalışanlar şirketin sadece para kazanmak değil bir anlam ve değer üretmek istediğini görünce işine saygısı artar ve iş tatmini sağlanır. <span class="text-slate-500 italic">"Z kuşağı için anlamlı işler"</span>..</li>
-                            </ul>
-                        </section>
-
-                        <!-- İş Tatmininin Sonuçları -->
-                        <section>
-                            <h4 class="text-xl font-bold mb-4 text-slate-900 border-l-4 border-emerald-500 pl-3">İş Tatmininin Sonuçları</h4>
-                            <ul class="space-y-2">
-                                <li><strong>İş Performansı:</strong> İşinden memnun olan çalışan, işine daha çok odaklanır daha verimli çalışır.</li>
-                                <li><strong>Örgütsel Vatandaşlık Davranışı:</strong> Çalışan görev tanımının dışına çıkarak gönüllü katkı sağlar.</li>
-                                <li><strong>Müşteri Tatmini:</strong> Mutlu çalışan daha iyi davranış sergiler bu da müşteri memnuniyetini artırır.</li>
-                                <li><strong>Yaşam Tatmini:</strong> İşinden memnun olan kişi genel hayatında da mutlu olur.</li>
-                            </ul>
-                        </section>
-
-                        <!-- İş Tatminsizliğinin Sonuçları -->
-                        <section>
-                            <h4 class="text-xl font-bold mb-4 text-slate-900 border-l-4 border-red-500 pl-3">İş Tatminsizliğinin Sonuçları</h4>
-                            <ul class="space-y-3">
-                                <li><strong>İşten Ayrılma (Exit):</strong> İstifa etmek. (Aktif + Yıkıcı)</li>
-                                <li><strong>Seslendirme (Voice):</strong> Sorunları dile getirmek (Aktif + Yapıcı)</li>
-                                <li><strong>Sadakat (Loyalty):</strong> Sorunlara sessiz kalmak (Pasif + Yapıcı)</li>
-                                <li><strong>Önemsememe (Neglect):</strong> Çabalamamak vs. (Pasif + Yıkıcı)</li>
-                            </ul>
-                        </section>
-
-                        <!-- Zarar Verici İş Davranışları -->
-                        <section class="bg-red-50 p-6 rounded-xl border border-red-100">
-                            <h4 class="text-xl font-bold mb-4 text-red-800 uppercase tracking-tight">Zarar Verici İş Davranışları (Counterproductive Work Behaviors)</h4>
-                            <ul class="space-y-3">
-                                <li>İş Tatminsizliğinin uç noktasıdır.</li>
-                                <li class="text-lg font-bold">İş Tatminsizliği + Adaletsizlik = Zarar Verici Davranışlar</li>
-                                <li>Hırsızlık, dedikodu, mobbing vs.</li>
-                            </ul>
-                        </section>
-
-                    </div>
-                </details>
-            </div>
-
-            <!-- 3. Duygular -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>3. Duygular</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <div class="hint-info">
-                            <div class="flex gap-3">
-                                <i class="fa-solid fa-heart mt-1"></i>
-                                <div>
-                                    <strong>Duygusal Emek (Emotional Labor):</strong> Çalışanın kurumun istediği duyguyu göstermesidir. 
-                                    <ul class="mt-2 list-disc ml-4">
-                                        <li><strong>Yüzeysel Oyunculuk:</strong> Sadece dışı güler (Yorucu).</li>
-                                        <li><strong>Derin Oyunculuk:</strong> İçini de değiştirmeye çalışır (Daha az stres).</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-bold mb-2 uppercase text-xs tracking-wider text-slate-500">Kaynaklar</h4>
-                                <ul class="text-sm space-y-1">
-                                    <li>• <strong>Sirkadiyen Ritim:</strong> Günün saatleri.</li>
-                                    <li>• <strong>Haftanın Günü:</strong> Pazartesi sendromu vs.</li>
-                                    <li>• <strong>Stres:</strong> Orta derecesi verim artırır.</li>
-                                    <li>• <strong>Yaş:</strong> Arttıkça negatif duygular azalır.</li>
-                                </ul>
-                            </div>
-                            <div class="bg-red-50 p-4 rounded-lg">
-                                <h4 class="font-bold mb-2 text-red-800">Duygusal Uyumsuzluk</h4>
-                                <p class="text-sm">Hissedilen ile gösterilen farkı. Uzun vadede <strong>Burnout</strong> (Tükenmişlik) yapar.</p>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- 4. Kişilik ve Değerler -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>4. Kişilik ve Değerler</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <div class="grid md:grid-cols-3 gap-4 text-sm">
-                            <div class="p-4 border-t-4 border-green-500 bg-white shadow-sm">
-                                <h5 class="font-bold mb-2 italic">OCEAN (Beş Büyük)</h5>
-                                <ul><li>Deneyime Açıklık</li><li>Sorumluluk</li><li>Dışa Dönüklük</li><li>Uyumluluk</li><li>Duygusal Denge</li></ul>
-                            </div>
-                            <div class="p-4 border-t-4 border-red-500 bg-white shadow-sm">
-                                <h5 class="font-bold mb-2 italic">Karanlık Üçlü</h5>
-                                <ul><li>Makyavelizm (Manipülasyon)</li><li>Narsisizm (Üstünlük)</li><li>Psikopati (Empati yokluğu)</li></ul>
-                            </div>
-                            <div class="p-4 border-t-4 border-blue-500 bg-white shadow-sm">
-                                <h5 class="font-bold mb-2 italic">Hofstede Boyutları</h5>
-                                <ul><li>Güç Mesafesi</li><li>Bireycilik/Toplulukçuluk</li><li>Belirsizlikten Kaçınma</li><li>Uzun Vade Odaklanma</li></ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- 5. Bireysel Karar Verme -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>5. Bireysel Karar Verme</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <h4 class="font-bold text-red-600">Yargılamada Kısa Yollar (Algı Hataları)</h4>
-                        <div class="space-y-4">
-                            <div class="flex gap-4 p-3 bg-slate-50 rounded">
-                                <span class="font-bold text-blue-600">Halo Etkisi:</span> Tek bir özelliğe bakıp (örneğin yakışıklılık) tüm kişiliği harika sanmak.
-                            </div>
-                            <div class="flex gap-4 p-3 bg-slate-50 rounded">
-                                <span class="font-bold text-blue-600">Kontrast Etkisi:</span> Kendinden önceki kötü örneğe bakıp orta seviye kişiyi "mükemmel" algılamak.
-                            </div>
-                        </div>
-
-                        <div class="hint-success">
-                            <h4 class="font-bold mb-2">Karar Verme Modelleri</h4>
-                            <p>• <strong>Rasyonel:</strong> Adım adım, veri odaklı.</p>
-                            <p>• <strong>Sınırlı Rasyonellik:</strong> "Yeterince iyi" olanı seçmek (Satisficing).</p>
-                            <p>• <strong>Sezgisel:</strong> Deneyime dayalı doğaçlama.</p>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- 6. Motivasyon -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>6. Motivasyon</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border p-4 rounded-lg">
-                                <h4 class="font-bold border-b mb-2">İçerik (Kapsam) Teorileri</h4>
-                                <ul class="text-sm space-y-2">
-                                    <li><strong>Maslow:</strong> İhtiyaçlar hiyerarşisi (Fizyolojik -> Kendini Gerçekleştirme).</li>
-                                    <li><strong>Herzberg Çift Faktör:</strong> Hijyen (Maaş) vs Motivasyonel (Takdir).</li>
-                                    <li><strong>McClelland:</strong> Başarı, Güç ve Bağlılık ihtiyacı.</li>
-                                </ul>
-                            </div>
-                            <div class="border p-4 rounded-lg">
-                                <h4 class="font-bold border-b mb-2">Süreç Teorileri</h4>
-                                <ul class="text-sm space-y-2">
-                                    <li><strong>Vroom Beklenti:</strong> Beklenti x Araçsallık x Değer.</li>
-                                    <li><strong>Adams Eşitlik:</strong> Başkalarıyla kıyaslama.</li>
-                                    <li><strong>Locke SMART Hedef:</strong> Belirgin ve zor hedefler.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- 7. Motivasyon Uygulamaları -->
-            <div class="card p-6">
-                <details>
-                    <summary class="text-2xl font-bold text-slate-800">
-                        <span>7. Motivasyon Uygulamaları</span>
-                        <i class="fa-solid fa-chevron-down text-sm"></i>
-                    </summary>
-                    <div class="mt-4 space-y-6">
-                        <h4 class="font-bold">İş Tasarım Yöntemleri</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div class="p-4 bg-orange-50 rounded"><strong>İş Rotasyonu:</strong> Monotonluğu kırmak için yer değiştirme.</div>
-                            <div class="p-4 bg-purple-50 rounded"><strong>İş Zenginleştirme:</strong> Daha fazla yetki ve sorumluluk (Dikey Büyüme).</div>
-                        </div>
-                        
-                        <div class="hint-info">
-                            <h4 class="font-bold">İşin Karakteristikleri Modeli (5 Boyut)</h4>
-                            <p>1. Beceri Çeşitliliği, 2. Görev Kimliği, 3. Görevin Anlamlılığı, 4. Özerklik, 5. Geri Bildirim.</p>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Ders Değerlendirme -->
-            <div class="card p-6 bg-slate-800 text-white">
-                <h3 class="text-xl font-bold mb-4">📊 Değerlendirme ve Konular</h3>
-                <div class="flex flex-wrap gap-4 mb-6">
-                    <span class="px-3 py-1 bg-blue-600 rounded-full text-xs">Vize: %25</span>
-                    <span class="px-3 py-1 bg-green-600 rounded-full text-xs">Vaka: %25</span>
-                    <span class="px-3 py-1 bg-red-600 rounded-full text-xs">Final: %50</span>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs text-slate-400">
-                    <div>• İletişim</div><div>• Liderlik</div><div>• Güç ve Politika</div>
-                    <div>• Çatışma</div><div>• Örgüt Kültürü</div><div>• Değişim Yönetimi</div>
-                </div>
-            </div>
-
-        </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div><p><strong>Grup Düzeyi</strong></p><ul><li>Liderlik, iletişim, güç ve çatışma. (Ekip neden birbirine girdi?)</li></ul></div>
     </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div><p><strong>Örgütsel Düzey</strong></p><ul><li>Örgüt kültürü, yapısı ve değişim. (Şirket havası neden böyle?)</li></ul></div>
+    </div>
+  </div>
 
-    <!-- Footer Information -->
-    <footer class="mt-12 text-center text-slate-400 text-sm italic">
-        Örgütsel Davranış Ders Notları Portal &copy; 2024
-    </footer>
+  <h3>Disiplinler ve Katkılar</h3>
+  <table>
+    <thead><tr><th>Bilim Dalı</th><th>Odak Noktası</th></tr></thead>
+    <tbody>
+      <tr><td>Psikoloji (Birey)</td><td>Öğrenme, motivasyon, kişilik</td></tr>
+      <tr><td>Sosyal Psikoloji</td><td>Grup davranışı, Tutum değişimi, iletişim</td></tr>
+      <tr><td>Sosyoloji</td><td>Örgüt yapısı ve kültürü</td></tr>
+      <tr><td>Antropoloji</td><td>Kültürlerarası farklılıklar</td></tr>
+    </tbody>
+  </table>
 
-    <script>
-        // Smooth scroll and visual effects
-        document.querySelectorAll('details').forEach((el) => {
-            el.addEventListener('toggle', () => {
-                if (el.open) {
-                    el.querySelector('i').style.transform = 'rotate(180deg)';
-                } else {
-                    el.querySelector('i').style.transform = 'rotate(0deg)';
-                }
-            });
-        });
-    </script>
+  <h3>Örgütsel Davranışın Önemi</h3>
+  <div class="grid2">
+    <div class="card"><span class="badge b-blue">Açıklama</span><p style="font-size:12px; margin-top:5px">Neden 5 kişi işi bıraktı? (Geçmişi anlama)</p></div>
+    <div class="card"><span class="badge b-green">Öngörü</span><p style="font-size:12px; margin-top:5px">Prim verirsem verim artar mı? (Gelecek tahmini)</p></div>
+  </div>
+  <p><strong>Kritik Odaklar:</strong> Çeşitlilik (X, Y, Z Kuşağı), Uzaktan Çalışma, İş-Yaşam Dengesi (Burnout) ve Etik sorumluluk.</p>
+</div>
+
+<div id="tutumlar" class="section">
+  <h2>Tutumlar ve İş Tatmini</h2>
+  <div class="card" style="border-left: 3px solid #ef9f27">
+    <p><strong>Tutumun 3 Bileşeni (ABC Modeli):</strong></p>
+    <ul>
+      <li><span class="badge b-amber">Bilişsel (Cognitive)</span> "Maaşım az."</li>
+      <li><span class="badge b-red">Duygusal (Affective)</span> "Kızgınım."</li>
+      <li><span class="badge b-blue">Davranışsal (Behavioral)</span> "İstifa edeceğim."</li>
+    </ul>
+  </div>
+
+  <h3>İş Tutumları</h3>
+  <div class="card">
+    <p><strong>İş Tatmini <span class="eng-term">Job Satisfaction</span>:</strong> İşin duygusal değerlendirmesi.</p>
+    <p><strong>İşe Katılım:</strong> Başarım = Benim Değerim düşüncesi.</p>
+    <p><strong>Psikolojik Güçlendirme:</strong> Özerklik ve "işim önemli" hissi.</p>
+    <p><strong>Örgütsel Bağlılık Türleri:</strong></p>
+    <ul>
+      <li><span class="badge b-blue">Normatif</span> Gitmek bana yakışmaz (Vefa).</li>
+      <li><span class="badge b-amber">Devam</span> İhtiyacım var (Zaruriyet).</li>
+      <li><span class="badge b-green">Duygusal</span> Burayı seviyorum (Sevgi).</li>
+    </ul>
+  </div>
+
+  <h3>Tatminsizlik Tepkileri</h3>
+  <table>
+    <thead><tr><th>Tepki</th><th>Boyut</th><th>Tanım</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Exit (Ayrılma)</strong></td><td>Aktif + Yıkıcı</td><td>İstifa etmek</td></tr>
+      <tr><td><strong>Voice (Seslendirme)</strong></td><td>Aktif + Yapıcı</td><td>Sorunları dile getirmek</td></tr>
+      <tr><td><strong>Loyalty (Sadakat)</strong></td><td>Pasif + Yapıcı</td><td>Sessizce beklemek</td></tr>
+      <tr><td><strong>Neglect (İhmal)</strong></td><td>Pasif + Yıkıcı</td><td>Çabalamayı bırakmak</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="border-color: var(--color-text-danger); background: var(--color-background-danger)">
+    <p style="color: var(--color-text-danger)"><strong>Zarar Verici Davranışlar:</strong> Tatminsizlik + Adaletsizlik = Hırsızlık, mobbing, dedikodu.</p>
+  </div>
+</div>
+
+<div id="duygular" class="section">
+  <h2>Duygular</h2>
+  <div class="grid2">
+    <div class="card">
+      <span class="badge b-blue">Duygulanım (Affect)</span>
+      <p style="font-size:12px; margin-top:5px">Genel duygusal eğilimimiz.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-amber">Duygudurum (Mood)</span>
+      <p style="font-size:12px; margin-top:5px">Uzun süren, düşük yoğunluklu ruh hali.</p>
+    </div>
+  </div>
+
+  <h3>Duygusal Emek <span class="eng-term">Emotional Labor</span></h3>
+  <div class="card">
+    <p><strong>Yüzeysel Oyunculuk:</strong> Sadece maske takmak (Gülümseyen kızgın garson).</p>
+    <p><strong>Derin Oyunculuk:</strong> İçsel duyguyu değiştirmek (Müşteriye empati yapmak).</p>
+    <div class="highlight-box">
+      <p><strong>Duygusal Uyumsuzluk:</strong> Hissettiğin ile gösterdiğin arasındaki fark. Uzun vadede <strong>Burnout</strong> sebebidir.</p>
+    </div>
+  </div>
+
+  <h3>Duygusal Zeka ve Düzenleme</h3>
+  <p>Duyguları düzenleme teknikleri (en olumludan başlayarak):</p>
+  <ul>
+    <li><span class="badge b-green">Bilişsel Yeniden Değerlendirme</span> Bakış açısını değiştirmek.</li>
+    <li><span class="badge b-blue">Paylaşma</span> Duyguyu anlatmak.</li>
+    <li><span class="badge b-amber">Baskılama</span> Göstermemek (geçici çözüm).</li>
+  </ul>
+</div>
+
+<div id="kisilik" class="section">
+  <h2>Kişilik ve Değerler</h2>
+  <h3>OCEAN Modeli (Beş Büyük)</h3>
+  <div class="card">
+    <p>1. <strong>Deneyime Açıklık:</strong> Yeni fikirlere ilgi.</p>
+    <p>2. <strong>Sorumluluk:</strong> Disiplin ve görev bilinci.</p>
+    <p>3. <strong>Dışa Dönüklük:</strong> Sosyallik.</p>
+    <p>4. <strong>Uyumluluk:</strong> İş birliği.</p>
+    <p>5. <strong>Duygusal Denge:</strong> Stresle başa çıkma.</p>
+  </div>
+
+  <h3>Karanlık Üçlü <span class="eng-term">Dark Triad</span></h3>
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid var(--color-text-danger)">
+      <p><strong>Makyavelizm:</strong> Manipülasyon.</p>
+      <p><strong>Narsisizm:</strong> Üstünlük hissi.</p>
+      <p><strong>Psikopati:</strong> Empati yoksunluğu.</p>
+    </div>
+  </div>
+
+  <h3>Hofstede Kültür Boyutları</h3>
+  <table>
+    <thead><tr><th>Boyut</th><th>Tanım</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Güç Mesafesi</strong></td><td>Hiyerarşiyi kabullenme derecesi.</td></tr>
+      <tr><td><strong>Bireycilik</strong></td><td>Ben odaklılık vs. Biz odaklılık.</td></tr>
+      <tr><td><strong>Belirsizlikten Kaçınma</strong></td><td>Riskten kaçma ve kontrol isteği.</td></tr>
+      <tr><td><strong>Maskülenlik</strong></td><td>Rol ayrımı (Geleneksel vs. Eşitlikçi).</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="karar" class="section">
+  <h2>Bireysel Karar Verme</h2>
+  <h3>Algı Hataları (Kısa Yollar)</h3>
+  <div class="card">
+    <div class="step-item"><div><strong>Halo Etkisi:</strong></div><div>Tek bir iyi/kötü özelliğe bakıp tüm karakteri yargılamak.</div></div>
+    <div class="step-item"><div><strong>Kontrast Etkisi:</strong></div><div>Kişiyi bir öncekiyle kıyaslamak (Ölümü görüp sıtmaya razı olmak).</div></div>
+    <div class="step-item"><div><strong>Stereotip:</strong></div><div>Ait olduğu gruba göre yargılamak (Gençler sorumsuzdur).</div></div>
+  </div>
+
+  <h3>Karar Yanlılıkları</h3>
+  <div class="pill-row" style="display:flex; flex-wrap:wrap; gap:5px">
+    <span class="badge b-amber">Aşırı Güven</span>
+    <span class="badge b-amber">Çapalama (İlk bilgiye takılma)</span>
+    <span class="badge b-amber">Bulunabilirlik (Akla ilk geleni seçme)</span>
+    <span class="badge b-amber">Onaylama (Sadece fikrini destekleyeni okuma)</span>
+  </div>
+</div>
+
+<div id="motivasyon" class="section">
+  <h2>Motivasyon Teorileri</h2>
+  <h3>İçerik (Kapsam) Teorileri - "Ne motive eder?"</h3>
+  <div class="card">
+    <p><strong>Maslow Hiyerarşisi:</strong> Fizyolojik → Güvenlik → Sosyal → Saygı → Kendini Gerçekleştirme.</p>
+    <p><strong>Herzberg Çift Faktör:</strong></p>
+    <ul>
+      <li><span class="badge b-blue">Hijyen (Dışsal)</span> Maaş, iş güvenliği (Yokluğu dert, varlığı motive etmez).</li>
+      <li><span class="badge b-green">Motivatör (İçsel)</span> Takdir, başarı, sorumluluk.</li>
+    </ul>
+  </div>
+
+  <h3>Süreç Teorileri - "Nasıl motive olur?"</h3>
+  <div class="card">
+    <p><strong>Vroom Beklenti:</strong> Beklenti x Araçsallık x Valens.</p>
+    <p><strong>Locke Amaç Belirleme:</strong> SMART hedefler (Belirli, Ölçülebilir, Ulaşılabilir, İlgili, Süreli).</p>
+    <p><strong>Adams Eşitlik:</strong> Başkalarıyla kıyaslama sonucu adalet hissi.</p>
+  </div>
+</div>
+
+<div id="uygulamalar" class="section">
+  <h2>Motivasyon Uygulamaları</h2>
+  <h3>İş Tasarım Yöntemleri</h3>
+  <div class="card">
+    <p><strong>İş Rotasyonu:</strong> Sıkılmamak için farklı görevler (Yatay).</p>
+    <p><strong>İş Genişletme:</strong> Benzer zorlukta ek görevler (Yatay).</p>
+    <p><strong>İş Zenginleştirme:</strong> Daha fazla yetki ve sorumluluk (Dikey - <strong>En Motive Edici</strong>).</p>
+  </div>
+  
+  <h3>İşin Karakteristikleri (5 Boyut)</h3>
+  <ul>
+    <li>Beceri Çeşitliliği</li>
+    <li>Görev Kimliği (İşin tamamını yapma)</li>
+    <li>Görevin Anlamlılığı</li>
+    <li>Özerklik (Otonomi)</li>
+    <li>Geri Bildirim</li>
+  </ul>
+</div>
+
+<div id="icerik" class="section">
+  <h2>Ders İçeriği ve Değerlendirme</h2>
+  <div class="card">
+    <p><strong>Değerlendirme:</strong></p>
+    <ul>
+      <li>Vize: %25 (Klasik, 4 Soru)</li>
+      <li>Vaka Analizi: %25 (Grup çalışması)</li>
+      <li>Final: %50 (Test, 40 Soru)</li>
+    </ul>
+  </div>
+  <p style="font-size:12px; color:var(--color-text-tertiary)">* Başarılar dilerim Umut!</p>
+</div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes(id));
+  });
+}
+</script>
 </body>
 </html>
