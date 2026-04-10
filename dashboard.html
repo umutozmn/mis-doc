@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIS Ders Notları | Umut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; }
+        .glass-card { 
+            background: rgba(30, 41, 59, 0.7); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover { 
+            transform: translateY(-5px); 
+            background: rgba(30, 41, 59, 0.9);
+            border-color: #38bdf8;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col items-center py-12 px-6">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <h1 class="text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            YBS Ders Notları
+        </h1>
+        <p class="text-slate-400 text-lg">Yönetim Bilişim Sistemleri - Çalışma Portalı</p>
+    </div>
+
+    <!-- Ders Kartları Menüsü -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full">
+        
+        <!-- Örgütsel Davranış Kartı -->
+        <a href="organization.html" class="glass-card p-8 rounded-3xl flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                📌
+            </div>
+            <h2 class="text-xl font-bold mb-2 text-white">Örgütsel Davranış</h2>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Birey, grup ve örgüt yapısı analizi, motivasyon ve liderlik notları.
+            </p>
+            <div class="mt-6 text-blue-400 font-semibold flex items-center gap-2">
+                Notları Aç <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+        </a>
+
+        <!-- Veri Madenciliği Kartı -->
+        <a href="dataMining.html" class="glass-card p-8 rounded-3xl flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                📊
+            </div>
+            <h2 class="text-xl font-bold mb-2 text-white">Veri Madenciliği</h2>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Veri analizi, algoritmalar ve iş zekası süreçleri ders notları.
+            </p>
+            <div class="mt-6 text-emerald-400 font-semibold flex items-center gap-2">
+                Notları Aç <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+        </a>
+
+        <!-- Yeni Ders Ekleme Kartı (Boş Şablon) -->
+        <div class="glass-card p-8 rounded-3xl flex flex-col items-center text-center opacity-50 border-dashed border-2 border-slate-700">
+            <div class="w-16 h-16 bg-slate-700/20 rounded-2xl flex items-center justify-center text-3xl mb-6">
+                ⏳
+            </div>
+            <h2 class="text-xl font-bold mb-2 text-slate-500">Yeni Ders</h2>
+            <p class="text-slate-500 text-sm italic">
+                Yakında eklenecek...
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 text-slate-500 text-sm">
+        Umut tarafından MIS çalışmaları için geliştirildi.
+    </footer>
+
+</body>
+</html>
