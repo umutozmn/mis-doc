@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tasarım Notları | MIS Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #050505;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.07) 0px, transparent 50%);
+        }
+
+        .content-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+        }
+
+        code-block {
+            font-family: 'Fira Code', monospace;
+            background: #0f172a;
+            border-left: 4px solid #f97316;
+            display: block;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .highlight-box {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px dashed rgba(249, 115, 22, 0.3);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="text-slate-300 min-h-screen py-12 px-6">
+
+    <div class="max-w-4xl mx-auto">
+        <a href="index.html" class="back-btn inline-flex items-center text-orange-400 font-semibold mb-8 transition-all">
+            ← Ana Menüye Dön
+        </a>
+
+        <header class="mb-12">
+            <h1 class="text-5xl font-extrabold text-white mb-4">Web Tasarım ve <span class="text-orange-500">Programlama</span></h1>
+            <p class="text-slate-500 text-lg">Ders notları, HTML temelleri ve CSS stil yapılandırmaları.</p>
+        </header>
+
+        <div class="space-y-12">
+            
+            <section class="content-card p-8 rounded-[2rem]">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center mr-3 text-sm">01</span>
+                    HTML Tanıtımı
+                </h2>
+                <ul class="list-disc list-inside space-y-3 text-slate-400">
+                    <li><strong class="text-slate-200">Nested:</strong> İç içe geçmiş elementlerden oluşur.</li>
+                    <li><strong class="text-slate-200">Empty:</strong> Boş elementlerden oluşur.</li>
+                </ul>
+                <div class="mt-6 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <code class="text-orange-400 font-mono">&lt;!DOCTYPE html&gt;</code>
+                        <p class="text-sm">Tarayıcıya “bu bir HTML5 sayfası” der. Büyük küçük harfe duyarlı değildir.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <code class="text-orange-400 font-mono">&lt;html&gt;</code>
+                        <p class="text-sm">Sayfanın en dış kabı, her şey bunun içindedir.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <code class="text-orange-400 font-mono">&lt;head&gt;</code>
+                        <p class="text-sm">Sayfa hakkında bilgiler (arka plan bilgileri, kullanıcı görmez).</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <code class="text-orange-400 font-mono">&lt;body&gt;</code>
+                        <p class="text-sm">Kullanıcının gördüğü tüm içerik burada yer alır.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-8 rounded-[2rem]">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center mr-3 text-sm">02</span>
+                    Linkler ve Görseller
+                </h2>
+                <p class="mb-4 text-slate-400">HTML'de bağlantılar <code>&lt;a&gt;</code> (anchor) etiketi ile verilir:</p>
+                <code-block>
+&lt;a href="https://www.w3schools.com"&gt;This is a link&lt;/a&gt;
+                </code-block>
+                <p class="mt-6 mb-4 text-slate-400 text-sm">Görseller için <code>&lt;img&gt;</code> etiketi kullanılır:</p>
+                <code-block>
+&lt;img src="resim.jpg" alt="açıklama"&gt;
+                </code-block>
+            </section>
+
+            <section class="content-card p-8 rounded-[2rem]">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center mr-3 text-sm">03</span>
+                    Elementler ve Öznitelikler
+                </h2>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-orange-400 font-bold mb-2">style Özniteliği</h4>
+                        <p class="text-sm mb-2">Renk, yazı tipi, boyut gibi görsel özellikler eklemek için kullanılır.</p>
+                        <code-block>&lt;p style="color:red;"&gt;Bu yazı kırmızıdır.&lt;/p&gt;</code-block>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white/5 p-4 rounded-xl">
+                            <h4 class="text-white font-semibold">lang Özniteliği</h4>
+                            <p class="text-xs text-slate-400">Sayfanın dilini belirtir. Örn: &lt;html lang="tr"&gt;</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl">
+                            <h4 class="text-white font-semibold">title Özniteliği</h4>
+                            <p class="text-xs text-slate-400">Mouse ile üzerine gelindiğinde çıkan ipucu (tooltip) kutusu.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-8 rounded-[2rem]">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center mr-3 text-sm">04</span>
+                    CSS Uygulama Yöntemleri
+                </h2>
+                <div class="highlight-box">
+                    <h4 class="text-orange-500 font-bold mb-2 italic underline text-center">Önemli Hiyerarşi</h4>
+                    <p class="text-sm text-center">Inline CSS her zaman en üstündür. Diğerlerinde ise en altta yazılan kural geçerlidir.</p>
+                </div>
+                <h4 class="text-white font-bold mb-3">Inline CSS Örneği:</h4>
+                <code-block>
+&lt;h1 style="color:blue; text-align:center;"&gt;Bu bir başlıktır&lt;/h1&gt;
+                </code-block>
+                <div class="mt-8">
+                    <h4 class="text-white font-bold mb-4">Yorum Satırları Farkı:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-300">
+                            &lt;!-- HTML Yorumu --&gt;
+                        </div>
+                        <div class="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg text-orange-300">
+                            /* CSS Yorumu */
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-8 rounded-[2rem]">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center mr-3 text-sm">05</span>
+                    Arka Plan ve Border Detayları
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-orange-400 font-bold mb-3">Background Özellikleri</h4>
+                        <ul class="text-sm space-y-2 text-slate-400">
+                            <li><b class="text-slate-200">repeat-x:</b> Yatayda tekrar.</li>
+                            <li><b class="text-slate-200">no-repeat:</b> Tek bir kez gösterim.</li>
+                            <li><b class="text-slate-200">fixed:</b> Resim arkada çakılı kalır (Paralaks).</li>
+                            <li><b class="text-slate-200">scroll:</b> Sayfayla beraber kayar.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-orange-400 font-bold mb-3">Border Stilleri</h4>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-3 py-1 border border-slate-600 rounded">solid (Düz)</span>
+                            <span class="px-3 py-1 border border-dashed border-slate-600 rounded">dashed (Kesik)</span>
+                            <span class="px-3 py-1 border border-dotted border-slate-600 rounded">dotted (Noktalı)</span>
+                            <span class="px-3 py-1 border-double border-4 border-slate-600 rounded">double (Çift)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="mt-20 py-10 border-t border-white/5 text-center">
+            <p class="text-slate-600 text-sm italic">
+                Bu sayfadaki tüm bilgiler "WEB Tasarım Notları" dökümanından derlenmiştir.
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>
