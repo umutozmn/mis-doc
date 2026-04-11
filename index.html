@@ -106,6 +106,20 @@
             </div>
         </a>
 
+        <a href="webDesign.html" class="course-card p-10 rounded-[2.5rem] group">
+            <div class="glow-point bg-orange-500/20 -top-4 -left-4"></div>
+            <div class="icon-box w-16 h-16 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-orange-500 group-hover:text-white transition-all duration-500">
+                🌐
+            </div>
+            <h2 class="text-2xl font-bold mb-3 text-white group-hover:text-orange-400 transition-colors">Web Tasarım</h2>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                Modern web teknolojileri, arayüz geliştirme ve internet programlama temelleri.
+            </p>
+            <div class="flex items-center text-sm font-bold text-orange-400 uppercase tracking-wider">
+                İncele <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+            </div>
+        </a>
+
         <div class="course-card p-10 rounded-[2.5rem] border-dashed border-slate-800 bg-transparent flex flex-col justify-center items-center opacity-60">
             <div class="w-14 h-14 bg-slate-800 rounded-full flex items-center justify-center text-xl mb-4">
                 🔒
@@ -122,7 +136,6 @@
     </footer>
 
     <script>
-        // Kartlara ışık takip efekti ekleyen küçük script
         document.querySelectorAll('.course-card').forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
