@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Tasarım Notları | MIS Portal</title>
+<title>MIS Portal | Web Tasarım Notları</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -182,8 +182,6 @@
 <body>
 <div class="page">
 
-  <a href="index.html" class="back-btn">← Ana Menüye Dön</a>
-
   <h2 style="font-size:24px; margin-bottom:4px; border:none">Web Tasarım Notları</h2>
   <p class="page-subtitle">YBS Çalışma Portalı — Umut Not Arşivi</p>
 
@@ -208,10 +206,14 @@
   <div id="html_tanitim" class="section active">
     <h2>HTML Tanıtım</h2>
 
-    <div class="highlight-box">
-      <p><strong>Nested (İç İçe):</strong> HTML elementleri birbirinin içine yerleştirilebilir. Örneğin <code>&lt;body&gt;</code> içinde <code>&lt;p&gt;</code>, onun içinde <code>&lt;strong&gt;</code> olabilir.</p>
-      <p style="margin-top:4px"><strong>Empty (Boş) Elementler:</strong> Kapanış etiketi olmayan, kendi kendine yeten elementlerdir. <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;hr&gt;</code> gibi.</p>
-    </div>
+   <div class="highlight-box">
+  <p><strong>Nested (İç İçe):</strong> HTML elementleri birbirinin içine yerleştirilebilir. Örneğin <code>&lt;body&gt;</code> içinde <code>&lt;p&gt;</code>, onun içinde <code>&lt;strong&gt;</code> olabilir.</p>
+  <p style="margin-top:10px"><strong>Empty (Boş) Elementler:</strong> Kapanış etiketi olmayan, kendi kendine yeten elementlerdir:</p>
+  <ul style="margin-top:8px; list-style:none; padding-left:0;">
+    <li><code>&lt;br&gt;</code> (Break): Metin içinde bir alt satıra geçmek için kullanılır.</li>
+    <li><code>&lt;hr&gt;</code> (Horizontal Rule): Konuları ayırmak için yatay bir çizgi çeker.</li>
+  </ul>
+</div>
 
     <h3>Temel Etiketler</h3>
     <div class="card">
@@ -347,11 +349,12 @@
       <p><strong>Arka Plan Rengi — background-color</strong></p>
       <p>Elementin arkasını belirtilen renge boyar. Tüm sayfanın arka planını boyamak için <code>&lt;body&gt;</code> etiketine eklenir.</p>
       <div class="code-block-wrap">
-        <pre class="code-block">&lt;body style="background-color:powderblue;"&gt;
-  &lt;p&gt;Arka plan açık mavi oldu.&lt;/p&gt;
+  <pre class="code-block">&lt;body&gt;
+  &lt;h1 style="background-color:powderblue;"&gt;This is a heading&lt;/h1&gt;
+  &lt;p style="background-color:tomato;"&gt;This is a paragraph.&lt;/p&gt;
 &lt;/body&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
+  <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+</div>
     </div>
 
     <div class="card">
@@ -365,15 +368,20 @@
     </div>
 
     <div class="card">
-      <p><strong>Yazı Tipi — font-family</strong></p>
-      <p>Yazının görüntülendiği fontu (yazı tipini) değiştirir. Birden fazla font yazılabilir; tarayıcı öncelikle birincisini dener, bulamazsa ikinciye geçer.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p style="font-family:Georgia, serif;"&gt;
-  Bu yazı Georgia fontuyla.
+  <p><strong>Yazı Tipi — font-family</strong></p>
+  <p>Yazının fontunu değiştirir. Birden fazla font yazılırsa (fallback), tarayıcı soldan sağa doğru desteklediği ilk fontu seçer.</p>
+  
+  <div class="code-block-wrap">
+    <pre class="code-block">&lt;p style="font-family: 'Times New Roman', Georgia, serif;"&gt;
+  Bu yazı öncelikle Times New Roman, yoksa Georgia ile gösterilir.
 &lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
+    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+  </div>
+  
+  <p style="font-size: 12px; margin-top: 8px; color: var(--text-tertiary);">
+    <em>Not: Birden fazla kelime içeren font isimleri ' ' içine alınmalıdır.</em>
+  </p>
+</div>
 
     <div class="card">
       <p><strong>Yazı Boyutu — font-size</strong></p>
@@ -435,9 +443,30 @@
       </div>
     </div>
 
-    <div class="highlight-box warning">
-      <p><strong>Öncelik Sırası:</strong> Aynı element için birden fazla stil tanımlanmışsa hangisi geçer? <strong>Inline CSS</strong> her zaman kazanır. External ve Internal arasında ise <strong>hangisi HTML'de daha aşağıda yazılıysa o geçerli olur</strong> (son yazılan üstündür).</p>
-    </div>
+    <div class="card">
+  <p><strong>CSS Öncelik Sırası (Specificity)</strong></p>
+  <p>Aşağıdaki örnekte paragraf hem bir iç stile (Internal) sahip hem de satır içi (Inline) bir stil atanmış. <strong>Inline olan kazanacağı için</strong> yazı mavi olacaktır.</p>
+
+  <div class="code-block-wrap">
+    <pre class="code-block">&lt;head&gt;
+  &lt;style&gt;
+    /* Internal Stil: Normalde kırmızı olması gerekir */
+    p { color: red !important; } 
+    /* Not: Normal şartlarda 'inline' her zaman kazanır. */
+    
+    p { color: green; } /* Bu, yukarıdaki kırmızı kuralını ezer çünkü daha aşağıda. */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;p style="color: blue;"&gt;
+    Bu yazı mavi görünecektir çünkü Inline CSS en yüksek önceliğe sahiptir.
+  &lt;/p&gt;
+
+&lt;/body&gt;</pre>
+    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+  </div>
+</div>
 
     <h3>HTML vs CSS Yorum Satırı Farkı</h3>
     <div class="grid2">
@@ -496,7 +525,7 @@
       </div>
     </div>
 
-    <h3>Margins & Padding</h3>
+    <h3>Margıns & Paddıng</h3>
     <div class="grid2">
       <div class="card">
         <span class="badge b-blue">Margin (Dış Boşluk)</span>
@@ -514,11 +543,21 @@
       </div>
     </div>
     <div class="code-block-wrap">
-      <pre class="code-block">&lt;p style="margin:30px; padding:20px; background:lightblue; border:2px solid navy;"&gt;
-  Bu kutunun içi padding, dışı margin.
-&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+    <pre class="code-block">&lt;div style="
+  background-color: lightblue; 
+  border: 5px solid navy;
+  padding: 40px; 
+  margin: 40px;
+"&gt;
+  Bu yazı kutunun merkezinde. 40px içerde (Padding), 
+  kutunun kendisi de 40px dışarda (Margin).
+&lt;/div&gt;
+
+&lt;div style="background-color: tomato; height: 50px;"&gt;
+  Margin sayesinde bana çarpmıyorsun!
+&lt;/div&gt;</pre>
+    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+  </div>
   </div>
 
   <!-- ═══ TEXT FORMATTING ═══ -->
@@ -1280,11 +1319,6 @@
     </div>
   </div>
 
-  <footer style="margin-top:40px; padding:20px 0; border-top:1px solid var(--border-tertiary); text-align:center;">
-    <p style="color:var(--text-tertiary); font-size:12px; font-style:italic;">Bu sayfadaki tüm bilgiler "WEB Tasarım Notları" dökümanından derlenmiştir.</p>
-  </footer>
-
-</div>
 
 <!-- Preview Modal -->
 <div class="preview-overlay" id="previewOverlay" onclick="closePreview(event)">
