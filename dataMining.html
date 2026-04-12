@@ -49,6 +49,13 @@
       --color-border-info:#185fa5;
     }
   }
+.page-subtitle { 
+  color: var(--color-text-tertiary); 
+  margin-bottom: 20px; 
+  font-size: 13px; 
+}
+
+ 
   body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);min-height:100vh}
   .page{padding:24px 20px;max-width:720px;margin:0 auto}
   .nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
@@ -110,7 +117,8 @@
 </head>
 <body>
 <div class="page">
-<h2 style="font-size:22px;margin-bottom:6px">Veri Madenciliği</h2>
+<h2 style="font-size:24px; margin-bottom:4px; border:none">Veri Madenciliği</h2>
+<p class="page-subtitle">YBS Çalışma Portalı — Umut Not Arşivi</p> 
 
 <div class="nav" id="nav">
   <button class="active" onclick="show('giris')">🧭 Giriş</button>
