@@ -138,6 +138,7 @@
       <button onclick="show('kumeleme')">🔵 Kümeleme</button>
       <button onclick="show('apriori')">🛒 Apriori</button>
       <button onclick="show('regresyon')">📈 Regresyon</button>
+    <button onclick="show('metinmadenciligi')">📝 Metin Madenciliği</button>
       <button onclick="show('dikw')">📐 DIKW</button>
     </div>
     
@@ -1174,7 +1175,126 @@
         <div class="kv" style="border:none"><span class="kv-k">Çıktı ≥ 0.5</span><span class="kv-v badge b-green">Sınıf 1 (Evet)</span></div>
       </div>
     </div>
-    
+    <!-- METİN MADENCİLİĞİ -->
+<div id="metinmadenciligi" class="section">
+  <h2>Metin Madenciliği (Text Mining)</h2>
+  <div class="highlight-box">
+    <p>Karışık yazı yığınlarından gizli bilgileri çıkarma sürecidir. Metinleri hammadde olarak kullanır. Metin verileri analiz için <strong>ön işleme</strong> ve <strong>dönüştürme</strong> aşamalarından geçmelidir.</p>
+  </div>
+
+  <h3>Metin Verisi Nedir?</h3>
+  <div class="card">
+    <p style="font-size:13px;margin-bottom:8px">İnsanların yazdığı yazılardan oluşan <strong>yapısız verilerdir</strong>.</p>
+    <div class="pill-row">
+      <span class="pill">📰 Haber makaleleri</span>
+      <span class="pill">🐦 Tweetler</span>
+      <span class="pill">⭐ Ürün yorumları</span>
+      <span class="pill">📧 E-postalar</span>
+      <span class="pill">✍️ Blog yazıları</span>
+    </div>
+  </div>
+
+  <h3>Neden Gerekli?</h3>
+  <div class="grid2">
+    <div class="card" style="padding:12px">
+      <div class="badge b-blue">Veri Patlaması</div>
+      <p style="font-size:13px;margin-top:6px">Günlük milyonlarca tweet, yorum, haber üretiliyor</p>
+    </div>
+    <div class="card" style="padding:12px">
+      <div class="badge b-green">Anlam Çıkarma</div>
+      <p style="font-size:13px;margin-top:6px">Duygu analizi, konu tespiti, eğilim belirleme</p>
+    </div>
+    <div class="card" style="padding:12px">
+      <div class="badge b-amber">Karar Destek</div>
+      <p style="font-size:13px;margin-top:6px">Şirketler müşteri yorumlarını analiz ederek strateji geliştirir</p>
+    </div>
+    <div class="card" style="padding:12px">
+      <div class="badge b-red">Güvenlik</div>
+      <p style="font-size:13px;margin-top:6px">E-posta tarama, sahte haber tespiti</p>
+    </div>
+  </div>
+
+  <h3>Hedefleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Sınıflandırma & Bölütleme</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Yazıları türlerine göre ayırmak veya benzer yazıları gruplamak</span></div>
+    <div class="kv"><span class="kv-k">Konu Çıkarımı & Varlık İlişkisi</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Önemli başlıkları çekip kavramlar arasındaki bağları kurmak</span></div>
+    <div class="kv"><span class="kv-k">Duygu Analizi</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Metnin "mutlu, kızgın veya tarafsız" olup olmadığını belirlemek</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Metin Özetleme</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Uzun metnin en önemli kısımlarını seçerek kısa özet çıkarmak</span></div>
+  </div>
+
+  <h3>Uygulama Alanları</h3>
+  <div class="grid2">
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">📣 Pazarlama</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Müşteri yorumları analizi</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">📰 Gazetecilik</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">En konuşulan konuların tespiti</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">🛡️ Güvenlik</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Tehlikeli içerik tespiti</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">🎓 Eğitim</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Otomatik ödev derecelendirme</p></div>
+  </div>
+
+  <h3>Kullandığı Yöntemler</h3>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-blue">IR</span><span style="font-size:14px;font-weight:500;margin-left:8px">Bilgi Getirimi (Information Retrieval)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Aranan bilgiyi devasa yazı yığınlarından çıkarmaktır. Analiz öncesi temel adımdır.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-green">Lexical</span><span style="font-size:14px;font-weight:500;margin-left:8px">Hece Analizi (Lexical Analysis)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Kelimeleri inceleyerek metni en küçük anlamlı parçalarına ayırmaktır.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-amber">WFD</span><span style="font-size:14px;font-weight:500;margin-left:8px">Kelime Frekans Dağılımı (Word Frequency Distribution)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Metinde hangi kelimenin kaç kere geçtiğini sayarak en önemli kavramları belirlemektir.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-blue">Pattern</span><span style="font-size:14px;font-weight:500;margin-left:8px">Örüntü Tanıma (Pattern Recognition)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Yazıların içindeki tekrarlayan kalıpları ve gizli düzenleri keşfetmektir.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-green">Tagging</span><span style="font-size:14px;font-weight:500;margin-left:8px">Etiketleme (Tagging)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Kelimelere "isim", "fiil" veya "özel ad" gibi görevler atayarak metni sınıflandırmaktır.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-amber">IE</span><span style="font-size:14px;font-weight:500;margin-left:8px">Bilgi Çıkarımı (Information Extraction)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Metnin içinden tarih, kişi ismi veya yer gibi önemli verileri süzüp almaktır.</p></div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-blue">Viz</span><span style="font-size:14px;font-weight:500;margin-left:8px">Görselleştirme (Visualization)</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body"><p>Karışık sonuçları grafik veya tablolara dökmektir.</p></div>
+  </div>
+
+  <h3>Ön İşleme (Veriyi Temizleme)</h3>
+  <div class="highlight-box">
+    <p>Yazıyı bilgisayarın anlayacağı şekle getirme adımlarıdır.</p>
+  </div>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Küçük Harfe Çevirme</p><p style="font-size:12px">"Merhaba" ile "merhaba"nın farklı kelime sayılmasını engeller</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Noktalama İşaretlerini Kaldırma</p><p style="font-size:12px">Analizi gürültüden arındırır</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Stopwords Temizleme</p><p style="font-size:12px">"ve", "ile", "için" gibi anlamsız kelimeler atılır</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">4</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Tokenization (Parçalama)</p><p style="font-size:12px">Uzun cümle kelime kelime parçalanır</p>
+      <div class="code-box" style="margin-top:6px">"yapay zeka güzeldir" → "yapay" | "zeka" | "güzeldir"</div>
+    </div></div>
+  </div>
+
+  <h3>Metin Madenciliği Temel Aşamaları</h3>
+  <p style="font-size:13px;margin-bottom:10px;color:var(--color-text-secondary)">Üzerine tıklayarak detay gör.</p>
+  <div id="tm-steps"></div>
+
+  <h3>Metin Madenciliği Süreci</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><p style="font-size:13px">Metinleri belirle</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><p style="font-size:13px">Kavram ve kalıpları çıkar</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><p style="font-size:13px">Metinleri sınıflandır</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">4</div><p style="font-size:13px">Anlam ve ilişkiyi belirle</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">5</div><p style="font-size:13px">Performansı değerlendir</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">6</div><p style="font-size:13px">Kullanıcıya sun</p></div>
+  </div>
+</div>
     <!-- DIKW -->
     <div id="dikw" class="section">
       <h2>DIKW Piramidi</h2>
@@ -1212,7 +1332,7 @@
     function show(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon','dikw'];
+      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon', 'metinmadenciligi', 'dikw'];
       document.querySelectorAll('.nav button').forEach((b,i) => b.classList.toggle('active', ids[i] === id));
     }
     
@@ -1295,7 +1415,73 @@
       d.innerHTML = `<div class="algo-head" onclick="toggleAlgo(this)"><div><span class="badge ${a.color}">${a.badge}</span><span style="font-size:14px;font-weight:500;margin-left:8px">${a.title}</span></div><span style="color:var(--color-text-tertiary)">›</span></div><div class="algo-body"><p>${a.detail}</p></div>`;
       assocEl.appendChild(d);
     });
-    
+    // Text Mining Steps
+const tmStepsData = [
+  {
+    num: 1,
+    title: 'Enformasyon Getirimi (Information Retrieval)',
+    sub: 'Analiz öncesi kaynak toplama',
+    detail: 'Analiz yapmadan önceki hazırlık aşamasıdır. Web sayfaları, dosya isimleri veya kullanıcı bilgileri gibi analiz edilecek kaynakları toplama işidir.'
+  },
+  {
+    num: 2,
+    title: 'Doğal Dil İşleme (NLP)',
+    sub: 'Dil bilgisi yapısını çözme',
+    detail: 'Yazıların dil bilgisi yapısını çözme aşamasıdır. Kelimenin isim mi fiil mi olduğunu (etiketleme) veya cümlenin yapısını (parçalama) anlamak için yapılan bilimsel işlemlerdir.'
+  },
+  {
+    num: 3,
+    title: 'Adlandırılmış Varlık Tanıma (NER)',
+    sub: 'Özel isimleri ve nesneleri bulma',
+    detail: 'Metnin içindeki kişi, yer, kurum isimlerini veya sembolleri otomatik olarak bulur. Zorluk: Sosyal medya mesajları her zaman düzgün değildir. Örn: "Osman bey" semt mi kişi mi? NER sistemi cümlenin mantığını çözerek etiketler.'
+  },
+  {
+    num: 4,
+    title: 'Örüntüsü Tanımlı Varlıkların Bulunması',
+    sub: 'Regex ile kalıp eşleştirme',
+    detail: 'Bazı bilgiler belli bir kalıba sahiptir. E-posta adresleri, telefon numaraları veya tarihler gibi belirli bir dizilişi olan verileri çekip almak için kullanılır. Yöntem: Düzenli İfadeler (Regular Expressions / Regex). Örn: içinde "@" ve ".com" olan dizi → e-posta.'
+  },
+  {
+    num: 5,
+    title: 'Eş Atıf (Coreference)',
+    sub: 'Aynı şeyi temsil eden terimleri eşleştirme',
+    detail: 'Yazıda farklı kelimelerle ifade edilen ama aslında aynı şeyi temsil eden terimleri eşleştirir. Örn: "Umut bir proje hazırladı. O, bu projede Firebase kullandı." — Sistem "O" kelimesinin "Umut" olduğunu anlar.'
+  },
+  {
+    num: 6,
+    title: 'İlişki, Kural ve Olay Çıkarımları',
+    sub: '"Burada ne yaşanmış?" sorusuna cevap',
+    detail: 'Metindeki bilgileri bir araya getirip olayları açıklar. Olay Sıralama (Event Ordering): metindeki olayları oluş sırasına göre dizer. İlişki Kurma: kişiler, yerler ve eylemler arasındaki matematiksel bağları kurar.'
+  },
+  {
+    num: 7,
+    title: 'Duygu Analizi (Sentimental Analysis)',
+    sub: 'Metindeki duyguları otomatik bulma',
+    detail: 'Metinlerin içinde saklı olan duyguları otomatik olarak bulma işlemidir. Duygusal Kutupsallık (Sentimental Polarity): En sık başvurulan yöntemdir. Mesajlar basitçe "olumlu" mu yoksa "olumsuz" mu diye iki ana gruba ayrılır.'
+  },
+];
+
+const tmStepsEl = document.getElementById('tm-steps');
+tmStepsData.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <div class="step-item" onclick="toggleTM(${i})">
+      <div class="step-num" style="${i === tmStepsData.length - 1 ? 'background:var(--color-background-success);color:var(--color-text-success)' : ''}">${s.num}</div>
+      <div style="flex:1">
+        <p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">${s.title}</p>
+        <p style="font-size:12px">${s.sub}</p>
+      </div>
+      <span style="color:var(--color-text-tertiary);font-size:12px">›</span>
+    </div>
+    <div class="step-detail" id="tm-d-${i}">${s.detail}</div>
+    ${i < tmStepsData.length - 1 ? '<div class="step-arrow">↓</div>' : ''}
+  `;
+  tmStepsEl.appendChild(div);
+});
+
+function toggleTM(i) {
+  document.getElementById('tm-d-' + i).classList.toggle('show');
+}
     function toggleAlgo(card) { 
       card.querySelector('.algo-body').classList.toggle('open'); 
     }
