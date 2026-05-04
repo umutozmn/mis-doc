@@ -139,6 +139,7 @@
       <button onclick="show('apriori')">🛒 Apriori</button>
       <button onclick="show('regresyon')">📈 Regresyon</button>
     <button onclick="show('metinmadenciligi')">📝 Metin Madenciliği</button>
+        <button onclick="show('zamanserisi')">⏱️ Zaman Serisi</button>
       <button onclick="show('dikw')">📐 DIKW</button>
     </div>
     
@@ -1295,6 +1296,192 @@
     <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">6</div><p style="font-size:13px">Kullanıcıya sun</p></div>
   </div>
 </div>
+        <!-- ZAMAN SERİSİ -->
+<div id="zamanserisi" class="section">
+  <h2>Zaman Serisi Analizi</h2>
+  <div class="highlight-box">
+    <p>Verilerin kronolojik sıra ile eşit zaman aralıklarıyla dizilmesidir. <strong>"Dün ne oldu, bugün ne oluyor? O zaman yarın ne olur?"</strong> sorusuna cevap arar.</p>
+  </div>
+
+  <!-- Zaman Bağımlılığı -->
+  <h3>Zaman Bağımlılığı</h3>
+  <div class="card" style="border-left:3px solid var(--color-border-info)">
+    <p style="font-size:13px;margin-bottom:10px">Veriler birbirinden bağımsız değildir, birbirine <strong>zaman üzerinden bağlıdır.</strong></p>
+    <div class="code-box" style="text-align:center;letter-spacing:0.03em">
+      X<sub>t</sub> = f(X<sub>t-1</sub>, X<sub>t-2</sub>, ... ε<sub>t</sub>)
+    </div>
+    <div class="success-box" style="margin-top:10px">
+      <p>📌 <strong>Formül şunu söyler:</strong> Bugünkü değer (X<sub>t</sub>), geçmişteki değerlerin bir fonksiyonudur. Yani <em>"geçmiş, geleceğin aynasıdır"</em> mantığı.</p>
+    </div>
+  </div>
+
+  <!-- Kullanım Alanları -->
+  <h3>Kullanım Alanları</h3>
+  <div class="grid3">
+    <div class="card" style="text-align:center;border-top:3px solid #378ADD">
+      <div style="font-size:22px;margin-bottom:6px">📈</div>
+      <p style="font-size:12px;font-weight:500">Tahminleme</p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Elektrik, hava durumu, borsa fiyatları</p>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #1D9E75">
+      <div style="font-size:22px;margin-bottom:6px">🚨</div>
+      <p style="font-size:12px;font-weight:500">Anomali Tespiti</p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Aşırı yükseliş/düşüş yakalama</p>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #BA7517">
+      <div style="font-size:22px;margin-bottom:6px">🌍</div>
+      <p style="font-size:12px;font-weight:500">Sinyal & Deprem</p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Fiziksel olayların zaman takibi</p>
+    </div>
+  </div>
+
+  <!-- Veri Örnekleri -->
+  <h3>Veri Örnekleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">💰 Ekonomik</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:60%">Enflasyon oranları, döviz kurları</span></div>
+    <div class="kv"><span class="kv-k">🖱️ Dijital</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:60%">Web sitesine yapılan tıklamaların zamana göre dağılımı</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">📡 Sensör</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:60%">Akıllı cihazlardan gelen anlık sıcaklık veya basınç bilgileri</span></div>
+  </div>
+
+  <!-- Bileşenler -->
+  <h3>Zaman Serisi Bileşenleri</h3>
+  <p style="font-size:13px;margin-bottom:10px;color:var(--color-text-secondary)">Üzerine tıklayarak detay gör.</p>
+  <div id="zs-bilesen-steps"></div>
+
+  <!-- Durağanlık -->
+  <h3>Durağanlık (Stationarity)</h3>
+  <div class="highlight-box">
+    <p>Bir serinin istatistiksel özelliklerinin <strong>zaman içinde değişmemesidir.</strong> Çoğu istatistiksel model durağan veri bekler.</p>
+  </div>
+  <div class="card">
+    <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em">Durağanlık için 3 Şart</p>
+    <div class="kv"><span class="kv-k">① Ortalama (Mean)</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Veri belirli bir çizgi etrafında salınmalı, yukarı/aşağı gidip gitmemeli</span></div>
+    <div class="kv"><span class="kv-k">② Varyans</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Dalgalanma boyutu hep benzer kalmalı</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">③ Kovaryans</span><span style="font-size:12px;color:var(--color-text-tertiary);text-align:right;max-width:55%">Verinin kendi içindeki ilişki yapısı bozulmamalı</span></div>
+  </div>
+
+  <!-- Tahminleme Yöntemleri -->
+  <h3>Tahminleme Yöntemleri</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Model Türü</th>
+        <th>Odaklandığı Yer</th>
+        <th>Güçlü Yanı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge b-blue">İstatistiksel</span></td>
+        <td>Geçmiş–Şimdiki zaman ilişkisi</td>
+        <td>Durağan ve basit veriler</td>
+      </tr>
+      <tr>
+        <td><span class="badge b-green">Makine Öğrenmesi</span></td>
+        <td>Neden-Sonuç ilişkileri</td>
+        <td>Değişkenler arası etkileşim</td>
+      </tr>
+      <tr>
+        <td><span class="badge b-amber">Derin Öğrenme</span></td>
+        <td>Karmaşık Sinir Ağları</td>
+        <td>Çok karmaşık, doğrusal olmayan veriler</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-blue">AR · MA · ARIMA · SARIMA</span><span style="font-size:14px;font-weight:500;margin-left:8px">İstatistiksel Modeller</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p>Geçmiş ve şimdiki zaman ilişkisine bakar. Durağan ve görece basit verilerde çok başarılıdır. SARIMA mevsimselliği de modele dahil eder. Cointegration ise birden fazla zaman serisinin uzun vadeli ilişkisini inceler.</p>
+    </div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-green">XGBoost</span><span style="font-size:14px;font-weight:500;margin-left:8px">Makine Öğrenmesi Tabanlı</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p>ML modelleri özünde birbirinden <strong>bağımsız</strong> veriler bekler. Zaman bilgisi, bağımsız değişkene dönüştürülerek zaman serisine adapte edilir. Neden-sonuç ilişkilerine odaklanır, değişkenler arası etkileşimi iyi yakalar.</p>
+      <div class="warn-box" style="margin-top:8px">
+        <p>⚠️ İstatistiksel modeller <strong>geçmiş↔şimdiki zaman</strong> ilişkisine, ML modelleri ise <strong>neden↔sonuç</strong> ilişkisine bakar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-amber">LSTM · RNN</span><span style="font-size:14px;font-weight:500;margin-left:8px">Derin Öğrenme Tabanlı</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p>ML'nin karmaşık ve sinir ağı kullanan versiyonudur. Nöronlardan oluşur; her biri işlem yapıp bir araya gelince devasa tahmin gücü oluşturur. Doğrusal olmayan ve çok karışık veri setlerinde bile başarılı tahminler yapar.</p>
+    </div>
+  </div>
+
+  <!-- RNN -->
+  <h3>RNN (Recurrent Neural Network)</h3>
+  <div class="card" style="border-left:3px solid var(--color-border-info)">
+    <p style="font-size:13px">Normal sinir ağları veriyi ilk kez görür gibi işler. RNN ise <strong>geçmiş bilgileri işleme yeteneğine</strong> sahiptir — bir sonraki adımı tahmin ederken önceki adımları da hatırlar.</p>
+  </div>
+
+  <!-- LSTM -->
+  <h3>LSTM — Long Short-Term Memory</h3>
+  <div class="highlight-box">
+    <p>RNN'in daha gelişmiş versiyonudur. İçinde <strong>hücre (cell)</strong> adı verilen birimler bulunur ve <strong>3 ana kapı</strong> ile veriyi yönetirler.</p>
+  </div>
+  <div class="grid3" style="margin-bottom:12px">
+    <div class="card" style="border-top:3px solid #f09595;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">🗑️</div>
+      <div class="badge b-red">Forget Gate</div>
+      <p style="font-size:12px;margin-top:8px"><strong>Unutma Kapısı</strong></p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">"Eski bilgilerden hangisi artık gereksiz?" → Siler</p>
+    </div>
+    <div class="card" style="border-top:3px solid #378ADD;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">📥</div>
+      <div class="badge b-blue">Input Gate</div>
+      <p style="font-size:12px;margin-top:8px"><strong>Giriş Kapısı</strong></p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">"Yeni bilgilerden hangisi önemli?" → Hücreye ekler</p>
+    </div>
+    <div class="card" style="border-top:3px solid #1D9E75;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">📤</div>
+      <div class="badge b-green">Output Gate</div>
+      <p style="font-size:12px;margin-top:8px"><strong>Çıkış Kapısı</strong></p>
+      <p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">"Hangisini bir sonraki adıma aktarmalıyım?" → İletir</p>
+    </div>
+  </div>
+
+  <!-- Model Mimarisi -->
+  <h3>LSTM Model Mimarisi</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-info);color:var(--color-text-info)">1</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Input Layer — Giriş Katmanı</p><p style="font-size:12px">Verinin modele girdiği yerdir</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">2</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Hidden Layer — LSTM Katmanı</p><p style="font-size:12px">Modelin asıl beynidir. 3 kapı mekanizmasıyla geçmişi hatırlar, gereksizi unutur</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">3</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Dense Katmanı</p><p style="font-size:12px">LSTM'den gelen karmaşık bilgileri sadeleştirip sonuca bağlayan katmandır</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">4</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Output Layer — Çıkış Katmanı</p><p style="font-size:12px">Final tahminini veren katmandır</p></div></div>
+  </div>
+
+  <!-- Veri Hazırlama -->
+  <h3>Veri Hazırlama Aşamaları</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><p style="font-size:13px">Veri okunur</p></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Normalize edilir</p><p style="font-size:12px">Veriler 0–1 arasına sıkıştırılır → Model daha hızlı ve sağlıklı öğrenir</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Sequence oluşturulur</p><p style="font-size:12px">Pencereleme (sliding window) yapılarak veriler sıralı diziler haline getirilir</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">4</div><p style="font-size:13px">Model eğitilir</p></div>
+  </div>
+
+  <!-- Teknik Parametreler -->
+  <h3>Teknik Parametreler</h3>
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid #f09595">
+      <div class="badge b-red">Loss — MSE</div>
+      <p style="font-size:13px;margin-top:8px"><strong>Kayıp Fonksiyonu</strong></p>
+      <p style="font-size:12px;margin-top:4px;color:var(--color-text-tertiary)">Tahmin ile gerçek arasındaki farkın karesini alarak hatayı hesaplar (Mean Squared Error)</p>
+    </div>
+    <div class="card" style="border-top:3px solid #378ADD">
+      <div class="badge b-blue">Optimizer — Adam</div>
+      <p style="font-size:13px;margin-top:8px"><strong>Optimize Edici</strong></p>
+      <p style="font-size:12px;margin-top:4px;color:var(--color-text-tertiary)">"Hangi parametreyi ne kadar değiştirmeliyim ki hata en aza insin?" sorusuna en akıllı cevabı verir</p>
+    </div>
+  </div>
+</div>
     <!-- DIKW -->
     <div id="dikw" class="section">
       <h2>DIKW Piramidi</h2>
@@ -1332,7 +1519,7 @@
     function show(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon', 'metinmadenciligi', 'dikw'];
+      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon', 'metinmadenciligi', 'zamanserisi', 'dikw'];
       document.querySelectorAll('.nav button').forEach((b,i) => b.classList.toggle('active', ids[i] === id));
     }
     
@@ -1415,6 +1602,59 @@
       d.innerHTML = `<div class="algo-head" onclick="toggleAlgo(this)"><div><span class="badge ${a.color}">${a.badge}</span><span style="font-size:14px;font-weight:500;margin-left:8px">${a.title}</span></div><span style="color:var(--color-text-tertiary)">›</span></div><div class="algo-body"><p>${a.detail}</p></div>`;
       assocEl.appendChild(d);
     });
+        // Zaman Serisi Bileşenleri
+const zsBilesenData = [
+  {
+    num: '📈',
+    title: 'Trend',
+    sub: 'Uzun vadeli genel yön',
+    detail: 'Verilerin uzun vadede izlediği genel yöndür. Veri anlık iniş çıkışlar yapsa da kafasını yukarı mı kaldırmış (Yükselen Trend) yoksa aşağı mı eğmiş (Düşen Trend) ona bakılır. Yatırım ve ekonomi gibi alanlarda "Gelecekte bizi ne bekliyor?" sorusuna en net cevabı trend verir.',
+    color: 'background:var(--color-background-success);color:var(--color-text-success)'
+  },
+  {
+    num: '🌊',
+    title: 'Mevsimsellik (Seasonality)',
+    sub: 'Belirli dönemlerde tekrar eden kalıplar',
+    detail: 'Verideki ritmdir. Belirli dönem içinde tekrar eden kalıplardır. Örnek: Dondurma satışlarının her yaz artıp her kış düşmesi bir mevsimselliktir. Doğa olayları ve insan alışkanlıklarıyla ilgilidir.',
+    color: 'background:var(--color-background-info);color:var(--color-text-info)'
+  },
+  {
+    num: '🔄',
+    title: 'Döngüsellik (Cyclicality)',
+    sub: 'Uzun vadeli, belirsiz süreli tekrarlar',
+    detail: 'Mevsimselliğe benzer çünkü tekrar vardır, ancak daha uzun vadelidir ve belirsiz sürelerde gerçekleşir. Ne zaman başlayıp ne zaman biteceği bilinmez. Yapısal nedenler ve konjonktürel değişimlerle (ekonomik krizler, piyasa dalgalanmaları) şekillenir.<br><br><strong>Konjonktürel Dalgalanma Aşamaları:</strong> Genişleme → Zirve → Daralma (Recession) → Dip<br><br><em>Fark şudur:</em> Mevsimsellik: "Her kış doğalgaz faturası artar" | Döngüsellik: "Ülke ekonomisi 10 yılda bir krize girer sonra düzelir"',
+    color: 'background:var(--color-background-warning);color:var(--color-text-warning)'
+  },
+  {
+    num: '🔊',
+    title: 'Gürültü (Noise / Irregularity)',
+    sub: 'Öngörülemeyen rastgele dalgalanmalar',
+    detail: 'Zaman serisinin "baş belası" ama her zaman orada olan bileşenidir. Trend, mevsimsellik ve döngüsellik etkisi kaldırıldıktan sonra geriye kalan kalıntılardır. Öngörülemez ve kısa süreli dalgalanmalardır. Örnek: Elektrik tüketimini incelerken o gün trafodaki küçük bir arıza yüzünden verinin sapması "gürültü"dür.',
+    color: 'background:var(--color-background-danger);color:var(--color-text-danger)'
+  },
+];
+
+const zsBilesenEl = document.getElementById('zs-bilesen-steps');
+zsBilesenData.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <div class="step-item" onclick="toggleZS(${i})" style="cursor:pointer">
+      <div class="step-num" style="font-size:16px;${s.color}">${s.num}</div>
+      <div style="flex:1">
+        <p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">${s.title}</p>
+        <p style="font-size:12px">${s.sub}</p>
+      </div>
+      <span style="color:var(--color-text-tertiary);font-size:12px">›</span>
+    </div>
+    <div class="step-detail" id="zs-d-${i}">${s.detail}</div>
+    ${i < zsBilesenData.length - 1 ? '<div class="step-arrow">↓</div>' : ''}
+  `;
+  zsBilesenEl.appendChild(div);
+});
+
+function toggleZS(i) {
+  document.getElementById('zs-d-' + i).classList.toggle('show');
+}
     // Text Mining Steps
 const tmStepsData = [
   {
