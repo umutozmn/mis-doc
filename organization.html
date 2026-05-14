@@ -89,7 +89,6 @@
   <button onclick="show('motivasyon')">🔥 Motivasyon</button>
   <button onclick="show('uygulamalar')">🛠️ Motivasyon Uygulamaları</button>
  <button onclick="show('grup')">👥 Grup Davranışı Dinamikleri</button>
-  <button onclick="show('icerik')">📋 Ders İçeriği</button>
 </div>
 
 <div id="giris" class="section active">
@@ -1304,55 +1303,8 @@
 </div>
 
  
-<div id="icerik" class="section">
-  <h2>Ders İçeriği ve Değerlendirme</h2>
-  <div class="card">
-    <p><strong>Değerlendirme:</strong></p>
-    <ul>
-      <li>Vize: %25 (Klasik, 4 Soru)</li>
-      <li>Vaka Analizi: %25 (Grup çalışması)</li>
-      <li>Final: %50 (Test, 40 Soru)</li>
-    </ul>
 
-<h3 style="margin-top: 25px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-secondary); padding-bottom: 5px;">📅 Haftalık Ders Planı</h3>
-  
-  <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
-    <div style="font-size: 11px; font-weight: 700; color: var(--color-text-tertiary); margin-bottom: 2px; text-transform: uppercase;">Bireysel Düzey</div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; background: var(--color-background-success); border: 1px solid var(--color-text-success);">
-      <p style="font-size: 13px; margin: 0; color: var(--color-text-success);">✅ Örgütsel Davranışa Giriş</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; background: var(--color-background-success); border: 1px solid var(--color-text-success);">
-      <p style="font-size: 13px; margin: 0; color: var(--color-text-success);">✅ Tutumlar ve İş Tatmini</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; background: var(--color-background-success); border: 1px solid var(--color-text-success);">
-      <p style="font-size: 13px; margin: 0; color: var(--color-text-success);">✅ Duygular, Kişilik ve Değerler</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; background: var(--color-background-success); border: 1px solid var(--color-text-success);">
-      <p style="font-size: 13px; margin: 0; color: var(--color-text-success);">✅ Bireysel Karar Verme ve Motivasyon</p>
-    </div>
 
-    <div style="font-size: 11px; font-weight: 700; color: var(--color-text-tertiary); margin: 10px 0 2px; text-transform: uppercase;">Grup ve Örgüt Düzeyi</div>
-    
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; opacity: 0.8; border-left: 3px solid var(--color-border-info);">
-      <p style="font-size: 13px; margin: 0;">⏳ Grup Davranışının Dinamikleri I & II</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; opacity: 0.8; border-left: 3px solid var(--color-border-info);">
-      <p style="font-size: 13px; margin: 0;">⏳ İletişim ve Liderlik</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; opacity: 0.8; border-left: 3px solid var(--color-border-info);">
-      <p style="font-size: 13px; margin: 0;">⏳ Güç, Politika, Çatışma ve Müzakere</p>
-    </div>
-    <div class="card" style="padding: 10px 15px; margin-bottom: 0; opacity: 0.8; border-left: 3px solid var(--color-border-info);">
-      <p style="font-size: 13px; margin: 0;">⏳ Örgüt Kültürü ve Değişim Yönetimi</p>
-    </div>
-  </div>
-
-  <div class="highlight-box" style="margin-top: 20px;">
-    <p style="font-size: 12px; font-style: italic;">"Örgütlerde Değişim Yönetimi" ile final perdesini kapatıyoruz.</p>
-  </div>
-</div>
-</div>
-</div>
 <script>
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
