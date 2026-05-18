@@ -140,6 +140,7 @@
       <button onclick="show('regresyon')">📈 Regresyon</button>
     <button onclick="show('metinmadenciligi')">📝 Metin Madenciliği</button>
         <button onclick="show('zamanserisi')">⏱️ Zaman Serisi</button>
+        <button onclick="show('bigdata')">🌐 Big Data</button>
       <button onclick="show('dikw')">📐 DIKW</button>
     </div>
     
@@ -1482,6 +1483,246 @@
     </div>
   </div>
 </div>
+
+        <!-- BIG DATA -->
+<div id="bigdata" class="section">
+  <h2>Big Data (Büyük Veri)</h2>
+  <div class="highlight-box">
+    <p>Geleneksel veri işleme yöntemleriyle (Excel, Pandas gibi araçlarla) işlenmesi ve analizi güç olan, büyük ve karmaşık verilere denir.</p>
+  </div>
+
+  <h3>Big Data'nın 5V Özelliği</h3>
+  <div class="grid3" style="margin-bottom:12px">
+    <div class="card" style="border-top:3px solid #378ADD;text-align:center;padding:14px 10px">
+      <div style="font-size:22px;font-weight:600;color:var(--color-text-info);margin-bottom:4px">V1</div>
+      <p style="font-size:13px;font-weight:500;margin-bottom:4px">Volume</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary)">Verinin miktarı</p>
+    </div>
+    <div class="card" style="border-top:3px solid #1D9E75;text-align:center;padding:14px 10px">
+      <div style="font-size:22px;font-weight:600;color:var(--color-text-success);margin-bottom:4px">V2</div>
+      <p style="font-size:13px;font-weight:500;margin-bottom:4px">Variety</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary)">Farklı türdeki veriler</p>
+    </div>
+    <div class="card" style="border-top:3px solid #BA7517;text-align:center;padding:14px 10px">
+      <div style="font-size:22px;font-weight:600;color:var(--color-text-warning);margin-bottom:4px">V3</div>
+      <p style="font-size:13px;font-weight:500;margin-bottom:4px">Velocity</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary)">Hızlı veri akışı ve işlenmesi</p>
+    </div>
+    <div class="card" style="border-top:3px solid #a32d2d;text-align:center;padding:14px 10px">
+      <div style="font-size:22px;font-weight:600;color:var(--color-text-danger);margin-bottom:4px">V4</div>
+      <p style="font-size:13px;font-weight:500;margin-bottom:4px">Veracity</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary)">Verinin güvenilirliği, kalitesi ve gürültü oranı</p>
+    </div>
+    <div class="card" style="border-top:3px solid #534AB7;text-align:center;padding:14px 10px">
+      <div style="font-size:22px;font-weight:600;color:#534AB7;margin-bottom:4px">V5</div>
+      <p style="font-size:13px;font-weight:500;margin-bottom:4px">Value</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary)">Veriden sağlanan faydalar</p>
+    </div>
+  </div>
+
+  <h3>Klasik Yöntemler Neden Big Data İçin Yetersiz?</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Excel</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Çok büyük veri kümelerinde çöker</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Pandas</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">RAM sınırlamaları nedeniyle büyük verilerde performans sorunu yaşar; paralellik olmadığından veri kümeleri hızlı işlenemez</span></div>
+  </div>
+  <div class="highlight-box" style="margin-top:10px">
+    <p><strong>Paralellik nedir?</strong> Bir veri kümesinin farklı kısımlarını aynı anda farklı işlemciler ve bilgisayarlar kullanarak okuyup hızlıca bitirmeye çalışmaktır. Örnek: 100 sayfalık bir kitabı tek kişi okuyup özet çıkarabilir, ama 10 milyon sayfalık bir kitap olsa 100 kişiye (bilgisayara) bölersin; herkes bir kısmını aynı anda okur, iş hızla biter.</p>
+  </div>
+
+  <h3>Big Data Nasıl Oluşur?</h3>
+  <p style="font-size:13px;margin-bottom:10px">Günlük ve teknolojik etkileşimlerimizden sürekli olarak üretilir.</p>
+  <div class="grid3">
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">📱 Sosyal Medya</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Paylaşımlar, yorumlar</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">🛒 E-Ticaret</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Sipariş ve işlem verileri</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">📡 Mobil & Cihaz</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">GPS konum, kalp atışı</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">🖱️ Web Logları</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Sayfa ziyaretleri, tıklamalar</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">📷 Kamera & Sensör</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Görüntü ve çevresel ölçüm</p></div>
+    <div class="card" style="text-align:center;padding:10px"><p style="font-size:12px;font-weight:500">🌐 IoT Cihazları</p><p style="font-size:11px;margin-top:4px;color:var(--color-text-tertiary)">Bağlı cihazlardan gelen veri</p></div>
+  </div>
+
+  <h3>Büyük Verinin Hayatı</h3>
+  <div class="step-flow">
+    <div class="step-item"><div class="step-num">1</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">İhtiyaç belirlenir ve veriler toplanır</p><p style="font-size:12px">Creating Data</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">2</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Veriler temizlenir, gruplanır, doğruluk kazanır</p><p style="font-size:12px">Processing Data</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">3</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">İşlenen veriler anlam kazanır, örüntüler ortaya çıkar</p><p style="font-size:12px">Analyze Data</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">4</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Veriler yedeklenir, uygun yapıda saklanır</p><p style="font-size:12px">Preserving Data</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num">5</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Erişim, paylaşım ve yetkilendirmeler yapılır</p><p style="font-size:12px">Giving Access to Data</p></div></div>
+    <div class="step-arrow">↓</div>
+    <div class="step-item"><div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">6</div><div><p style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Veriler başka projelerde tekrar kullanılabilir</p><p style="font-size:12px">Re-using Data</p></div></div>
+  </div>
+  <div class="warn-box" style="margin-top:10px">
+    <p><strong>NOT:</strong> Normalde saklama, analizden önce gelir; ama burada analiz önce gelmiş. Çünkü analiz edilen veriler bazen kalıcı olarak saklanabilir ya da analiz sonucu elde edilen çıkarımlar korunur.</p>
+  </div>
+
+  <h3>Genel Veri İşleme Akışı</h3>
+  <div class="card">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--color-text-secondary)">
+      <span class="badge b-blue">Veri</span>
+      <span style="color:var(--color-text-tertiary)">→</span>
+      <span class="badge b-blue">Toplanır</span>
+      <span style="color:var(--color-text-tertiary)">→</span>
+      <span class="badge b-green">İşlenir</span>
+      <span style="color:var(--color-text-tertiary)">→</span>
+      <span class="badge b-green">Saklanır</span>
+      <span style="color:var(--color-text-tertiary)">→</span>
+      <span class="badge b-amber">Analiz</span>
+      <span style="color:var(--color-text-tertiary)">→</span>
+      <span class="badge b-amber">Görselleştirilir</span>
+    </div>
+  </div>
+
+  <h3>Veri Teknolojileri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Anlam Çıkarma</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Gizli örüntüleri bulur</span></div>
+    <div class="kv"><span class="kv-k">Otomasyon</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Veri işleme süreçlerini otomatik hale getirir. Örn: Müşteri davranışlarının otomatik analiz edilmesi</span></div>
+    <div class="kv"><span class="kv-k">Görselleştirme</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Anlaşılır grafikler ve raporlar şeklinde sunar</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Karar Destek Sistemleri</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">İş kararları için değerli içgörüler sağlar. Verilerin bilgiye dönüştüğü aşamadır. Örn: 18–25 yaş arası kullanıcılar bu ürünü daha çok satın alıyor</span></div>
+  </div>
+
+  <h3>Veri Ambarı vs Big Data</h3>
+
+  <p style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--color-text-primary)">1. Veri Ambarı Akışı (Klasik)</p>
+  <div class="card" style="border-left:3px solid #378ADD">
+    <div class="kv"><span class="kv-k">Veri Kaynakları</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">ERP, CRM, OLAP sistemleri, Excel</span></div>
+    <div class="kv"><span class="kv-k">Veri Toplama — ETL</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Extract → Transform → Load</span></div>
+    <div class="kv"><span class="kv-k">Veri Depolama</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Merkezi, yapısal, SQL tabanlı</span></div>
+    <div class="kv"><span class="kv-k">Veri Analizi</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">BI araçları — rapor, grafik, dashboard</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Görselleştirme</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Tableau gibi araçlarla</span></div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em">Terim Notları</p>
+    <div class="kv"><span class="kv-k">ERP</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Şirketin iç işlerini yöneten sistem (muhasebe, üretim, İK). Örn: Depoda kaç ürün kaldı?</span></div>
+    <div class="kv"><span class="kv-k">CRM</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Müşteriyle ilgili sistemler (satış, pazarlama). Örn: En çok alışveriş yapan müşteri kim?</span></div>
+    <div class="kv"><span class="kv-k">OLAP</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Büyük kümeler üzerinde hızlı analiz sistemi. Örn: Son 5 yılda satışlar nasıl değişti?</span></div>
+    <div class="kv"><span class="kv-k">ETL</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Extract (al) → Transform (dönüştür) → Load (yükle)</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">BI (Business Intelligence)</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Rapor, grafik, dashboard oluşturmak için klasik analiz yöntemi. Yöneticiler karmaşık tablolar yerine görsel ekran görür</span></div>
+  </div>
+
+  <p style="font-size:13px;font-weight:500;margin:16px 0 8px;color:var(--color-text-primary)">2. Big Data Akışı (Modern Dağıtık Sistem)</p>
+  <div class="card" style="border-left:3px solid #1D9E75">
+    <div class="kv"><span class="kv-k">Veri Kaynakları</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Sosyal medya, ses, video, IoT cihazları, sensörler</span></div>
+    <div class="kv"><span class="kv-k">Veri Toplama & İşleme</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Apache Spark (paralel işlem)</span></div>
+    <div class="kv"><span class="kv-k">Veri Depolama</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Cassandra, HDFS, HBase</span></div>
+    <div class="kv"><span class="kv-k">Veri Analizi</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Spark, Cloudera Impala</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Görselleştirme</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Splunk (log, güvenlik), Tableau (grafik)</span></div>
+  </div>
+
+  <h3>Ana Platformlar: Hadoop · Spark · Cassandra</h3>
+
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-amber">Hadoop</span><span style="font-size:14px;font-weight:500;margin-left:8px">Apache Hadoop</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p style="margin-bottom:8px">Veriyi parçalar, aynı anda birçok bilgisayarla çalışır ve paralel olarak işler.</p>
+      <div class="card" style="margin:8px 0;padding:10px 14px">
+        <div class="kv"><span class="kv-k">HDFS</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Hadoop Dağıtık Dosya Sistemi: veriyi farklı bilgisayarlara dağıtarak saklar</span></div>
+        <div class="kv" style="border:none"><span class="kv-k">MapReduce</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Dağıtılmış veriler üzerinde toplu işlem yapar</span></div>
+      </div>
+      <div class="grid2" style="margin-top:8px">
+        <div class="success-box"><p><strong>Avantaj:</strong> Çok büyük verileri normal bilgisayarlarda bile işler</p></div>
+        <div class="warn-box"><p><strong>Dezavantaj:</strong> Gerçek zamanlı analizlerde yavaştır; veriyi diskten okur</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-blue">Spark</span><span style="font-size:14px;font-weight:500;margin-left:8px">Apache Spark</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p style="margin-bottom:8px">Hadoop'un yavaşlığını çözmek için geliştirilmiştir. Veriyi bellekte (RAM'de) işleyen bir platformdur.</p>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Neler yapabilir?</p>
+      <ul>
+        <li>Gerçek zamanlı veri analizi</li>
+        <li>Makine öğrenimi (MLlib ile)</li>
+        <li>Grafik analizi (GraphX ile)</li>
+        <li>SQL sorguları (Spark SQL ile)</li>
+        <li>Akış halindeki veriyi işleme</li>
+      </ul>
+      <div class="success-box" style="margin-top:8px"><p><strong>Avantaj:</strong> Hadoop'tan 100 kata kadar hızlı çalışabilir</p></div>
+    </div>
+  </div>
+
+  <div class="algo-card" onclick="toggleAlgo(this)">
+    <div class="algo-head"><div><span class="badge b-green">Cassandra</span><span style="font-size:14px;font-weight:500;margin-left:8px">Apache Cassandra</span></div><span style="color:var(--color-text-tertiary)">›</span></div>
+    <div class="algo-body">
+      <p style="margin-bottom:8px">Çok büyük veri kümelerini yönetmek için tasarlanmış, dağıtık yapıda, kolayca büyüyebilen ve her zaman erişilebilir bir NoSQL veritabanı sistemidir. Facebook tarafından geliştirilmiştir.</p>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Özellikler:</p>
+      <ul>
+        <li>Hızlı veri yazma ve okuma gerektiren sistemlerde kullanılır</li>
+        <li>Yatayda kolayca ölçeklenir: sisteme daha fazla bilgisayar ekleyerek kapasite artırımı yapılabilir</li>
+        <li>Master-slave (ana-köle) yapısında değil, tüm bilgisayarlar eşit çalışır (peer to peer)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="success-box" style="margin-top:8px">
+    <p><strong>Özet:</strong> Hadoop = dağıtık depolama + batch (toplu) işleme &nbsp;|&nbsp; Spark = gerçek zamanlı ve hızlı işleme &nbsp;|&nbsp; Cassandra = dağıtık NoSQL veritabanı</p>
+  </div>
+
+  <h3>Veri Depolama Teknolojileri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">HDFS</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Veriyi küçük parçalara ayırır, farklı sunuculara dağıtır (Dağıtık Dosya Sistemi)</span></div>
+    <div class="kv"><span class="kv-k">Apache HBase</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">HDFS üzerinde çalışır, sütun tabanlı NoSQL veritabanıdır</span></div>
+    <div class="kv"><span class="kv-k">Amazon S3</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">AWS üzerinde nesne tabanlı veri depolama sistemi</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Google Cloud Storage</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Bulut tabanlı veri depolama sistemi</span></div>
+  </div>
+
+  <h3>Veri İşleme ve Analiz Teknolojileri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Apache Hadoop MapReduce</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Dağıtık ve batch (toplu) şekilde veri işler</span></div>
+    <div class="kv"><span class="kv-k">Apache Flink</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Gerçek zamanlı veri akışı analizine odaklı</span></div>
+    <div class="kv"><span class="kv-k">Apache Storm</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Yüksek hızda gerçek zamanlı veri analizi</span></div>
+    <div class="kv"><span class="kv-k">Cloudera Impala</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Hadoop üzerinde SQL çalıştırır; Big Data sisteminde de SELECT, WHERE gibi komutlar kullanılabilir</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Presto / Trino</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Dağıtık sistemlerde SQL benzeri sorguları çalıştırmak için</span></div>
+  </div>
+
+  <h3>Diğer Büyük Veri Teknolojileri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Apache Hive</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">SQL benzeri sorgularla büyük veri analizi yapar</span></div>
+    <div class="kv"><span class="kv-k">Apache Kafka</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Spark ve Flink ile entegredir; sistemler arası veri taşır</span></div>
+    <div class="kv"><span class="kv-k">Elasticsearch</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Metin arama ve log analizi yapar</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">MongoDB</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">JSON benzeri belgeler halinde veri saklar</span></div>
+  </div>
+
+  <h3>Veri Taşıma ve Entegrasyon Araçları</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Apache Kafka</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Spark ve Flink ile entegredir; sistemler arası veri taşır</span></div>
+    <div class="kv"><span class="kv-k">Apache NiFi</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Veri akışlarını görsel olarak yönetir</span></div>
+    <div class="kv"><span class="kv-k">Apache Sqoop</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Geleneksel ilişkisel veritabanları (RDBMS) ile Hadoop arasında veri transferi sağlar</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Apache Airflow</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Karmaşık veri işleme akışlarını sırayla çalıştırır (Çek, Temizle, Analiz vs.)</span></div>
+  </div>
+
+  <h3>Veri Formatları ve Dosya Sistemleri</h3>
+  <div class="card">
+    <div class="kv"><span class="kv-k">Parquet / ORC</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Verileri sütun bazlı depolayan ve aynı zamanda sıkıştıran özel formatlardır</span></div>
+    <div class="kv"><span class="kv-k">CSV</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Comma Separated Values — virgülle ayrılmış değerler; en basit ve yaygın metin tabanlı format</span></div>
+    <div class="kv"><span class="kv-k">JSON</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">İnsanlar tarafından okunabilir ve makineler tarafından kolayca işlenir</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Avro</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Şema destekli veri formatıdır</span></div>
+  </div>
+
+  <h3>Pandas vs Spark</h3>
+  <table>
+    <thead>
+      <tr><th>Özellik</th><th>Pandas</th><th>Spark</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Veri Boyutu</td><td>Küçük veri</td><td>Büyük veri</td></tr>
+      <tr><td>Çalışma Şekli</td><td>Tek makine (yerel)</td><td>Paralel (dağıtık sistemde)</td></tr>
+      <tr><td>Dil</td><td>Python kütüphanesi</td><td>Çok büyük veri mimarisi</td></tr>
+      <tr><td>Hız</td><td>Küçük veri için yeterli</td><td><span class="badge b-green">100x daha hızlı</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card" style="margin-top:10px">
+    <div class="kv"><span class="kv-k">Pandas</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Python dilinde yazılmış, küçük ve orta boyutlu verileri tek bir bilgisayarda işlemek için kullanılan bir kütüphanedir</span></div>
+    <div class="kv" style="border:none"><span class="kv-k">Spark</span><span class="kv-v" style="font-size:12px;text-align:right;max-width:60%">Çok büyük verileri birden fazla bilgisayar üzerinde aynı anda (paralel ve dağıtık) işlemek için tasarlanmıştır</span></div>
+  </div>
+</div>
+
+
+        
     <!-- DIKW -->
     <div id="dikw" class="section">
       <h2>DIKW Piramidi</h2>
@@ -1519,7 +1760,7 @@
     function show(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon', 'metinmadenciligi', 'zamanserisi', 'dikw'];
+      const ids = ['giris','veriambari','kdd','veri','temizleme','birlestirme','donusum','eda','algoritmalar','ml','karaaragaci','randomforest','knn','kumeleme','apriori','regresyon', 'metinmadenciligi', 'zamanserisi', 'bigdata', 'dikw'];
       document.querySelectorAll('.nav button').forEach((b,i) => b.classList.toggle('active', ids[i] === id));
     }
     
