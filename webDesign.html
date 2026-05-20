@@ -3,975 +3,834 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIS Portal | Web Tasarım Notları</title>
+<title>Web Tasarım Notları</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg-primary: #fff;
-    --bg-secondary: #f5f5f3;
-    --bg-info: #e6f1fb;
-    --bg-success: #eaf3de;
-    --bg-warning: #faeeda;
-    --bg-danger: #fcebeb;
-    --text-primary: #1a1a18;
-    --text-secondary: #5a5a56;
-    --text-tertiary: #9a9a94;
-    --text-info: #185fa5;
-    --text-success: #3b6d11;
-    --text-warning: #854f0b;
-    --text-danger: #a32d2d;
-    --border-tertiary: rgba(0,0,0,0.1);
-    --border-secondary: rgba(0,0,0,0.2);
-    --border-primary: rgba(0,0,0,0.3);
-    --border-info: #85b7eb;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-primary: #1e1e1c;
-      --bg-secondary: #2a2a28;
-      --bg-info: #042c53;
-      --bg-success: #173404;
-      --bg-warning: #412402;
-      --bg-danger: #501313;
-      --text-primary: #e8e8e2;
-      --text-secondary: #a8a89e;
-      --text-tertiary: #68685e;
-      --text-info: #85b7eb;
-      --text-success: #97c459;
-      --text-warning: #ef9f27;
-      --text-danger: #f09595;
-      --border-tertiary: rgba(255,255,255,0.1);
-      --border-secondary: rgba(255,255,255,0.2);
-      --border-primary: rgba(255,255,255,0.3);
-      --border-info: #185fa5;
-    }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
-  .page { padding: 24px 20px; max-width: 720px; margin: 0 auto; }
+:root {
+  --html: #e85d04;
+  --css: #3d5aff;
+  --js: #f5c400;
+  --bg: #0f0f11;
+  --bg2: #18181c;
+  --bg3: #222228;
+  --line: rgba(255,255,255,0.07);
+  --line2: rgba(255,255,255,0.13);
+  --text: #e8e8e0;
+  --muted: #7a7a72;
+  --faint: #3a3a40;
+  --info: #5b8dee;
+  --success: #4caf50;
+  --warn: #e5a020;
+  --danger: #e05050;
+  --sidebar: 260px;
+  --header: 52px;
+}
 
-  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-info); text-decoration: none; margin-bottom: 20px; transition: transform 0.15s; }
-  .back-btn:hover { transform: translateX(-4px); }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.65;
+}
 
-  .page-title { font-size: 24px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
-  .page-subtitle { color: var(--text-tertiary); margin-bottom: 20px; font-size: 13px; }
+/* ── LAYOUT ── */
+.app { display: grid; grid-template-columns: var(--sidebar) 1fr; min-height: 100vh; }
+.sidebar {
+  background: var(--bg2);
+  border-right: 1px solid var(--line);
+  position: fixed; top: 0; left: 0;
+  width: var(--sidebar); height: 100vh;
+  overflow-y: auto; overflow-x: hidden;
+  display: flex; flex-direction: column;
+  z-index: 100;
+}
+.main { margin-left: var(--sidebar); min-height: 100vh; }
 
-  .nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-  .nav button {
-    font-size: 12px; padding: 6px 12px;
-    border: 0.5px solid var(--border-secondary);
-    border-radius: 20px; background: transparent;
-    color: var(--text-secondary); cursor: pointer; transition: all .15s;
-    font-family: inherit;
-  }
-  .nav button.active, .nav button:hover {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-primary);
-  }
+/* ── SIDEBAR ── */
+.sidebar-top {
+  padding: 20px 18px 12px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.lang-tabs {
+  display: flex; gap: 4px;
+}
+.lang-tab {
+  flex: 1;
+  padding: 7px 6px;
+  border: none; border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  background: transparent;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.lang-tab:hover { background: var(--bg3); color: var(--text); }
+.lang-tab.active[data-lang="html"] { background: rgba(232,93,4,0.15); color: var(--html); }
+.lang-tab.active[data-lang="css"]  { background: rgba(61,90,255,0.15); color: var(--css); }
+.lang-tab.active[data-lang="js"]   { background: rgba(245,196,0,0.15);  color: var(--js); }
 
-  .section { display: none; }
-  .section.active { display: block; }
+.sidebar-nav { flex: 1; padding: 10px 0 20px; overflow-y: auto; }
+.nav-section { margin-bottom: 6px; }
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 14px 18px 6px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 18px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all .12s;
+  border-left: 2px solid transparent;
+  user-select: none;
+}
+.nav-item:hover { color: var(--text); background: var(--bg3); }
+.nav-item.active {
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+}
+.nav-item.active[data-lang="html"] { border-left-color: var(--html); color: #f0a070; }
+.nav-item.active[data-lang="css"]  { border-left-color: var(--css);  color: #8ba4ff; }
+.nav-item.active[data-lang="js"]   { border-left-color: var(--js);   color: #f8d84a; }
 
-  h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); border-bottom: 1px solid var(--border-tertiary); padding-bottom: 8px; }
-  h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; }
-  p, li { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 8px; }
-  ul, ol { padding-left: 18px; margin: 8px 0; }
-  li { margin-bottom: 4px; }
-  strong { color: var(--text-primary); }
-  em { color: var(--text-tertiary); font-style: italic; }
-  code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; background: var(--bg-secondary); padding: 1px 5px; border-radius: 4px; color: var(--text-info); }
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--faint);
+  transition: background .12s;
+}
+.nav-item.active[data-lang="html"] .nav-dot { background: var(--html); }
+.nav-item.active[data-lang="css"]  .nav-dot { background: var(--css); }
+.nav-item.active[data-lang="js"]   .nav-dot { background: var(--js); }
 
-  .card { background: var(--bg-secondary); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; border: 0.5px solid var(--border-tertiary); }
+/* ── MAIN CONTENT ── */
+.content-header {
+  height: var(--header);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 36px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(8px);
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.breadcrumb .lang-badge {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 8px; border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge-html { background: rgba(232,93,4,0.2); color: var(--html); }
+.badge-css  { background: rgba(61,90,255,0.2); color: var(--css); }
+.badge-js   { background: rgba(245,196,0,0.2);  color: var(--js); }
 
-  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 20px; margin: 2px; }
-  .b-blue   { background: var(--bg-info);    color: var(--text-info); }
-  .b-green  { background: var(--bg-success); color: var(--text-success); }
-  .b-amber  { background: var(--bg-warning); color: var(--text-warning); }
-  .b-red    { background: var(--bg-danger);  color: var(--text-danger); }
+.breadcrumb-sep { color: var(--faint); }
+.breadcrumb-title { color: var(--text); font-weight: 500; }
 
-  .highlight-box { border-left: 3px solid var(--border-info); padding: 10px 14px; background: var(--bg-info); border-radius: 0 8px 8px 0; margin: 10px 0; }
-  .highlight-box p { color: var(--text-info); font-size: 13px; margin-bottom: 0; }
-  .highlight-box.warning { border-left-color: var(--text-warning); background: var(--bg-warning); }
-  .highlight-box.warning p { color: var(--text-warning); }
-  .highlight-box.danger { border-left-color: var(--text-danger); background: var(--bg-danger); }
-  .highlight-box.danger p { color: var(--text-danger); }
-  .highlight-box.success { border-left-color: var(--text-success); background: var(--bg-success); }
-  .highlight-box.success p { color: var(--text-success); }
+.section-wrap { padding: 36px 48px 80px 36px; max-width: 800px; }
 
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-  @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+/* ── SECTION VISIBILITY ── */
+.topic-section { display: none; }
+.topic-section.active { display: block; }
 
-  /* Code block wrapper */
-  .code-block-wrap { position: relative; margin: 10px 0; }
-  .code-block {
-    font-family: 'Fira Code', 'Courier New', monospace;
-    background: var(--bg-secondary);
-    border-left: 3px solid var(--border-info);
-    display: block; padding: 12px 14px; padding-right: 80px;
-    border-radius: 0 8px 8px 0;
-    color: var(--text-secondary); font-size: 12px; line-height: 1.7;
-    overflow-x: auto; white-space: pre;
-  }
-  .run-btn {
-    position: absolute; top: 8px; right: 8px;
-    font-size: 11px; font-weight: 600;
-    padding: 4px 10px;
-    border: 1px solid var(--border-info);
-    border-radius: 20px;
-    background: var(--bg-info);
-    color: var(--text-info);
-    cursor: pointer;
-    font-family: inherit;
-    transition: all .15s;
-    white-space: nowrap;
-  }
-  .run-btn:hover { background: var(--text-info); color: #fff; }
+/* ── TYPOGRAPHY ── */
+.topic-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.topic-subtitle {
+  font-size: 13px; color: var(--muted);
+  margin-bottom: 28px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 28px 0 12px;
+}
+p, li {
+  font-size: 14px; line-height: 1.7;
+  color: #b0b0a6;
+  margin-bottom: 8px;
+}
+ul, ol { padding-left: 18px; margin: 8px 0; }
+li { margin-bottom: 4px; }
+strong { color: var(--text); font-weight: 500; }
+em { color: var(--muted); font-style: italic; }
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #9ab8f5;
+}
 
-  /* Preview modal */
-  .preview-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-  .preview-overlay.open { display: flex; }
-  .preview-modal {
-    background: #fff;
-    border-radius: 14px;
-    width: 100%; max-width: 680px;
-    max-height: 90vh;
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  .preview-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 16px;
-    border-bottom: 1px solid #e5e5e3;
-    background: #f5f5f3;
-  }
-  .preview-header span { font-size: 13px; font-weight: 600; color: #1a1a18; }
-  .preview-close {
-    background: none; border: none; cursor: pointer;
-    font-size: 20px; color: #9a9a94; line-height: 1;
-    padding: 2px 6px; border-radius: 6px;
-    transition: background .15s;
-  }
-  .preview-close:hover { background: #e5e5e3; color: #1a1a18; }
-  .preview-frame-wrap { flex: 1; overflow: auto; }
-  .preview-frame {
-    width: 100%; border: none;
-    min-height: 300px;
-    display: block;
-  }
+/* ── CARDS ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
 
-  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; border-radius: 8px; overflow: hidden; }
-  th { text-align: left; padding: 10px; background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); border-bottom: 1px solid var(--border-secondary); }
-  td { padding: 10px; border-bottom: 0.5px solid var(--border-tertiary); color: var(--text-secondary); }
-  tr:last-child td { border-bottom: none; }
+/* ── HIGHLIGHT BOXES ── */
+.hl {
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  border-left: 3px solid;
+}
+.hl p { margin-bottom: 0; font-size: 13px; }
+.hl-info  { border-left-color: var(--info);    background: rgba(91,141,238,0.08); }
+.hl-info p  { color: #8ab0f5; }
+.hl-warn  { border-left-color: var(--warn);    background: rgba(229,160,32,0.08); }
+.hl-warn p  { color: #d4a835; }
+.hl-danger{ border-left-color: var(--danger);  background: rgba(224,80,80,0.08); }
+.hl-danger p { color: #d07070; }
+.hl-success{border-left-color: var(--success); background: rgba(76,175,80,0.08); }
+.hl-success p { color: #6dba70; }
 
-  .step-item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 10px; border-radius: 8px; }
-  .step-num { min-width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; background: var(--bg-info); color: var(--text-info); flex-shrink: 0; }
-  .tag-demo { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-family: 'Courier New', monospace; background: var(--bg-info); color: var(--text-info); padding: 3px 8px; border-radius: 6px; margin: 2px; }
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  font-size: 11px; font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 3px 9px; border-radius: 20px; margin: 2px;
+}
+.b-blue   { background: rgba(91,141,238,0.15); color: #8ab0f5; border: 1px solid rgba(91,141,238,0.3); }
+.b-green  { background: rgba(76,175,80,0.12);  color: #6dba70; border: 1px solid rgba(76,175,80,0.25); }
+.b-amber  { background: rgba(229,160,32,0.12); color: #d4a835; border: 1px solid rgba(229,160,32,0.25); }
+.b-red    { background: rgba(224,80,80,0.12);  color: #d07070; border: 1px solid rgba(224,80,80,0.25); }
+
+/* ── CODE BLOCKS ── */
+.code-wrap { position: relative; margin: 10px 0; }
+.code-block {
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  display: block; padding: 14px 16px;
+  padding-right: 86px;
+  border-radius: 8px;
+  color: #c0c8a0;
+  font-size: 12px; line-height: 1.75;
+  overflow-x: auto; white-space: pre;
+}
+.run-btn {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 11px; font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 5px 12px;
+  border: 1px solid rgba(91,141,238,0.4);
+  border-radius: 20px;
+  background: rgba(91,141,238,0.1);
+  color: #8ab0f5;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.run-btn:hover { background: rgba(91,141,238,0.25); }
+
+/* ── STEP ITEMS ── */
+.step-item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; }
+.step-num {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  background: rgba(91,141,238,0.15);
+  color: #8ab0f5;
+  flex-shrink: 0;
+  border: 1px solid rgba(91,141,238,0.25);
+}
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; border-radius: 8px; overflow: hidden; }
+th { text-align: left; padding: 10px; background: var(--bg3); font-weight: 500; color: var(--text); border-bottom: 1px solid var(--line2); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+td { padding: 10px; border-bottom: 1px solid var(--line); color: #b0b0a6; }
+tr:last-child td { border-bottom: none; }
+
+/* ── PREVIEW OVERLAY ── */
+.preview-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center; justify-content: center;
+  padding: 16px;
+}
+.preview-overlay.open { display: flex; }
+.preview-modal {
+  background: #1c1c20;
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  width: 100%; max-width: 720px; max-height: 90vh;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.preview-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.preview-header span {
+  font-size: 12px; font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.preview-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 18px; color: var(--muted); padding: 2px 6px;
+  border-radius: 4px; transition: background .15s;
+}
+.preview-close:hover { background: var(--faint); color: var(--text); }
+.preview-frame-wrap { flex: 1; overflow: auto; background: #fff; }
+.preview-frame { width: 100%; border: none; min-height: 300px; display: block; }
+
+/* ── JS COMING SOON ── */
+.coming-soon {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+.cs-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(245,196,0,0.12);
+  color: var(--js);
+  border: 1px solid rgba(245,196,0,0.2);
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 20px;
+}
+.cs-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.cs-desc { font-size: 14px; color: var(--muted); max-width: 320px; }
+
+/* ── MOBILE ── */
+.hamburger {
+  display: none;
+  position: fixed; top: 12px; left: 12px;
+  z-index: 200;
+  background: var(--bg2);
+  border: 1px solid var(--line2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform .2s; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hamburger { display: block; }
+  .section-wrap { padding: 20px 20px 60px; }
+}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <h2 style="font-size:24px; margin-bottom:4px; border:none">Web Tasarım Notları</h2>
-  <p class="page-subtitle">YBS Çalışma Portalı — Umut Not Arşivi</p>
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
 
-  <div class="nav" id="nav">
-    <button class="active" onclick="show('html_tanitim')">🏷️ HTML Tanıtım</button>
-    <button onclick="show('html_elementler')">🔗 Elementler & Öznitelikler</button>
-    <button onclick="show('html_styles')">🎨 HTML Styles</button>
-    <button onclick="show('html_text')">✍️ Text Formatting</button>
-    <button onclick="show('html_quotations')">💬 Quotations</button>
-    <button onclick="show('html_colors')">🌈 Colors</button>
-    <button onclick="show('html_links')">🔗 Links</button>
-    <button onclick="show('html_images')">🖼️ Images</button>
-    <button onclick="show('html_tables')">📊 Tables</button>
-    <button onclick="show('html_lists')">📋 Lists</button>
-    <button onclick="show('html_block')">📦 Block & Inline</button>
-    <button onclick="show('html_classes')">🏷️ Classes</button>
-    <button onclick="show('html_forms')">📝 Forms</button>
-    <button onclick="show('css')">🎨 CSS</button>
+<div class="app">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-logo">web.notlar / umut</div>
+    <div class="lang-tabs">
+      <button class="lang-tab active" data-lang="html" onclick="switchLang('html', this)">HTML</button>
+      <button class="lang-tab" data-lang="css"  onclick="switchLang('css', this)">CSS</button>
+      <button class="lang-tab" data-lang="js"   onclick="switchLang('js', this)">JS</button>
+    </div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav"></nav>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+  <div class="content-header">
+    <div class="breadcrumb" id="breadcrumb">
+      <span class="lang-badge badge-html" id="bc-lang">HTML</span>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-title" id="bc-title">HTML Tanıtım</span>
+    </div>
   </div>
 
-  <!-- ═══ HTML TANITIM ═══ -->
-  <div id="html_tanitim" class="section active">
-    <h2>HTML Tanıtım</h2>
+  <div class="section-wrap">
 
-   <div class="highlight-box">
-  <p><strong>Nested (İç İçe):</strong> HTML elementleri birbirinin içine yerleştirilebilir. Örneğin <code>&lt;body&gt;</code> içinde <code>&lt;p&gt;</code>, onun içinde <code>&lt;strong&gt;</code> olabilir.</p>
-  <p style="margin-top:10px"><strong>Empty (Boş) Elementler:</strong> Kapanış etiketi olmayan, kendi kendine yeten elementlerdir:</p>
-  <ul style="margin-top:8px; list-style:none; padding-left:0;">
-    <li><code>&lt;br&gt;</code> (Break): Metin içinde bir alt satıra geçmek için kullanılır.</li>
-    <li><code>&lt;hr&gt;</code> (Horizontal Rule): Konuları ayırmak için yatay bir çizgi çeker.</li>
-  </ul>
-</div>
+    <!-- ════════════════════════ HTML SECTIONS ════════════════════════ -->
 
-    <h3>Temel Etiketler</h3>
-    <div class="card">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div><p><code>&lt;!DOCTYPE html&gt;</code> → Tarayıcıya "bu dosya HTML5 standardında yazılmış" der. Sayfanın ilk satırı olmak zorundadır ve büyük/küçük harf fark etmez.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div><p><code>&lt;html&gt;</code> → Tüm sayfanın en dış kabıdır. Başka her şey bu etiketin içine yazılır.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div><p><code>&lt;head&gt;</code> → Sayfa hakkında meta bilgiler tutar: başlık, dil, favicon, CSS bağlantıları gibi. Kullanıcı bu kısmı görmez.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <div><p><code>&lt;body&gt;</code> → Kullanıcının tarayıcıda gördüğü tüm içerik (yazılar, resimler, linkler, formlar) bu etiketin içine yazılır.</p></div>
-      </div>
-    </div>
+    <!-- HTML: Tanıtım -->
+    <div class="topic-section active" id="html_tanitim" data-lang="html">
+      <div class="topic-title">HTML Tanıtım</div>
+      <div class="topic-subtitle">// temel yapı ve boş elementler</div>
 
-    <h3>HTML Linkler</h3>
-    <div class="card">
-      <p>HTML'de bağlantılar <code>&lt;a&gt;</code> (anchor = çapa) etiketi ile oluşturulur. <code>href</code> özniteliği (hyper reference) gidilecek adresi belirtir:</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;a href="https://umutozmn.github.io/mis-doc/"&gt;Bu bir linkdir&lt;/a&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="hl hl-info">
+        <p><strong>Nested (İç İçe):</strong> HTML elementleri birbirinin içine yerleştirilebilir. Örneğin <code>&lt;body&gt;</code> içinde <code>&lt;p&gt;</code>, onun içinde <code>&lt;strong&gt;</code> olabilir.</p>
+        <p style="margin-top:10px"><strong>Empty (Boş) Elementler:</strong> Kapanış etiketi olmayan kendi kendine yeten elementler:</p>
+        <ul style="margin-top:8px; padding-left: 18px;">
+          <li><code>&lt;br&gt;</code> (Break): Metin içinde alt satıra geçmek için kullanılır.</li>
+          <li><code>&lt;hr&gt;</code> (Horizontal Rule): Konuları ayırmak için yatay çizgi çeker.</li>
+        </ul>
       </div>
-      <ul>
-        <li><strong>&lt;a&gt; etiketi:</strong> "anchor" kelimesinin kısaltmasıdır, geminin çapasına benzetilir — sayfayı bir adrese bağlar.</li>
-        <li><strong>href:</strong> "hyper reference" kısaltmasıdır, gidilecek URL'yi içerir.</li>
-      </ul>
-    </div>
 
-    <h3>HTML Images</h3>
-    <div class="card">
-      <p>Resim göstermek için <code>&lt;img&gt;</code> etiketi kullanılır. Kapanış etiketi yoktur (boş element). <code>src</code> resmin yolunu, <code>alt</code> ise resim yüklenemediğinde gösterilecek açıklama metnini belirtir:</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;img src="https://via.placeholder.com/150" alt="Örnek resim"&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <h3>Temel Etiketler</h3>
+      <div class="card">
+        <div class="step-item"><div class="step-num">1</div><div><p><code>&lt;!DOCTYPE html&gt;</code> → Tarayıcıya "bu dosya HTML5 standardında yazılmış" der. Sayfanın ilk satırı olmak zorundadır.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><p><code>&lt;html&gt;</code> → Tüm sayfanın en dış kabıdır. Başka her şey bu etiketin içine yazılır.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><p><code>&lt;head&gt;</code> → Sayfa hakkında meta bilgiler tutar: başlık, dil, favicon, CSS bağlantıları gibi. Kullanıcı bu kısmı görmez.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div><p><code>&lt;body&gt;</code> → Kullanıcının tarayıcıda gördüğü tüm içerik bu etiketin içine yazılır.</p></div></div>
       </div>
-      <ul>
-        <li><strong>src (source):</strong> Resmin dosya yolu ya da URL adresi.</li>
-        <li><strong>alt:</strong> Resim açıklaması — erişilebilirlik ve SEO için önemlidir.</li>
-      </ul>
-    </div>
 
-    <h3>HTML Headings</h3>
-    <div class="card">
-      <ul>
-        <li><strong>&lt;hr&gt; Etiketi:</strong> Sayfaya yatay bir çizgi çeker. Konular veya bölümler arasında görsel bir geçiş/ayraç oluşturmak için kullanılır. Kapanış etiketi yoktur.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h1&gt;Birinci Bölüm&lt;/h1&gt;
+      <h3>HTML Linkler</h3>
+      <div class="card">
+        <p>HTML'de bağlantılar <code>&lt;a&gt;</code> (anchor) etiketi ile oluşturulur. <code>href</code> özniteliği gidilecek adresi belirtir:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;a href="https://umutozmn.github.io/mis-doc/"&gt;Bu bir linkdir&lt;/a&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        <ul>
+          <li><strong>&lt;a&gt; etiketi:</strong> "anchor" kelimesinin kısaltmasıdır — sayfayı bir adrese bağlar.</li>
+          <li><strong>href:</strong> "hyper reference" kısaltmasıdır, gidilecek URL'yi içerir.</li>
+        </ul>
+      </div>
+
+      <h3>HTML Images</h3>
+      <div class="card">
+        <p>Resim göstermek için <code>&lt;img&gt;</code> etiketi kullanılır. Kapanış etiketi yoktur. <code>src</code> resmin yolunu, <code>alt</code> ise açıklama metnini belirtir:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;img src="https://via.placeholder.com/150" alt="Örnek resim"&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>Headings &amp; hr</h3>
+      <div class="card">
+        <p><strong>&lt;hr&gt; Etiketi:</strong> Sayfaya yatay çizgi çeker. Konular arasında görsel ayraç oluşturur.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1&gt;Birinci Bölüm&lt;/h1&gt;
 &lt;hr&gt;
-&lt;h2&gt;İkinci Bölüm&lt;/h2&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ ELEMENTLER & ÖZNİTELİKLER ═══ -->
-  <div id="html_elementler" class="section">
-    <h2>HTML Elements ve Öznitelikler</h2>
-
-    <div class="highlight-box">
-      <p>Bir HTML etiketinin birden fazla özniteliği (attribute) olabilir. Öznitelik değerleri her zaman tırnak içinde yazılmalıdır. Öznitelikler açılış etiketinin içine eklenir: <code>&lt;etiket öznitelik="değer"&gt;</code></p>
-    </div>
-
-    <h3>Öznitelikler</h3>
-
-    <div class="card">
-      <p><strong>style Özniteliği:</strong> Bir HTML elementine doğrudan CSS stil kuralları uygulamak için kullanılır. Renk, boyut, yazı tipi gibi görsel özellikler bu yolla verilebilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p style="color:red; font-size:18px;"&gt;Bu yazı kırmızı ve büyük.&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;h2&gt;İkinci Bölüm&lt;/h2&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
 
-    <div class="grid2">
+    <!-- HTML: Elementler -->
+    <div class="topic-section" id="html_elementler" data-lang="html">
+      <div class="topic-title">Elements & Öznitelikler</div>
+      <div class="topic-subtitle">// attributes ve favicon</div>
+
+      <div class="hl hl-info"><p>Bir HTML etiketinin birden fazla özniteliği (attribute) olabilir. Öznitelik değerleri her zaman tırnak içinde yazılmalıdır: <code>&lt;etiket öznitelik="değer"&gt;</code></p></div>
+
+      <h3>Öznitelikler</h3>
       <div class="card">
-        <p><strong>lang Özniteliği:</strong> Sayfanın dilini tarayıcıya ve arama motorlarına bildirir. Genellikle <code>&lt;html&gt;</code> etiketine eklenir. Ekran okuyucular (görme engelliler için) doğru dili kullanmak için bu özniteliğe bakar.</p>
-        <div class="code-block-wrap">
-          <pre class="code-block">&lt;html lang="tr"&gt;</pre>
+        <p><strong>style Özniteliği:</strong> Bir HTML elementine doğrudan CSS stil kuralları uygulamak için kullanılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p style="color:red; font-size:18px;"&gt;Bu yazı kırmızı ve büyük.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <p><strong>lang Özniteliği:</strong> Sayfanın dilini tarayıcıya ve arama motorlarına bildirir. Genellikle <code>&lt;html&gt;</code> etiketine eklenir.</p>
+          <div class="code-wrap"><pre class="code-block">&lt;html lang="tr"&gt;</pre></div>
         </div>
-      </div>
-      <div class="card">
-        <p><strong>title Özniteliği:</strong> Mouse ile elementin üzerine gelindiğinde küçük bir açıklama baloncuğu (tooltip) gösterir. Kullanıcıya ek bilgi vermek için kullanışlıdır.</p>
-        <div class="code-block-wrap">
-          <pre class="code-block">&lt;p title="Bu bir ipucu metnidir"&gt;
+        <div class="card">
+          <p><strong>title Özniteliği:</strong> Mouse ile elementin üzerine gelindiğinde küçük bir tooltip gösterir.</p>
+          <div class="code-wrap"><pre class="code-block">&lt;p title="Bu bir ipucu"&gt;
   Farenizi buraya getirin.
-&lt;/p&gt;</pre>
-          <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
         </div>
       </div>
-    </div>
 
-    <h3>HTML Favicon</h3>
-    <div class="card">
-      <p>Favicon, tarayıcı sekmesinde sitenin adının yanında görünen küçük simgedir. <code>&lt;head&gt;</code> içine eklenir:</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;link rel="icon" type="image/x-icon" href="resimler/document.png"&gt;</pre>
+      <h3>HTML Favicon</h3>
+      <div class="card">
+        <p>Favicon, tarayıcı sekmesinde sitenin adının yanında görünen küçük simgedir. <code>&lt;head&gt;</code> içine eklenir:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;link rel="icon" type="image/x-icon" href="resimler/document.png"&gt;</pre></div>
       </div>
-      <ul>
-        <li><strong>rel="icon":</strong> Tarayıcıya "Bu dosya bir simge" olduğunu söyler.</li>
-        <li><strong>type="image/x-icon":</strong> Dosyanın türünü belirtir (klasik .ico formatı için).</li>
-        <li><strong>href:</strong> Simge dosyasının yolunu gösterir.</li>
-      </ul>
-    </div>
 
-    <h3>HTML Comments (Yorum Satırları)</h3>
-    <div class="card">
-      <p>Kodun içine not düşmek için kullanılır. Tarayıcı bu satırları görmezden gelir, kullanıcıya gösterilmez. Kod okunabilirliğini artırmak için çok önemlidir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;!-- Bu bir yorum satırıdır, tarayıcı bunu göstermez --&gt;
-&lt;p&gt;Bu yazı görünür.&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ HTML STYLES ═══ -->
-  <div id="html_styles" class="section">
-    <h2>HTML Styles</h2>
-
-    <div class="highlight-box">
-      <p>Her CSS özelliğinin sonuna <strong>noktalı virgül (;)</strong> konur. Birden fazla özellik varsa hepsi aynı tırnak içinde, aralarına noktalı virgül koyarak yazılır.</p>
-    </div>
-
-    <h3>Temel Style Özellikleri</h3>
-
-    <div class="card">
-      <p><strong>Arka Plan Rengi — background-color</strong></p>
-      <p>Elementin arkasını belirtilen renge boyar. Tüm sayfanın arka planını boyamak için <code>&lt;body&gt;</code> etiketine eklenir.</p>
-      <div class="code-block-wrap">
-  <pre class="code-block">&lt;body&gt;
-  &lt;h1 style="background-color:powderblue;"&gt;This is a heading&lt;/h1&gt;
-  &lt;p style="background-color:tomato;"&gt;This is a paragraph.&lt;/p&gt;
-&lt;/body&gt;</pre>
-  <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-</div>
-    </div>
-
-    <div class="card">
-      <p><strong>Metin Rengi — color</strong></p>
-      <p>Yazının rengini değiştirir. Renk ismi (blue, red…), HEX kodu (#0000ff) veya RGB değeri ile kullanılabilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h1 style="color:blue;"&gt;Mavi Başlık&lt;/h1&gt;
-&lt;p style="color:#e74c3c;"&gt;HEX ile kırmızı yazı&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <h3>HTML Comments</h3>
+      <div class="card">
+        <p>Kodun içine not düşmek için kullanılır. Tarayıcı bu satırları görmezden gelir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!-- Bu bir yorum satırıdır --&gt;
+&lt;p&gt;Bu yazı görünür.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
 
-    <div class="card">
-  <p><strong>Yazı Tipi — font-family</strong></p>
-  <p>Yazının fontunu değiştirir. Birden fazla font yazılırsa (fallback), tarayıcı soldan sağa doğru desteklediği ilk fontu seçer.</p>
-  
-  <div class="code-block-wrap">
-    <pre class="code-block">&lt;p style="font-family: 'Times New Roman', Georgia, serif;"&gt;
-  Bu yazı öncelikle Times New Roman, yoksa Georgia ile gösterilir.
-&lt;/p&gt;</pre>
-    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-  </div>
-  
-  <p style="font-size: 12px; margin-top: 8px; color: var(--text-tertiary);">
-    <em>Not: Birden fazla kelime içeren font isimleri ' ' içine alınmalıdır.</em>
-  </p>
-</div>
+    <!-- HTML: Styles -->
+    <div class="topic-section" id="html_styles" data-lang="html">
+      <div class="topic-title">HTML Styles</div>
+      <div class="topic-subtitle">// inline, internal, external CSS bağlama</div>
 
-    <div class="card">
-      <p><strong>Yazı Boyutu — font-size</strong></p>
-      <p>Yazının boyutunu belirler. <code>px</code> (piksel, sabit boyut) veya <code>%</code> (varsayılan boyutun yüzdesi) ile yazılır. Örneğin <code>200%</code>, normal boyutun iki katıdır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p style="font-size:14px;"&gt;Normal boyut (14px)&lt;/p&gt;
-&lt;p style="font-size:200%;"&gt;İki kat büyük (%200)&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="hl hl-info"><p>Her CSS özelliğinin sonuna <strong>noktalı virgül (;)</strong> konur. Birden fazla özellik varsa hepsi aynı tırnak içinde yazılır.</p></div>
+
+      <h3>Temel Özellikler</h3>
+      <div class="card">
+        <p><strong>background-color</strong> — Elementin arkasını boyar.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1 style="background-color:powderblue;"&gt;This is a heading&lt;/h1&gt;
+&lt;p style="background-color:tomato;"&gt;This is a paragraph.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
-
-    <div class="card">
-      <p><strong>Metin Hizalama — text-align</strong></p>
-      <p>Yazının yatay hizasını belirler: sola (<code>left</code>), sağa (<code>right</code>), ortaya (<code>center</code>) veya iki yana yaslanmış (<code>justify</code>).</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h1 style="text-align:center;"&gt;Ortalanmış Başlık&lt;/h1&gt;
-&lt;p style="text-align:right;"&gt;Sağa yaslanmış paragraf&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="card">
+        <p><strong>color</strong> — Yazının rengini değiştirir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1 style="color:blue;"&gt;Mavi Başlık&lt;/h1&gt;
+&lt;p style="color:#e74c3c;"&gt;HEX ile kırmızı yazı&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
+      <div class="card">
+        <p><strong>font-family</strong> — Yazının fontunu değiştirir. Birden fazla font yazılırsa tarayıcı soldan sağa desteklediği ilk fontu seçer.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p style="font-family: 'Times New Roman', Georgia, serif;"&gt;
+  Bu yazı öncelikle Times New Roman, yoksa Georgia.
+&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+      <div class="card">
+        <p><strong>font-size</strong> — Yazının boyutunu belirler. <code>px</code> (piksel) veya <code>%</code> ile yazılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p style="font-size:14px;"&gt;Normal boyut (14px)&lt;/p&gt;
+&lt;p style="font-size:200%;"&gt;İki kat büyük (%200)&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+      <div class="card">
+        <p><strong>text-align</strong> — Yazının yatay hizasını belirler: <code>left</code>, <code>right</code>, <code>center</code>, <code>justify</code>.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1 style="text-align:center;"&gt;Ortalanmış Başlık&lt;/h1&gt;
+&lt;p style="text-align:right;"&gt;Sağa yaslanmış paragraf&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
 
-    <h3>CSS Bağlama Yöntemleri</h3>
-
-    <div class="card">
-      <p><strong>External CSS (Dış Stil Dosyası)</strong></p>
-      <p>CSS kuralları ayrı bir <code>.css</code> dosyasına yazılır ve HTML sayfasına <code>&lt;head&gt;</code> içinde bir <code>&lt;link&gt;</code> etiketiyle bağlanır. En yaygın kullanılan yöntemdir çünkü tek CSS dosyasıyla yüzlerce sayfanın stilini yönetebilirsiniz.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;head&gt;
+      <h3>CSS Bağlama Yöntemleri</h3>
+      <div class="card">
+        <p><strong>External CSS</strong> — CSS kuralları ayrı bir <code>.css</code> dosyasına yazılır ve <code>&lt;link&gt;</code> ile bağlanır. En yaygın yöntemdir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;head&gt;
   &lt;link rel="stylesheet" href="stil.css"&gt;
-&lt;/head&gt;</pre>
+&lt;/head&gt;</pre></div>
       </div>
-    </div>
-
-    <div class="card">
-      <p><strong>Internal CSS (Sayfa İçi Stil)</strong></p>
-      <p>CSS kuralları <code>&lt;head&gt;</code> bölümünde <code>&lt;style&gt;</code> etiketi içine yazılır. Yalnızca o sayfayı şekillendirmek istediğinizde kullanılır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;head&gt;
+      <div class="card">
+        <p><strong>Internal CSS</strong> — <code>&lt;head&gt;</code> içine <code>&lt;style&gt;</code> bloğu ile yazılır. Yalnızca o sayfayı etkiler.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;head&gt;
   &lt;style&gt;
     body { background-color: linen; }
     h1 { color: maroon; }
   &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Başlık&lt;/h1&gt;
-&lt;/body&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/head&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
-
-    <div class="card">
-      <p><strong>Inline CSS (Satır İçi Stil)</strong></p>
-      <p>CSS kuralları doğrudan etiketin içine <code>style="..."</code> şeklinde yazılır. Sadece o tek elementi etkiler. Küçük, tek seferlik düzeltmeler için uygundur.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h1 style="color:blue; text-align:center;"&gt;
-  Bu başlık mavi ve ortalı.
-&lt;/h1&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="card">
+        <p><strong>Inline CSS</strong> — Doğrudan etiketin içine <code>style="..."</code> ile yazılır. Yalnızca o elementi etkiler.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1 style="color:blue; text-align:center;"&gt;Mavi ve ortalı.&lt;/h1&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="card">
-  <p><strong>CSS Öncelik Sırası (Specificity)</strong></p>
-  <p>Aşağıdaki örnekte paragraf hem bir iç stile (Internal) sahip hem de satır içi (Inline) bir stil atanmış. <strong>Inline olan kazanacağı için</strong> yazı mavi olacaktır.</p>
+      <div class="hl hl-warn"><p><strong>Öncelik Sırası:</strong> Inline CSS → ID → Class → Element seçici. Aynı seviyede iki kural varsa daha sonra yazılan geçerlidir.</p></div>
 
-  <div class="code-block-wrap">
-    <pre class="code-block">&lt;head&gt;
-  &lt;style&gt;
-    /* Internal Stil: Normalde kırmızı olması gerekir */
-    p { color: red !important; } 
-    /* Not: Normal şartlarda 'inline' her zaman kazanır. */
-    
-    p { color: green; } /* Bu, yukarıdaki kırmızı kuralını ezer çünkü daha aşağıda. */
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-  &lt;p style="color: blue;"&gt;
-    Bu yazı mavi görünecektir çünkü Inline CSS en yüksek önceliğe sahiptir.
-  &lt;/p&gt;
-
-&lt;/body&gt;</pre>
-    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-  </div>
-</div>
-
-    <h3>HTML vs CSS Yorum Satırı Farkı</h3>
-    <div class="grid2">
-      <div class="card" style="border-left:3px solid var(--border-info)">
-        <span class="badge b-blue">HTML Yorumu</span>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">&lt;!-- Bu HTML yorumudur --&gt;</pre>
-        </div>
-      </div>
-      <div class="card" style="border-left:3px solid var(--text-warning)">
-        <span class="badge b-amber">CSS Yorumu</span>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">/* Bu CSS yorumudur */</pre>
-        </div>
-      </div>
-    </div>
-
-    <h3>Background Image — Arka Plan Resmi</h3>
-    <div class="card">
-      <p><strong>background-repeat (Tekrarlama)</strong></p>
-      <p>Arka plan resmi elementten küçükse tarayıcı onu varsayılan olarak fayans gibi döşer. Bu davranışı kontrol etmek için <code>background-repeat</code> kullanılır:</p>
-      <ul>
-        <li><strong>no-repeat:</strong> Resim yalnızca bir kez gösterilir. (En sık tercih)</li>
-        <li><strong>repeat-x:</strong> Yalnızca yatayda tekrarlar.</li>
-        <li><strong>repeat-y:</strong> Yalnızca dikeyde tekrarlar.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;body style="
+      <h3>Background Image</h3>
+      <div class="card">
+        <p><strong>background-repeat</strong> — Arka plan resmi elementten küçükse tarayıcı onu fayans gibi döşer. Bunu kontrol etmek için kullanılır:</p>
+        <ul>
+          <li><strong>no-repeat:</strong> Resim yalnızca bir kez gösterilir.</li>
+          <li><strong>repeat-x / repeat-y:</strong> Yalnızca yatayda / dikeyde tekrarlar.</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;body style="
   background-image: url('https://www.w3schools.com/css/img_5terre.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 "&gt;
   &lt;p style="color:white; font-size:24px;"&gt;Arka plan resmi&lt;/p&gt;
-&lt;/body&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/body&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
+      <div class="card">
+        <p><strong>background-attachment</strong> — Sayfayı kaydırırken arka planın kayıp kaymayacağını belirler.</p>
+        <ul>
+          <li><strong>scroll (Varsayılan):</strong> Resim sayfayla birlikte kayar.</li>
+          <li><strong>fixed:</strong> Resim ekrana çakılı kalır — paralaks efekti.</li>
+        </ul>
+      </div>
 
-    <div class="card">
-      <p><strong>background-attachment (Sabitleme)</strong></p>
-      <p>Sayfayı aşağı kaydırdığınızda arka plan resminin de kayıp kaymayacağını belirler.</p>
-      <ul>
-        <li><strong>scroll (Varsayılan):</strong> Resim sayfayla birlikte kayar.</li>
-        <li><strong>fixed:</strong> Resim ekrana çakılı kalır, sayfa kayarken arka plan hareket etmez. Bu "paralaks efekti" olarak bilinir.</li>
-      </ul>
-    </div>
-
-    <h3>Border Style — Kenarlık Stili</h3>
-    <div class="card">
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p style="border: 2px solid black;"&gt;solid — düz çizgi&lt;/p&gt;
+      <h3>Border Stilleri</h3>
+      <div class="code-wrap"><pre class="code-block">&lt;p style="border: 2px solid black;"&gt;solid — düz çizgi&lt;/p&gt;
 &lt;p style="border: 2px dotted black;"&gt;dotted — noktalı&lt;/p&gt;
 &lt;p style="border: 2px dashed black;"&gt;dashed — kesik kesik&lt;/p&gt;
-&lt;p style="border: 4px double black;"&gt;double — çift çizgi&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
+&lt;p style="border: 4px double black;"&gt;double — çift çizgi&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
 
-    <h3>Margıns & Paddıng</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">Margin (Dış Boşluk)</span>
-        <p style="margin-top:8px">Elementin <strong>dışında</strong>, komşu elementlerle arasındaki boşluktur. Elementlerin birbirine yapışmasını önler. Tamamen şeffaftır, renklendirilemez.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">p { margin: 20px; }</pre>
+      <h3>Margin & Padding</h3>
+      <div class="grid2">
+        <div class="card">
+          <span class="badge b-blue">Margin (Dış Boşluk)</span>
+          <p style="margin-top:8px">Elementin <strong>dışında</strong>, komşu elementlerle arasındaki boşluktur. Tamamen şeffaftır.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">p { margin: 20px; }</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-green">Padding (İç Boşluk)</span>
+          <p style="margin-top:8px">Elementin <strong>içinde</strong>, içerik ile kenarlık arasındaki boşluktur. Arka plan rengi bu alana da yansır.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">p { padding: 15px; }</pre></div>
         </div>
       </div>
-      <div class="card">
-        <span class="badge b-green">Padding (İç Boşluk)</span>
-        <p style="margin-top:8px">Elementin <strong>içinde</strong>, içerik ile kenarlık arasındaki boşluktur. Elementi "nefes alır" hissi verir ve elementin arka plan rengi bu alana da yansır.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">p { padding: 15px; }</pre>
-        </div>
-      </div>
-    </div>
-    <div class="code-block-wrap">
-    <pre class="code-block">&lt;div style="
-  background-color: lightblue; 
-  border: 5px solid navy;
-  padding: 40px; 
-  margin: 40px;
-"&gt;
-  Bu yazı kutunun merkezinde. 40px içerde (Padding), 
-  kutunun kendisi de 40px dışarda (Margin).
-&lt;/div&gt;
-
-&lt;div style="background-color: tomato; height: 50px;"&gt;
-  Margin sayesinde bana çarpmıyorsun!
-&lt;/div&gt;</pre>
-    <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-  </div>
-  </div>
-
-  <!-- ═══ TEXT FORMATTING ═══ -->
-  <div id="html_text" class="section">
-    <h2>HTML Text Formatting</h2>
-
-    <h3>Kalın Yazı Etiketleri</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">&lt;b&gt; (Bold)</span>
-        <p style="margin-top:8px">Yazıyı görsel olarak <strong>kalın</strong> yapar. Anlam taşımaz, salt tasarım amacıyla kullanılır.</p>
-      </div>
-      <div class="card">
-        <span class="badge b-green">&lt;strong&gt;</span>
-        <p style="margin-top:8px">Yazıyı kalın yapar <em>ve</em> bu metnin <strong>önemli</strong> olduğunu anlamsal olarak belirtir. Arama motorları ve ekran okuyucular buna önem verir.</p>
-      </div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p&gt;Bu &lt;b&gt;kalın ama önemsiz&lt;/b&gt; metin.&lt;/p&gt;
-&lt;p&gt;Bu &lt;strong&gt;kalın ve önemli&lt;/strong&gt; metin.&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="code-wrap"><pre class="code-block">&lt;div style="background-color:lightblue; border:5px solid navy; padding:40px; margin:40px;"&gt;
+  Bu yazı kutunun içinde. 40px padding (içeri), 40px margin (dışarı).
+&lt;/div&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
     </div>
 
-    <h3>Eğik (İtalik) Yazı Etiketleri</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-amber">&lt;i&gt; (Italic)</span>
-        <p style="margin-top:8px">Yazıyı görsel olarak <em>eğik</em> yapar. Genellikle teknik terimler, yabancı kelimeler veya iç sesler için kullanılır.</p>
-      </div>
-      <div class="card">
-        <span class="badge b-blue">&lt;em&gt; (Emphasis)</span>
-        <p style="margin-top:8px">Yazıyı eğik yapar <em>ve</em> o kelimeye <strong>vurgu</strong> katar. "Bu kelimeyi sesli okurken vurgula" anlamı taşır.</p>
-      </div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p&gt;&lt;i&gt;İtalik&lt;/i&gt; görünüm, &lt;em&gt;vurgulu&lt;/em&gt; anlam.&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+    <!-- HTML: Text Formatting -->
+    <div class="topic-section" id="html_text" data-lang="html">
+      <div class="topic-title">Text Formatting</div>
+      <div class="topic-subtitle">// b, strong, i, em, mark, del, sub, sup...</div>
 
-    <h3>Küçük ve İşaretli Metinler</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">&lt;small&gt;</span>
-        <p style="margin-top:8px">Çevreleyen metne oranla yazıyı bir adım daha küçük gösterir. Dipnotlar, telif hakkı bilgileri ve ince yazı için idealdir.</p>
+      <h3>Kalın Yazı Etiketleri</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">&lt;b&gt; Bold</span><p style="margin-top:8px">Yazıyı görsel olarak <strong>kalın</strong> yapar. Anlam taşımaz, salt tasarım amacıyla kullanılır.</p></div>
+        <div class="card"><span class="badge b-green">&lt;strong&gt;</span><p style="margin-top:8px">Yazıyı kalın yapar <em>ve</em> bu metnin <strong>önemli</strong> olduğunu anlamsal olarak belirtir. Arama motorları ve ekran okuyucular buna önem verir.</p></div>
       </div>
-      <div class="card">
-        <span class="badge b-amber">&lt;mark&gt;</span>
-        <p style="margin-top:8px">Metni fosforlu kalem ile işaretlenmiş gibi sarı arka planla vurgular. Önemli bir terimi ya da arama sonucunu öne çıkarmak için kullanılır.</p>
-      </div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p&gt;Normal metin &lt;small&gt;küçük dipnot&lt;/small&gt;&lt;/p&gt;
-&lt;p&gt;Sınavda &lt;mark&gt;bu konu çıkacak&lt;/mark&gt; dedi hoca.&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+      <div class="code-wrap"><pre class="code-block">&lt;p&gt;Bu &lt;b&gt;kalın ama önemsiz&lt;/b&gt; metin.&lt;/p&gt;
+&lt;p&gt;Bu &lt;strong&gt;kalın ve önemli&lt;/strong&gt; metin.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
 
-    <h3>Silinmiş ve Eklenmiş Metinler</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-red">&lt;del&gt; (Deleted)</span>
-        <p style="margin-top:8px">Metnin üstüne çizgi çeker. Artık geçerli olmayan bilgileri ya da silinmiş içeriği göstermek için kullanılır (örn: indirimli fiyat gösterimi).</p>
+      <h3>Eğik (İtalik) Yazı Etiketleri</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-amber">&lt;i&gt; Italic</span><p style="margin-top:8px">Yazıyı görsel olarak <em>eğik</em> yapar. Teknik terimler, yabancı kelimeler için kullanılır.</p></div>
+        <div class="card"><span class="badge b-blue">&lt;em&gt; Emphasis</span><p style="margin-top:8px">Yazıyı eğik yapar <em>ve</em> o kelimeye <strong>vurgu</strong> katar. "Sesli okurken vurgula" anlamı taşır.</p></div>
       </div>
-      <div class="card">
-        <span class="badge b-green">&lt;ins&gt; (Inserted)</span>
-        <p style="margin-top:8px">Metnin altını çizer. Bir belgeye sonradan eklenen, yeni gelen bilgileri işaret etmek için kullanılır.</p>
-      </div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p&gt;Fiyat: &lt;del&gt;250 TL&lt;/del&gt; &lt;ins&gt;199 TL&lt;/ins&gt;&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+      <div class="code-wrap"><pre class="code-block">&lt;p&gt;&lt;i&gt;İtalik&lt;/i&gt; görünüm, &lt;em&gt;vurgulu&lt;/em&gt; anlam.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
 
-    <h3>Alt ve Üst Simgeler</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">&lt;sub&gt; (Subscript)</span>
-        <p style="margin-top:8px">Yazıyı satırın biraz <strong>altına</strong> ve daha küçük konumlandırır. Kimyasal formüllerde kullanılır. (H₂O'daki 2 gibi)</p>
+      <h3>Küçük ve İşaretli Metinler</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">&lt;small&gt;</span><p style="margin-top:8px">Yazıyı bir adım daha küçük gösterir. Dipnotlar, telif hakkı bilgileri için idealdir.</p></div>
+        <div class="card"><span class="badge b-amber">&lt;mark&gt;</span><p style="margin-top:8px">Metni fosforlu kalem ile işaretlenmiş gibi sarı arka planla vurgular.</p></div>
       </div>
-      <div class="card">
-        <span class="badge b-blue">&lt;sup&gt; (Superscript)</span>
-        <p style="margin-top:8px">Yazıyı satırın biraz <strong>üstüne</strong> konumlandırır. Matematik ve üs almada kullanılır. (2³ ya da m² gibi)</p>
+      <div class="code-wrap"><pre class="code-block">&lt;p&gt;Normal metin &lt;small&gt;küçük dipnot&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;Sınavda &lt;mark&gt;bu konu çıkacak&lt;/mark&gt; dedi hoca.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+
+      <h3>Silinmiş ve Eklenmiş Metinler</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-red">&lt;del&gt; Deleted</span><p style="margin-top:8px">Metnin üstüne çizgi çeker. İndirimli fiyat gösteriminde sıkça kullanılır.</p></div>
+        <div class="card"><span class="badge b-green">&lt;ins&gt; Inserted</span><p style="margin-top:8px">Metnin altını çizer. Sonradan eklenen bilgileri işaret eder.</p></div>
       </div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p&gt;Su: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+      <div class="code-wrap"><pre class="code-block">&lt;p&gt;Fiyat: &lt;del&gt;250 TL&lt;/del&gt; &lt;ins&gt;199 TL&lt;/ins&gt;&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+
+      <h3>Alt ve Üst Simgeler</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">&lt;sub&gt; Subscript</span><p style="margin-top:8px">Yazıyı satırın biraz <strong>altına</strong> ve daha küçük konumlandırır. Kimyasal formüllerde kullanılır. (H₂O)</p></div>
+        <div class="card"><span class="badge b-blue">&lt;sup&gt; Superscript</span><p style="margin-top:8px">Yazıyı satırın biraz <strong>üstüne</strong> konumlandırır. Matematik ve üs almada kullanılır. (2³)</p></div>
+      </div>
+      <div class="code-wrap"><pre class="code-block">&lt;p&gt;Su: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
 &lt;p&gt;Alan: 5 m&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
-&lt;p&gt;2&lt;sup&gt;10&lt;/sup&gt; = 1024&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;p&gt;2&lt;sup&gt;10&lt;/sup&gt; = 1024&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
     </div>
-  </div>
 
-  <!-- ═══ QUOTATIONS ═══ -->
-  <div id="html_quotations" class="section">
-    <h2>HTML Quotations (Alıntılar)</h2>
+    <!-- HTML: Quotations -->
+    <div class="topic-section" id="html_quotations" data-lang="html">
+      <div class="topic-title">Quotations</div>
+      <div class="topic-subtitle">// blockquote, q, abbr, bdo</div>
 
-    <div class="card">
-      <p><strong>&lt;blockquote&gt; — Blok Alıntı</strong></p>
-      <p>Başka bir kaynaktan alınan uzun bir pasajı veya alıntıyı belirtmek için kullanılır. Tarayıcılar bu elementi genellikle sağdan ve soldan içeriden (indent) gösterir. <code>cite</code> özniteliğine kaynak URL'si yazılabilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;blockquote cite="https://tr.wikiquote.org"&gt;
+      <div class="card">
+        <p><strong>&lt;blockquote&gt; — Blok Alıntı:</strong> Başka bir kaynaktan alınan uzun bir pasajı belirtmek için kullanılır. Tarayıcılar bu elementi genellikle içeriden (indent) gösterir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;blockquote cite="https://tr.wikiquote.org"&gt;
   Hayatta en hakiki mürşit ilimdir.
-&lt;/blockquote&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <p><strong>&lt;q&gt; — Kısa Satır İçi Alıntı</strong></p>
-      <p>Cümle içinde geçen kısa alıntılar için kullanılır. Tarayıcı, metnin başına ve sonuna otomatik olarak tırnak işareti ekler.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p&gt;Atatürk şöyle demiştir:
-  &lt;q&gt;Hayatta en hakiki mürşit ilimdir.&lt;/q&gt;
-&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <p><strong>&lt;abbr&gt; — Kısaltma</strong></p>
-      <p>HTML, NATO, WHO gibi kısaltmaların tam halini belirtmek için kullanılır. <code>title</code> özniteliğine tam açıklama yazılır; farenizi kısaltmanın üzerine getirince tooltip olarak görünür. Tarayıcılar genellikle kısaltmanın altına noktalı çizgi çizer.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p&gt;
-  &lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt;
-  1948'de kuruldu.
-&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <p><strong>&lt;bdo&gt; — Metin Yönünü Değiştirme</strong></p>
-      <p>"Bi-Directional Override" kısaltmasıdır. Metnin akış yönünü tersine çevirmek için kullanılır. Arapça, İbranice gibi sağdan sola yazılan dillerde veya özel görsel efektlerde işe yarar.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;p&gt;Normal: Merhaba Dünya&lt;/p&gt;
-&lt;p&gt;&lt;bdo dir="rtl"&gt;Merhaba Dünya&lt;/bdo&gt;&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-      <p style="margin-top:8px"><em>dir="rtl" → right to left (sağdan sola). dir="ltr" → left to right (soldan sağa, varsayılan).</em></p>
-    </div>
-  </div>
-
-  <!-- ═══ COLORS ═══ -->
-  <div id="html_colors" class="section">
-    <h2>HTML Colors</h2>
-
-    <div class="highlight-box">
-      <p>Renk, HTML'de üç farklı yerde uygulanır: <strong>arka plan (background-color)</strong>, <strong>metin rengi (color)</strong> ve <strong>kenarlık rengi (border-color)</strong>.</p>
-    </div>
-
-    <div class="card">
-      <p><strong>Kenarlık Rengi (border):</strong> Bir elementin etrafına renkli bir çerçeve ekler.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h1 style="border: 3px solid Tomato;"&gt;Kırmızı kenarlıklı başlık&lt;/h1&gt;
-&lt;p style="border: 2px dashed DodgerBlue;"&gt;Mavi kesik kenarlıklı paragraf&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-
-    <h3>Renk Değerleri: RGB, HEX, HSL</h3>
-
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">RGB</span>
-        <p style="margin-top:8px">Kırmızı (Red), Yeşil (Green) ve Mavi (Blue) ışığın karışımıyla renk oluşturur. Her değer 0-255 arasında bir sayıdır. Tüm değerler 0 ise siyah, 255 ise beyaz olur.</p>
-        <p><em>Örnek: rgb(255, 99, 71) → domates kırmızısı</em></p>
+&lt;/blockquote&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
       <div class="card">
-        <span class="badge b-green">HEX</span>
-        <p style="margin-top:8px">Web'de en yaygın kullanılan formattır. <code>#</code> işaretinin ardından 6 karakterlik bir kod gelir. İlk 2 hane kırmızı, ortaki 2 yeşil, son 2 mavi miktarını gösterir.</p>
-        <p><em>Örnek: #ff6347 → domates kırmızısı</em></p>
+        <p><strong>&lt;q&gt; — Kısa Satır İçi Alıntı:</strong> Cümle içinde geçen kısa alıntılar için kullanılır. Tarayıcı otomatik tırnak ekler.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p&gt;Atatürk şöyle demiştir: &lt;q&gt;Hayatta en hakiki mürşit ilimdir.&lt;/q&gt;&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-      <div class="card" style="grid-column: span 2">
-        <span class="badge b-amber">HSL</span>
-        <p style="margin-top:8px">Renk Tonu (Hue: 0-360°), Doygunluk (Saturation: %) ve Parlaklık (Lightness: %) değerlerine dayanır. Renk paletleri tasarlarken sezgisel olduğu için tercih edilir. Parlaklık %0 = siyah, %100 = beyaz, %50 = saf renk.</p>
-        <p><em>Örnek: hsl(9, 100%, 64%) → domates kırmızısı</em></p>
+      <div class="card">
+        <p><strong>&lt;abbr&gt; — Kısaltma:</strong> HTML, NATO gibi kısaltmaların tam halini belirtir. <code>title</code> özniteliğine tam açıklama yazılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p&gt;&lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt; 1948'de kuruldu.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+      <div class="card">
+        <p><strong>&lt;bdo&gt; — Metin Yönünü Değiştirme:</strong> "Bi-Directional Override". Metnin akış yönünü tersine çevirir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;p&gt;Normal: Merhaba Dünya&lt;/p&gt;
+&lt;p&gt;&lt;bdo dir="rtl"&gt;Merhaba Dünya&lt;/bdo&gt;&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        <p style="margin-top:8px"><em>dir="rtl" → right to left. dir="ltr" → left to right (varsayılan).</em></p>
       </div>
     </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;p style="color: rgb(255,99,71);"&gt;RGB ile domates rengi&lt;/p&gt;
+
+    <!-- HTML: Colors -->
+    <div class="topic-section" id="html_colors" data-lang="html">
+      <div class="topic-title">Colors</div>
+      <div class="topic-subtitle">// rgb, hex, hsl renk modelleri</div>
+
+      <div class="hl hl-info"><p>Renk, HTML'de üç farklı yerde uygulanır: <strong>background-color</strong>, <strong>color</strong> ve <strong>border-color</strong>.</p></div>
+
+      <div class="card">
+        <p><strong>Kenarlık Rengi (border):</strong></p>
+        <div class="code-wrap"><pre class="code-block">&lt;h1 style="border: 3px solid Tomato;"&gt;Kırmızı kenarlıklı başlık&lt;/h1&gt;
+&lt;p style="border: 2px dashed DodgerBlue;"&gt;Mavi kesik kenarlıklı paragraf&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>Renk Değerleri</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">RGB</span><p style="margin-top:8px">Kırmızı (Red), Yeşil (Green) ve Mavi (Blue) ışığın karışımı. Her değer 0-255 arasında.</p><p><em>Örnek: rgb(255, 99, 71) → domates kırmızısı</em></p></div>
+        <div class="card"><span class="badge b-green">HEX</span><p style="margin-top:8px">Web'de en yaygın format. <code>#</code> işaretinin ardından 6 karakterlik kod. İlk 2: kırmızı, orta 2: yeşil, son 2: mavi.</p><p><em>Örnek: #ff6347 → domates kırmızısı</em></p></div>
+      </div>
+      <div class="card"><span class="badge b-amber">HSL</span><p style="margin-top:8px">Renk Tonu (Hue: 0-360°), Doygunluk (Saturation: %) ve Parlaklık (Lightness: %). Parlaklık %0 = siyah, %100 = beyaz, %50 = saf renk.</p><p><em>Örnek: hsl(9, 100%, 64%) → domates kırmızısı</em></p></div>
+      <div class="code-wrap"><pre class="code-block">&lt;p style="color: rgb(255,99,71);"&gt;RGB ile domates rengi&lt;/p&gt;
 &lt;p style="color: #ff6347;"&gt;HEX ile domates rengi&lt;/p&gt;
-&lt;p style="color: hsl(9,100%,64%);"&gt;HSL ile domates rengi&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
-  </div>
-
-  <!-- ═══ LINKS ═══ -->
-  <div id="html_links" class="section">
-    <h2>HTML Links</h2>
-
-    <h3>Target Özelliği</h3>
-    <div class="card">
-      <p>Linke tıklandığında sayfanın nerede açılacağını belirtir.</p>
-      <ul>
-        <li><strong>_self (Varsayılan):</strong> Aynı sekmede açar, mevcut sayfanın üstüne yazar.</li>
-        <li><strong>_blank:</strong> Yeni bir sekme veya pencerede açar. (Dış sitelere verilen linklerde en çok bu kullanılır.)</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;a href="https://google.com" target="_blank"&gt;
-  Google'ı yeni sekmede aç
-&lt;/a&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
+&lt;p style="color: hsl(9,100%,64%);"&gt;HSL ile domates rengi&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
     </div>
 
-    <h3>URL Türleri</h3>
-    <div class="grid2">
+    <!-- HTML: Links -->
+    <div class="topic-section" id="html_links" data-lang="html">
+      <div class="topic-title">Links</div>
+      <div class="topic-subtitle">// target, url türleri, bookmark</div>
+
+      <h3>Target Özelliği</h3>
       <div class="card">
-        <span class="badge b-blue">Mutlak URL</span>
-        <p style="margin-top:8px">Başka bir web sitesine giden tam ve eksiksiz adrestir. Mutlaka <code>https://</code> ile başlar.</p>
-        <p><em>Örnek: href="https://www.google.com"</em></p>
+        <ul>
+          <li><strong>_self (Varsayılan):</strong> Aynı sekmede açar.</li>
+          <li><strong>_blank:</strong> Yeni bir sekme veya pencerede açar.</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;a href="https://google.com" target="_blank"&gt;Google'ı yeni sekmede aç&lt;/a&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
+
+      <h3>URL Türleri</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">Mutlak URL</span><p style="margin-top:8px">Başka bir siteye giden tam adres. Mutlaka <code>https://</code> ile başlar.</p></div>
+        <div class="card"><span class="badge b-green">Göreli URL</span><p style="margin-top:8px">Kendi sitenizin içindeki başka bir sayfaya giden kısaltılmış adres. <code>https://</code> yazmaya gerek yoktur.</p></div>
+      </div>
+
+      <h3>Varsayılan Link Renkleri</h3>
       <div class="card">
-        <span class="badge b-green">Göreli URL</span>
-        <p style="margin-top:8px">Kendi sitenizin içindeki başka bir sayfaya giden kısaltılmış adrestir. <code>https://</code> yazmanıza gerek yoktur, çünkü kendi sitenizdeyken tarayıcı hangi sunucudan aldığını zaten bilir.</p>
-        <p><em>Örnek: href="iletisim.html"</em></p>
+        <ul>
+          <li><strong>Ziyaret edilmemiş:</strong> Mavi ve altı çizili.</li>
+          <li><strong>Ziyaret edilmiş:</strong> Mor ve altı çizili.</li>
+          <li><strong>Aktif (tıklama anında):</strong> Kırmızı ve altı çizili.</li>
+        </ul>
+      </div>
+
+      <h3>HTML Bookmarks (Sayfa İçi Bağlantılar)</h3>
+      <div class="card">
+        <p>Uzun sayfalarda belirli bir bölüme doğrudan atlamak için kullanılır.</p>
+        <p><strong>1. Adım:</strong> Hedef bölüme benzersiz bir <code>id</code> ver:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;h2 id="iletisim"&gt;İletişim Bölümü&lt;/h2&gt;</pre></div>
+        <p style="margin-top:8px"><strong>2. Adım:</strong> O hedefe <code>#id</code> ile link ver:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;a href="#iletisim"&gt;İletişime Git&lt;/a&gt;</pre></div>
+        <p style="margin-top:8px"><strong>Başka sayfadaki bir bölüme gitmek:</strong></p>
+        <div class="code-wrap"><pre class="code-block">&lt;a href="hakkimizda.html#galeri"&gt;Galeriye Git&lt;/a&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
 
-    <h3>Varsayılan Link Renkleri</h3>
-    <div class="card">
-      <p>CSS ile müdahale edilmezse tarayıcılar linkleri şu standart renklerde gösterir:</p>
-      <ul>
-        <li><strong>Ziyaret edilmemiş link:</strong> Mavi ve altı çizili.</li>
-        <li><strong>Ziyaret edilmiş link:</strong> Mor ve altı çizili.</li>
-        <li><strong>Aktif link (tıklama anında):</strong> Kırmızı ve altı çizili.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;a href="https://example.com"&gt;Beni tıkla&lt;/a&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+    <!-- HTML: Images -->
+    <div class="topic-section" id="html_images" data-lang="html">
+      <div class="topic-title">Images</div>
+      <div class="topic-subtitle">// image map, picture, responsive</div>
+
+      <h3>Image Map — Tıklanabilir Resim Haritası</h3>
+      <div class="card">
+        <p>Tek bir resmin farklı bölgelerine farklı linkler atamak için kullanılır.</p>
+        <div class="step-item"><div class="step-num">1</div><div><p><strong>&lt;img usemap="#isim"&gt;:</strong> Resmi gösterir ve bir haritaya bağlar.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><p><strong>&lt;map name="isim"&gt;:</strong> Haritayı tanımlar. <code>name</code> ile <code>usemap</code> aynı olmalı.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><p><strong>&lt;area&gt;:</strong> Tıklanabilir bölgeleri, şekillerini ve koordinatlarını tanımlar.</p></div></div>
       </div>
-    </div>
-
-    <h3>HTML Bookmarks (Sayfa İçi Bağlantılar)</h3>
-    <div class="card">
-      <p>Uzun sayfalarda belirli bir bölüme doğrudan atlamak için kullanılır. İki adımda yapılır:</p>
-      <p><strong>1. Adım:</strong> Hedef bölüme benzersiz bir <code>id</code> ver:</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;h2 id="iletisim"&gt;İletişim Bölümü&lt;/h2&gt;</pre>
-      </div>
-      <p style="margin-top:8px"><strong>2. Adım:</strong> O hedefe <code>#id</code> ile link ver:</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;a href="#iletisim"&gt;İletişime Git&lt;/a&gt;</pre>
-      </div>
-      <p style="margin-top:8px"><strong>Başka sayfadaki bir bölüme gitmek için:</strong></p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;!-- Hedef sayfada: --&gt;
-&lt;h2 id="galeri"&gt;Galeri&lt;/h2&gt;
-
-&lt;!-- Bu sayfada: --&gt;
-&lt;a href="hakkimizda.html#galeri"&gt;Galeriye Git&lt;/a&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ IMAGES ═══ -->
-  <div id="html_images" class="section">
-    <h2>HTML Images</h2>
-
-    <h3>Image Map — Tıklanabilir Resim Haritası</h3>
-    <div class="card">
-      <p>Tek bir resmin farklı bölgelerine farklı linkler atamak için kullanılır. Örneğin bir Türkiye haritasında her ile ayrı link verebilirsiniz. Üç temel etiket birlikte çalışır:</p>
-      <div class="step-item"><div class="step-num">1</div><div><p><strong>&lt;img usemap="#isim"&gt;:</strong> Resmi gösterir ve bir haritaya bağlar.</p></div></div>
-      <div class="step-item"><div class="step-num">2</div><div><p><strong>&lt;map name="isim"&gt;:</strong> Haritayı tanımlar. <code>name</code> değeri, <code>usemap</code>'teki isimle aynı olmalı (# olmadan).</p></div></div>
-      <div class="step-item"><div class="step-num">3</div><div><p><strong>&lt;area&gt;:</strong> Resmin içindeki tıklanabilir bölgeleri, şekillerini ve koordinatlarını tanımlar.</p></div></div>
-    </div>
-
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;img src="https://www.w3schools.com/html/workplace.jpg"
-     usemap="#calisma-alani" alt="Çalışma Alanı"
-     width="400" height="379"&gt;
+      <div class="code-wrap"><pre class="code-block">&lt;img src="https://www.w3schools.com/html/workplace.jpg"
+     usemap="#calisma-alani" alt="Çalışma Alanı" width="400" height="379"&gt;
 
 &lt;map name="calisma-alani"&gt;
   &lt;area shape="rect" coords="34,44,270,350"
         href="https://www.w3schools.com" alt="Bilgisayar" target="_blank"&gt;
   &lt;area shape="circle" coords="337,300,44"
         href="https://www.google.com" alt="Kahve" target="_blank"&gt;
-&lt;/map&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+&lt;/map&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
 
-    <div class="card">
-      <p><strong>Background Image — Arka Plan Resmi:</strong> Sayfanın ya da bir elementin arka planını resimle doldurur.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;body style="background-image: url('https://www.w3schools.com/css/img_5terre.jpg'); background-size: cover;"&gt;
-  &lt;h1 style="color:white;"&gt;Arka plan resim&lt;/h1&gt;
-&lt;/body&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-
-    <h3>Picture Elementi — Duyarlı Resimler</h3>
-    <div class="highlight-box">
-      <p><strong>&lt;picture&gt; Nedir?</strong> Farklı ekran boyutları için farklı resimler göstermek amacıyla kullanılır. "Ekran küçükse hafif/kırpılmış resmi göster, büyükse tam çözünürlüklüyü" diyebilirsiniz. Buna <strong>Responsive (Duyarlı) Tasarım</strong> denir. Mobil kullanıcılar gereksiz büyük resimleri indirmek zorunda kalmaz, sayfa daha hızlı açılır.</p>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;picture&gt;
+      <h3>Picture Elementi — Duyarlı Resimler</h3>
+      <div class="hl hl-info"><p><strong>&lt;picture&gt;:</strong> Farklı ekran boyutları için farklı resimler göstermek amacıyla kullanılır. Mobil kullanıcılar gereksiz büyük resimleri indirmez, sayfa daha hızlı açılır.</p></div>
+      <div class="code-wrap"><pre class="code-block">&lt;picture&gt;
   &lt;source media="(max-width:600px)"
           srcset="https://www.w3schools.com/css/img_5terre_wide.jpg"&gt;
   &lt;img src="https://www.w3schools.com/css/img_5terre.jpg"
        alt="Beş Arazi" style="width:100%"&gt;
-&lt;/picture&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
-  </div>
-
-  <!-- ═══ TABLES ═══ -->
-  <div id="html_tables" class="section">
-    <h2>HTML Tables</h2>
-
-    <div class="highlight-box">
-      <p>Tablo yapısı iç içe geçen etiketlerle kurulur: <code>&lt;table&gt;</code> → <code>&lt;tr&gt;</code> (satır) → <code>&lt;td&gt;</code> veya <code>&lt;th&gt;</code> (hücre).</p>
+&lt;/picture&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
     </div>
 
-    <div class="card">
-      <div class="step-item"><div class="step-num">1</div><div><p><strong>&lt;table&gt;:</strong> Tablonun tamamını saran ana kapsayıcıdır.</p></div></div>
-      <div class="step-item"><div class="step-num">2</div><div><p><strong>&lt;tr&gt; (Table Row):</strong> Her bir <strong>satırı</strong> tanımlar. Tabloda kaç satır varsa o kadar <code>&lt;tr&gt;</code> açılır.</p></div></div>
-      <div class="step-item"><div class="step-num">3</div><div><p><strong>&lt;td&gt; (Table Data):</strong> Satırın içindeki her bir <strong>veri hücresini</strong> tanımlar.</p></div></div>
-      <div class="step-item"><div class="step-num">4</div><div><p><strong>&lt;th&gt; (Table Header):</strong> Başlık hücresidir. <code>&lt;td&gt;</code> ile aynı işlevi görür ama tarayıcılar onu otomatik olarak <strong>kalın ve ortalanmış</strong> gösterir.</p></div></div>
-    </div>
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;table border="1"&gt;
-  &lt;tr&gt;
-    &lt;th&gt;Ad&lt;/th&gt;
-    &lt;th&gt;Soyad&lt;/th&gt;
-    &lt;th&gt;Yaş&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;Umut&lt;/td&gt;
-    &lt;td&gt;Yılmaz&lt;/td&gt;
-    &lt;td&gt;21&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;Ayşe&lt;/td&gt;
-    &lt;td&gt;Kaya&lt;/td&gt;
-    &lt;td&gt;23&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
+    <!-- HTML: Tables -->
+    <div class="topic-section" id="html_tables" data-lang="html">
+      <div class="topic-title">Tables</div>
+      <div class="topic-subtitle">// tr, td, th, colspan, rowspan, colgroup</div>
 
-    <h3>Table Borders (Kenarlıklar)</h3>
-    <div class="card">
-      <p>Varsayılan olarak tablolarda görünür bir kenarlık yoktur. CSS ile eklenir ve <code>&lt;style&gt;</code> bloğu tablonun öncesinde de sonrasında da olabilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;style&gt;
-  table, td, th {
-    border: 1px solid black;
-    border-collapse: collapse; /* Çift çizgi yerine tek çizgi yapar */
-  }
-  th {
-    background-color: #4CAF50;
-    color: white;
-  }
+      <div class="hl hl-info"><p>Tablo yapısı: <code>&lt;table&gt;</code> → <code>&lt;tr&gt;</code> (satır) → <code>&lt;td&gt;</code> veya <code>&lt;th&gt;</code> (hücre).</p></div>
+
+      <div class="card">
+        <div class="step-item"><div class="step-num">1</div><div><p><strong>&lt;table&gt;:</strong> Tablonun tamamını saran ana kapsayıcı.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><p><strong>&lt;tr&gt; (Table Row):</strong> Her bir satırı tanımlar.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><p><strong>&lt;td&gt; (Table Data):</strong> Satırın içindeki her bir veri hücresini tanımlar.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div><p><strong>&lt;th&gt; (Table Header):</strong> Başlık hücresidir. Otomatik olarak <strong>kalın ve ortalanmış</strong> gösterilir.</p></div></div>
+      </div>
+      <div class="code-wrap"><pre class="code-block">&lt;table border="1"&gt;
+  &lt;tr&gt;&lt;th&gt;Ad&lt;/th&gt;&lt;th&gt;Soyad&lt;/th&gt;&lt;th&gt;Yaş&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Umut&lt;/td&gt;&lt;td&gt;Yılmaz&lt;/td&gt;&lt;td&gt;21&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Ayşe&lt;/td&gt;&lt;td&gt;Kaya&lt;/td&gt;&lt;td&gt;23&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+
+      <h3>Table Borders</h3>
+      <div class="code-wrap"><pre class="code-block">&lt;style&gt;
+  table, td, th { border: 1px solid black; border-collapse: collapse; }
+  th { background-color: #4CAF50; color: white; }
 &lt;/style&gt;
 &lt;table&gt;
   &lt;tr&gt;&lt;th&gt;Ürün&lt;/th&gt;&lt;th&gt;Fiyat&lt;/th&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;Elma&lt;/td&gt;&lt;td&gt;5 TL&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
+&lt;/table&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
 
-    <h3>Table Padding & Spacing</h3>
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">Padding</span>
-        <p style="margin-top:8px">Hücre içeriği ile hücre kenarlığı arasındaki boşluktur. Yazıyı daha okunabilir yapar.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">th, td { padding: 15px; }</pre>
-        </div>
+      <h3>Padding & Spacing</h3>
+      <div class="grid2">
+        <div class="card"><span class="badge b-blue">Padding</span><p style="margin-top:8px">Hücre içeriği ile hücre kenarlığı arasındaki boşluk.</p><div class="code-wrap" style="margin-top:8px"><pre class="code-block">th, td { padding: 15px; }</pre></div></div>
+        <div class="card"><span class="badge b-green">Border Spacing</span><p style="margin-top:8px">Hüclelerin birbirinden ne kadar ayrı duracağını belirler.</p><div class="code-wrap" style="margin-top:8px"><pre class="code-block">table { border-spacing: 10px; }</pre></div></div>
       </div>
-      <div class="card">
-        <span class="badge b-green">Border Spacing</span>
-        <p style="margin-top:8px">Hücrelerin birbirinden ne kadar ayrı duracağını belirler. <code>border-collapse: collapse</code> kullanılıyorsa bu özellik etkisizdir.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">table { border-spacing: 10px; }</pre>
-        </div>
-      </div>
-    </div>
 
-    <h3>Colspan & Rowspan — Hücre Birleştirme</h3>
-    <div class="card">
-      <p>Bazen bir başlığın birden fazla sütun ya da satır genişliğinde olması gerekir:</p>
-      <ul>
-        <li><strong>colspan="N":</strong> Hücreyi <strong>N sütun</strong> genişliğine yayar (yatayda birleştirme).</li>
-        <li><strong>rowspan="N":</strong> Hücreyi <strong>N satır</strong> yüksekliğine yayar (dikeyde birleştirme).</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;style&gt;table,th,td{border:1px solid black;border-collapse:collapse;padding:8px;}&lt;/style&gt;
+      <h3>Colspan & Rowspan</h3>
+      <div class="card">
+        <ul>
+          <li><strong>colspan="N":</strong> Hücreyi N sütun genişliğine yayar (yatayda birleştirme).</li>
+          <li><strong>rowspan="N":</strong> Hücreyi N satır yüksekliğine yayar (dikeyde birleştirme).</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;style&gt;table,th,td{border:1px solid black;border-collapse:collapse;padding:8px;}&lt;/style&gt;
 &lt;table&gt;
   &lt;tr&gt;
     &lt;th colspan="2"&gt;Ad Soyad (2 sütunu kapsar)&lt;/th&gt;
     &lt;th&gt;Yaş&lt;/th&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Umut&lt;/td&gt;
-    &lt;td&gt;Yılmaz&lt;/td&gt;
+    &lt;td&gt;Umut&lt;/td&gt;&lt;td&gt;Yılmaz&lt;/td&gt;
     &lt;td rowspan="2"&gt;21 (2 satırı kapsar)&lt;/td&gt;
   &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;Ayşe&lt;/td&gt;
-    &lt;td&gt;Kaya&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+  &lt;tr&gt;&lt;td&gt;Ayşe&lt;/td&gt;&lt;td&gt;Kaya&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <h3>Colgroup — Sütun Gruplandırma</h3>
-    <div class="card">
-      <p><code>&lt;colgroup&gt;</code> ve <code>&lt;col&gt;</code> etiketleri, tablonun belirli sütunlarına toplu CSS uygulamak için kullanılır. Tek tek her satırın <code>&lt;td&gt;</code>'sine stil vermek yerine sütun bazında bir kez tanımlamanızı sağlar. <strong>&lt;table&gt; açıldıktan hemen sonra, &lt;tr&gt; başlamadan önce</strong> yazılır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;style&gt;table,th,td{border:1px solid black;border-collapse:collapse;padding:8px;}&lt;/style&gt;
+      <h3>Colgroup — Sütun Gruplandırma</h3>
+      <div class="card">
+        <p><code>&lt;colgroup&gt;</code> ve <code>&lt;col&gt;</code> etiketleri, belirli sütunlara toplu CSS uygulamak için kullanılır. <strong>&lt;table&gt; açıldıktan hemen sonra, &lt;tr&gt; başlamadan önce</strong> yazılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;style&gt;table,th,td{border:1px solid black;border-collapse:collapse;padding:8px;}&lt;/style&gt;
 &lt;table&gt;
   &lt;colgroup&gt;
     &lt;col style="background-color:#fffde7;"&gt;
@@ -980,352 +839,251 @@
   &lt;/colgroup&gt;
   &lt;tr&gt;&lt;th&gt;Ad&lt;/th&gt;&lt;th&gt;Şehir&lt;/th&gt;&lt;th&gt;Puan&lt;/th&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;Umut&lt;/td&gt;&lt;td&gt;İstanbul&lt;/td&gt;&lt;td&gt;95&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;Ayşe&lt;/td&gt;&lt;td&gt;Ankara&lt;/td&gt;&lt;td&gt;87&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/table&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        <div class="hl hl-warn" style="margin-top:12px"><p><strong>NOT:</strong> <code>&lt;col&gt;</code> ile yalnızca <strong>background</strong>, <strong>width</strong>, <strong>border</strong> ve <strong>visibility</strong> kullanılabilir.</p></div>
       </div>
     </div>
 
-    <div class="highlight-box">
-      <p><strong>NOT:</strong> <code>&lt;col&gt;</code> ile kullanabileceğiniz CSS özellikleri sınırlıdır: <strong>background</strong>, <strong>width</strong>, <strong>border</strong> ve <strong>visibility</strong>. Diğer özellikler (color, font gibi) sütun bazında çalışmaz.</p>
-    </div>
-  </div>
+    <!-- HTML: Lists -->
+    <div class="topic-section" id="html_lists" data-lang="html">
+      <div class="topic-title">Lists</div>
+      <div class="topic-subtitle">// ul, ol, dl ve iç içe listeler</div>
 
-  <!-- ═══ LISTS ═══ -->
-  <div id="html_lists" class="section">
-    <h2>HTML Lists</h2>
+      <div class="hl hl-info"><p>Listeler iç içe yerleştirilebilir (nested list). CSS ile yan yana da düzenlenebilir.</p></div>
 
-    <div class="highlight-box">
-      <p>Listeler iç içe yerleştirilebilir (nested list). Listeler yan yana da düzenlenebilir (CSS ile).</p>
-    </div>
-
-    <h3>Unordered — Sırasız Listeler</h3>
-    <div class="card">
-      <p>Maddelerin sırası önemli olmadığında kullanılır. Her maddenin önüne otomatik bir işaret (bullet) gelir.</p>
-      <ul>
-        <li><strong>&lt;ul&gt;:</strong> Listeyi başlatır. <code>list-style-type</code> özelliğiyle işaret şekli değiştirilebilir:
-          <ul>
-            <li><strong>disc</strong> (varsayılan): Dolu daire ●</li>
-            <li><strong>circle:</strong> İçi boş daire ○</li>
-            <li><strong>square:</strong> Dolu kare ■</li>
-            <li><strong>none:</strong> İşaret yok (menü yaparken sıkça kullanılır)</li>
-          </ul>
-        </li>
-        <li><strong>&lt;li&gt;:</strong> Her bir liste maddesini temsil eder.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;ul style="list-style-type:square;"&gt;
+      <h3>Unordered — Sırasız Listeler</h3>
+      <div class="card">
+        <p><code>list-style-type</code> ile işaret şekli değiştirilebilir: <strong>disc</strong> (●), <strong>circle</strong> (○), <strong>square</strong> (■), <strong>none</strong>.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;ul style="list-style-type:square;"&gt;
   &lt;li&gt;Elma&lt;/li&gt;
   &lt;li&gt;Armut&lt;/li&gt;
   &lt;li&gt;Muz&lt;/li&gt;
-&lt;/ul&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/ul&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <h3>Ordered — Sıralı Listeler</h3>
-    <div class="card">
-      <p>Maddelerin sırası önemli olduğunda kullanılır. Her maddenin önüne otomatik bir numara veya harf gelir.</p>
-      <ul>
-        <li><strong>&lt;ol&gt;:</strong> Listeyi başlatır.
-          <ul>
-            <li><code>type="A"</code> → A, B, C şeklinde harf sıralama</li>
-            <li><code>type="a"</code> → a, b, c şeklinde küçük harf</li>
-            <li><code>type="I"</code> → Romen rakamları (I, II, III)</li>
-            <li><code>start="5"</code> → Numaralamayı 5'ten başlatır</li>
-          </ul>
-        </li>
-        <li><strong>&lt;li&gt;:</strong> Her bir madde.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;ol type="A" start="3"&gt;
+      <h3>Ordered — Sıralı Listeler</h3>
+      <div class="card">
+        <ul>
+          <li><code>type="A"</code> → A, B, C / <code>type="a"</code> → a, b, c</li>
+          <li><code>type="I"</code> → Romen rakamları (I, II, III)</li>
+          <li><code>start="5"</code> → Numaralamayı 5'ten başlatır</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;ol type="A" start="3"&gt;
   &lt;li&gt;Üçüncü seçenek (C'den başlar)&lt;/li&gt;
   &lt;li&gt;Dördüncü seçenek&lt;/li&gt;
-&lt;/ol&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/ol&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <h3>Description — Açıklama Listeleri</h3>
-    <div class="card">
-      <p>Terim–tanım çiftleri için kullanılır. Sözlük, glossary veya SSS sayfaları için idealdir.</p>
-      <ul>
-        <li><strong>&lt;dl&gt;:</strong> Listeyi başlatır (Description List).</li>
-        <li><strong>&lt;dt&gt;:</strong> Terimi yazar (Description Term), kalın görünür.</li>
-        <li><strong>&lt;dd&gt;:</strong> Terimin açıklamasını yazar, biraz içeriden başlar.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;dl&gt;
+      <h3>Description — Açıklama Listeleri</h3>
+      <div class="card">
+        <p>Terim–tanım çiftleri için kullanılır. Sözlük ve SSS sayfaları için idealdir.</p>
+        <ul>
+          <li><strong>&lt;dl&gt;:</strong> Listeyi başlatır.</li>
+          <li><strong>&lt;dt&gt;:</strong> Terimi yazar (kalın görünür).</li>
+          <li><strong>&lt;dd&gt;:</strong> Terimin açıklamasını yazar, biraz içeriden başlar.</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;dl&gt;
   &lt;dt&gt;HTML&lt;/dt&gt;
   &lt;dd&gt;HyperText Markup Language — web sayfalarının iskeletini oluşturur.&lt;/dd&gt;
   &lt;dt&gt;CSS&lt;/dt&gt;
   &lt;dd&gt;Cascading Style Sheets — web sayfalarını görsel olarak şekillendirir.&lt;/dd&gt;
-&lt;/dl&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ BLOCK & INLINE ═══ -->
-  <div id="html_block" class="section">
-    <h2>HTML Block and Inline</h2>
-
-    <div class="grid2">
-      <div class="card" style="border-top:3px solid var(--border-info)">
-        <span class="badge b-blue">Block Seviyeli Elementler</span>
-        <p style="margin-top:8px">Her zaman <strong>yeni satırdan başlarlar</strong> ve bulundukları satırın tamamını soldan sağa kaplarlar. "Bencil kutu" gibidir; yanına kimseyi almaz.</p>
-        <ul style="margin-top:8px">
-          <li>Üstten ve alttan otomatik boşlukları olabilir.</li>
-          <li>Genişliklerini CSS ile değiştirebilirsiniz.</li>
-        </ul>
-        <p style="margin-top:10px; font-size:12px; color:var(--text-tertiary)"><strong>Örnekler:</strong> div, h1…h6, p, ul, li, header, footer, section, article</p>
-      </div>
-
-      <div class="card" style="border-top:3px solid var(--text-success)">
-        <span class="badge b-green">Satır İçi (Inline) Elementler</span>
-        <p style="margin-top:8px"><strong>Yeni satır açmazlar</strong>, metnin akışı içinde devam ederler. Yalnızca kendi içerikleri kadar yer kaplarlar.</p>
-        <ul style="margin-top:8px">
-          <li>Genişlik ve yükseklik atanamaz (CSS'te farklı gösterilebilir).</li>
-        </ul>
-        <p style="margin-top:10px; font-size:12px; color:var(--text-tertiary)"><strong>Örnekler:</strong> span, a, img, strong, b, em, i, code, mark</p>
+&lt;/dl&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
 
-    <div class="code-block-wrap">
-      <pre class="code-block">&lt;!-- Block örneği: her div yeni satırda --&gt;
-&lt;div style="background:lightblue; padding:8px;"&gt;Ben block&lt;/div&gt;
+    <!-- HTML: Block & Inline -->
+    <div class="topic-section" id="html_block" data-lang="html">
+      <div class="topic-title">Block & Inline</div>
+      <div class="topic-subtitle">// div, span ve görüntüleme davranışları</div>
+
+      <div class="grid2">
+        <div class="card" style="border-top: 2px solid var(--html);">
+          <span class="badge b-red">Block Level</span>
+          <p style="margin-top:8px">Her zaman <strong>yeni satırdan başlarlar</strong> ve satırın tamamını kaplarlar. "Bencil kutu" gibidir.</p>
+          <p style="margin-top:10px; font-size:12px; color: var(--muted);"><strong>Örnekler:</strong> div, h1–h6, p, ul, li, header, footer, section</p>
+        </div>
+        <div class="card" style="border-top: 2px solid var(--css);">
+          <span class="badge b-green">Inline</span>
+          <p style="margin-top:8px"><strong>Yeni satır açmazlar</strong>, metnin akışı içinde devam ederler. Yalnızca kendi içerikleri kadar yer kaplarlar.</p>
+          <p style="margin-top:10px; font-size:12px; color: var(--muted);"><strong>Örnekler:</strong> span, a, img, strong, b, em, i, code, mark</p>
+        </div>
+      </div>
+      <div class="code-wrap"><pre class="code-block">&lt;div style="background:lightblue; padding:8px;"&gt;Ben block&lt;/div&gt;
 &lt;div style="background:lightgreen; padding:8px;"&gt;Ben de block&lt;/div&gt;
 
-&lt;!-- Inline örneği: span'lar yan yana --&gt;
-&lt;p&gt;
-  Bugün hava
+&lt;p&gt;Bugün hava
   &lt;span style="color:red; font-weight:bold;"&gt;çok sıcak&lt;/span&gt;
   olacak.
-&lt;/p&gt;</pre>
-      <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-    </div>
-  </div>
-
-  <!-- ═══ CLASSES ═══ -->
-  <div id="html_classes" class="section">
-    <h2>HTML Classes</h2>
-
-    <div class="highlight-box">
-      <p>Class, elementlere etiket yapıştırmak gibidir. Aynı class adını birden fazla elemente vererek hepsine tek seferde aynı stili uygulayabilirsiniz.</p>
+&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
     </div>
 
-    <div class="card">
-      <p>Düşünün ki bir okulda <strong>"9-A sınıfı"</strong>ndaki tüm öğrenciler aynı üniformayı giyiyor. Burada "9-A" class adıdır, öğrenciler HTML elementleridir. CSS'te hangi "üniformanın" nasıl görüneceğini siz belirlersiniz.</p>
-    </div>
+    <!-- HTML: Classes -->
+    <div class="topic-section" id="html_classes" data-lang="html">
+      <div class="topic-title">Classes</div>
+      <div class="topic-subtitle">// class seçici ve çoklu class kullanımı</div>
 
-    <div class="card">
-      <p>CSS'te class seçicisinin önüne <strong>nokta (.)</strong> koyulur. JavaScript'te ise <code>getElementsByClassName()</code> ile bu elementlere ulaşılır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;style&gt;
+      <div class="hl hl-info"><p>Class, elementlere etiket yapıştırmak gibidir. Aynı class adını birden fazla elemente vererek hepsine tek seferde aynı stili uygulayabilirsiniz.</p></div>
+
+      <div class="card">
+        <p>Düşünün ki bir okulda <strong>"9-A sınıfı"</strong>ndaki tüm öğrenciler aynı üniformayı giyiyor. "9-A" class adıdır, öğrenciler HTML elementleridir.</p>
+        <p style="margin-top:8px">CSS'te class seçicisinin önüne <strong>nokta (.)</strong> koyulur. JavaScript'te <code>getElementsByClassName()</code> ile bu elementlere ulaşılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;style&gt;
   .onemli { color: red; font-weight: bold; }
   .mavi-kutu { background: lightblue; padding: 10px; border-radius: 6px; }
 &lt;/style&gt;
 
 &lt;p class="onemli"&gt;Bu önemli bir mesajdır.&lt;/p&gt;
 &lt;p class="mavi-kutu"&gt;Bu mavi kutudur.&lt;/p&gt;
-&lt;p class="onemli mavi-kutu"&gt;Bu her ikisi de. (Birden fazla class)&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;p class="onemli mavi-kutu"&gt;Bu her ikisi de. (Birden fazla class)&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ FORMS ═══ -->
-  <div id="html_forms" class="section">
-    <h2>HTML Forms</h2>
+    <!-- HTML: Forms -->
+    <div class="topic-section" id="html_forms" data-lang="html">
+      <div class="topic-title">Forms</div>
+      <div class="topic-subtitle">// input, select, textarea, button, datalist</div>
 
-    <div class="highlight-box">
-      <p>Formlar kullanıcıdan veri toplamak için kullanılır: giriş yapma, kayıt, arama, sipariş gibi. Tüm form elemanları <code>&lt;form&gt;</code> etiketinin içine yazılır.</p>
-    </div>
+      <div class="hl hl-info"><p>Formlar kullanıcıdan veri toplamak için kullanılır. Tüm form elemanları <code>&lt;form&gt;</code> etiketinin içine yazılır.</p></div>
 
-    <h3>Input Türleri</h3>
-    <div class="card">
-      <p><code>&lt;input&gt;</code> formun en temel elemanıdır. <code>type</code> özniteliği ne yazıldığına göre farklı bir giriş alanına dönüşür:</p>
-      <ul>
-        <li><strong>type="text":</strong> Tek satırlık metin kutusu.</li>
-        <li><strong>type="password":</strong> Şifre kutusu — yazılanlar gizlenir.</li>
-        <li><strong>type="radio":</strong> Tek seçimli yuvarlak buton — seçenekler arasından yalnızca biri seçilebilir.</li>
-        <li><strong>type="checkbox":</strong> Onay kutusu — birden fazlası işaretlenebilir.</li>
-        <li><strong>type="submit":</strong> Formu göndermek için buton oluşturur.</li>
-        <li><strong>name:</strong> Sunucuya gönderilen veri anahtarıdır. URL'de <code>?name=değer</code> şeklinde görünür.</li>
-      </ul>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;form&gt;
+      <h3>Input Türleri</h3>
+      <div class="card">
+        <ul>
+          <li><strong>type="text":</strong> Tek satırlık metin kutusu.</li>
+          <li><strong>type="password":</strong> Şifre kutusu — yazılanlar gizlenir.</li>
+          <li><strong>type="radio":</strong> Tek seçimli yuvarlak buton.</li>
+          <li><strong>type="checkbox":</strong> Onay kutusu — birden fazlası işaretlenebilir.</li>
+          <li><strong>type="submit":</strong> Formu göndermek için buton.</li>
+          <li><strong>name:</strong> Sunucuya gönderilen veri anahtarıdır.</li>
+        </ul>
+        <div class="code-wrap"><pre class="code-block">&lt;form&gt;
   &lt;label for="ad"&gt;Adınız:&lt;/label&gt;&lt;br&gt;
   &lt;input type="text" id="ad" name="ad" placeholder="Adınızı girin"&gt;
   &lt;br&gt;&lt;br&gt;
-
-  &lt;label for="sifre"&gt;Şifre:&lt;/label&gt;&lt;br&gt;
-  &lt;input type="password" id="sifre" name="sifre"&gt;
+  &lt;input type="password" name="sifre" placeholder="Şifreniz"&gt;
   &lt;br&gt;&lt;br&gt;
-
   &lt;input type="radio" name="cinsiyet" value="erkek"&gt; Erkek
   &lt;input type="radio" name="cinsiyet" value="kadin"&gt; Kadın
   &lt;br&gt;&lt;br&gt;
-
   &lt;input type="checkbox" name="sozlesme"&gt; Sözleşmeyi kabul ediyorum
   &lt;br&gt;&lt;br&gt;
-
   &lt;input type="submit" value="Kayıt Ol"&gt;
-&lt;/form&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/form&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <h3>Form Elemanları</h3>
-
-    <div class="card">
-      <p><strong>&lt;select&gt; ve &lt;option&gt; — Açılır Liste (Dropdown)</strong></p>
-      <p>Kullanıcının önceden hazırlanmış seçenekler arasından birini seçmesini sağlar. <code>selected</code> özniteliği eklenen seçenek varsayılan olarak gösterilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;label&gt;Şehir seçin:&lt;/label&gt;&lt;br&gt;
-&lt;select name="sehir"&gt;
+      <h3>Form Elemanları</h3>
+      <div class="card">
+        <p><strong>&lt;select&gt; ve &lt;option&gt; — Açılır Liste (Dropdown):</strong> <code>selected</code> özniteliği eklenen seçenek varsayılan gösterilir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;select name="sehir"&gt;
   &lt;option value="ist"&gt;İstanbul&lt;/option&gt;
   &lt;option value="ank" selected&gt;Ankara (varsayılan)&lt;/option&gt;
   &lt;option value="izm"&gt;İzmir&lt;/option&gt;
-&lt;/select&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/select&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="card">
-      <p><strong>&lt;textarea&gt; — Çok Satırlı Metin Alanı</strong></p>
-      <p>Kullanıcının birden fazla satır metin girebileceği büyük bir alan açar. <code>rows</code> yüksekliği, <code>cols</code> genişliği belirler. Kullanıcı köşesini sürükleyerek boyutu değiştirebilir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;textarea name="mesaj" rows="5" cols="40"
-          placeholder="Mesajınızı buraya yazın..."&gt;&lt;/textarea&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="card">
+        <p><strong>&lt;textarea&gt; — Çok Satırlı Metin Alanı:</strong> <code>rows</code> yüksekliği, <code>cols</code> genişliği belirler.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;textarea name="mesaj" rows="5" cols="40"
+          placeholder="Mesajınızı buraya yazın..."&gt;&lt;/textarea&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="card">
-      <p><strong>&lt;fieldset&gt; ve &lt;legend&gt; — Gruplandırma</strong></p>
-      <p>İlgili form alanlarını görsel olarak bir kutu içine alarak gruplandırır. Uzun formların okunabilirliğini artırır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;fieldset&gt;
+      <div class="card">
+        <p><strong>&lt;fieldset&gt; ve &lt;legend&gt; — Gruplandırma:</strong> İlgili form alanlarını görsel olarak bir kutu içine alır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;fieldset&gt;
   &lt;legend&gt;Kişisel Bilgiler&lt;/legend&gt;
   &lt;label&gt;Ad: &lt;input type="text"&gt;&lt;/label&gt;&lt;br&gt;&lt;br&gt;
   &lt;label&gt;Soyad: &lt;input type="text"&gt;&lt;/label&gt;
-&lt;/fieldset&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/fieldset&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="card">
-      <p><strong>&lt;button&gt; — Buton</strong></p>
-      <p>Tıklanabilir buton oluşturur. <code>&lt;input type="submit"&gt;</code>'den farkı, içine hem yazı hem de HTML elementi (ikon, resim) koyabilmenizdir.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;button type="button" onclick="alert('Merhaba!')"&gt;
-  Tıkla!
-&lt;/button&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+      <div class="card">
+        <p><strong>&lt;button&gt;:</strong> İçine hem yazı hem HTML elementi (ikon, resim) koyabilirsiniz.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;button type="button" onclick="alert('Merhaba!')"&gt;Tıkla!&lt;/button&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="card">
-      <p><strong>&lt;datalist&gt; — Önerili Giriş Kutusu</strong></p>
-      <p>Kullanıcı yazmaya başladığında hazır öneriler sunar; kullanıcı isterse listeden seçer, isterse farklı bir şey yazar. <code>&lt;select&gt;</code>'te yalnızca listeden seçilebilirken, <code>&lt;datalist&gt;</code>'te serbest metin de girilebilir. Bağlantı için <code>&lt;input&gt;</code>'un <code>list</code> değeri ile <code>&lt;datalist&gt;</code>'in <code>id</code> değeri aynı olmalıdır.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;label&gt;Favori Programlama Diliniz:&lt;/label&gt;&lt;br&gt;
-&lt;input list="diller" name="dil" placeholder="Yazın veya seçin"&gt;
+      <div class="card">
+        <p><strong>&lt;datalist&gt; — Önerili Giriş Kutusu:</strong> Kullanıcı yazmaya başladığında hazır öneriler sunar; serbest metin de girilebilir. <code>list</code> ile <code>id</code> aynı olmalıdır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;input list="diller" name="dil" placeholder="Yazın veya seçin"&gt;
 &lt;datalist id="diller"&gt;
   &lt;option value="Python"&gt;
   &lt;option value="JavaScript"&gt;
   &lt;option value="Java"&gt;
   &lt;option value="C++"&gt;
-&lt;/datalist&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/datalist&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ CSS ═══ -->
-  <div id="css" class="section">
-    <h2>CSS — Cascading Style Sheets</h2>
+    <!-- ════════════════════════ CSS SECTIONS ════════════════════════ -->
 
-    <h3>CSS Seçiciler</h3>
+    <!-- CSS: Seçiciler -->
+    <div class="topic-section" id="css_seciciler" data-lang="css">
+      <div class="topic-title">CSS Seçiciler</div>
+      <div class="topic-subtitle">// element, id, class, evrensel, gruplandırma</div>
 
-    <div class="card">
-      <p><strong>Element Seçici</strong></p>
-      <p>Belirtilen etiket türündeki <strong>tüm</strong> elementleri seçer. Örneğin <code>p { }</code> sayfadaki bütün paragrafları etkiler.</p>
-      <div class="code-block-wrap">
-        <pre class="code-block">&lt;style&gt;
+      <div class="card">
+        <p><strong>Element Seçici</strong> — Belirtilen etiket türündeki tüm elementleri seçer.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;style&gt;
   p { text-align: center; color: darkblue; }
 &lt;/style&gt;
-&lt;p&gt;Bu tüm p etiketlerini etkiler.&lt;/p&gt;
-&lt;p&gt;Bu da etkilendi.&lt;/p&gt;</pre>
-        <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;p&gt;Bu tüm p etiketlerini etkiler.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
-    </div>
 
-    <div class="grid2">
-      <div class="card">
-        <span class="badge b-blue">ID Seçici (#)</span>
-        <p style="margin-top:8px">Sayfada yalnızca <strong>bir kez</strong> bulunması gereken eşsiz bir elementi seçer. ID değeri sayfada tekrar edemez. CSS'te önüne <strong>#</strong> konur.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">&lt;style&gt;
+      <div class="grid2">
+        <div class="card">
+          <span class="badge b-blue">ID Seçici (#)</span>
+          <p style="margin-top:8px">Sayfada yalnızca <strong>bir kez</strong> bulunan eşsiz bir elementi seçer. CSS'te önüne <strong>#</strong> konur.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;style&gt;
   #baslik { color: red; }
 &lt;/style&gt;
-&lt;h1 id="baslik"&gt;Kırmızı Başlık&lt;/h1&gt;</pre>
-          <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;h1 id="baslik"&gt;Kırmızı Başlık&lt;/h1&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
         </div>
-      </div>
-      <div class="card">
-        <span class="badge b-green">Class Seçici (.)</span>
-        <p style="margin-top:8px">Aynı class adına sahip <strong>tüm</strong> elementleri seçer. Class değeri birden fazla elementte kullanılabilir. CSS'te önüne <strong>.</strong> konur.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">&lt;style&gt;
+        <div class="card">
+          <span class="badge b-green">Class Seçici (.)</span>
+          <p style="margin-top:8px">Aynı class adına sahip tüm elementleri seçer. CSS'te önüne <strong>.</strong> konur.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;style&gt;
   .vurgu { color: blue; font-weight: bold; }
 &lt;/style&gt;
-&lt;p&gt;Normal metin.&lt;/p&gt;
-&lt;p class="vurgu"&gt;Mavi ve kalın.&lt;/p&gt;
-&lt;span class="vurgu"&gt;Bu da.&lt;/span&gt;</pre>
-          <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;p class="vurgu"&gt;Mavi ve kalın.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
         </div>
-      </div>
-      <div class="card">
-        <span class="badge b-amber">Evrensel Seçici (*)</span>
-        <p style="margin-top:8px">Sayfadaki <strong>tüm elementleri</strong> seçer. Genellikle varsayılan margin ve padding sıfırlamak için kullanılır.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">&lt;style&gt;
+        <div class="card">
+          <span class="badge b-amber">Evrensel Seçici (*)</span>
+          <p style="margin-top:8px">Sayfadaki <strong>tüm elementleri</strong> seçer. Genellikle margin/padding sıfırlamak için kullanılır.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;style&gt;
   * { color: purple; font-style: italic; }
-&lt;/style&gt;
-&lt;h2&gt;Başlık&lt;/h2&gt;
-&lt;p&gt;Paragraf&lt;/p&gt;</pre>
-          <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
+&lt;/style&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Gruplandırma (,)</span>
+          <p style="margin-top:8px">Farklı elementlere aynı stili tek seferde uygulamak için aralarına virgül koyulur.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;style&gt;
+  h1, h2, p { color: green; }
+&lt;/style&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
         </div>
       </div>
-      <div class="card">
-        <span class="badge b-blue">Gruplandırma Seçicisi (,)</span>
-        <p style="margin-top:8px">Farklı elementlere aynı stili tek seferde uygulamak için aralarına <strong>virgül</strong> koyulur. Kod tekrarını azaltır.</p>
-        <div class="code-block-wrap" style="margin-top:8px">
-          <pre class="code-block">&lt;style&gt;
-  h1, h2, p { color: green; text-align: center; }
-&lt;/style&gt;
-&lt;h1&gt;Başlık 1&lt;/h1&gt;
-&lt;h2&gt;Başlık 2&lt;/h2&gt;
-&lt;p&gt;Paragraf&lt;/p&gt;</pre>
-          <button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button>
-        </div>
+
+      <div class="hl hl-warn"><p><strong>Öncelik Sırası (Specificity):</strong> <strong>Inline CSS</strong> kazanır. Sonra <strong>ID</strong>, sonra <strong>Class</strong>, en son <strong>Element seçici</strong>. Aynı seviyede iki kural varsa <strong>daha sonra yazılan</strong> geçerlidir.</p></div>
+    </div>
+
+    <!-- ════════════════════════ JS SECTIONS ════════════════════════ -->
+
+    <!-- JS: Coming Soon -->
+    <div class="topic-section" id="js_coming" data-lang="js">
+      <div class="coming-soon">
+        <div class="cs-badge">Yakında</div>
+        <div class="cs-title">JavaScript</div>
+        <p class="cs-desc">JavaScript notları henüz eklenmedi. Konular ekledikçe burada görünecek.</p>
       </div>
     </div>
 
-    <div class="highlight-box warning">
-      <p><strong>Öncelik Sırası (Specificity):</strong> Aynı element için çakışan kurallar varsa: <strong>Inline CSS</strong> kazanır. Sonra <strong>ID</strong>, sonra <strong>Class</strong>, en son <strong>Element seçici</strong> gelir. Aynı seviyede iki kural varsa <strong>daha sonra yazılan</strong> geçerlidir.</p>
-    </div>
   </div>
+</main>
+</div>
 
-
-<!-- Preview Modal -->
-<div class="preview-overlay" id="previewOverlay" onclick="closePreview(event)">
+<!-- Preview Overlay -->
+<div class="preview-overlay" id="previewOverlay" onclick="closePreviewOutside(event)">
   <div class="preview-modal">
     <div class="preview-header">
-      <span>▶ Önizleme</span>
-      <button class="preview-close" onclick="closePreviewBtn()">✕</button>
+      <span>ÖNIZLEME</span>
+      <button class="preview-close" onclick="closePreview()">✕</button>
     </div>
     <div class="preview-frame-wrap">
       <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
@@ -1334,20 +1092,81 @@
 </div>
 
 <script>
-function show(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav button').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('onclick').includes(id));
+const TOPICS = {
+  html: [
+    { id: 'html_tanitim',   label: 'HTML Tanıtım' },
+    { id: 'html_elementler',label: 'Elements & Öznitelikler' },
+    { id: 'html_styles',    label: 'HTML Styles' },
+    { id: 'html_text',      label: 'Text Formatting' },
+    { id: 'html_quotations',label: 'Quotations' },
+    { id: 'html_colors',    label: 'Colors' },
+    { id: 'html_links',     label: 'Links' },
+    { id: 'html_images',    label: 'Images' },
+    { id: 'html_tables',    label: 'Tables' },
+    { id: 'html_lists',     label: 'Lists' },
+    { id: 'html_block',     label: 'Block & Inline' },
+    { id: 'html_classes',   label: 'Classes' },
+    { id: 'html_forms',     label: 'Forms' },
+  ],
+  css: [
+    { id: 'css_seciciler', label: 'Seçiciler' },
+  ],
+  js: [
+    { id: 'js_coming', label: 'JavaScript (Yakında)' },
+  ]
+};
+
+let currentLang = 'html';
+let currentTopic = 'html_tanitim';
+
+function buildNav(lang) {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = '';
+  TOPICS[lang].forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'nav-item' + (t.id === currentTopic ? ' active' : '');
+    el.setAttribute('data-lang', lang);
+    el.setAttribute('data-topic', t.id);
+    el.innerHTML = `<span class="nav-dot"></span>${t.label}`;
+    el.onclick = () => showTopic(t.id, lang);
+    nav.appendChild(el);
   });
+}
+
+function switchLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const first = TOPICS[lang][0];
+  currentTopic = first.id;
+  buildNav(lang);
+  showTopic(first.id, lang);
+}
+
+function showTopic(id, lang) {
+  currentTopic = id;
+  currentLang = lang;
+  document.querySelectorAll('.topic-section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('data-topic') === id);
+  });
+  const labels = { html: 'HTML', css: 'CSS', js: 'JS' };
+  const badge = { html: 'badge-html', css: 'badge-css', js: 'badge-js' };
+  document.getElementById('bc-lang').className = 'lang-badge ' + badge[lang];
+  document.getElementById('bc-lang').textContent = labels[lang];
+  const t = TOPICS[lang].find(x => x.id === id);
+  document.getElementById('bc-title').textContent = t ? t.label : '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
 }
 
 function runCode(btn) {
   const pre = btn.previousElementSibling;
   const code = pre.textContent;
-
-  // Wrap bare snippets in a full HTML page
   let html;
   if (/^\s*<(!DOCTYPE|html)/i.test(code)) {
     html = code;
@@ -1357,47 +1176,38 @@ function runCode(btn) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: system-ui, sans-serif; padding: 20px; line-height: 1.6; }
-  </style>
+  <style>body { font-family: system-ui, sans-serif; padding: 20px; line-height: 1.6; }</style>
 </head>
-<body>
-${code}
-</body>
+<body>${code}</body>
 </html>`;
   }
-
   const frame = document.getElementById('previewFrame');
   frame.srcdoc = html;
-
-  // Auto-resize after content loads
   frame.onload = function() {
     try {
       const h = frame.contentDocument.documentElement.scrollHeight;
-      frame.style.height = Math.min(Math.max(h + 20, 200), 500) + 'px';
-    } catch(e) {
-      frame.style.height = '300px';
-    }
+      frame.style.height = Math.min(Math.max(h + 20, 200), 520) + 'px';
+    } catch(e) { frame.style.height = '320px'; }
   };
-
   document.getElementById('previewOverlay').classList.add('open');
 }
 
-function closePreview(e) {
-  if (e.target === document.getElementById('previewOverlay')) {
-    document.getElementById('previewOverlay').classList.remove('open');
-  }
-}
-
-function closePreviewBtn() {
+function closePreview() {
   document.getElementById('previewOverlay').classList.remove('open');
 }
+function closePreviewOutside(e) {
+  if (e.target === document.getElementById('previewOverlay')) closePreview();
+}
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    document.getElementById('previewOverlay').classList.remove('open');
-  }
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePreview();
 });
+
+buildNav('html');
 </script>
 </body>
 </html>
