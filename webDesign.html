@@ -276,6 +276,25 @@ code {
 }
 .run-btn:hover { background: rgba(91,141,238,0.25); }
 .code-block:focus { outline: 1px solid rgba(91,141,238,0.4); background: #1a1a22; }
+.card p[contenteditable], .card li[contenteditable],
+.hl p[contenteditable], .hl li[contenteditable],
+.topic-subtitle[contenteditable] {
+  border-radius: 4px;
+  transition: background .15s;
+  cursor: text;
+}
+.card p[contenteditable]:hover, .card li[contenteditable]:hover,
+.hl p[contenteditable]:hover, .hl li[contenteditable]:hover,
+.topic-subtitle[contenteditable]:hover {
+  background: rgba(255,255,255,0.04);
+}
+.card p[contenteditable]:focus, .card li[contenteditable]:focus,
+.hl p[contenteditable]:focus, .hl li[contenteditable]:focus,
+.topic-subtitle[contenteditable]:focus {
+  outline: 1px solid rgba(91,141,238,0.3);
+  background: rgba(91,141,238,0.05);
+  padding: 2px 4px;
+}
 .reset-btn {
   position: absolute; top: 10px; right: 86px;
   font-size: 11px; font-weight: 500;
@@ -1224,24 +1243,63 @@ document.addEventListener('keydown', e => {
 
 buildNav('html');
 
-// Kod bloklarını düzenlenebilir yap ve sıfırlama butonu ekle
-document.querySelectorAll('.code-wrap').forEach(wrap => {
+// ── KOD BLOKLARI: düzenlenebilir + localStorage ──
+document.querySelectorAll('.code-wrap').forEach((wrap, i) => {
   const pre = wrap.querySelector('.code-block');
   const runBtn = wrap.querySelector('.run-btn');
   if (!pre) return;
 
+  const key = 'code_' + i;
+  const original = pre.textContent;
+
+  // Kaydedilmiş içerik varsa yükle
+  const saved = localStorage.getItem(key);
+  if (saved) pre.textContent = saved;
+
   pre.setAttribute('contenteditable', 'true');
   pre.setAttribute('spellcheck', 'false');
-  const original = pre.textContent;
+
+  // Değişince kaydet
+  pre.addEventListener('input', () => {
+    localStorage.setItem(key, pre.textContent);
+  });
 
   if (runBtn) {
     const resetBtn = document.createElement('button');
     resetBtn.className = 'reset-btn';
     resetBtn.textContent = '↺';
     resetBtn.title = 'Sıfırla';
-    resetBtn.onclick = () => { pre.textContent = original; };
+    resetBtn.onclick = () => {
+      pre.textContent = original;
+      localStorage.removeItem(key);
+    };
     wrap.appendChild(resetBtn);
   }
+});
+
+// ── NOT METİNLERİ: düzenlenebilir + localStorage ──
+// p, li, strong gibi içerikleri değil; doğrudan kart ve highlight içindeki p'leri hedefle
+document.querySelectorAll('.card p, .card li, .hl p, .hl li, .topic-subtitle').forEach((el, i) => {
+  const key = 'note_' + i;
+  const original = el.innerHTML;
+
+  const saved = localStorage.getItem(key);
+  if (saved) el.innerHTML = saved;
+
+  el.setAttribute('contenteditable', 'true');
+  el.setAttribute('spellcheck', 'false');
+
+  el.addEventListener('input', () => {
+    localStorage.setItem(key, el.innerHTML);
+  });
+
+  // Çift tıklayınca sıfırla
+  el.addEventListener('dblclick', (e) => {
+    if (e.altKey) {
+      el.innerHTML = original;
+      localStorage.removeItem(key);
+    }
+  });
 });
 </script>
 </body>
