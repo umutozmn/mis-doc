@@ -275,6 +275,21 @@ code {
   white-space: nowrap;
 }
 .run-btn:hover { background: rgba(91,141,238,0.25); }
+.code-block:focus { outline: 1px solid rgba(91,141,238,0.4); background: #1a1a22; }
+.reset-btn {
+  position: absolute; top: 10px; right: 86px;
+  font-size: 11px; font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 5px 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.reset-btn:hover { background: var(--bg3); color: var(--text); }
 
 /* ── STEP ITEMS ── */
 .step-item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; }
@@ -1208,6 +1223,26 @@ document.addEventListener('keydown', e => {
 });
 
 buildNav('html');
+
+// Kod bloklarını düzenlenebilir yap ve sıfırlama butonu ekle
+document.querySelectorAll('.code-wrap').forEach(wrap => {
+  const pre = wrap.querySelector('.code-block');
+  const runBtn = wrap.querySelector('.run-btn');
+  if (!pre) return;
+
+  pre.setAttribute('contenteditable', 'true');
+  pre.setAttribute('spellcheck', 'false');
+  const original = pre.textContent;
+
+  if (runBtn) {
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'reset-btn';
+    resetBtn.textContent = '↺';
+    resetBtn.title = 'Sıfırla';
+    resetBtn.onclick = () => { pre.textContent = original; };
+    wrap.appendChild(resetBtn);
+  }
+});
 </script>
 </body>
 </html>
