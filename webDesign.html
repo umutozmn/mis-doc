@@ -363,6 +363,97 @@ tr:last-child td { border-bottom: none; }
   .hamburger { display: block; }
   .section-wrap { padding: 20px 20px 60px; }
 }
+
+/* ── SEARCH ── */
+.search-wrap {
+  padding: 10px 14px 12px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.search-box {
+  position: relative;
+}
+.search-icon {
+  position: absolute; left: 10px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px; color: var(--muted);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 7px 32px 7px 30px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s;
+}
+.search-input::placeholder { color: var(--muted); }
+.search-input:focus { border-color: rgba(91,141,238,0.5); }
+.search-clear {
+  position: absolute; right: 8px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: var(--muted); font-size: 14px;
+  cursor: pointer; padding: 2px 4px;
+  display: none;
+  line-height: 1;
+}
+.search-clear.visible { display: block; }
+
+.search-results {
+  display: none;
+  flex-direction: column;
+  padding: 6px 0 4px;
+}
+.search-results.open { display: flex; }
+
+.search-result-item {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 1px 4px;
+  transition: background .12s;
+}
+.search-result-item:hover { background: var(--bg3); }
+
+.sri-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sri-meta {
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--muted);
+}
+.sri-snippet {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sri-snippet mark {
+  background: rgba(245,196,0,0.25);
+  color: #f5c400;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.search-no-result {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  display: none;
+}
+.search-no-result.visible { display: block; }
 </style>
 </head>
 <body>
@@ -381,6 +472,17 @@ tr:last-child td { border-bottom: none; }
       <button class="lang-tab" data-lang="js" onclick="switchLang('js', this)">JS</button>
     </div>
   </div>
+  <!-- SEARCH -->
+  <div class="search-wrap" id="searchWrap">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input class="search-input" id="searchInput" type="text" placeholder="Konu veya etiket ara..." autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-no-result" id="searchNoResult">Sonuç bulunamadı.</div>
+  </div>
+
   <nav class="sidebar-nav" id="sidebarNav"></nav>
 </aside>
 
@@ -1525,8 +1627,129 @@ function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
 }
 
+// ── ARAMA İNDEKSİ ──
+// Her kayıt: { id, lang, label, keywords }
+// keywords: o sayfada geçen önemli terimler — bunlar aranacak
+const SEARCH_INDEX = [
+  { id:'html_tanitim',    lang:'html', label:'HTML Tanıtım',
+    keywords:'doctype html head body br hr nested boş element link anchor href img temel yapı' },
+  { id:'html_elementler', lang:'html', label:'Elements & Öznitelikler',
+    keywords:'attribute öznitelik style lang title favicon icon yorum comment' },
+  { id:'html_styles',     lang:'html', label:'HTML Styles',
+    keywords:'background-color color font-family font-size text-align external internal inline css margin padding border background-image background-repeat background-attachment' },
+  { id:'html_text',       lang:'html', label:'Text Formatting',
+    keywords:'b strong i em italic bold mark small del ins sub sup subscript superscript kalın eğik silinen eklenen alt üst simge' },
+  { id:'html_quotations', lang:'html', label:'Quotations',
+    keywords:'blockquote q abbr bdo alıntı kısaltma yön rtl ltr' },
+  { id:'html_colors',     lang:'html', label:'Colors',
+    keywords:'rgb hex hsl renk color border-color background-color tomato dodger domates' },
+  { id:'html_links',      lang:'html', label:'Links',
+    keywords:'a href target _blank _self mailto mail e-posta link url mutlak göreli bookmark sayfa içi bağlantı anchor' },
+  { id:'html_images',     lang:'html', label:'Images',
+    keywords:'img src alt usemap map area picture source responsive image map tıklanabilir resim harita' },
+  { id:'html_tables',     lang:'html', label:'Tables',
+    keywords:'table tr td th thead tbody tfoot colspan rowspan colgroup col border-collapse padding border-spacing zebra satır tablo' },
+  { id:'html_lists',      lang:'html', label:'Lists',
+    keywords:'ul ol li dl dt dd unordered ordered description liste sıralı sırasız disc circle square type start' },
+  { id:'html_block',      lang:'html', label:'Block & Inline',
+    keywords:'div span header footer nav section article address figure figcaption form fieldset legend label button select option input textarea script block inline semantik semantics erişilebilirlik seo' },
+  { id:'html_classes',    lang:'html', label:'Classes',
+    keywords:'class getElementsByClassName display none javascript gizle for döngü seçici nokta' },
+  { id:'html_forms',      lang:'html', label:'Forms',
+    keywords:'form input text password radio checkbox submit select option textarea button fieldset legend datalist placeholder name action method' },
+  { id:'css_seciciler',   lang:'css',  label:'CSS Seçiciler',
+    keywords:'element id class evrensel universal gruplandırma specificity öncelik sırası inline seçici nokta hash yıldız virgül' },
+];
+
+// ── ARAMA FONKSİYONU ──
+const searchInput  = document.getElementById('searchInput');
+const searchResults= document.getElementById('searchResults');
+const searchNoResult=document.getElementById('searchNoResult');
+const searchClear  = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  searchClear.classList.toggle('visible', q.length > 0);
+
+  if (q.length < 1) {
+    searchResults.classList.remove('open');
+    searchNoResult.classList.remove('visible');
+    document.getElementById('sidebarNav').style.display = '';
+    return;
+  }
+
+  document.getElementById('sidebarNav').style.display = 'none';
+
+  const hits = SEARCH_INDEX.filter(entry =>
+    entry.label.toLowerCase().includes(q) ||
+    entry.keywords.toLowerCase().includes(q)
+  );
+
+  searchResults.innerHTML = '';
+
+  if (hits.length === 0) {
+    searchResults.classList.remove('open');
+    searchNoResult.classList.add('visible');
+    return;
+  }
+
+  searchNoResult.classList.remove('visible');
+  searchResults.classList.add('open');
+
+  hits.forEach(entry => {
+    // Eşleşen keyword snippet bul
+    const words = entry.keywords.split(' ');
+    const matchWord = words.find(w => w.toLowerCase().includes(q));
+    const snippetWords = matchWord
+      ? words.filter(w => w.toLowerCase().includes(q)).slice(0,4).join(' · ')
+      : '';
+    const highlightedSnippet = snippetWords
+      ? snippetWords.replace(new RegExp(`(${q})`, 'gi'), '<mark>$1</mark>')
+      : '';
+
+    const langLabel = { html:'HTML', css:'CSS', js:'JS' }[entry.lang];
+    const langColor = { html:'var(--html)', css:'var(--css)', js:'var(--js)' }[entry.lang];
+
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `
+      <div class="sri-label">${entry.label.replace(new RegExp(`(${q})`, 'gi'), '<mark>$1</mark>')}</div>
+      <div class="sri-meta" style="color:${langColor}">${langLabel}</div>
+      ${highlightedSnippet ? `<div class="sri-snippet">${highlightedSnippet}</div>` : ''}
+    `;
+    item.onclick = () => {
+      // Dili düzgün seç
+      if (entry.lang !== currentLang) {
+        const btn = document.querySelector(`.lang-tab[data-lang="${entry.lang}"]`);
+        switchLang(entry.lang, btn);
+      }
+      showTopic(entry.id, entry.lang);
+      clearSearch();
+    };
+    searchResults.appendChild(item);
+  });
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  searchResults.classList.remove('open');
+  searchResults.innerHTML = '';
+  searchNoResult.classList.remove('visible');
+  document.getElementById('sidebarNav').style.display = '';
+}
+
+// ESC ile arama temizle
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closePreview();
+  if (e.key === 'Escape') {
+    closePreview();
+    clearSearch();
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
 });
 
 buildNav('html');
