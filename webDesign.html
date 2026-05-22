@@ -501,7 +501,6 @@ tr:last-child td { border-bottom: none; }
     <!-- ══ HTML: Tanıtım ══ -->
     <div class="topic-section active" id="html_tanitim" data-lang="html">
       <div class="topic-title">HTML Tanıtım</div>
-      <div class="topic-subtitle">// temel yapı ve boş elementler</div>
 
       <div class="hl hl-info">
         <p><strong>Nested (İç İçe):</strong> HTML elementleri birbirinin içine yerleştirilebilir. Örneğin <code>&lt;body&gt;</code> içinde <code>&lt;p&gt;</code>, onun içinde <code>&lt;strong&gt;</code> olabilir.</p>
@@ -518,6 +517,32 @@ tr:last-child td { border-bottom: none; }
         <div class="step-item"><div class="step-num">2</div><div><p><code>&lt;html&gt;</code> → Tüm sayfanın en dış kabıdır. Başka her şey bu etiketin içine yazılır.</p></div></div>
         <div class="step-item"><div class="step-num">3</div><div><p><code>&lt;head&gt;</code> → Sayfa hakkında meta bilgiler tutar: başlık, dil, favicon, CSS bağlantıları gibi. Kullanıcı bu kısmı görmez.</p></div></div>
         <div class="step-item"><div class="step-num">4</div><div><p><code>&lt;body&gt;</code> → Kullanıcının tarayıcıda gördüğü tüm içerik bu etiketin içine yazılır.</p></div></div>
+      </div>
+
+      <h3>Meta ve Base Etiketleri</h3>
+      <div class="card">
+        <span class="badge b-blue">&lt;meta&gt;</span>
+        <p style="margin-top:8px">Sayfa hakkında görünmeyen ama tarayıcı ve Google için önemli bilgiler veren etikettir. <code>&lt;head&gt;</code> içine yazılır, kapanış etiketi yoktur.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;                    &lt;!-- Türkçe karakter desteği --&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;  &lt;!-- Mobil uyum --&gt;
+  &lt;meta name="description" content="Web tasarım ders notları"&gt;  &lt;!-- Google açıklaması --&gt;
+  &lt;meta name="author" content="Umut"&gt;       &lt;!-- Sayfa yazarı --&gt;
+&lt;/head&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+      <div class="card">
+        <span class="badge b-green">&lt;base&gt;</span>
+        <p style="margin-top:8px">Sayfadaki tüm linkler ve dosyalar için varsayılan bir adres belirler. Bir sayfada sadece bir tane olabilir ve <code>&lt;head&gt;</code> içine yazılır. Tüm göreli URL'ler bu adresten türetilir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;head&gt;
+  &lt;base href="https://www.example.com/resimler/" target="_blank"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Bu link aslında https://www.example.com/resimler/logo.png olarak çalışır --&gt;
+  &lt;img src="logo.png" alt="Logo"&gt;
+
+  &lt;!-- Bu link de https://www.example.com/resimler/hakkimizda.html olarak açılır --&gt;
+  &lt;a href="hakkimizda.html"&gt;Hakkımızda&lt;/a&gt;
+&lt;/body&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
 
       <h3>HTML Linkler</h3>
