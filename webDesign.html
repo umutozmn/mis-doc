@@ -1411,26 +1411,11 @@ tr:last-child td { border-bottom: none; }
 &lt;h2&gt;Bölüm 1&lt;/h2&gt;
 &lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
 
-&lt;h2&gt;Bölüm 2&lt;/h2&gt;
-&lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
-
-&lt;h2&gt;Bölüm 3&lt;/h2&gt;
-&lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
-
 &lt;h2 id="C4"&gt;Bölüm 4&lt;/h2&gt;
 &lt;p&gt;Bölüm 4'ün hedef içerik alanı burasıdır.&lt;/p&gt;
 
-&lt;h2&gt;Bölüm 5&lt;/h2&gt;
-&lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
-
-&lt;h2&gt;Bölüm 6&lt;/h2&gt;
-&lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
-
 &lt;h2 id="C10"&gt;Bölüm 10&lt;/h2&gt;
 &lt;p&gt;Bölüm 10'un hedef içerik alanı burasıdır.&lt;/p&gt;
-
-&lt;h2&gt;Bölüm 11&lt;/h2&gt;
-&lt;p&gt;Bu bölüm içeriği açıklar...&lt;/p&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
@@ -1471,7 +1456,6 @@ tr:last-child td { border-bottom: none; }
 &lt;body&gt;
 
 &lt;h2&gt;HTML Buton Türleri&lt;/h2&gt;
-&lt;p&gt;Gönder (submit) butonu form verilerini sunucuya iletir, sıfırla (reset) butonu ise form alanlarını tamamen temizler.&lt;/p&gt;
 
 &lt;form action="/action_page.php"&gt;
   Adınız: &lt;input type="text" name="fname"&gt;&lt;br&gt;&lt;br&gt;
@@ -1516,6 +1500,51 @@ tr:last-child td { border-bottom: none; }
 &lt;/form&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
 
+      <h3>Method Özelliği</h3>
+      <div class="card">
+        <p><code>method</code> özniteliği, form verilerinin sunucuya nasıl gönderileceğini belirtir. İki temel değeri vardır:</p>
+        <div class="grid2" style="margin-top:10px">
+          <div>
+            <span class="badge b-blue">GET</span>
+            <p style="margin-top:6px">Form verileri URL'nin sonuna eklenerek gönderilir. Adres çubuğunda görünür. Arama formları gibi hassas olmayan veriler için uygundur.</p>
+            <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;form action="/ara" method="get"&gt;
+  &lt;input type="text" name="q"&gt;
+  &lt;input type="submit" value="Ara"&gt;
+&lt;/form&gt;
+&lt;!-- URL: /ara?q=yazilan+metin --&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+          </div>
+          <div>
+            <span class="badge b-green">POST</span>
+            <p style="margin-top:6px">Form verileri URL'de görünmez, arka planda gönderilir. Şifre, kişisel bilgi gibi hassas veriler için kullanılır.</p>
+            <div class="code-wrap" style="margin-top:8px"><pre class="code-block">&lt;form action="/giris" method="post"&gt;
+  &lt;input type="password" name="sifre"&gt;
+  &lt;input type="submit" value="Giriş Yap"&gt;
+&lt;/form&gt;
+&lt;!-- Şifre URL'de görünmez --&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Required (Zorunlu Alan)</h3>
+      <div class="card">
+        <p><code>required</code> özniteliği bir form alanının doldurulmasını zorunlu kılar. Kullanıcı bu alanı boş bırakıp formu göndermeye çalışırsa tarayıcı otomatik uyarı verir ve formu göndermez.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;form action="/gonder"&gt;
+  &lt;label for="ad"&gt;Adınız (zorunlu):&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="ad" name="ad" required&gt;&lt;br&gt;&lt;br&gt;
+
+  &lt;label for="eposta"&gt;E-posta (zorunlu):&lt;/label&gt;&lt;br&gt;
+  &lt;input type="email" id="eposta" name="eposta" required&gt;&lt;br&gt;&lt;br&gt;
+
+  &lt;label for="mesaj"&gt;Mesaj (isteğe bağlı):&lt;/label&gt;&lt;br&gt;
+  &lt;textarea id="mesaj" name="mesaj"&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt;
+
+  &lt;input type="submit" value="Gönder"&gt;
+&lt;/form&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        <div class="hl hl-info" style="margin-top:10px">
+          <p><code>required</code> tek başına yazılır, değer almaz. Boş gönderilmeye çalışılırsa tarayıcı "Lütfen bu alanı doldurun." gibi bir mesaj gösterir.</p>
+        </div>
+      </div>
+
       <h3>Value Özniteliği</h3>
       <div class="card">
         <p><strong>Value:</strong> Form girdilerine varsayılan (başlangıç) bir değer atamak veya butonların üzerinde yazacak metni belirlemek amacıyla kullanılır.</p>
@@ -1527,7 +1556,7 @@ tr:last-child td { border-bottom: none; }
 
       <h3>Readonly Özniteliği</h3>
       <div class="card">
-        <p><strong>Readonly (Salt Okunur):</strong> Uygulandığı form alanını dışarıdan düzenlenemez (değiştirilemez) hale getirir. Kullanıcı metni seçebilir ve kopyalayabilir ancak yeni bir değer yazamaz.</p>
+        <p><strong>Readonly (Salt Okunur):</strong> Uygulandığı form alanını dışarıdan düzenlenemez hale getirir. Kullanıcı metni seçebilir ve kopyalayabilir ancak yeni bir değer yazamaz.</p>
         <div class="code-wrap"><pre class="code-block">&lt;form action="/gonder.php"&gt;
   Kullanıcı ID: &lt;input type="text" name="userid" value="MIS-2026" readonly&gt;&lt;br&gt;&lt;br&gt;
   &lt;input type="submit" value="Kaydet"&gt;
@@ -1537,14 +1566,7 @@ tr:last-child td { border-bottom: none; }
       <h3>Multiple Özniteliği (Çoklu Seçim)</h3>
       <div class="card">
         <p><strong>Multiple:</strong> Kullanıcının <code>&lt;select&gt;</code> listesinden ya da dosya yükleme alanından tek seferde birden fazla seçim yapabilmesine olanak tanır.</p>
-        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-
-&lt;h2&gt;Çoklu Seçime İzin Verme (Multiple)&lt;/h2&gt;
-&lt;p&gt;Kullanıcının birden fazla değer seçebilmesini sağlamak için "multiple" özniteliğini kullanın.&lt;/p&gt;
-
-&lt;form action="/action_page.php"&gt;
+        <div class="code-wrap"><pre class="code-block">&lt;form action="/action_page.php"&gt;
   &lt;label for="cars"&gt;Bir araba seçin:&lt;/label&gt;
   &lt;select id="cars" name="cars" size="4" multiple&gt;
     &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
@@ -1554,11 +1576,7 @@ tr:last-child td { border-bottom: none; }
   &lt;/select&gt;&lt;br&gt;&lt;br&gt;
   &lt;input type="submit" value="Gönder"&gt;
 &lt;/form&gt;
-
-&lt;p&gt;Birden fazla seçenek belirlemek için Ctrl (Windows) / Command (Mac) tuşuna basılı tutun.&lt;/p&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+&lt;p&gt;Birden fazla seçmek için Ctrl (Windows) / Command (Mac) tuşuna basılı tutun.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
 
       <h3>Form Elemanları</h3>
@@ -1603,9 +1621,17 @@ tr:last-child td { border-bottom: none; }
       </div>
     </div>
 
-    <!-- ══ CSS: Seçiciler ══ -->
-    <div class="topic-section" id="css_seciciler" data-lang="css">
-      <div class="topic-title">CSS Seçiciler</div>
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ══             CSS BÖLÜMÜ               ══ -->
+    <!-- ══════════════════════════════════════════ -->
+
+    <!-- ══ CSS: Tanıtım ══ -->
+    <div class="topic-section" id="css_tanitim" data-lang="css">
+      <div class="topic-title">CSS Tanıtım</div>
+
+      <div class="hl hl-info">
+        <p><strong>CSS</strong> — Cascading Style Sheets (Basamaklı Stil Sayfaları) anlamına gelir. HTML ile oluşturulan iskeletin görünümünü, renklerini, yazı tiplerini ve düzenini belirler.</p>
+      </div>
 
       <h3>CSS Yorum Satırı</h3>
       <div class="card">
@@ -1613,8 +1639,13 @@ tr:last-child td { border-bottom: none; }
         <div class="code-wrap"><pre class="code-block">/* Bu bir CSS yorum satırıdır */
 p {
   color: #333; /* Metin rengini belirler */
-}</pre></div>
+}</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
+    </div>
+
+    <!-- ══ CSS: Seçiciler ══ -->
+    <div class="topic-section" id="css_seciciler" data-lang="css">
+      <div class="topic-title">CSS Seçiciler</div>
 
       <div class="card">
         <p><strong>Element Seçici</strong> — Belirtilen etiket türündeki tüm elementleri seçer.</p>
@@ -1643,36 +1674,93 @@ p {
         </div>
       </div>
 
+      <!-- Belirli element + class kombinasyonu -->
+      <div class="card">
+        <p>Yalnızca belirli bir HTML etiketinin o class ile eşleşmesini sağlayabilirsiniz. Örneğin <code>p.center</code> yazarsanız kural sadece <code>&lt;p&gt;</code> elementlerine uygulanır, <code>&lt;h1 class="center"&gt;</code> etkilenmez.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+p.center {
+  text-align: center;
+  color: red;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1 class="center"&gt;Bu başlık etkilenmez&lt;/h1&gt;
+&lt;p class="center"&gt;Bu paragraf kırmızı ve ortalanmış.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <!-- Birden fazla class -->
+      <div class="card">
+        <p>HTML öğeleri aynı anda birden fazla class adı alabilir. Her class ayrı bir özellik seti uygular ve hepsi bir arada çalışır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;style&gt;
+  .red  { color: red; }
+  .big  { font-size: 30px; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;p class="red big"&gt;Merhaba CSS&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
       <div class="card">
         <span class="badge b-amber">Evrensel Seçici (*)</span>
-        <p style="margin-top:8px">Sayfadaki <strong>tüm elementleri</strong> seçer. En çok margin ve padding sıfırlamak için kullanılır. Aşağıdaki örnekte tüm elementlerin varsayılan boşlukları sıfırlanıyor, sonra başlık ve paragraf ayrı ayrı stilleniyor:</p>
-        <div class="code-wrap"><pre class="code-block">&lt;style&gt;
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: sans-serif; background: #f0f4ff; padding: 20px; }
-  h2 { color: #e85d04; margin-bottom: 8px; }
-  p  { color: #333; line-height: 1.6; }
+        <p style="margin-top:8px">Sayfadaki <strong>tüm elementleri</strong> seçer. En çok margin ve padding sıfırlamak için kullanılır.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;style&gt;
+  * {
+    text-align: center;
+    color: red;
+  }
 &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-&lt;h2&gt;Evrensel seçici (*) ile sıfırlandı&lt;/h2&gt;
-&lt;p&gt;Artık tarayıcının varsayılan boşlukları yok. Her şey temiz başlıyor.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+&lt;h1&gt;Başlık 1&lt;/h1&gt;
+&lt;p&gt;Yazı 1&lt;/p&gt;
+&lt;p&gt;Yazı 2&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
 
       <div class="card">
         <span class="badge b-blue">Gruplandırma (,)</span>
         <p style="margin-top:8px">Farklı elementlere aynı stili tek seferde uygulamak için aralarına virgül koyulur. Kod tekrarını önler.</p>
-        <div class="code-wrap"><pre class="code-block">&lt;style&gt;
-  h1, h2, p {
-    font-family: Georgia, serif;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
-  h1 { font-size: 28px; border-bottom: 2px solid #e85d04; }
-  h2 { font-size: 20px; color: #e85d04; }
-&lt;/style>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+h1, h2, p {
+  text-align: center;
+  color: red;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-&lt;h1&gt;Ana Başlık&lt;/h1&gt;
-&lt;h2&gt;Alt Başlık&lt;/h2&gt;
-&lt;p&gt;Üçü de aynı font ve renk ailesine ait, ama boyutları farklı.&lt;/p&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+&lt;h1&gt;Hello World!&lt;/h1&gt;
+&lt;h2&gt;Smaller heading!&lt;/h2&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
 
       <h3>Öncelik Sırası (Specificity)</h3>
@@ -1718,9 +1806,116 @@ p {
       </div>
     </div>
 
-    <!-- ══ JS: Giriş ve Tanıtım ══ -->
-    <div class="topic-section" id="js_coming" data-lang="js">
+    <!-- ══ CSS: Margins ══ -->
+    <div class="topic-section" id="css_margins" data-lang="css">
+      <div class="topic-title">Margins (Dış Boşluklar)</div>
+
+      <div class="hl hl-info"><p><strong>Margin</strong>, bir elementin <strong>dışında</strong> kalan boşluktur. Komşu elementlerle arasındaki mesafeyi belirler. Arka plan rengi veya kenarlık almaz.</p></div>
+
+      <div class="card">
+        <p>Her yön ayrı ayrı belirtilebilir:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+div {
+  border: 1px solid black; /* kutunun kenarlığı */
+  margin-top: 100px;       /* üst boşluk */
+  margin-right: 150px;     /* sağ boşluk */
+  margin-bottom: 100px;    /* alt boşluk */
+  margin-left: 80px;       /* sol boşluk */
+  background-color: lightblue;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Margin (Dış Boşluk) Örneği&lt;/h2&gt;
+&lt;div&gt;
+  Bu kutunun etrafında boşluklar var.
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <div class="hl hl-info">
+        <p><strong>Kısaltma gösterimi:</strong> <code>margin: 25px 50px 75px 100px;</code> şeklinde de yazılabilir.</p>
+        <p style="margin-top:6px">Sıralama: <strong>top → right → bottom → left</strong> (saat yönü ile)</p>
+      </div>
+    </div>
+
+    <!-- ══ CSS: Padding ══ -->
+    <div class="topic-section" id="css_padding" data-lang="css">
+      <div class="topic-title">Padding (İç Boşluklar)</div>
+
+      <div class="hl hl-info"><p><strong>Padding</strong>, bir elementin <strong>içinde</strong> kalan boşluktur. İçerik ile kenarlık (border) arasındaki mesafeyi belirler. Arka plan rengi alır.</p></div>
+
+      <div class="card">
+        <p>Her yön ayrı ayrı belirtilebilir:</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+div {
+  border: 1px solid black;
+  background-color: lightblue;
+
+  padding-top: 50px;    /* üst iç boşluk */
+  padding-right: 30px;  /* sağ iç boşluk */
+  padding-bottom: 50px; /* alt iç boşluk */
+  padding-left: 80px;   /* sol iç boşluk */
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Padding (İç Boşluk) Örneği&lt;/h2&gt;
+&lt;div&gt;
+  Bu yazı kutunun kenarlarına yapışmaz, içerde boşluk vardır.
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+    <!-- ══ CSS: Text ══ -->
+    <div class="topic-section" id="css_text" data-lang="css">
+      <div class="topic-title">CSS Text</div>
+
+      <div class="hl hl-info"><p>CSS ile metinlerin hizalaması, girintisi, harf aralığı ve dikey konumu ayrıntılı şekilde kontrol edilebilir.</p></div>
+
+      <h3>Text Özellikleri</h3>
+      <div class="card">
+        <p><strong>text-align-last</strong> — Bir paragraftaki son satırın yatay hizasını belirler. <code>left</code>, <code>right</code>, <code>center</code>, <code>justify</code> değerleri alabilir.</p>
+      </div>
+
+      <div class="card">
+        <p><strong>vertical-align</strong> — Bir öğeyi satır içinde dikey olarak üst (<code>top</code>), orta (<code>middle</code>) veya alt (<code>bottom</code>) hizaya yerleştirir. Genellikle görseller ve satır içi elementlerle kullanılır.</p>
+      </div>
+
+      <div class="card">
+        <p><strong>text-indent</strong> — Paragrafın ilk satırının soldan girintisini belirler. Piksel veya em cinsinden değer alır.</p>
+      </div>
+
+      <div class="card">
+        <p><strong>letter-spacing</strong> — Harfler arasındaki boşluğu belirler. Pozitif değer harfleri açar, negatif değer harfleri sıkıştırır.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ══          JAVASCRIPT BÖLÜMÜ           ══ -->
+    <!-- ══════════════════════════════════════════ -->
+
+    <!-- ══ JS: Tanıtım ══ -->
+    <div class="topic-section" id="js_tanitim" data-lang="js">
       <div class="topic-title">JavaScript Tanıtım</div>
+
+      <div class="hl hl-info">
+        <p>JavaScript hem <strong>tek tırnak</strong> (<code>'</code>) hem de <strong>çift tırnak</strong> (<code>"</code>) kabul eder. İkisi de geçerlidir.</p>
+        <p style="margin-top:8px">Script kodları hem <code>&lt;body&gt;</code> içine hem de <code>&lt;head&gt;</code> içine yazılabilir. Genellikle <code>&lt;/body&gt;</code> kapanmadan hemen önce yazılır.</p>
+      </div>
 
       <h3>JavaScript Yorum Satırı</h3>
       <div class="card">
@@ -1738,30 +1933,445 @@ p {
 console.log("Çalışacak kod alanı");</pre></div>
       </div>
 
-      <h3>JavaScript ile HTML İçeriğini Değiştirme</h3>
+      <h3>Script Etiketi</h3>
       <div class="card">
-        <p>JavaScript, HTML dökümanındaki elementlere erişerek onların içeriklerini, stillerini veya özniteliklerini dinamik olarak değiştirebilir.</p>
+        <p>HTML'de JS kodlarını <code>&lt;script&gt;</code> etiketinin içine yazarız.</p>
+        <ul>
+          <li><strong>getElementById()</strong> — Sayfadaki bir elementi ID'siyle bulur.</li>
+          <li><strong>innerHTML</strong> — ID'si alınan HTML elementinin içeriğine girer ve değiştirir.</li>
+        </ul>
+      </div>
+
+      <h3>Basit Örnek</h3>
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;p id="js"&gt;JS Deneme Yazısı&lt;/p&gt;
+
+&lt;button type="button"
+  onclick='document.getElementById("js").innerHTML = "Hello JavaScript"'&gt;
+  Tıkla
+&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>External JS (Harici Dosya) Kullanımı</h3>
+      <div class="card">
+        <p>Aynı örneğin JS kodunu ayrı bir <code>.js</code> dosyasına taşıyarak yapılan hali:</p>
+        <p style="margin-top:10px"><strong>HTML Kodu:</strong></p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;p id="js"&gt;JS Deneme Yazısı&lt;/p&gt;
+
+&lt;button type="button" onclick="degistir()"&gt;Değiştir&lt;/button&gt;
+
+&lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        <p style="margin-top:12px"><strong>JS Kodu (script.js):</strong></p>
+        <div class="code-wrap"><pre class="code-block">function degistir(){
+  document.getElementById("js").innerHTML = "Selamun Aleyküm";
+}</pre></div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Veri Gösterme ══ -->
+    <div class="topic-section" id="js_veri" data-lang="js">
+      <div class="topic-title">Veri Gösterme Yöntemleri</div>
+
+      <div class="hl hl-info">
+        <p>JavaScript'te çıktı almak için dört farklı yöntem vardır:</p>
+        <ul style="margin-top:8px; padding-left:18px;">
+          <li>HTML elemanın içine yazdırma: <code>innerHTML</code> veya <code>innerText</code></li>
+          <li>HTML çıktısına yazdırma: <code>document.write()</code></li>
+          <li>Uyarı kutusu ile yazdırma: <code>window.alert()</code></li>
+          <li>Tarayıcı konsoluna yazma: <code>console.log()</code></li>
+        </ul>
+      </div>
+
+      <h3>innerHTML Kullanımı</h3>
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;p id="demo"&gt;&lt;/p&gt;
+
+  &lt;script&gt;
+    demo.innerHTML = "Merhaba Dünya";
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>innerText Kullanımı</h3>
+      <div class="card">
+        <p><code>innerText</code>'in <code>innerHTML</code>'den tek farkı: içine yazılan HTML etiketlerini <strong>işlemez, olduğu gibi yazar</strong>.</p>
+        <div class="hl hl-info" style="margin-top:10px">
+          <p><code>innerHTML = "&lt;b&gt;Selam&lt;/b&gt;"</code> → <strong>Selam</strong> (kalın görünür)<br>
+          <code>innerText = "&lt;b&gt;Selam&lt;/b&gt;"</code> → &lt;b&gt;Selam&lt;/b&gt; (etiket olduğu gibi yazılır)</p>
+        </div>
+      </div>
+
+      <h3>document.write() Kullanımı</h3>
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;script&gt;
+    document.write(5 + 8);
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+        <div class="hl hl-warn" style="margin-top:10px">
+          <p><strong>Dikkat:</strong> <code>document.write()</code> sayfa yüklendikten sonra çalışırsa sayfadaki tüm içeriği siler ve sadece yeni değeri yazar. Aşağıdaki örnekte butona basıldığında h2 ve p kaybolur:</p>
+        </div>
+        <div class="code-wrap"><pre class="code-block">&lt;h2&gt;My First Web Page&lt;/h2&gt;
+&lt;p&gt;My first paragraph.&lt;/p&gt;
+
+&lt;button type="button" onclick="document.write(5 + 6)"&gt;Try it&lt;/button&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>window.alert() Kullanımı</h3>
+      <div class="card">
+        <p><code>window</code> kelimesini yazmak zorunlu değildir. Sadece <code>alert()</code> de çalışır.</p>
         <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;body&gt;
 
-&lt;h2&gt;Metni Değiştirmek İçin JavaScript Kullanımı&lt;/h2&gt;
-&lt;p&gt;Bu örnek, id="demo" olan bir HTML elementinin içerisine "Merhaba JavaScript!" metnini yazar:&lt;/p&gt;
+&lt;h2&gt;My First Web Page&lt;/h2&gt;
+&lt;p&gt;My first paragraph.&lt;/p&gt;
 
+&lt;script&gt;
+  window.alert(5 + 6);
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>console.log() Kullanımı</h3>
+      <div class="card">
+        <p>Hata ayıklama (debugging) amacıyla tarayıcının geliştirici konsoluna veri yazmak için kullanılır.</p>
+        <div class="hl hl-info">
+          <p>Chrome'da <strong>F12</strong> tuşuna bas → Console sekmesine geç → çıktıyı gör.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Değişkenler ══ -->
+    <div class="topic-section" id="js_degiskenler" data-lang="js">
+      <div class="topic-title">JS Sözdizimleri &amp; Değişkenler</div>
+
+      <div class="hl hl-info">
+        <p><strong>Literals (Sabit Değerler):</strong> Kodun içine direkt yazılan sabit değerler. Örn: <code>5</code>, <code>"Merhaba"</code></p>
+        <p style="margin-top:6px"><strong>Variables (Değişken Değerler):</strong> Değişebilen, isimle saklanan veriler.</p>
+      </div>
+
+      <h3>let ve const</h3>
+      <div class="grid2">
+        <div class="card">
+          <span class="badge b-blue">let</span>
+          <p style="margin-top:8px">Değeri <strong>değiştirilebilir</strong> değişken oluşturur.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">let x = 10;
+x = 20; // geçerli ✓</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-green">const</span>
+          <p style="margin-top:8px"><strong>Sabit</strong> değişken oluşturur. Bir kez atanan değer değiştirilemez.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">const y = 10;
+y = 20; // HATA! ✗</pre></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="badge b-amber">var</span>
+        <p style="margin-top:8px">Eski yöntemdir. Günümüzde <strong>önerilmez</strong>. Yerine <code>let</code> veya <code>const</code> kullanın.</p>
+      </div>
+    </div>
+
+    <!-- ══ JS: If ══ -->
+    <div class="topic-section" id="js_if" data-lang="js">
+      <div class="topic-title">JS if</div>
+
+      <div class="hl hl-info"><p><code>if</code> koşul doğruysa ilgili blok çalışır. Aksi hâlde <code>else</code> bloğu devreye girer.</p></div>
+
+      <h3>if Kullanımı</h3>
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;JavaScript if&lt;/h1&gt;
 &lt;p id="demo"&gt;&lt;/p&gt;
 
 &lt;script&gt;
-// document.getElementById() metodu belirtilen ID'ye ait elementi yakalar.
-// .innerHTML özelliği ise o elementin içerisindeki HTML/metin yapısını günceller.
-document.getElementById("demo").innerHTML = "Merhaba JavaScript!";
-&lt;/script&gt; 
+let age = 18;
+let text = "You can Not drive!";
+
+if (age &gt;= 18) {
+  text = "You can drive!";
+}
+
+document.getElementById("demo").innerHTML = text;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>Ternary Operator (Üçlü Operatör)</h3>
+      <div class="card">
+        <p>if-else bloğunun tek satırda yazılan kısa halidir: <code>koşul ? doğruysa : yanlışsa</code></p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;JavaScript Ternary Operator&lt;/h1&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+let age = 16;
+let text = (age &lt; 18) ? "Minor" : "Adult";
+
+document.getElementById("demo").innerHTML = text;
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Switch ══ -->
+    <div class="topic-section" id="js_switch" data-lang="js">
+      <div class="topic-title">Switch Case</div>
+
+      <div class="hl hl-info"><p><code>switch</code>, bir değişkenin farklı değerlere göre farklı işlemler yapmasını sağlar. Her <code>case</code>'in sonunda <code>break</code> yazılmazsa alt case'lere de geçer.</p></div>
+
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;JavaScript Control Flow&lt;/h1&gt;
+&lt;h2&gt;The switch Statement&lt;/h2&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+let day;
+let date = new Date().getDay();
+
+switch (date) {
+  case 0: day = "Sunday";    break;
+  case 1: day = "Monday";    break;
+  case 2: day = "Tuesday";   break;
+  case 3: day = "Wednesday"; break;
+  case 4: day = "Thursday";  break;
+  case 5: day = "Friday";    break;
+  case 6: day = "Saturday";
+}
+
+document.getElementById("demo").innerHTML = "Today is " + day;
+&lt;/script&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
 
-  </div>
+    <!-- ══ JS: Prompt & Confirm ══ -->
+    <div class="topic-section" id="js_prompt" data-lang="js">
+      <div class="topic-title">Prompt &amp; Confirm</div>
+
+      <h3>prompt()</h3>
+      <div class="card">
+        <p>Kullanıcıdan metin girişi almak için kullanılır. Girilen değer bir değişkene atanabilir.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    var giris = prompt("Lütfen isminizi giriniz");
+    alert(giris);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+
+      <h3>confirm()</h3>
+      <div class="card">
+        <p>Kullanıcıya "Tamam" veya "İptal" seçeneği sunar. Tamam'a basılırsa <code>true</code>, İptal'e basılırsa <code>false</code> döner.</p>
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    var giris = confirm("Tamam veya İptal'e basınız");
+    if (giris) {
+      document.write("Tamam'a bastınız");
+    } else {
+      document.write("İptal'e bastınız");
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Objeler ══ -->
+    <div class="topic-section" id="js_objeler" data-lang="js">
+      <div class="topic-title">Objeler</div>
+
+      <div class="hl hl-info"><p>Objeler, birden fazla özelliği (property) tek bir değişkende toplamak için kullanılır. <code>anahtar: değer</code> çiftlerinden oluşur. Özelliklere nokta (<code>.</code>) veya köşeli parantez (<code>[]</code>) ile ulaşılır.</p></div>
+
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    var insan1 = {
+      isim: "Gülçin",
+      yas: 35,
+      gozrengi: "ela"
+    };
+
+    document.write(insan1.isim);               // nokta ile erişim
+    document.write(insan1['isim'].length);     // köşeli parantez + uzunluk
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Diziler ══ -->
+    <div class="topic-section" id="js_diziler" data-lang="js">
+      <div class="topic-title">Diziler</div>
+
+      <div class="hl hl-info"><p>Dizi (Array), birden fazla değeri sıralı biçimde tutan bir veri yapısıdır. Elemanlara sıfırdan başlayan indeks numarasıyla erişilir.</p></div>
+
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    // Yöntem 1: new Array() ile elemanları vererek
+    var dizi = new Array("elma", "armut", "portakal");
+    document.write(dizi[1]);  // armut
+
+    // Yöntem 2: boyutu belirleyip sonra atama
+    var dizi2 = new Array(3);
+    dizi2[0] = "elma";
+    dizi2[1] = "armut";
+    dizi2[2] = "portakal";
+    document.write(dizi2);
+
+    // Yöntem 3: boş dizi, dinamik ekleme
+    var dizi3 = new Array();
+    dizi3[0] = "elma";
+    dizi3[1] = "armut";
+    dizi3[2] = "portakal";
+    document.write(dizi3.length);  // 3
+
+    // İki diziyi birleştirme (concat)
+    var takim1 = ["gs", "fb"];
+    var takim2 = ["bjk", "ds"];
+    var takimlar = takim1.concat(takim2);
+    document.write(takimlar);  // gs,fb,bjk,ds
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Math ══ -->
+    <div class="topic-section" id="js_math" data-lang="js">
+      <div class="topic-title">Matematiksel Operatörler</div>
+
+      <div class="hl hl-info"><p>JavaScript'te matematiksel işlemler için <code>Math</code> nesnesi kullanılır.</p></div>
+
+      <div class="grid2">
+        <div class="card">
+          <span class="badge b-blue">Math.abs()</span>
+          <p style="margin-top:8px"><strong>Mutlak değer.</strong> Negatif sayıyı pozitife çevirir.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.abs(-5)  // → 5</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.floor()</span>
+          <p style="margin-top:8px"><strong>Aşağı yuvarlar.</strong> Ondalıklı sayıyı küçük tam sayıya indirir.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.floor(4.9)  // → 4</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.ceil()</span>
+          <p style="margin-top:8px"><strong>Yukarı yuvarlar.</strong> Ondalıklı sayıyı büyük tam sayıya çıkarır.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.ceil(4.1)  // → 5</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.round()</span>
+          <p style="margin-top:8px"><strong>Normal yuvarlama.</strong> 4.5 → 5 yapar.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.round(4.5)  // → 5</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.pow()</span>
+          <p style="margin-top:8px"><strong>Üs alır.</strong> İlk parametre taban, ikinci parametre üs.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.pow(2, 3)  // → 8</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.max()</span>
+          <p style="margin-top:8px"><strong>En büyük sayıyı</strong> döndürür.</p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.max(3, 7, 1)  // → 7</pre></div>
+        </div>
+        <div class="card">
+          <span class="badge b-blue">Math.sqrt()</span>
+          <p style="margin-top:8px"><strong>Karekök alır.</strong></p>
+          <div class="code-wrap" style="margin-top:8px"><pre class="code-block">Math.sqrt(16)  // → 4</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ JS: Date ══ -->
+    <div class="topic-section" id="js_date" data-lang="js">
+      <div class="topic-title">Date</div>
+
+      <div class="hl hl-info"><p><code>new Date()</code> ile anlık tarih ve saat bilgisi alınır. <code>getHours()</code>, <code>getMinutes()</code>, <code>getSeconds()</code> gibi metodlarla parçalara ayrılır.</p></div>
+
+      <div class="card">
+        <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    function saat() {
+      var tarih   = new Date();
+      var saat    = tarih.getHours();
+      var dakika  = tarih.getMinutes();
+      var saniye  = tarih.getSeconds();
+      document.write(saat + " " + dakika + " " + saniye);
+    }
+    saat();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+      </div>
+    </div>
+
+  </div><!-- /section-wrap -->
 </main>
 </div>
 
@@ -1798,10 +2408,23 @@ const TOPICS = {
     { id: 'html_forms',     label: 'Forms' },
   ],
   css: [
+    { id: 'css_tanitim',   label: 'Tanıtım' },
     { id: 'css_seciciler', label: 'Seçiciler' },
+    { id: 'css_margins',   label: 'Margins' },
+    { id: 'css_padding',   label: 'Padding' },
+    { id: 'css_text',      label: 'Text' },
   ],
   js: [
-    { id: 'js_coming', label: 'JavaScript Tanıtım' },
+    { id: 'js_tanitim',    label: 'JavaScript Tanıtım' },
+    { id: 'js_veri',       label: 'Veri Gösterme' },
+    { id: 'js_degiskenler',label: 'Değişkenler' },
+    { id: 'js_if',         label: 'if / Ternary' },
+    { id: 'js_switch',     label: 'Switch Case' },
+    { id: 'js_prompt',     label: 'Prompt & Confirm' },
+    { id: 'js_objeler',    label: 'Objeler' },
+    { id: 'js_diziler',    label: 'Diziler' },
+    { id: 'js_math',       label: 'Math Operatörleri' },
+    { id: 'js_date',       label: 'Date' },
   ]
 };
 
@@ -1906,16 +2529,29 @@ const SEARCH_INDEX = [
   { id:'html_classes',    lang:'html', label:'Classes', keywords:'class getElementsByClassName display none javascript gizle for döngü seçici nokta multiple sınıflar çoklu' },
   { id:'html_id',         lang:'html', label:'ID', keywords:'id unique benzersiz bookmark yer imi sayfa içi gezinti jump' },
   { id:'html_button',     lang:'html', label:'Button', keywords:'button buton tıklanabilir submit reset onclick javascript form sıfırla gönder' },
-  { id:'html_forms',      lang:'html', label:'Forms', keywords:'form input text password radio checkbox submit select option textarea button fieldset legend datalist placeholder name action method value readonly multiple salt okunur' },
-  { id:'css_seciciler',   lang:'css',  label:'CSS Seçiciler', keywords:'element id class evrensel universal gruplandırma specificity öncelik sırası inline seçici nokta hash yıldız virgül yorum satırı açıklama' },
-  { id:'js_coming',       lang:'js',   label:'JavaScript Tanıtım', keywords:'javascript js innerhtml getelementbyid demo text metin yorum satırı açıklama' },
+  { id:'html_forms',      lang:'html', label:'Forms', keywords:'form input text password radio checkbox submit select option textarea button fieldset legend datalist placeholder name action method value readonly multiple salt okunur get post required zorunlu' },
+  { id:'css_tanitim',     lang:'css',  label:'CSS Tanıtım', keywords:'cascading style sheets basamaklı css nedir tanıtım yorum satırı açıklama' },
+  { id:'css_seciciler',   lang:'css',  label:'CSS Seçiciler', keywords:'element id class evrensel universal gruplandırma specificity öncelik sırası inline seçici nokta hash yıldız virgül' },
+  { id:'css_margins',     lang:'css',  label:'Margins', keywords:'margin dış boşluk top right bottom left kısaltma shorthand' },
+  { id:'css_padding',     lang:'css',  label:'Padding', keywords:'padding iç boşluk top right bottom left' },
+  { id:'css_text',        lang:'css',  label:'Text', keywords:'text-align-last vertical-align text-indent letter-spacing metin hizalama girinti harf aralığı' },
+  { id:'js_tanitim',      lang:'js',   label:'JavaScript Tanıtım', keywords:'javascript js innerhtml getelementbyid script tırnak head body external harici dosya' },
+  { id:'js_veri',         lang:'js',   label:'Veri Gösterme', keywords:'innerhtml innertext document.write alert console.log window veri gösterme çıktı' },
+  { id:'js_degiskenler',  lang:'js',   label:'Değişkenler', keywords:'let const var değişken literals variables sözdizimi' },
+  { id:'js_if',           lang:'js',   label:'if / Ternary', keywords:'if else koşul ternary üçlü operatör age drive' },
+  { id:'js_switch',       lang:'js',   label:'Switch Case', keywords:'switch case break default gün tarih kontrol akışı' },
+  { id:'js_prompt',       lang:'js',   label:'Prompt & Confirm', keywords:'prompt confirm alert kullanıcı giriş onay tamam iptal' },
+  { id:'js_objeler',      lang:'js',   label:'Objeler', keywords:'object obje property özellik nokta köşeli parantez insan isim yas' },
+  { id:'js_diziler',      lang:'js',   label:'Diziler', keywords:'array dizi new array concat length indeks elma armut' },
+  { id:'js_math',         lang:'js',   label:'Math Operatörleri', keywords:'math abs floor ceil round pow max sqrt mutlak yuvarla üs karekök' },
+  { id:'js_date',         lang:'js',   label:'Date', keywords:'date tarih saat dakika saniye gethours getminutes getseconds new date' },
 ];
 
 // ── ARAMA FONKSİYONU ──
-const searchInput  = document.getElementById('searchInput');
-const searchResults= document.getElementById('searchResults');
-const searchNoResult=document.getElementById('searchNoResult');
-const searchClear  = document.getElementById('searchClear');
+const searchInput   = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const searchNoResult= document.getElementById('searchNoResult');
+const searchClear   = document.getElementById('searchClear');
 
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
