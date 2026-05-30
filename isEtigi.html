@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIS Portal | İş Etiği</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --color-background-primary:#fff;
+    --color-background-secondary:#f5f5f3;
+    --color-background-info:#e6f1fb;
+    --color-background-success:#eaf3de;
+    --color-background-warning:#faeeda;
+    --color-background-danger:#fcebeb;
+    --color-text-primary:#1a1a18;
+    --color-text-secondary:#5a5a56;
+    --color-text-tertiary:#9a9a94;
+    --color-text-info:#185fa5;
+    --color-text-success:#3b6d11;
+    --color-text-warning:#854f0b;
+    --color-text-danger:#a32d2d;
+    --color-border-tertiary:rgba(0,0,0,0.1);
+    --color-border-secondary:rgba(0,0,0,0.2);
+    --color-border-primary:rgba(0,0,0,0.3);
+    --color-border-info:#85b7eb;
+    --font-sans:system-ui,-apple-system,sans-serif;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --color-background-primary:#1e1e1c;
+      --color-background-secondary:#2a2a28;
+      --color-background-info:#042c53;
+      --color-background-success:#173404;
+      --color-background-warning:#412402;
+      --color-background-danger:#501313;
+      --color-text-primary:#e8e8e2;
+      --color-text-secondary:#a8a89e;
+      --color-text-tertiary:#68685e;
+      --color-text-info:#85b7eb;
+      --color-text-success:#97c459;
+      --color-text-warning:#ef9f27;
+      --color-text-danger:#f09595;
+      --color-border-tertiary:rgba(255,255,255,0.1);
+      --color-border-secondary:rgba(255,255,255,0.2);
+      --color-border-primary:rgba(255,255,255,0.3);
+      --color-border-info:#185fa5;
+    }
+  }
+  body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);min-height:100vh}
+  .page{padding:24px 20px;max-width:720px;margin:0 auto}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+  .nav button{font-size:12px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+  .nav button.active,.nav button:hover{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+  .section{display:none}.section.active{display:block}
+  h2{font-size:20px;font-weight:600;margin-bottom:16px;color:var(--color-text-primary);border-bottom:1px solid var(--color-border-tertiary);padding-bottom:8px}
+  h3{font-size:15px;font-weight:600;margin:20px 0 10px;color:var(--color-text-primary);text-transform:uppercase;letter-spacing:0.05em}
+  p,li{font-size:14px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:8px}
+  ul{padding-left:18px;margin:8px 0}
+  .card{background:var(--color-background-secondary);border-radius:12px;padding:14px 16px;margin-bottom:12px;border:0.5px solid var(--color-border-tertiary)}
+  .badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;margin:2px}
+  .b-blue{background:var(--color-background-info);color:var(--color-text-info)}
+  .b-green{background:var(--color-background-success);color:var(--color-text-success)}
+  .b-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .b-red{background:var(--color-background-danger);color:var(--color-text-danger)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .highlight-box{border-left:3px solid var(--color-border-info);padding:10px 14px;background:var(--color-background-info);border-radius:0 8px 8px 0;margin:10px 0}
+  .highlight-box p{color:var(--color-text-info);font-size:13px;margin-bottom:0}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;border-radius:8px;overflow:hidden}
+  th{text-align:left;padding:10px;background:var(--color-background-secondary);font-weight:600;color:var(--color-text-primary);border-bottom:1px solid var(--color-border-secondary)}
+  td{padding:10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+  .step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;border:0.5px solid transparent;transition:0.2s}
+  .step-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;background:var(--color-background-info);color:var(--color-text-info)}
+  .eng-term{font-style:italic;color:var(--color-text-tertiary);font-size:12px;cursor:help;border-bottom:1px dotted var(--color-text-tertiary)}
+
+  /* ── Piramit Tasarımı ── */
+  .pyramid-wrap{margin:20px 0 28px;display:flex;flex-direction:column;align-items:center;gap:0}
+  .pyr-level{display:flex;flex-direction:column;align-items:center;width:100%}
+  .pyr-bar{display:flex;align-items:center;justify-content:center;border-radius:6px;padding:10px 18px;font-size:12px;font-weight:600;color:#fff;text-align:center;transition:transform .2s,box-shadow .2s;cursor:default;position:relative;gap:8px}
+  .pyr-bar:hover{transform:scaleY(1.04);box-shadow:0 4px 20px rgba(0,0,0,0.18)}
+  .pyr-bar .pyr-label{font-size:11px;font-weight:400;opacity:0.88;margin-top:2px}
+  .pyr-arrow{color:var(--color-text-tertiary);font-size:16px;line-height:1;margin:2px 0}
+  .pyr-5{width:100%;background:linear-gradient(135deg,#1a7a3c,#22c55e);min-height:54px}
+  .pyr-4{width:83%;background:linear-gradient(135deg,#1d6dad,#3b82f6);min-height:50px}
+  .pyr-3{width:66%;background:linear-gradient(135deg,#7c5e0b,#f59e0b);min-height:48px}
+  .pyr-2{width:49%;background:linear-gradient(135deg,#b45309,#fb923c);min-height:46px}
+  .pyr-1{width:32%;background:linear-gradient(135deg,#991b1b,#ef4444);min-height:44px}
+  .pyr-legend{display:flex;flex-direction:column;gap:6px;margin-top:16px;width:100%}
+  .pyr-legend-item{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--color-text-secondary);padding:6px 10px;border-radius:8px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)}
+  .pyr-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="page">
+<h2 style="font-size:24px;margin-bottom:4px;border:none">İş Etiği</h2>
+<p style="color:var(--color-text-tertiary);margin-bottom:20px">YBS Çalışma Portalı — Umut Not Arşivi</p>
+
+<div class="nav" id="nav">
+  <button class="active" onclick="show('varlik')">🔍 Varlık Sorgusu</button>
+  <button onclick="show('etik-ahlak')">⚖️ Etik ve Ahlak</button>
+  <button onclick="show('tarihsel')">📜 Tarihsel Gelişim</button>
+  <button onclick="show('teoriler')">🧩 Etik Teoriler</button>
+  <button onclick="show('aile')">👨‍👩‍👧 Etik ve Aile</button>
+  <button onclick="show('din')">🕌 Etik ve Din</button>
+  <button onclick="show('piaget')">🧒 Piaget</button>
+  <button onclick="show('kohlberg')">🧠 Kohlberg</button>
+  <button onclick="show('is-etigi')">💼 İş Etiği</button>
+  <button onclick="show('meslek')">🎓 Meslek Etiği</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 1: VARLIK SORGUSU
+══════════════════════════════════════════════ -->
+<div id="varlik" class="section active">
+  <h2>Ünite 1 — Varlık Sorgusu</h2>
+
+  <div class="highlight-box">
+    <p><strong>Ontoloji (Varlık Bilimi):</strong> Bir şeyin ne olduğu ile ilgilenir. Var olan şeylerin temellerini ve aralarındaki bağları sorgular. Aristo, varlık sorgusunu <em>"ilk felsefe"</em> olarak belirtir.</p>
+  </div>
+
+  <h3>Varlık — TDK'ya Göre Anlamları</h3>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div><p style="margin:0">Var olma durumu, mevcudiyet</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div><p style="margin:0">Var olan her şey</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div><p style="margin:0">Para, mal, mülk, zenginlik, variyet</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div><p style="margin:0">Önemli, yararlı şey</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div><p style="margin:0">Ömür, hayat</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">6</div>
+        <div><p style="margin:0">Canlı varlıkların dağılımı</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">7</div>
+        <div><p style="margin:0">Kalıcı olan</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 2: ETİK VE AHLAK
+══════════════════════════════════════════════ -->
+<div id="etik-ahlak" class="section">
+  <h2>Ünite 2 — Etik ve Ahlak Kavramları</h2>
+
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid var(--color-text-info)">
+      <span class="badge b-blue">Etik</span>
+      <ul style="font-size:13px;margin-top:10px">
+        <li>Evrenseldir, yaşam düzeni sağlar</li>
+        <li>Nasıl davranılması gerektiğini düşünür</li>
+        <li>Soyut ve teoriktir</li>
+        <li>Sorgulama temellidir</li>
+        <li>Kaynağı <strong>akıl ve mantıktır</strong></li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--color-text-warning)">
+      <span class="badge b-amber">Ahlak</span>
+      <ul style="font-size:13px;margin-top:10px">
+        <li>Toplumdan topluma değişebilir</li>
+        <li>İnsanların gerçekte nasıl davrandığıdır</li>
+        <li>Somut ve gerçek davranışlardır</li>
+        <li>Davranıştan sonra övgü ya da kınama görülebilir</li>
+        <li>Kaynağı <strong>din, toplum veya geleneklerdir</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--color-text-secondary)">
+    <p style="margin:0"><strong>Ahlakilik:</strong> Ahlakın dayandığı ilkedir.</p>
+  </div>
+
+  <div class="highlight-box" style="border-color:var(--color-text-danger);background:var(--color-background-danger)">
+    <p style="color:var(--color-text-danger)"><strong>⭐ ÖNEMLİ:</strong> Etik, insanların ahlaki davranışlarını inceleyen ve açıklayan teoridir. Temel amacı <strong>kendi ahlakını kendi aklınla yönetmektir.</strong></p>
+  </div>
+
+  <h3>Etiğin Amaçları</h3>
+  <div class="card">
+    <ul style="font-size:13px">
+      <li>İnsan davranışlarının iyi mi kötü mü olduğunu açıklamak</li>
+      <li>İnsanların doğru yanlış konusunda sorgulama yapmasını sağlamak ve mantıklı şekilde açıklayabilmek</li>
+      <li>Ahlakın herkes için önemli olduğunu göstermek</li>
+      <li>İnsana saygı duymasını, insanı sevmeyi öğretmek</li>
+    </ul>
+  </div>
+
+  <h3>Ahlak Felsefesinin 3 Temel Düşüncesi</h3>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card" style="border-left:4px solid #3b82f6">
+      <p><span class="badge b-blue">Betimleyici – Deneysel</span></p>
+      <p style="font-size:13px;margin-top:6px">Ahlak nasıl işler sorusuna bakar.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #10b981">
+      <p><span class="badge b-green">Normatif</span></p>
+      <p style="font-size:13px;margin-top:6px">Ne doğru, ne iyi, ne yapılmalıdır sorularına cevap verir.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #f59e0b">
+      <p><span class="badge b-amber">Analitik – Eleştirel</span></p>
+      <p style="font-size:13px;margin-top:6px">Kavramları ve değerleri sorgular.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 3: TARİHSEL GELİŞİM
+══════════════════════════════════════════════ -->
+<div id="tarihsel" class="section">
+  <h2>Ünite 3 — Ahlak Felsefesinin Tarihsel Gelişimi</h2>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card" style="border-top:3px solid #8b5cf6">
+      <span class="badge" style="background:rgba(139,92,246,0.15);color:#6d28d9">Antik Çağ (Eski)</span>
+      <ul style="font-size:12px;margin-top:8px">
+        <li>Ontoloji disiplini</li>
+        <li>Her şeyin ölçüsü insandır, doğadadır</li>
+        <li>Mutluluk temelli ahlak</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #f59e0b">
+      <span class="badge b-amber">Orta Çağ</span>
+      <ul style="font-size:12px;margin-top:8px">
+        <li>Teoloji ve metafizik</li>
+        <li>Her şeyin ölçüsü tanrıdır</li>
+        <li>Dinsel, tanrı temelli ahlak ve kurallar</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #10b981;grid-column:span 2">
+      <span class="badge b-green">Yeni Çağ</span>
+      <ul style="font-size:12px;margin-top:8px">
+        <li>Epistemoloji</li>
+        <li>Her şeyin ölçüsü akıl ve bilgidir</li>
+        <li>Ampirizm, Rasyonalizm</li>
+        <li>Antropolojik temele dayanıp insan aklı ve bilgisi vurgulanmıştır</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>En Üstün (İdeal) Anlayışlar</h3>
+  <div class="grid2">
+    <div class="card" style="border:1px solid #6366f1;background:rgba(99,102,241,0.04)">
+      <p style="font-weight:700;color:#4338ca;font-size:14px;margin-bottom:4px">Kinik İdeali</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px"><strong>Diogenes</strong></p>
+      <p style="font-size:12px">Sadelik ve masumiyet. Azla yetinmek kısa yoldur, varlıklı olmak ihtiyaçları artırır.</p>
+    </div>
+    <div class="card" style="border:1px solid #10b981;background:rgba(16,185,129,0.04)">
+      <p style="font-weight:700;color:#065f46;font-size:14px;margin-bottom:4px">Epikur İdeali</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px"><strong>Epikuros</strong></p>
+      <p style="font-size:12px">Mutluluk ve güven. Suçlamadan ve iyi geçinerek yaşamak.</p>
+    </div>
+    <div class="card" style="border:1px solid #f59e0b;background:rgba(245,158,11,0.04);grid-column:span 2">
+      <p style="font-weight:700;color:#92400e;font-size:14px;margin-bottom:4px">Stoa İdeali</p>
+      <p style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px"><strong>Zenon</strong></p>
+      <p style="font-size:12px">Erdem ve Ahlak. Akıl ve doğaya uyumlu erdem.</p>
+    </div>
+  </div>
+
+  <h3>Ahlak Felsefesi — Düşünürler</h3>
+
+  <div class="card" style="border-left:4px solid #8b5cf6;margin-bottom:8px">
+    <p style="font-weight:700;color:#6d28d9;margin-bottom:4px">Sokrates → Platon → Aristo</p>
+    <p style="font-size:13px"><strong>Platon:</strong> Fazilet üzerinde durmuştur.</p>
+    <p style="font-size:13px"><strong>Aristo:</strong> Çok yemek – az yemek gibi iki ekstrem arasında ancak fazilet sahibi olunur. Bunun için de akıl gerekir.</p>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="card" style="border-left:4px solid #3b82f6">
+      <p style="font-weight:700;color:var(--color-text-info);margin-bottom:4px">Descartes</p>
+      <ul style="font-size:13px">
+        <li>Farklı olan şey aklını nasıl kullandığındır.</li>
+        <li>Doğru düşünen gerçeğe ve mutluluğa ulaşır.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #ef4444">
+      <p style="font-weight:700;color:var(--color-text-danger);margin-bottom:4px">Hobbes</p>
+      <ul style="font-size:13px">
+        <li>Özgür irade yoktur, herkes aynıdır. Eşittir.</li>
+        <li>Ruh da saçmadır.</li>
+        <li>İnsan toplumsal değildir.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #10b981">
+      <p style="font-weight:700;color:var(--color-text-success);margin-bottom:4px">Spinoza</p>
+      <ul style="font-size:13px">
+        <li>İnsanlar tutkularının etkisindedir.</li>
+        <li>Gerçek özgürlük aklı kullanıp duyguları kontrol edebilmektir.</li>
+        <li>Bunu yaparsan Tanrıyı ve doğayı da o kadar iyi anlarsın.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #f59e0b">
+      <p style="font-weight:700;color:var(--color-text-warning);margin-bottom:4px">Locke</p>
+      <ul style="font-size:13px">
+        <li>Doğuştan doğal haklara sahibiz.</li>
+        <li>Devlet bu haklarımızı korur, adalet getirir.</li>
+        <li>Adalet varsa mutluyuz.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #8b5cf6">
+      <p style="font-weight:700;color:#6d28d9;margin-bottom:4px">Hume</p>
+      <ul style="font-size:13px">
+        <li>İnsanlar benzer duygular yaşar.</li>
+        <li>Ama karakter farklı olduğundan ahlaki anlayışlar da farklıdır.</li>
+        <li>Harekete geçiren duygulardır.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #ec4899">
+      <p style="font-weight:700;color:#9d174d;margin-bottom:4px">Rousseau</p>
+      <ul style="font-size:13px">
+        <li>Özgürlük her şeyi yapmak değildir.</li>
+        <li>İstemediği şeyleri yapmak zorunda kalmamaktır. Köle olmamaktır.</li>
+        <li>Vicdana önem verir. Çünkü akıl çıkar için yanlış şeyleri savunabilir.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 4: ETİK TEORİLER
+══════════════════════════════════════════════ -->
+<div id="teoriler" class="section">
+  <h2>Ünite 4 — Etik Teoriler</h2>
+
+  <h3>İnceleme Alanına Göre</h3>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="card" style="border-left:4px solid #3b82f6">
+      <p><span class="badge b-blue">Normatif Etik</span></p>
+      <p style="font-size:13px;margin-top:6px">Ne yapılması gerekiyor? Doğru ve yanlış davranışlar nasıl olmalı.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #10b981">
+      <p><span class="badge b-green">Betimsel Etik</span></p>
+      <p style="font-size:13px;margin-top:6px">İnsanların gerçekten nasıl düşündüğünü ve davrandığını inceler.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #8b5cf6">
+      <p><span class="badge" style="background:rgba(139,92,246,0.15);color:#6d28d9">Meta Etik</span></p>
+      <p style="font-size:13px;margin-top:6px">Doğru, iyi ve kötü nedir?</p>
+    </div>
+  </div>
+
+  <h3>Amaçlarına Göre Etik Teoriler</h3>
+
+  <div class="card" style="border:1px solid #3b82f6;background:rgba(59,130,246,0.03);margin-bottom:12px">
+    <p style="font-weight:700;color:var(--color-text-info);font-size:14px;margin-bottom:10px">🎯 Teleolojik (Sonuççu) Etik</p>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:12px">Yalan kötüdür çünkü insanların güvenini bozar. <strong>Önemli olan sonuçtur.</strong></p>
+    <div class="grid2">
+      <div class="card" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)">
+        <span class="badge b-amber">Egoizm</span>
+        <p style="font-size:12px;margin-top:6px">Bireysel yararcılık. Kendi çıkarını amaçlar. Doğru olan şey <strong>bana en çok faydası olandır.</strong></p>
+      </div>
+      <div class="card" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)">
+        <span class="badge b-blue">Faydacılık (Utilitarizm)</span>
+        <p style="font-size:12px;margin-top:6px">Çoğunluğa faydalıysa doğrudur.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border:1px solid #10b981;background:rgba(16,185,129,0.03);margin-bottom:12px">
+    <p style="font-weight:700;color:var(--color-text-success);font-size:14px;margin-bottom:10px">📋 Deontolojik (Ödev) Etik</p>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:12px">Yalan kötüdür çünkü ahlaka aykırıdır.</p>
+    <div class="grid2">
+      <div class="card" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)">
+        <span class="badge b-green">Haklar Yaklaşımı</span>
+        <p style="font-size:12px;margin-top:6px">İnsan haklarına önem verir. Temel hak ve özgürlükler.</p>
+      </div>
+      <div class="card" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)">
+        <span class="badge b-green">Adalet Yaklaşımı</span>
+        <p style="font-size:12px;margin-top:6px">Eşitlik ve tarafsızlık.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:4px solid #f59e0b">
+    <span class="badge b-amber">Görecelilik Kavramı</span>
+    <p style="font-size:13px;margin-top:8px">Her toplumun anlayışı farklıdır. Her yerde geçerli tek ahlak kuralı yoktur.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 5: ETİK VE AİLE
+══════════════════════════════════════════════ -->
+<div id="aile" class="section">
+  <h2>Ünite 5 — Etik ve Aile Yapısı</h2>
+
+  <h3>Ailenin Geleneksel İşlevleri</h3>
+  <div class="grid2">
+    <div class="card" style="border-bottom:3px solid #3b82f6">
+      <div style="font-size:20px;margin-bottom:6px">🧬</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Biyolojik</p>
+      <p style="font-size:12px;margin-top:4px">Neslin devamını sağlar.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #10b981">
+      <div style="font-size:20px;margin-bottom:6px">💰</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Ekonomik</p>
+      <p style="font-size:12px;margin-top:4px">İhtiyaçları karşılar.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #f59e0b">
+      <div style="font-size:20px;margin-bottom:6px">🛡️</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Koruyuculuk</p>
+      <p style="font-size:12px;margin-top:4px">Güven ortamı sağlaması.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #ec4899">
+      <div style="font-size:20px;margin-bottom:6px">❤️</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Psikolojik</p>
+      <p style="font-size:12px;margin-top:4px">Sevgi ve destek vermesi.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #8b5cf6">
+      <div style="font-size:20px;margin-bottom:6px">📚</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Eğitim</p>
+      <p style="font-size:12px;margin-top:4px">Ahlak öğretmesi.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #0891b2">
+      <div style="font-size:20px;margin-bottom:6px">🏅</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Statü Sağlama</p>
+      <p style="font-size:12px;margin-top:4px">Toplumdaki yerini belirlemesi.</p>
+    </div>
+    <div class="card" style="border-bottom:3px solid #6366f1;grid-column:span 2">
+      <div style="font-size:20px;margin-bottom:6px">🎉</div>
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">Boş Zaman Değerlendirme</p>
+      <p style="font-size:12px;margin-top:4px">Sosyalleşme.</p>
+    </div>
+  </div>
+
+  <h3>Aile Tipleri</h3>
+  <table>
+    <thead><tr><th>Sınıflandırma</th><th>Tipler</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Büyüklüğüne Göre</strong></td><td>Büyük Aile, Küçük Aile</td></tr>
+      <tr><td><strong>Yönetim Biçimine Göre</strong></td><td>Ataerkil, Anaerkil, Eşitlikçi</td></tr>
+      <tr><td><strong>Yaşadığı Yere Göre</strong></td><td>Kırsal, Gecekondu, Kentsel</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 6: ETİK VE DİN
+══════════════════════════════════════════════ -->
+<div id="din" class="section">
+  <h2>Ünite 6 — Etik ve Din</h2>
+
+  <h3>Dinin İşlevleri</h3>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="card" style="border-left:4px solid #3b82f6">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">🤝 Sosyal Birliktelik</p>
+      <p style="font-size:12px;margin-top:4px">Ortak inanç, değer ve semboller etrafında birleştirir.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #10b981">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">⚖️ Sosyal Kontrol</p>
+      <p style="font-size:12px;margin-top:4px">Kurallara uyulmayı, düzenin korunmasını destekler.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #f59e0b">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">🌟 Anlam ve Amaç</p>
+      <p style="font-size:12px;margin-top:4px">Zor durumlara dayanmaya yardımcı olur.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #8b5cf6">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">🔍 Anlam Arayışı</p>
+      <p style="font-size:12px;margin-top:4px">Hayatın amacı, ölüm gibi sorulara cevap arar.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #ec4899">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">🏆 Ayrıcalıklı Statü</p>
+      <p style="font-size:12px;margin-top:4px">Yer ve kişilere değer verir.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #0891b2">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">✨ Kutsallık Arayışı</p>
+      <p style="font-size:12px;margin-top:4px">Kutsal şeylere yönelik manevi bağ kurmasıdır.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #6366f1">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">📖 İnanç, Uygulamalar ve Değerler Sistemi</p>
+      <p style="font-size:12px;margin-top:4px">Kuralları bir bütün halinde sunması.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #f59e0b">
+      <p style="font-weight:600;font-size:13px;color:var(--color-text-primary)">🕌 Toplu ve Bireysel Ritüeller</p>
+      <p style="font-size:12px;margin-top:4px">İbadetler vb.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;border-color:var(--color-text-secondary)">
+    <p style="color:var(--color-text-secondary)"><strong>Dünyevileşme (Seküler Düşünce):</strong> Ahlak dinle değil akıl ve bilimle açıklanır.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 7: PİAGET
+══════════════════════════════════════════════ -->
+<div id="piaget" class="section">
+  <h2>Ünite 7 — Ahlaki Gelişim Kuramları: Piaget</h2>
+
+  <div class="highlight-box">
+    <p>Çocukların doğru yanlış anlayışının yaşla nasıl geliştiğini inceledi. Oyun sonrası kuralları kim koydu, değişebilir mi gibi sorular sormuştur. <strong>Piaget'e göre ahlak: Kurallar Sistemidir.</strong></p>
+  </div>
+
+  <div class="card">
+    <p style="font-weight:600;font-size:14px;margin-bottom:10px">Piaget'e göre kurallara saygı iki şekilde gerçekleşir:</p>
+    <div class="grid2">
+      <div style="padding:10px;background:var(--color-background-info);border-radius:8px;border:1px solid var(--color-border-info)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-info)">Kuralların Pratiği</p>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px">Çocuğun kurallara nasıl uyduğu, oyunu nasıl oynadığıdır.</p>
+      </div>
+      <div style="padding:10px;background:var(--color-background-warning);border-radius:8px">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-warning)">Kuralların Bilinci</p>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px">Kurallar neden var diye sorgulamak.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Kuralların Pratiği — Aşamalar</h3>
+  <div class="card">
+    <div class="step-item"><div class="step-num">1</div><div><p><strong>Saf Motor ve Bireysel:</strong> Çocuk tek başına oynar, kural yoktur.</p></div></div>
+    <div class="step-item"><div class="step-num">2</div><div><p><strong>Ben Merkezci (Egosantrik):</strong> Başkalarını taklit eder ama kuralları anlamaz.</p></div></div>
+    <div class="step-item"><div class="step-num">3</div><div><p><strong>Ortak Çalışma:</strong> Birlikte oynama ve kazanma odaklı.</p></div></div>
+    <div class="step-item"><div class="step-num">4</div><div><p><strong>Kuralların Kodlanması:</strong> Kurallar nettir.</p></div></div>
+  </div>
+
+  <h3>Kuralların Bilinci — Yaş Dönemleri</h3>
+  <div class="card">
+    <div class="step-item">
+      <div class="step-num" style="background:var(--color-background-danger);color:var(--color-text-danger)">1</div>
+      <div><p><strong>Bireysel Ritüeller ve Motor Şemalar (0–4 yaş):</strong> Çocuk tek oynar. Kural gibi tekrar eder kendi kendine.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">2</div>
+      <div><p><strong>Kurallar Kutsal ve Dokunulmazdır — Heteronomi (5–9 yaş):</strong> Kuralları değiştirmez. Anne baba kurallar koydu sanar. Sorgulanmaz kurallardır.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)">3</div>
+      <div><p><strong>Otonom Kural Anlayışı (10 yaş sonrası):</strong> Kuralları insanlar anlaşarak yapmış sanar. Değişebileceğini kabul eder.</p></div>
+    </div>
+  </div>
+
+  <h3>Heteronom ve Otonom Ahlak Karşılaştırması</h3>
+  <table>
+    <thead><tr><th>Boyut</th><th>Heteronom</th><th>Otonom</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Ahlak Anlayışı</strong></td><td>Tek mutlak ahlak</td><td>Farklı ahlaki değerler</td></tr>
+      <tr><td><strong>Kurallar</strong></td><td>Değişmez</td><td>Değişebilir</td></tr>
+      <tr><td><strong>Ceza</strong></td><td>Suç cezalandırılır</td><td>Adalet gereği ceza vardır</td></tr>
+      <tr><td><strong>Önemli Olan</strong></td><td>Niyet değil sonuç</td><td>Niyet önemlidir</td></tr>
+      <tr><td><strong>Otorite</strong></td><td>Ceza verici otorite sahibidir</td><td>Zarar gören de ceza verenler arasında olur</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box" style="border-color:var(--color-text-warning);background:var(--color-background-warning)">
+    <p style="color:var(--color-text-warning)"><strong>NOT — Çocuklar neden Heteronodir?</strong></p>
+    <ul style="font-size:13px;color:var(--color-text-warning);margin-top:6px">
+      <li><strong>1. Bilişsel olgunlaşmanın yetersizliği:</strong> Olayları tam olarak değerlendiremez.</li>
+      <li><strong>2. Otoriteye tek taraflı saygı:</strong> Yetişkinleri mutlak doğru kabul ederler.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 8: KOHLBERG
+══════════════════════════════════════════════ -->
+<div id="kohlberg" class="section">
+  <h2>Ünite 8 — Ahlaki Gelişim Kuramları: Kohlberg</h2>
+
+  <div class="highlight-box">
+    <p><strong>Kohlberg:</strong> Herkes için ortak ahlak var mı? sorusunu araştırdı. Yöntemi: Tek tek bireyleri klinik psikoloji yöntemi ile incelemiştir.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><span class="badge b-blue">Bilişsel Gelişim</span><p style="font-size:12px;margin-top:6px">Dünyayı anlama kalitesi ile şekillenir.</p></div>
+    <div class="card"><span class="badge b-green">Kohlberg'e göre Ahlak</span><p style="font-size:12px;margin-top:6px">Doğru yanlış arasında yargıda bulunan zihinsel bir yapıdır.</p></div>
+    <div class="card" style="grid-column:span 2"><span class="badge b-amber">Demokratik Kişilik</span><p style="font-size:12px;margin-top:6px">Bireyin ahlakı yargılaması onun demokratik kişiliğinin özüdür.</p></div>
+  </div>
+
+  <h3>Ahlaki Yargı Basamaklarının Özellikleri</h3>
+  <div class="card">
+    <div class="step-item"><div class="step-num">1</div><div><p><strong>Düşünme:</strong> Her basamak kendi düşünme biçimlerini içerir.</p></div></div>
+    <div class="step-item"><div class="step-num">2</div><div><p><strong>Değişmez:</strong> Kişisel gelişimde hiç değişmez düzeni vardır.</p></div></div>
+    <div class="step-item"><div class="step-num">3</div><div><p><strong>Yapısal Bütünlük:</strong> Kendi içinde tutarlıdırlar.</p></div></div>
+    <div class="step-item"><div class="step-num">4</div><div><p><strong>Hiyerarşik:</strong> Öncekileri kapsayacak şekildedir.</p></div></div>
+  </div>
+
+  <div class="highlight-box" style="border-color:var(--color-text-secondary)">
+    <p style="color:var(--color-text-secondary)"><strong>Her basamak için 3 soru sorulur:</strong> Doğru olan nedir? / Neden doğru davranmalı? / Basamakların toplumsal perspektifi nedir?</p>
+  </div>
+
+  <!-- DÜZEY 1 -->
+  <div style="margin-top:20px;border:1px solid var(--color-text-danger);border-radius:12px;overflow:hidden">
+    <div style="background:var(--color-background-danger);padding:12px 16px">
+      <p style="font-weight:700;font-size:14px;color:var(--color-text-danger)">Düzey 1 — Gelenek Öncesi</p>
+    </div>
+    <div style="padding:12px;display:flex;flex-direction:column;gap:10px">
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-danger)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-danger)">Basamak 1 — Heteronom Ahlak</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Uymazsan ceza alırsın, otoriteye itaat et, insanlara zarar verme.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>Cezadan kaçmak ve otorite tarafından zarar görmemek için.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>Benmerkezcidir, Kralcıdır.</td></tr>
+        </table>
+      </div>
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-danger)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-danger)">Basamak 2 — Çıkara Dönük Hedef Hedonizm</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Kurallar sadece bana yarıyorsa uymak gerek. Karşılıklı fayda esastır.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>İhtiyaçlarını tahmin etmek için.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>İnsanların çıkarlarının çatışabileceğini bilir.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÜZEY 2 -->
+  <div style="margin-top:12px;border:1px solid var(--color-text-warning);border-radius:12px;overflow:hidden">
+    <div style="background:var(--color-background-warning);padding:12px 16px">
+      <p style="font-weight:700;font-size:14px;color:var(--color-text-warning)">Düzey 2 — Geleneksel Anlaşmalar</p>
+    </div>
+    <div style="padding:12px;display:flex;flex-direction:column;gap:10px">
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-warning)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-warning)">Basamak 3 — Karşılıklı Beklentiler</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Yakın çevre beklentilerine uymaktır. İyi olmaktır.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>İyi olma arzusu için. Altın Kural: sana nasıl davranmasını istiyorsan öyle davran.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>Empati yapabilir. Ortak duyguların farkındadır.</td></tr>
+        </table>
+      </div>
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-warning)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-warning)">Basamak 4 — Hukuk ve Düzen</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Toplum görevlerini yerine getirmek, kanunlara uymak.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>İşleyişi sürdürmek için, çöküşü önlemek için. Vicdanen rahat olmak için.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>Tamamen toplumsal bakış açısı vardır. Kuralları koyanların bakış açısı.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÜZEY 3 -->
+  <div style="margin-top:12px;border:1px solid var(--color-text-success);border-radius:12px;overflow:hidden">
+    <div style="background:var(--color-background-success);padding:12px 16px">
+      <p style="font-weight:700;font-size:14px;color:var(--color-text-success)">Düzey 3 — Gelenek Sonrası</p>
+    </div>
+    <div style="padding:12px;display:flex;flex-direction:column;gap:10px">
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-success)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-success)">Basamak 5 — Toplum Sözleşmesi ve Bireysel Haklar</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Toplumda farklı değerlerin olduğunu bilme. Yaşam, özgürlük.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>Huzur ve özgürlüğe uymak.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>Akıl sahibi bir bakış açısı vardır.</td></tr>
+        </table>
+      </div>
+      <div class="card" style="margin:0;border-left:4px solid var(--color-text-success)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-success)">Basamak 6 — Evrensel Etik</p>
+        <table style="margin-top:8px">
+          <tr><td style="font-weight:600;width:40%">Doğru Olan</td><td>Vicdanı ile özgürce davranmasıdır. Yasa bile özgürlüğe ters düşse o kişi ödün vermez kendisinden.</td></tr>
+          <tr><td style="font-weight:600">Neden</td><td>Akıllı biri gerçekle ahlaki ilkeleri bilir. Vicdani olarak yükümlüdür.</td></tr>
+          <tr><td style="font-weight:600">Toplumsal</td><td>Ahlak vardır çünkü insan bunu bilir.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 9: İŞ ETİĞİ
+══════════════════════════════════════════════ -->
+<div id="is-etigi" class="section">
+  <h2>Ünite 9 — İş Etiği</h2>
+
+  <h3>Tarihsel Gelişim</h3>
+  <div style="display:flex;flex-direction:column;gap:0">
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-info);border:2px solid var(--color-border-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-info);flex-shrink:0">60</div>
+        <div style="width:2px;flex:1;background:var(--color-border-tertiary);margin:4px 0"></div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:8px">
+        <span class="badge b-blue">1960 Öncesi</span>
+        <p style="font-size:13px;margin-top:6px">Din temelli etik düzen.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-info);border:2px solid var(--color-border-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-info);flex-shrink:0">70</div>
+        <div style="width:2px;flex:1;background:var(--color-border-tertiary);margin:4px 0"></div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:8px">
+        <span class="badge b-blue">1960'lar</span>
+        <p style="font-size:13px;margin-top:6px">Sanayileşme hızlandı. Çevre kirliliği, atıklar... İş etiği çevreyi koruma ve yaşam kalitesi olarak ele alındı.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-warning);border:2px solid rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-warning);flex-shrink:0">80</div>
+        <div style="width:2px;flex:1;background:var(--color-border-tertiary);margin:4px 0"></div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:8px">
+        <span class="badge b-amber">1970'ler</span>
+        <p style="font-size:13px;margin-top:6px">İş Etiği karar alma süreçleriyle ilişkilendirildi.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-warning);border:2px solid rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-warning);flex-shrink:0">90</div>
+        <div style="width:2px;flex:1;background:var(--color-border-tertiary);margin:4px 0"></div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:8px">
+        <span class="badge b-amber">1980'ler</span>
+        <p style="font-size:13px;margin-top:6px">Rekabet ve küreselleşme başladı. İşletmelerde etik ve sosyal sorumluluk komiteleri kurulmaya başlandı.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-success);border:2px solid rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-success);flex-shrink:0">00</div>
+        <div style="width:2px;flex:1;background:var(--color-border-tertiary);margin:4px 0"></div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:8px">
+        <span class="badge b-green">1990'lar</span>
+        <p style="font-size:13px;margin-top:6px">Ortaklıklar yaygınlaştı. İş etiği uzmanları görevlendirmeleri başladı.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--color-background-success);border:2px solid rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--color-text-success);flex-shrink:0">2K</div>
+      </div>
+      <div class="card" style="flex:1;margin-bottom:0">
+        <span class="badge b-green">2000'ler</span>
+        <p style="font-size:13px;margin-top:6px">İş Etiği bağımsızlaştı ve farklı alanlara ayrıldı: Yönetsel Etik, Mesleki Etik, Çalışma Etiği, Küresel Etik... "Ne yapılmamalı" sorularına da odaklandı.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:24px">Kurumsal Ahlaki Gelişim Modelleri</h3>
+
+  <!-- MODEL 1: REİDENBACH VE ROBİN -->
+  <div class="card" style="border:1px solid #6366f1;background:rgba(99,102,241,0.03);padding:20px;margin-bottom:16px">
+    <p style="font-weight:700;font-size:15px;color:#4338ca;margin-bottom:6px">1. Reidenbach ve Robin Modeli</p>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:6px">Kurumun ahlaki açıdan en alt seviyeden en üst seviyeye nasıl gelişeceğini 5 basamakta gösteren bir <strong>piramittir.</strong></p>
+
+    <div class="card" style="background:rgba(99,102,241,0.06);border:0.5px solid rgba(99,102,241,0.2);margin-bottom:16px">
+      <p style="font-size:12px;font-weight:600;color:#4338ca;margin-bottom:6px">Bu model 2 önemli şeye odaklanır:</p>
+      <ul style="font-size:12px;color:var(--color-text-secondary)">
+        <li>Şirket iş yaparken neye odaklanıyor? (Sadece kâr mı, etik değerler de var mı?)</li>
+        <li>Etik kurallara uyum kendi isteğiyle mi yapılıyor? (Dış baskı, yasa, ceza)</li>
+      </ul>
+    </div>
+
+    <!-- PİRAMİT -->
+    <p style="font-size:12px;font-weight:600;color:var(--color-text-secondary);text-align:center;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em">↑ Yukarı Çıktıkça Etik Olgunlaşma Artar ↑</p>
+
+    <div class="pyramid-wrap">
+      <div class="pyr-level">
+        <div class="pyr-bar pyr-5">
+          <div>
+            <div>⭐ Etik</div>
+            <div class="pyr-label">Ahlaki değerlerin tamamen benimsendiği aşama</div>
+          </div>
+        </div>
+        <div class="pyr-arrow">↓</div>
+      </div>
+      <div class="pyr-level">
+        <div class="pyr-bar pyr-4">
+          <div>
+            <div>📈 Etik Açıdan Gelişmekte</div>
+            <div class="pyr-label">Etik kuralları oturtmaya başladığı evre</div>
+          </div>
+        </div>
+        <div class="pyr-arrow">↓</div>
+      </div>
+      <div class="pyr-level">
+        <div class="pyr-bar pyr-3">
+          <div>
+            <div>🌿 Duyarlı</div>
+            <div class="pyr-label">Çevreye ve topluma karşı farkındalık gösterdiği aşama</div>
+          </div>
+        </div>
+        <div class="pyr-arrow">↓</div>
+      </div>
+      <div class="pyr-level">
+        <div class="pyr-bar pyr-2">
+          <div>
+            <div>📋 Yasallık</div>
+            <div class="pyr-label">Sadece yasalara uy, etik çaba yok</div>
+          </div>
+        </div>
+        <div class="pyr-arrow">↓</div>
+      </div>
+      <div class="pyr-level">
+        <div class="pyr-bar pyr-1">
+          <div>
+            <div>💀 Ahlak Dışılık</div>
+            <div class="pyr-label">Ahlaki değerlerin göz ardı edildiği aşama</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pyr-legend" style="margin-top:16px">
+      <div class="pyr-legend-item"><div class="pyr-legend-dot" style="background:#22c55e"></div><strong>Etik (En Üst):</strong>&nbsp;Değerlerin tam benimsenmesi</div>
+      <div class="pyr-legend-item"><div class="pyr-legend-dot" style="background:#3b82f6"></div><strong>Etik Açıdan Gelişmekte:</strong>&nbsp;Kurallara oturtma evresi</div>
+      <div class="pyr-legend-item"><div class="pyr-legend-dot" style="background:#f59e0b"></div><strong>Duyarlı:</strong>&nbsp;Topluma ve çevreye farkındalık</div>
+      <div class="pyr-legend-item"><div class="pyr-legend-dot" style="background:#fb923c"></div><strong>Yasallık:</strong>&nbsp;Sadece kanuna uyum, etik yok</div>
+      <div class="pyr-legend-item"><div class="pyr-legend-dot" style="background:#ef4444"></div><strong>Ahlak Dışılık (En Alt):</strong>&nbsp;Etik tamamen göz ardı</div>
+    </div>
+  </div>
+
+  <!-- MODEL 2: LOGSDON VE YUTHAS -->
+  <div class="card" style="border:1px solid #0891b2;background:rgba(8,145,178,0.03)">
+    <p style="font-weight:700;font-size:15px;color:#0e7490;margin-bottom:12px">2. Logsdon ve Yuthas Modeli</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card" style="border-left:4px solid var(--color-text-danger);background:var(--color-background-primary)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-danger);margin-bottom:4px">Gelenek Öncesi Düzey — "Sadece Ben"</p>
+        <p style="font-size:12px">Şirket kendi çıkarını düşünür. Kararlar haz–acı hesabına göre yapılır <em>(bana iyi mi geliyor kötü mü geliyor)</em>. Yönetsel Ayrımcılık Teorisi hakimdir.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--color-text-warning);background:var(--color-background-primary)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-warning);margin-bottom:4px">Geleneksel Düzey — "Kurallar ve Paydaşlar"</p>
+        <p style="font-size:12px">Kurallara ve yasalara uyum vardır. Paydaşlar ve toplum sınırlı seviyede dikkate alınır.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--color-text-success);background:var(--color-background-primary)">
+        <p style="font-weight:700;font-size:13px;color:var(--color-text-success);margin-bottom:4px">Gelenek Sonrası Düzey — "Toplum ve Evrensel Etik"</p>
+        <p style="font-size:12px">Toplumun ve çevrenin iyiliği. Evrensel karar nitelikleri.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ÜNİTE 10: MESLEK ETİĞİ
+══════════════════════════════════════════════ -->
+<div id="meslek" class="section">
+  <h2>Ünite 10 — Meslek Etiği</h2>
+
+  <div class="highlight-box">
+    <p><strong>Meslek Etiği:</strong> İş Etiği'nin alt dalıdır.</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--color-text-info)">
+    <p style="font-weight:600;font-size:13px;color:var(--color-text-info);margin-bottom:6px">TDK'ya Göre Meslek</p>
+    <p style="font-size:13px">Eğitimle öğrenilen, bilgi-beceri gerektiren, ürün ve hizmet sunan ve gelir elde eden kuralları olan uğraştır.</p>
+  </div>
+
+  <h3>Bir İşin Meslek Olabilmesi İçin</h3>
+  <div class="card">
+    <div class="step-item"><div class="step-num">1</div><div><p>Eğitim süreci gerekir.</p></div></div>
+    <div class="step-item"><div class="step-num">2</div><div><p>Topluma hizmet odaklıdır.</p></div></div>
+    <div class="step-item"><div class="step-num">3</div><div><p>Organizasyon yapısı vardır (başkalarının da olması).</p></div></div>
+    <div class="step-item"><div class="step-num">4</div><div><p>Sorumluluk içerir.</p></div></div>
+  </div>
+
+  <h3>Meslek Ahlakı</h3>
+  <div class="card" style="border-left:4px solid #8b5cf6">
+    <ul style="font-size:13px">
+      <li>Mesleğin nasıl yapılacağına dair standartları koyar.</li>
+      <li>Yazılı olmak zorunda değildir.</li>
+      <li>Tüm üyeler bilmelidir.</li>
+      <li>Resmi cezalar içermez; vicdan ve meslek sorumluluğunu işler.</li>
+    </ul>
+  </div>
+
+  <h3>Meslek Ahlakının Uygulanması İçin</h3>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="card" style="border-left:4px solid #3b82f6">
+      <p style="font-size:13px">📚 Etik sorunlar için örnek olay çözüm eğitimleri yapılmalıdır.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #ef4444">
+      <p style="font-size:13px">⚠️ Etik dışı davranışlar cezalandırılmalı ve denetlenmelidir.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #f59e0b">
+      <p style="font-size:13px">📢 Cezalar net bir şekilde bildirilmelidir.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #10b981">
+      <p style="font-size:13px">🏛️ Etik bir kurul oluşturulmalıdır.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #8b5cf6">
+      <p style="font-size:13px">📝 Yazılı kurallar belirlenmelidir.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes(id));
+  });
+}
+</script>
+</div>
+</body>
+</html>
