@@ -1060,6 +1060,7 @@
           <span style="color:var(--color-text-tertiary)">›</span>
         </div>
         <div class="algo-body">
+            <div class="code-box">y = a + bX<br><span style="font-size:11px;color:var(--color-text-tertiary)">y: tahmin, a: intercept, b: katsayı, X: bağımsız değişken</span></div>
           <p style="margin-bottom:8px">Makine öğrenmesindeki en temel regresyon türüdür. Amacı bir tahmin edici (X) değişkeni kullanarak bir bağımlı (Y) değişkeni tahmin etmektir. Aralarındaki ilişki "doğrusal" bir çizgi veya eğri ile ifade edilir.</p>
           <div class="success-box" style="margin:8px 0">
             <p>📌 <strong>Örnek:</strong> Metrekare arttıkça evin fiyatının artması doğrusal bir ilişkidir.</p>
@@ -1082,6 +1083,7 @@
           <span style="color:var(--color-text-tertiary)">›</span>
         </div>
         <div class="algo-body">
+            <div class="code-box">y = a + b₁X₁ + b₂X₂ + b₃X₃<br><span style="font-size:11px;color:var(--color-text-tertiary)">y: fiyat, a: intercept, b₁b₂b₃: katsayılar (coef), X₁X₂X₃: bağımsız değişkenler</span></div>
           <p style="margin-bottom:8px">Basit doğrusal regresyonun genişletilmiş halidir. Gerçek hayatta bir sonucu genellikle tek bir neden değil, birden fazla neden etkiler.</p>
           <div class="card" style="margin:8px 0;padding:10px 14px">
             <div class="kv"><span class="kv-k">Basit Regresyon</span><span class="kv-v" style="font-size:12px">Alan → Fiyat</span></div>
@@ -1105,6 +1107,7 @@
           <span style="color:var(--color-text-tertiary)">›</span>
         </div>
         <div class="algo-body">
+            <div class="code-box">y = a + b₁X + b₂X² + b₃X³<br><span style="font-size:11px;color:var(--color-text-tertiary)">y: tahmin, a: intercept, b: katsayılar, X: bağımsız değişken</span></div>
           <p style="margin-bottom:8px">Veriler her zaman düz bir çizgi üzerinde artmaz veya azalmaz. Bazen aralarındaki ilişki eğriseldir.</p>
           <div class="warn-box" style="margin:8px 0">
             <p>⚠️ <strong>Ne zaman kullanılır?</strong> Değişkenler arasındaki ilişki <strong>doğrusal olmadığı</strong> durumlarda tercih edilir.</p>
@@ -1127,6 +1130,7 @@
           <span style="color:var(--color-text-tertiary)">›</span>
         </div>
         <div class="algo-body">
+            <div class="code-box">z = b + w₁x₁ + w₂x₂ + ... + wₚxₚ<br>P(y=1) = 1 / (1 + e<sup>-z</sup>)<br><span style="font-size:11px;color:var(--color-text-tertiary)">b: intercept, w: ağırlıklar (katsayılar), x: bağımsız değişkenler</span></div>
           <p style="margin-bottom:8px">Aslında bir <strong>sınıflandırma yöntemidir</strong>. Kategorik verileri ayırmak için kullanılır. Adında "regresyon" geçse de tahmin değil, sınıflandırma yapar.</p>
           <div class="card" style="margin:8px 0;padding:10px 14px">
             <div class="kv"><span class="kv-k">İkili Sonuçlar</span><span class="kv-v" style="font-size:12px">Bağımlı değişken sadece iki farklı değer alır</span></div>
