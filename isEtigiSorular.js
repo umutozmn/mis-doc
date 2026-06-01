@@ -1,5 +1,6 @@
 // İş Etiği Portalı — Ünite 1 Test Soruları Veritabanı
-if (!quizData) { var quizData = {}; }
+window.quizData = window.quizData || {};
+var quizData = window.quizData;
 
 quizData['varlik'] = [
   {
