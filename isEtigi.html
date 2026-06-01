@@ -1222,9 +1222,9 @@
   </div>
 </div>
 
- 
-
+<script src="isEtigiSorular.js"></script>
 <script>
+ 
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -1232,6 +1232,7 @@ function show(id) {
     b.classList.toggle('active', b.getAttribute('onclick').includes(id));
   });
 }
+ 
 </script>
 </div>
 </body>
