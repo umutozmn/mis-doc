@@ -1,386 +1,304 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIS Portal | Umut</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIS Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-        :root {
-            --navy:    #050d1f;
-            --navy-2:  #080f22;
-            --navy-3:  #0d1730;
-            --navy-4:  #111e3a;
-            --blue:    #1a3a6e;
-            --accent:  #2d6be4;
-            --glow:    #3b82f6;
-            --electric:#60a5fa;
-            --cyan:    #38bdf8;
-            --white:   #f0f4ff;
-            --muted:   #4a6190;
-            --border:  rgba(45,107,228,0.18);
-            --border-h:rgba(96,165,250,0.4);
-        }
+:root {
+  --bg: #0b1326;            /* Old Money: Derin, asil kulüp laciverti */
+  --surface: #121c33;       /* Ders satırları için biraz daha açık mat lacivert */
+  --border: #1e2c4a;        /* Zarif ve net çizgiler */
+  --text: #f4f3ef;          /* Metinler: Saf beyaz değil, göz yormayan elit kemik/fildişi tonu */
+  --sub: #8fa0be;           /* Yardımcı yazılar için soft mavi-gri */
+  --accent: #c5a880;        /* Detaylar için mat, asil altın/bronz tonu */
+  --accent-bg: rgba(197, 168, 128, 0.12); /* Rozet dolgusu */
+  --tag-hover: #192744;     /* Üzerine gelindiğinde ağırbaşlı geçiş rengi */
+}
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--navy);
-            color: var(--white);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
 
-        /* ── Ambient background ── */
-        .bg-orbs {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
+.wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 96px 32px 80px; /* Üst boşluk biraz daha ferahlatıldı */
+}
 
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.18;
-        }
-        .orb-1 { width: 600px; height: 600px; background: #1d4ed8; top: -200px; left: -150px; }
-        .orb-2 { width: 500px; height: 500px; background: #0e7490; bottom: -150px; right: -100px; opacity: 0.13; }
-        .orb-3 { width: 300px; height: 300px; background: #3b82f6; top: 40%; left: 55%; opacity: 0.10; }
+/* ── Header ── */
+header {
+  margin-bottom: 56px;
+  animation: up .6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-        /* Dot grid */
-        .bg-dots {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle, rgba(96,165,250,0.12) 1px, transparent 1px);
-            background-size: 32px 32px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-        }
+.site-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .2em; /* Harf arası açılıp daha premium yapıldı */
+  color: var(--accent); /* Başlık üstü etiketi altın tonuna çekildi */
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
 
-        /* ── Layout ── */
-        .wrapper {
-            position: relative;
-            z-index: 1;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0 32px 100px;
-        }
+h1 {
+  font-size: 36px;
+  font-weight: 500; /* Çok kalın olmayan, rafine bir font kalınlığı */
+  letter-spacing: -.03em;
+  color: var(--text);
+}
 
-        /* ── Header ── */
-        header {
-            padding: 72px 0 60px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 56px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 24px;
-        }
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 40px;
+  animation: up .6s .05s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-        .header-left {}
+/* ── List ── */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Satırlar arası asil bir boşluk */
+  animation: up .6s .1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-        .eyebrow {
-            font-family: 'Space Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--electric);
-            margin-bottom: 18px;
-            opacity: 0.7;
-        }
+.course-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  padding: 18px 20px; /* Daha geniş, premium hissettiren iç boşluk */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  color: inherit;
+}
 
-        h1 {
-            font-size: clamp(32px, 5vw, 52px);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            color: var(--white);
-        }
+.course-row:hover {
+  background: var(--tag-hover);
+  border-color: var(--accent); /* Hover durumunda asil bronz çerçeve */
+  transform: translateY(-2px); /* Aşağı yerine hafifçe yukarı esneme (Daha elit bir hareket) */
+}
 
-        h1 .accent-word {
-            color: var(--electric);
-            position: relative;
-        }
+.course-row:hover .cr-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent);
+}
 
-        h1 .accent-word::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--glow), transparent);
-            border-radius: 2px;
-        }
+.cr-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-        .header-badge {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 6px;
-            flex-shrink: 0;
-        }
+.cr-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent); /* Sıra numaraları altın/bronz tonunda parlasın */
+  opacity: 0.8;
+  width: 20px;
+  text-align: left;
+  flex-shrink: 0;
+}
 
-        .badge-chip {
-            font-family: 'Space Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 99px;
-            border: 1px solid var(--border-h);
-            color: var(--electric);
-            background: rgba(59,130,246,0.07);
-        }
+.cr-name {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
 
-        .badge-count {
-            font-size: 11px;
-            color: var(--muted);
-        }
+.cr-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-        /* ── Grid ── */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
+.cr-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
 
-        @media (max-width: 640px) {
-            .courses-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            header { flex-direction: column; align-items: flex-start; }
-            .header-badge { align-items: flex-start; }
-        }
+.cr-badge.has {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
 
-        /* ── Card ── */
-        .card {
-            position: relative;
-            display: block;
-            text-decoration: none;
-            background: var(--navy-3);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 28px 24px 24px;
-            overflow: hidden;
-            transition: border-color 0.25s, background 0.25s, transform 0.25s;
-        }
+.cr-badge.empty {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--sub);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 18px;
-            background: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 65%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+.cr-arrow {
+  font-size: 16px;
+  color: var(--sub);
+  opacity: 0.3;
+  transform: translateX(-4px);
+  transition: opacity .2s ease, transform .2s ease, color .2s ease;
+}
 
-        .card:hover {
-            border-color: var(--border-h);
-            background: var(--navy-4);
-            transform: translateY(-4px);
-        }
+/* ── Footer ── */
+footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  animation: up .6s .15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-        .card:hover::before {
-            opacity: 1;
-        }
+.ft {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--sub);
+  opacity: 0.5;
+  letter-spacing: .1em;
+}
 
-        /* Top-right glow dot */
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 18px; right: 18px;
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--glow);
-            opacity: 0;
-            box-shadow: 0 0 8px 2px var(--glow);
-            transition: opacity 0.25s;
-        }
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        .card:hover::after {
-            opacity: 0.7;
-        }
-
-        .card-icon-wrap {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            background: rgba(29, 78, 216, 0.15);
-            border: 1px solid rgba(59,130,246,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            transition: background 0.25s, border-color 0.25s;
-        }
-
-        .card:hover .card-icon-wrap {
-            background: rgba(59,130,246,0.2);
-            border-color: rgba(96,165,250,0.4);
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #8baad4;
-            line-height: 1.35;
-            position: relative;
-            z-index: 1;
-            transition: color 0.2s;
-            letter-spacing: -0.01em;
-        }
-
-        .card:hover .card-title {
-            color: #c8deff;
-        }
-
-        .card-arrow {
-            position: absolute;
-            bottom: 20px; right: 20px;
-            font-size: 13px;
-            color: var(--muted);
-            z-index: 1;
-            opacity: 0;
-            transform: translate(-3px, 3px);
-            transition: opacity 0.2s, transform 0.2s;
-        }
-
-        .card:hover .card-arrow {
-            opacity: 1;
-            transform: translate(0, 0);
-        }
-
-        /* ── Footer ── */
-        footer {
-            margin-top: 60px;
-            padding-top: 28px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-text {
-            font-size: 11px;
-            color: var(--muted);
-            opacity: 0.6;
-        }
-
-        .footer-line {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--muted);
-            opacity: 0.4;
-        }
-
-        /* ── Animations ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        header { animation: fadeUp 0.5s cubic-bezier(.23,1,.32,1) both; }
-
-        .card { animation: fadeUp 0.5s cubic-bezier(.23,1,.32,1) both; }
-        .card:nth-child(1) { animation-delay: 0.08s; }
-        .card:nth-child(2) { animation-delay: 0.12s; }
-        .card:nth-child(3) { animation-delay: 0.16s; }
-        .card:nth-child(4) { animation-delay: 0.20s; }
-        .card:nth-child(5) { animation-delay: 0.24s; }
-        .card:nth-child(6) { animation-delay: 0.28s; }
-        .card:nth-child(7) { animation-delay: 0.32s; }
-        .card:nth-child(8) { animation-delay: 0.36s; }
-        .card:nth-child(9) { animation-delay: 0.40s; }
-
-        footer { animation: fadeUp 0.5s 0.45s cubic-bezier(.23,1,.32,1) both; }
-    </style>
+@media(max-width:500px){
+  .wrapper { padding: 48px 20px 60px; }
+  h1 { font-size: 28px; }
+  .cr-badge { display: none; }
+}
+</style>
 </head>
 <body>
 
-<div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-</div>
-<div class="bg-dots"></div>
-
 <div class="wrapper">
 
-    <header>
-        <div class="header-left">
-            <p class="eyebrow">Yönetim Bilişim Sistemleri</p>
-            <h1>MIS <span class="accent-word">Ders</span><br>Portalı</h1>
-        </div>
-    
-    </header>
+  <header>
+    <p class="site-label">Yönetim Bilişim Sistemleri</p>
+    <h1>MIS Portal</h1>
+  </header>
 
-    <div class="courses-grid">
+  <div class="divider"></div>
 
-        <a href="nesneTaban.html" class="card">
-            <div class="card-icon-wrap">📦</div>
-            <div class="card-title">Nesne Tabanlı Prog.</div>
-            <span class="card-arrow">↗</span>
-        </a>
+  <div class="course-list">
 
-        <a href="veriTabani.html" class="card">
-            <div class="card-icon-wrap">🗄️</div>
-            <div class="card-title">Veri Tabanı Yön. Sis.</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="nesneTaban.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">01</span>
+        <span class="cr-name">Nesne Tabanlı Programlama</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="finans.html" class="card">
-            <div class="card-icon-wrap">📈</div>
-            <div class="card-title">Finansal Yönetim</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="veriTabani.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">02</span>
+        <span class="cr-name">Veri Tabanı Yönetim Sistemleri</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="bilisimHukuk.html" class="card">
-            <div class="card-icon-wrap">🏛️</div>
-            <div class="card-title">Bilişim Hukuku</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="finans.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">03</span>
+        <span class="cr-name">Finansal Yönetim</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="dataMining.html" class="card">
-            <div class="card-icon-wrap">💎</div>
-            <div class="card-title">Veri Madenciliği</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="bilisimHukuk.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">04</span>
+        <span class="cr-name">Bilişim Hukuku</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge empty">yakında</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="webDesign.html" class="card">
-            <div class="card-icon-wrap">🌐</div>
-            <div class="card-title">Web Tasarım &amp; İnt. Prog.</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="dataMining.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">05</span>
+        <span class="cr-name">Veri Madenciliği</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="isEtigi.html" class="card">
-            <div class="card-icon-wrap">⚖️</div>
-            <div class="card-title">İş Etiği</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="webDesign.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">06</span>
+        <span class="cr-name">Web Tasarım & İnternet Prog.</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="organization.html" class="card">
-            <div class="card-icon-wrap">👤</div>
-            <div class="card-title">Örgütsel Davranış</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="isEtigi.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">07</span>
+        <span class="cr-name">İş Etiği</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge empty">yakında</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-        <a href="pazarlama.html" class="card">
-            <div class="card-icon-wrap">🎯</div>
-            <div class="card-title">Dijital Pazarlama</div>
-            <span class="card-arrow">↗</span>
-        </a>
+    <a href="organization.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">08</span>
+        <span class="cr-name">Örgütsel Davranış</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge has">notlar</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-    </div>
+    <a href="pazarlama.html" class="course-row">
+      <div class="cr-left">
+        <span class="cr-num">09</span>
+        <span class="cr-name">Dijital Pazarlama</span>
+      </div>
+      <div class="cr-right">
+        <span class="cr-badge empty">yakında</span>
+        <span class="cr-arrow">→</span>
+      </div>
+    </a>
 
-    <footer>
-        <span class="footer-text">© 2026 Umut tarafından tasarlandı.</span>
-        <span class="footer-line">v2.0</span>
-    </footer>
+  </div>
+
+  <footer>
+    <span class="ft">© 2026 Management Information Systems</span>
+  </footer>
 
 </div>
 
