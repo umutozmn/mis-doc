@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIS Portal | Dijital Pazarlama</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  --bg: #0b1326;
+  --surface: #121c33;
+  --surface2: #172240;
+  --border: #1e2c4a;
+  --border2: #253660;
+  --text: #f0ede6;
+  --sub: #7a8fb5;
+  --muted: #3d527a;
+  --accent: #c5a880;
+  --accent-dim: rgba(197,168,128,0.15);
+  --accent-border: rgba(197,168,128,0.25);
+  --info-bg: rgba(59,130,246,0.1);
+  --info-text: #7ab4f5;
+  --info-border: rgba(59,130,246,0.2);
+  --success-bg: rgba(34,197,94,0.08);
+  --success-text: #6bcf8a;
+  --success-border: rgba(34,197,94,0.18);
+  --warn-bg: rgba(245,158,11,0.08);
+  --warn-text: #e8a83a;
+  --warn-border: rgba(245,158,11,0.2);
+  --danger-bg: rgba(239,68,68,0.08);
+  --danger-text: #f08080;
+  --danger-border: rgba(239,68,68,0.2);
+  --purple-bg: rgba(139,92,246,0.08);
+  --purple-text: #a78bfa;
+  --purple-border: rgba(139,92,246,0.2);
+  --sidebar-w: 240px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+.sidebar-header { padding: 28px 20px 20px; border-bottom: 1px solid var(--border); }
+.sidebar-back {
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; color: var(--sub);
+  text-transform: uppercase; margin-bottom: 16px; transition: color .2s;
+}
+.sidebar-back:hover { color: var(--accent); }
+.sidebar-course { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .18em; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+.sidebar-title { font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.sidebar-nav { padding: 16px 0 24px; flex: 1; }
+.nav-section-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .15em; color: var(--muted); text-transform: uppercase; padding: 0 20px; margin: 16px 0 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 20px;
+  text-decoration: none; font-size: 12.5px; font-weight: 400; color: var(--sub);
+  transition: all .2s; border-left: 2px solid transparent; cursor: pointer;
+  background: none; border-right: none; border-top: none; border-bottom: none;
+  width: 100%; text-align: left; line-height: 1.4;
+}
+.nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim); }
+.nav-item-num { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); flex-shrink: 0; width: 16px; }
+.nav-item.active .nav-item-num { color: var(--accent); opacity: .7; }
+.main { margin-left: var(--sidebar-w); flex: 1; padding: 64px 56px 120px; max-width: calc(760px + var(--sidebar-w)); width: 100%; }
+.page-header { margin-bottom: 72px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.page-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+.page-title { font-family: 'Crimson Pro', serif; font-size: 48px; font-weight: 300; color: var(--text); letter-spacing: -.02em; margin-bottom: 8px; }
+.page-sub { font-size: 13px; color: var(--sub); }
+.unit { margin-bottom: 88px; scroll-margin-top: 40px; animation: fadeUp .5s ease both; }
+.unit-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 36px; }
+.unit-num-block { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
+.unit-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .15em; color: var(--accent); opacity: .6; }
+.unit-line { width: 1px; height: 28px; background: var(--border); margin-top: 8px; }
+.unit-title { font-family: 'Crimson Pro', serif; font-size: 32px; font-weight: 400; color: var(--text); letter-spacing: -.01em; line-height: 1.2; margin-bottom: 4px; }
+.unit-divider { height: 1px; background: var(--border); margin-bottom: 32px; }
+h3 { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .18em; color: var(--sub); text-transform: uppercase; margin: 32px 0 14px; }
+p, li { font-size: 14px; line-height: 1.7; color: var(--sub); }
+ul { padding-left: 18px; }
+li { margin-bottom: 5px; }
+strong { color: var(--text); font-weight: 500; }
+em { color: var(--sub); font-style: italic; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 10px; }
+.card p, .card li { font-size: 13.5px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.highlight-box { border-left: 2px solid var(--accent); padding: 12px 16px; background: var(--accent-dim); border-radius: 0 6px 6px 0; margin: 14px 0; }
+.highlight-box p { color: var(--text); font-size: 13.5px; margin: 0; }
+.info-box { border-left: 2px solid rgba(59,130,246,0.4); padding: 12px 16px; background: var(--info-bg); border-radius: 0 6px 6px 0; margin: 14px 0; }
+.info-box p { color: var(--info-text); font-size: 13.5px; margin: 0; }
+.danger-box { border-left: 2px solid rgba(239,68,68,0.4); padding: 12px 16px; background: var(--danger-bg); border-radius: 0 6px 6px 0; margin: 14px 0; }
+.danger-box p { color: var(--danger-text); font-size: 13.5px; margin: 0; }
+.success-box { border-left: 2px solid rgba(34,197,94,0.4); padding: 12px 16px; background: var(--success-bg); border-radius: 0 6px 6px 0; margin: 14px 0; }
+.success-box p { color: var(--success-text); font-size: 13.5px; margin: 0; }
+.badge { display: inline-block; font-size: 10px; font-weight: 500; font-family: 'JetBrains Mono', monospace; padding: 3px 9px; border-radius: 3px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; }
+.b-blue { background: var(--info-bg); color: var(--info-text); border: 1px solid var(--info-border); }
+.b-green { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+.b-amber { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+.b-red { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+.b-purple { background: var(--purple-bg); color: var(--purple-text); border: 1px solid var(--purple-border); }
+.b-accent { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+.step-list { display: flex; flex-direction: column; gap: 2px; }
+.step-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border-radius: 6px; }
+.step-item:hover { background: var(--surface2); }
+.step-num {
+  min-width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; font-family: 'JetBrains Mono', monospace;
+  background: var(--surface2); color: var(--sub); flex-shrink: 0; margin-top: 1px;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; border-radius: 8px; overflow: hidden; }
+th { text-align: left; padding: 10px 12px; background: var(--surface2); font-weight: 500; color: var(--text); font-size: 12px; border-bottom: 1px solid var(--border2); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--sub); font-size: 13px; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+.progress-bar { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: 2px; background: var(--border); z-index: 200; }
+.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width .1s; }
+.mobile-toggle {
+  display: none; position: fixed; top: 16px; left: 16px; width: 40px; height: 40px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  align-items: center; justify-content: center; cursor: pointer; z-index: 200; color: var(--text);
+}
+.eng-term { color: var(--sub); font-size: 11.5px; border-bottom: 1px dotted var(--muted); cursor: help; font-style: italic; }
+@media(max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform .3s cubic-bezier(0.16,1,0.3,1); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 48px 20px 80px; padding-top: 72px; }
+  .mobile-toggle { display: flex; }
+  .page-title { font-size: 34px; }
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+  .progress-bar { left: 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Menü">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-back">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      MIS Portal
+    </a>
+    <div class="sidebar-course">Dijital Pazarlama</div>
+    <div class="sidebar-title">Ders Notları</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">İçindekiler</div>
+    <button class="nav-item active" onclick="goToSection('web-internet')"><span class="nav-item-num">01</span>Web ve İnternet</button>
+    <button class="nav-item" onclick="goToSection('ag-womm')"><span class="nav-item-num">02</span>Ağ, WOMM & Viral</button>
+    <button class="nav-item" onclick="goToSection('marka-topluluk')"><span class="nav-item-num">03</span>Marka Toplulukları</button>
+    <button class="nav-item" onclick="goToSection('iot')"><span class="nav-item-num">04</span>IoT & Pazarlama 4P</button>
+    <button class="nav-item" onclick="goToSection('ml-ai')"><span class="nav-item-num">05</span>ML & Yapay Zekâ</button>
+    <button class="nav-item" onclick="goToSection('biyometri')"><span class="nav-item-num">06</span>Biyometri & Akıllı Kart</button>
+    <button class="nav-item" onclick="goToSection('3b-blockchain')"><span class="nav-item-num">07</span>3B Baskı & Blockchain</button>
+    <button class="nav-item" onclick="goToSection('metaverse')"><span class="nav-item-num">08</span>Metaverse & Big Data</button>
+    <button class="nav-item" onclick="goToSection('omnichannel')"><span class="nav-item-num">09</span>Omnichannel & Ubiquitous</button>
+    <button class="nav-item" onclick="goToSection('diy')"><span class="nav-item-num">10</span>Kendin Yap (DIY)</button>
+    <button class="nav-item" onclick="goToSection('munazara')"><span class="nav-item-num">11</span>Münazara Dersi</button>
+  </nav>
+</aside>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-label">Yönetim Bilişim Sistemleri — YBS Çalışma Portalı</div>
+    <div class="page-title">Dijital Pazarlama</div>
+    <div class="page-sub">Umut Not Arşivi · 11 Ünite</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 1: WEB VE İNTERNET
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="web-internet">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">01</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Web ve İnternet</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>Web ve İnternetin Ekonomik & Sosyal Etkileri</h3>
+    <div class="grid2">
+      <div class="card">
+        <span class="badge b-green">Ekonomik Etkiler</span>
+        <ul style="margin-top:8px">
+          <li>E-ticaretin büyümesini hızlandırdı.</li>
+          <li>Ürün ve hizmeti çevrimiçi tanıtmayı ve küresel pazarlara açılmayı sağladı.</li>
+          <li>Rekabetin artmasını sağladı.</li>
+          <li>Fiziksel mağaza ve reklam maliyetlerini düşürdü.</li>
+          <li>SEO, Dijital Pazarlama Uzmanı gibi yeni iş alanları ortaya çıktı.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="badge b-blue">Sosyal Etkiler</span>
+        <ul style="margin-top:8px">
+          <li>Kullanıcıları pasif izleyiciden aktif içerik üreticisine dönüştürdü.</li>
+          <li>Bilgiye erişimi kolaylaştırdı.</li>
+          <li>Benzer ilgi alanlarına sahip olanlar topluluklar kurdu.</li>
+          <li>Online dersler ve uzaktan çalışma imkânı sağlandı.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Web Dönemleri</h3>
+
+    <div class="card" style="border-top: 3px solid var(--sub); margin-bottom:10px">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+        <span class="badge b-accent">Web 1.0</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted)">Statik Dönem</span>
+      </div>
+      <ul style="font-size:13.5px">
+        <li><strong>Tek yönlü iletişim</strong> vardır; siteler statiktir, kullanıcı yalnızca okuyucudur.</li>
+        <li>Pazarlama tamamen <strong>ürün odaklıdır</strong>; etkileşim mümkün değildir.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top: 3px solid var(--info-text); margin-bottom:10px">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+        <span class="badge b-blue">Web 2.0</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted)">Etkileşim Dönemi</span>
+      </div>
+      <ul style="font-size:13.5px; margin-bottom:12px">
+        <li>Kullanıcı artık içerik üretir. Marka ile kullanıcı arasında <strong>çift yönlü iletişim</strong> vardır.</li>
+        <li><strong>Blog, wiki, RSS ve sosyal medya</strong> öne çıkar.</li>
+        <li><strong>Wikiler:</strong> Birçok kişinin birlikte düzenleyebildiği siteler. <em>(Örn: Wikipedia)</em></li>
+        <li><strong>RSS <span class="eng-term">Really Simple Syndication</span>:</strong> Farklı sitelerin içeriklerini tek yerde toplayıp takip etmemizi sağlayan sistem.</li>
+        <li><strong>Sosyal Referans Sistemleri:</strong> Kullanıcıların içerik önerdiği sistemler. <em>(Örn: Reddit)</em></li>
+      </ul>
+      <p style="font-size:13px; font-weight:500; color:var(--text); margin-bottom:6px">Web 2.0'ın Pazarlamaya Katkısı:</p>
+      <ul style="font-size:13px">
+        <li>İş teklifleri daha görünür hale gelir. <em>(Örn: Kariyer.net, LinkedIn)</em></li>
+        <li>Müşterilerle çift yönlü iletişim sağlanır.</li>
+        <li>Ürün ve hizmetleri markalaştırmak kolaylaşır.</li>
+        <li>Pazar araştırması ve geri bildirim toplama kolaylaşır.</li>
+      </ul>
+      <div class="info-box" style="margin: 10px 0 0">
+        <p><strong>Örnek:</strong> Bir marka Instagram anketi açarak ürün rengi hakkında anlık veri toplayabilir.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-top: 3px solid var(--purple-text); margin-bottom:10px">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+        <span class="badge b-purple">Web 3.0</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted)">Akıllı & Merkeziyetsiz Dönem</span>
+      </div>
+      <ul style="font-size:13.5px; margin-bottom:12px">
+        <li>Akıllı, ilişkili ve kişiselleştirilmiş yapı hedeflenir.</li>
+        <li>Kontrolün birkaç büyük şirket yerine daha geniş bir yapıya yayılması sağlandı: <strong>Merkeziyetsizlik.</strong></li>
+        <li>Blockchain ağlarında (Bitcoin, Ethereum) veriler tek sunucuda değil, birçok bilgisayarda tutulur.</li>
+        <li><strong>AI, blockchain, CRM, veri madenciliği ve metaverse</strong> gibi kavramlar öne çıkar.</li>
+      </ul>
+      <p style="font-size:13px; font-weight:500; color:var(--text); margin-bottom:8px">Web 3.0 ile İlgili Temel Kavramlar:</p>
+      <div class="grid2" style="margin-bottom:0">
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-size:12.5px"><strong>Blockchain:</strong> Veriyi zincir halinde ve kriptografik olarak tutar.</p>
+        </div>
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-size:12.5px"><strong>NFT <span class="eng-term">Non-Fungible Token</span>:</strong> Benzersiz dijital varlık sertifikasıdır.</p>
+        </div>
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-size:12.5px"><strong>Akıllı Sözleşme:</strong> Koşullar sağlanınca otomatik çalışan sözleşmedir.</p>
+        </div>
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-size:12.5px"><strong>AR / VR / Metaverse:</strong> Deneyimi daha etkileşimli ve sürükleyici hale getirir.</p>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin: 10px 0 0">
+        <p><strong>AR Örneği:</strong> Telefonda koltuğu salona yerleştirip nasıl durduğunu görmek. &nbsp;|&nbsp; <strong>VR Örneği:</strong> Gözlükle sanal mağaza deneyimi yaşamak.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 2: AĞ İLİŞKİLERİ, WOMM & VİRAL
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="ag-womm">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">02</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Ağ İlişkileri, WOMM ve Viral Pazarlama</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>Ağ İlişki Türleri</h3>
+    <table>
+      <thead>
+        <tr><th>İlişki Türü</th><th>Açıklama</th><th>Örnek</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Basit İlişki</strong></td><td>Sadece bağlantı vardır, etkileşim yoktur.</td><td>LinkedIn'de birini eklemek ama hiç mesajlaşmamak.</td></tr>
+        <tr><td><strong>Yönlü İlişki</strong></td><td>Etki tek taraftan gelir.</td><td>YouTube videosu izlemek.</td></tr>
+        <tr><td><strong>Karşılıklı İlişki</strong></td><td>İki taraf birbirini etkiler.</td><td>WhatsApp'ta sohbet etmek.</td></tr>
+        <tr><td><strong>Zincir İlişki</strong></td><td>Etki adım adım yayılır.</td><td>Viral videonun paylaşılması.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Ağ Toplumu ve Pazarlama İlişkisi</h3>
+    <div class="card">
+      <p style="margin-bottom:8px">İnsanların ve kurumların ağlar üzerinden bağlandığı toplumsal yapıdır. Pazarlama açısından şu etkileri vardır:</p>
+      <ul>
+        <li>Tedarikçi ve müşteri ilişkileri güçlenir.</li>
+        <li>Şirket içi iş birliği artar.</li>
+        <li>Rakip analizi daha görünür hâle gelir.</li>
+        <li>Tüketici davranışları daha iyi izlenir.</li>
+      </ul>
+    </div>
+
+    <h3>Süper Yayıcılar</h3>
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--warn-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">Süper Yayıcı Nedir?</p>
+        <p style="font-size:13px">Çok fazla bağlantıya sahip olan ve mesajları diğerlerinden çok daha hızlı yayan kişilerdir. Yenilikçiler, liderler ve etkileyiciler buna örnektir.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">Pazarlama ile İlişkisi</p>
+        <ul style="font-size:13px">
+          <li>Viral pazarlamanın temelidir; ürünü hızla yayarlar.</li>
+          <li>Deneyimlere güvenildiği için güvenilirlik sağlar.</li>
+          <li>Herkese değil, etkili kişilere ulaşarak maliyeti düşürür.</li>
+          <li>Hedef kitleye doğrudan ulaşım sağlanır.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Temel Pazarlama Kavramları</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">İlişki Pazarlaması</span><p style="margin-top:4px; font-size:13px">Müşteriyle uzun vadeli bağ kurma.</p></div>
+      <div class="card"><span class="badge b-green">WOMM <span class="eng-term">Word of Mouth Marketing</span></span><p style="margin-top:4px; font-size:13px">Ağızdan ağıza pazarlama.</p></div>
+      <div class="card"><span class="badge b-amber">eWOM</span><p style="margin-top:4px; font-size:13px">WOMM'un internet üzerinden gerçekleşen hâlidir.</p></div>
+      <div class="card"><span class="badge b-purple">Viral Pazarlama</span><p style="margin-top:4px; font-size:13px">İçeriğin çok hızlı yayılması.</p></div>
+      <div class="card"><span class="badge b-red">Sosyal Bulaşma <span class="eng-term">Social Contagion</span></span><p style="margin-top:4px; font-size:13px">Fikir veya davranışın kişiden kişiye yayılması.</p></div>
+      <div class="card"><span class="badge b-accent">Marka Toplulukları</span><p style="margin-top:4px; font-size:13px">Bir markayı seven insanların oluşturduğu topluluklar.</p></div>
+    </div>
+
+    <h3>Neden WOMM Güçlüdür?</h3>
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <ul>
+        <li>En güvenilir bilgi kaynağıdır; reklamdan daha ikna edici olabilir.</li>
+        <li>Karar verme sürecini hızlandırır.</li>
+        <li>Olumsuz deneyimler de aynı hızla yayılabilir.</li>
+      </ul>
+      <div class="highlight-box" style="margin-top:10px">
+        <p>Bir arkadaşının "bu kulaklık gerçekten iyi" demesi, reklamdan çok daha ikna edici olabilir.</p>
+      </div>
+    </div>
+
+    <h3>Viral Pazarlama Başarı Faktörleri</h3>
+    <div class="grid2">
+      <div class="card"><p style="font-weight:600">🎯 Hedef Kitleyi Tanımak</p><p style="font-size:12.5px; margin-top:4px">Gençler neyi komik bulur, insanlar neyi paylaşmayı sever, hangi platformu kullanırlar?</p></div>
+      <div class="card"><p style="font-weight:600">🤝 Güven</p><p style="font-size:12.5px; margin-top:4px">İnsanlar yalnızca güvendikleri içerikleri paylaşır.</p></div>
+      <div class="card"><p style="font-weight:600">⏱️ Doğru Zamanlama</p><p style="font-size:12.5px; margin-top:4px">Kampanya dönemleri gibi zamanlarda paylaşım artabilir.</p></div>
+      <div class="card"><p style="font-weight:600">⚡ Risk Alma Cesareti</p><p style="font-size:12.5px; margin-top:4px">Dikkat çekmek için bazı riskli adımlar atılabilir.</p></div>
+      <div class="card"><p style="font-weight:600">💡 Bağlamın Netliği</p><p style="font-size:12.5px; margin-top:4px">İçerik ne anlatmak istediğini açıkça belirtmelidir.</p></div>
+      <div class="card"><p style="font-weight:600">⏳ Sabır</p><p style="font-size:12.5px; margin-top:4px">İçerik hemen viral olmayabilir; haftalar hatta aylar sürebilir.</p></div>
+    </div>
+
+    <h3>STEPPS Modeli — Jonah Berger'e Göre Viral İçeriğin 6 Özelliği</h3>
+    <div class="card" style="border-top:2px solid var(--accent)">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">S</div>
+          <div>
+            <p><strong>Social Currency — Sosyal Para</strong></p>
+            <p style="font-size:13px; margin-top:2px">Kişiyi iyi gösterecek içeriklerdir. <em>"İstanbul'da gizli bir kahvehane keşfettim" diyen biri bilgili ve havalı görünür.</em></p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">T</div>
+          <div>
+            <p><strong>Triggers — Tetikleyiciler</strong></p>
+            <p style="font-size:13px; margin-top:2px">Akılda kalıcılıktır. <em>Patlamış mısır denilince sinema aklına gelir gibi.</em></p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">E</div>
+          <div>
+            <p><strong>Emotions — Duygular</strong></p>
+            <p style="font-size:13px; margin-top:2px">Yüksek duygular içeren içerikler daha çok yayılır.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">P</div>
+          <div>
+            <p><strong>Public — Kamusal Görünürlük</strong></p>
+            <p style="font-size:13px; margin-top:2px">Bir şey görünürse taklit edilir. "Ben de alayım" düşüncesi doğabilir.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">P</div>
+          <div>
+            <p><strong>Practical Value — Pratik Değer</strong></p>
+            <p style="font-size:13px; margin-top:2px">İnsanlar faydalı şeyleri paylaşmayı sever. <em>Öğrenci indirimleri buna örnektir.</em></p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">S</div>
+          <div>
+            <p><strong>Story — Hikâye</strong></p>
+            <p style="font-size:13px; margin-top:2px">Hikâye biçiminde sunulan içerikler çok daha kolay yayılır.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Sosyal Bulaşma</h3>
+    <div class="grid2">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Yayılım Yönleri</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li><strong>Yukarıdan aşağıya:</strong> Bir ünlünün yeni bir moda başlatması.</li>
+          <li><strong>Aşağıdan yukarıya:</strong> Gençlerin ve alt gelir gruplarının başlattığı trendler.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">Nedenleri</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li><strong>Normatif baskı:</strong> Çevreye uyum sağlama isteği.</li>
+          <li><strong>Bilgi aktarımı:</strong> Arkadaşın beğendiyse sen de almak isteyebilirsin.</li>
+          <li><strong>Rekabet kaygısı:</strong> Bir firma yeni teknoloji çıkarınca diğerleri de çıkarır.</li>
+          <li><strong>Performans etkisi:</strong> Benimseyen sayısı arttıkça faydası da artar.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text)">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:8px">Sosyal Bulaşma Oluşturmanın Yolları</p>
+      <ul style="font-size:13px">
+        <li>Paylaşılması kolay içerik üretmek.</li>
+        <li>İçeriğin duygusal ya da pratik bir değer taşıması.</li>
+        <li>Doğru kişilere ulaştırmak yayılımı hızlandırır.</li>
+        <li>Görünürlük arttıkça taklit edilme ihtimali de artar.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 3: MARKA TOPLULUKLARI & İNFLUENCER
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="marka-topluluk">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">03</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Marka Toplulukları ve Influencer'lar</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>Tüketici — Marka İlişkisi Modelleri</h3>
+    <div class="grid3">
+      <div class="card" style="border-top:2px solid var(--sub)">
+        <span class="badge b-accent">Geleneksel Model</span>
+        <p style="font-size:13px; margin-top:8px">Marka sadece ürününü tanıtır ve müşteriyi kendine bağlar. <strong>Tek yönlü</strong> ilişki vardır: marka konuşur, müşteri dinler.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Muniz & O'Guinn Modeli</span>
+        <p style="font-size:13px; margin-top:8px">Marka sadece ürün değil, <strong>anlam da taşır</strong>. İnsanlar markayla duygusal bağ kurar.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Tüketici Merkezli Model</span>
+        <p style="font-size:13px; margin-top:8px">Önemli olan <strong>müşteridir</strong>. Marka da pazarlamacılar da müşteriyi merkeze almak zorundadır.</p>
+      </div>
+    </div>
+
+    <h3>Marka Topluluklarının Genel Özellikleri</h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">
+        Marka toplulukları, güçlü bir aidiyet duygusu ve bilinç üzerine kurulur. Bireyler zamanla "ben" yerine "biz" dilini benimsemeye başlar. Topluluk içinde ortak ritüeller ve gelenekler gelişir; bir ürün lansmanını birlikte kutlamak ya da yıllık buluşmalar yapmak buna örnektir. Bunun yanı sıra üyeler, topluluğa karşı ahlaki bir sorumluluk hissi taşır: yeni üyelere yol gösterir, marka aleyhine yapılan yanlış bilgileri düzeltir ve birbirini destekler.
+      </p>
+    </div>
+
+    <h3>Marka Topluluklarının Firmalara Sağladığı Faydalar</h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">
+        Güçlü bir marka topluluğu, firmaya birçok somut kazanım sağlar. Her şeyden önce müşteri sadakatini ve markaya olan güveni kalıcı hâle getirir. Topluluk üyeleri markanın gönüllü savunucusuna dönüşür; ürünü tavsiye eder, olumsuz yorumlara cevap verir ve markayı sahiplenir. Bu sadakat ve savunuculuk, zamanla artan satın alma niyetine de yansır. Ayrıca topluluk, firmaya ürün inovasyonu için değerli içgörüler sunar: müşterilerin gerçek hayatta neyi istediğini, neyin işe yaramadığını çok daha erken görme fırsatı doğar.
+      </p>
+    </div>
+
+    <h3>Çevrimiçi Marka Toplulukları</h3>
+    <div class="highlight-box">
+      <p>Bir markayı seven, kullanan ve takip edenlerin internet üzerinde bir araya gelmesidir.</p>
+    </div>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Sınır Yok</span><p style="margin-top:4px; font-size:13px">Dünyanın öbür ucundaki biriyle bağlantı kurulabilir.</p></div>
+      <div class="card"><span class="badge b-green">Söz Kullanıcıda</span><p style="margin-top:4px; font-size:13px">İçeriği kullanıcılar üretir. UGC <span class="eng-term">User Generated Content</span> bunun temelidir.</p></div>
+      <div class="card"><span class="badge b-amber">Güçlü Bağlar</span><p style="margin-top:4px; font-size:13px">Kişiler sadece markaya değil, birbirine de bağlanır.</p></div>
+      <div class="card"><span class="badge b-purple">Deneyim Paylaşımı</span><p style="margin-top:4px; font-size:13px">Kullanıcılar deneyimlerini aktarır ve başkalarının kararlarını etkiler.</p></div>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Sosyal Kimlik Teorisi:</strong> Kişinin kendini tanımlama biçimlerinden biridir. Birey, ait olduğu grup üzerinden kendini ifade eder. <em>Örn: "Ben doğa dostu bir markanın topluluğundayım" demek.</em></p>
+    </div>
+
+    <h3>Influencer'lar</h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">
+        Influencer'lar, dijital dünyadaki fikir önderleridir. Çok sayıda bağlantıya sahip olmaları, bilgiyi hızla yaymaları ve güçlü sosyal karizmalarıyla öne çıkarlar. Söyledikleri geniş kitlelerde yankı uyandırır.
+      </p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--info-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--text); margin-bottom:8px">Pazarlama Açısından Influencer'lar</p>
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">
+        Tüketiciler, bir ürünü satın almadan önce yorum ve deneyim okumalarına başvurur. Bu noktada influencer'lar devreye girer: akran yorumları resmî reklamlardan çok daha güvenilir bulunur. Ayrıca teknik veya karmaşık bir ürünü anlamakta zorlanan kullanıcı, güvendiği bir içerik üreticisinin incelemesine bakmayı tercih eder. Influencer'lar bu sayede hem karmaşıklığı azaltır hem de marka güvenilirliğini artırır.
+      </p>
+    </div>
+
+    <h3>Influencer Türleri</h3>
+    <div class="grid3">
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">Erken Benimseyenler <span class="eng-term">Early Adopters</span></span>
+        <p style="font-size:13px; margin-top:8px">Trend avcılarıdır. Yeni ürünleri ilk deneyen ve risk alan kişilerdir. <strong>Ürünün piyasaya girişinde</strong> kritik rol oynarlar.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Fikir Liderleri <span class="eng-term">Opinion Leaders</span></span>
+        <p style="font-size:13px; margin-top:8px">Belirli bir alanda uzmanlaşmış kişilerdir. <em>(Örn: Yalnızca telefon incelemeleri yapan hesaplar)</em> İki tipi vardır: ünlüler ve dijitalde yükselenler.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Pazarlama Kurtları <span class="eng-term">Market Mavens</span></span>
+        <p style="font-size:13px; margin-top:8px">Piyasa uzmanlarıdır. Hangi mağazada indirim var, en iyi kampanya hangisi gibi konularda bilgi sahibidirler. Genellikle dışa dönük ve yardımseverdirler.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 4: IoT & PAZARLAMADAKİ 4P
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="iot">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">04</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Nesnelerin İnterneti (IoT) ve Pazarlamada 4P</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>IoT <span class="eng-term">Internet of Things</span>:</strong> Fiziksel cihazların internet üzerinden veri üretmesi ve iletişim kurmasıdır. Temel amacı, fiziksel dünyayı dijital verilere dökmektir; böylece süreçler izlenebilir, ölçülebilir ve yönetilebilir hâle gelir.</p>
+    </div>
+
+    <div class="grid3" style="margin-top:14px">
+      <div class="card"><p style="font-size:13px">📦 <strong>İzlenebilirlik:</strong> Buzdolabında şu an kaç yumurta var?</p></div>
+      <div class="card"><p style="font-size:13px">📊 <strong>Ölçülebilirlik:</strong> Bu makine günde kaç saat çalışıyor?</p></div>
+      <div class="card"><p style="font-size:13px">🎛️ <strong>Yönetilebilirlik:</strong> Evde kimse yokken ışıkları kapat.</p></div>
+    </div>
+
+    <h3>IoT'nin 3 Temel Parçası</h3>
+    <div class="card">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>
+            <p><strong>Fiziksel Nesneler:</strong> Cihazın kendisi ve sensörleri.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: Akıllı saatin nabız ölçeri, buzdolabındaki ağırlık sensörü.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>
+            <p><strong>Bağlantı Altyapısı:</strong> Verinin bir yerden bir yere gitmesini sağlayan yol.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: Wi-Fi, 5G, M2M <span class="eng-term">Machine to Machine</span>.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>
+            <p><strong>Veri İşleme Sistemleri:</strong> Gelen ham verinin anlamlandırıldığı yer. Bulut bilişim ve Big Data buna örnektir.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: "Kullanıcının nabzı yükseldi, hemen uyarı gönder" diyen yazılım mantığı.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>İşletmeler İçin IoT</h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">
+        IoT, işletmelere sürekli veri üretimi ve takibi imkânı sunar. Bu sayede maliyet düşürme fırsatları doğar; bir makine arızalanmadan önce sistem uyarı verebilir. Bu yaklaşıma <strong>kestirimci bakım <span class="eng-term">predictive maintenance</span></strong> denir. Sorun büyümeden müdahale edildiği için hem zaman hem de maliyet tasarrufu sağlanır.
+      </p>
+    </div>
+
+    <div class="grid3" style="margin-top:12px">
+      <div class="card"><span class="badge b-blue">İzleme ve Kontrol</span><p style="font-size:12.5px; margin-top:6px">Depoda kaç ürün kaldı sorusuna anlık yanıt verir.</p></div>
+      <div class="card"><span class="badge b-purple">Büyük Veri ve Analitik</span><p style="font-size:12.5px; margin-top:6px">Geçmiş verilere bakıp geleceği tahmin eder.</p></div>
+      <div class="card"><span class="badge b-green">Koordinasyon</span><p style="font-size:12.5px; margin-top:6px">Birden fazla cihazı birlikte yönetir. <em>Evde kimse yokken ışıkları kapatmak.</em></p></div>
+    </div>
+
+    <h3>IoT ve Pazarlama</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Davranışsal Veri</span><p style="font-size:13px; margin-top:6px">Müşteri ürünü ne sıklıkla kullanıyor?</p></div>
+      <div class="card"><span class="badge b-green">Kişiselleştirme</span><p style="font-size:13px; margin-top:6px">Müşteriye özel teklif sunma.</p></div>
+      <div class="card"><span class="badge b-amber">Dinamik Fiyatlandırma <span class="eng-term">Surge Pricing</span></span><p style="font-size:13px; margin-top:6px">Fiyatların anlık değişmesi. <em>Talep arttığında fiyatın otomatik yükselmesi.</em></p></div>
+      <div class="card"><span class="badge b-purple">Deneyim Temelli Pazarlama</span><p style="font-size:13px; margin-top:6px">Sadece ürün satmak değil, yaşam biçimi de sunmak. <em>Akıllı saatin "bugün az yürüdün" demesi.</em></p></div>
+    </div>
+
+    <div class="danger-box">
+      <p style="font-weight:600; margin-bottom:8px">⚠️ IoT Riskleri</p>
+      <ul style="color:var(--danger-text); font-size:13px">
+        <li>Cihazlar internete bağlı olduğu için saldırıya açıktır.</li>
+        <li>Veri gizliliği sorunları oluşabilir.</li>
+        <li>Hatalı veri, yanlış kararlar doğurabilir.</li>
+        <li>Farklı firma cihazları arasında uyumsuzluk olabilir.</li>
+        <li>Elektrik kesintisi ve yazılım hatası gibi sistem sorunları yaşanabilir.</li>
+      </ul>
+    </div>
+
+    <h3>Pazarlamada 4P ve IoT</h3>
+    <div class="grid2">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Product — Ürün</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li>Ürün veya hizmetin kendisidir; tüketici için anlam üretmelidir.</li>
+          <li>Sürekli güncelleme önemlidir: ürün satıldıktan sonra bile yeni özellikler kazanabilir.</li>
+        </ul>
+        <div class="highlight-box" style="margin-top:8px"><p><em>Tesla araçların yazılım güncellemesiyle yeni özellik kazanması.</em></p></div>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Price — Fiyat</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li><strong>Dinamik fiyatlandırma:</strong> Talep arttığında fiyat artar. <em>(Örn: Uber'in yağmurlu havalarda fiyat artırması)</em></li>
+          <li><strong>Kullanım bazlı fiyat <span class="eng-term">Pay-per-use</span>:</strong> Ne kadar kullanırsan o kadar ödersin. <em>(Fatura sistemleri)</em></li>
+          <li><strong>Kişiselleştirilmiş fiyatlandırma</strong> da mümkündür.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:2px solid var(--amber-text)">
+        <span class="badge b-amber">Place — Dağıtım</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li><strong>Tedarik zinciri yönetimi <span class="eng-term">Supply Chain Management</span></strong> daha görünür hâle gelir.</li>
+          <li>Ürün hangi kamyonda, sıcaklığı kaç derece: anlık takip mümkündür.</li>
+          <li>Stok azaldığında otomatik sipariş verilebilir.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:2px solid var(--purple-text)">
+        <span class="badge b-purple">Promotion — Tutundurma</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li><strong>Gerçek zamanlı bildirim:</strong> Beacon cihazları sayesinde mağaza yakınından geçene bildirim gider.</li>
+          <li><strong>Davranış temelli iletişim:</strong> Ürünü nasıl kullandığına göre mesaj alırsın.</li>
+          <li><strong>Kişiye özel kampanya:</strong> Herkese aynı kampanya yerine ihtiyaca göre teklif sunulur.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 5: MAKİNE ÖĞRENMESİ & YAPAY ZEKÂ
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="ml-ai">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">05</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Makine Öğrenmesi, Yapay Zekâ ve AR</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p>Pazarlama artık bir tahmin işi değil, <strong>veri işidir.</strong> Kime neyi, nasıl ve ne zaman satacağımıza verilere bakarak karar veririz.</p>
+    </div>
+
+    <h3>Makine Öğrenmesi ve Pazarlama</h3>
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--info-text)">
+        <span class="badge b-blue">Müşteri Segmentasyonu</span>
+        <p style="font-size:13px; margin-top:6px">Müşterileri benzer özelliklerine göre gruplar. Herkese reklam yapmak yerine bütçeyi belirli segmentlere ayırırız.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <span class="badge b-green">Kişiselleştirme & Öneri Sistemleri</span>
+        <p style="font-size:13px; margin-top:6px">Kullanıcılara özel içerikler sunar. <em>Netflix'in dizi önerileri buna örnektir.</em></p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--purple-text)">
+        <span class="badge b-purple">Hedefli Reklamcılık</span>
+        <p style="font-size:13px; margin-top:6px">Kullanıcının ilgisini çekecek reklamlar gösterilir. Talep arttığında fiyat artar, azaldığında düşer: <strong>fiyat optimizasyonu</strong> sağlanır.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--warn-text)">
+        <span class="badge b-amber">Müşteri Davranış Analizi</span>
+        <p style="font-size:13px; margin-top:6px">Kullanıcıların sitelerde ne yaptığı, nereye tıkladığı gibi veriler analiz edilir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 6: BİYOMETRİ & AKILLI KARTLAR
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="biyometri">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">06</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Biyometri ve Akıllı Kartlar</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>Biyometri:</strong> Parmak izi veya yüz tanıma gibi ölçülebilir fiziksel ve davranışsal özelliklerdir. Big Data ve AI ile birleştiğinde markaya gerçek zamanlı müşteri içgörüsü sunan bir <strong>Müşteri Deneyimi (UX) ve Kişiselleştirme</strong> aracıdır.</p>
+    </div>
+
+    <h3>Biyometri Türleri</h3>
+    <div class="grid2">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">1. Fizyolojik Biyometrikler</span>
+        <p style="font-size:13px; margin-top:6px">Müşterinin fiziksel özelliklerini kullanır.</p>
+        <p style="font-size:13px; font-weight:500; color:var(--text); margin-top:10px">Parmak İzi / Yüz Tanıma:</p>
+        <ul style="font-size:13px; margin-top:4px">
+          <li><strong>Sürtünmesiz Ticaret <span class="eng-term">Frictionless Commerce</span>:</strong> Müşteri sepete ürün eklediğinde kart şifresi girmez; tek dokunuşla ya da ekrana bakarak ödemeyi tamamlar. Sepeti terk etme oranlarını düşürür.</li>
+        </ul>
+        <div class="info-box" style="margin-top:8px"><p><em>Bankacılık uygulamalarında şifre yazmadan yüzümüzü okutarak saniyeler içinde alışveriş yapabilmemiz.</em></p></div>
+      </div>
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">2. Davranışsal Biyometrikler</span>
+        <p style="font-size:13px; margin-top:6px">Müşterilerin nasıl davrandığını analiz edip kişiye özel deneyim sunar.</p>
+        <p style="font-size:13px; font-weight:500; color:var(--text); margin-top:10px">Sesli Asistanlar:</p>
+        <ul style="font-size:13px; margin-top:4px">
+          <li><strong>Sesle Ticaret <span class="eng-term">Voice Commerce</span>:</strong> Yalnızca konuşarak markayla etkileşime geçilir.</li>
+        </ul>
+        <div class="info-box" style="margin-top:8px"><p><em>Evde Siri'ye "bana kahve sipariş et" dediğinde sesimizden biz olduğumuzu anlayıp kayıtlı karttan siparişi tamamlaması.</em></p></div>
+      </div>
+    </div>
+
+    <h3>Biyometrik Sistem Türleri</h3>
+    <div class="grid2">
+      <div class="card">
+        <span class="badge b-purple">Tanımlama</span>
+        <p style="font-size:13px; margin-top:6px">Sistemde kim olduğunuza dair önceden bilgi yoktur. Veriniz alınır, veri tabanındaki herkesle karşılaştırılır ve kim olduğunuz bulunmaya çalışılır.</p>
+      </div>
+      <div class="card">
+        <span class="badge b-green">Doğrulama</span>
+        <p style="font-size:13px; margin-top:6px">Önce "Ben Umut'um" dersiniz, sistem o veriye bakıp gerçekten iddia ettiğiniz kişi olup olmadığınızı doğrular.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:6px">Çok Modelli Biyometri <span class="eng-term">Multimodal</span></p>
+      <p style="font-size:13.5px">Tek bir biyometrik özelliğin yetersiz kaldığı durumlarda kullanılır. Aynı anda birden fazla biyometrik veri alınarak güvenlik maksimuma çıkarılır.</p>
+    </div>
+
+    <h3>Biyometrik Profilleme Düzeyleri</h3>
+    <div class="card">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>
+            <p><strong>Kimlik Profili:</strong> Gelen kişinin sistemde kim olduğunu bulmaktır.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: Starbucks'a girdiğinizde kasanın sizi tanıması.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>
+            <p><strong>Fiziksel Profil:</strong> Yaş, cinsiyet ve fiziksel özellikleri sınıflandırır.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: Dijital reklam panosunun önünden 20'li yaşlarda bir kadın geçince panoda makyaj malzemesi reklamı çıkması.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>
+            <p><strong>Davranışsal Analiz:</strong> Alışveriş alışkanlıkları, mağaza içindeki yürüyüş, hareket hızı gibi verileri analiz eder.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: Amazon Go tarzı kasasız mağazalar; müşterinin hangi reyonun önünde durduğunu ve incelediği ürünleri analiz ederek telefona bildirim gönderir.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div>
+            <p><strong>Duygusal Analiz <span class="eng-term">Sentiment Analysis</span>:</strong> Yüz ifadeleri ve ses tonundan duygu analizi yapar.</p>
+            <p style="font-size:12.5px; font-style:italic; opacity:0.8; margin-top:2px">Örn: E-ticaret sitesinde ödeme adımında yüzün gerilmesini kamera algılar ve "Bir sorun mu var?" diyerek anlık destek sunar.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div>
+            <p><strong>Bilişsel Profil:</strong> Göz izleme ve nöropazarlama teknikleriyle müşterinin ilgi odaklarını analiz eder.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Pazarlama ve Biyometri Birleşimi</h3>
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--info-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">🔍 Tüketici İçgörüsünü Derinleştirme</p>
+        <p style="font-size:13px">Demografik veriler toplanır, duygusal analizler yapılır. Bir market, müşterilerin göz hizasındaki ürünleri daha fazla fark ettiğini tespit edip en kârlı ürünleri o rafa koyabilir.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">🎯 Pazarlama Karmasını Kişiselleştirme</p>
+        <p style="font-size:13px">Gerçek zamanlı veriler sayesinde ürün, fiyat ve reklam stratejileri kişiye özel hâle gelir. <em>Yorgun görünen müşteriye rahatlatıcı tatil reklamı göstermek.</em></p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--warn-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">🚀 Müşteri Yolculuğunu Otomatikleştirme</p>
+        <p style="font-size:13px">Müşterinin satın alma sürecindeki tüm fiziksel engelleri kaldırarak konforu maksimize etmektir. <em>Otele yüz tanımayla giriş yapmak, odaya parmak iziyle girmek.</em></p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--purple-text)">
+        <p style="font-weight:600; color:var(--text); margin-bottom:6px">🔒 Güvenliği Güçlendirme</p>
+        <p style="font-size:13px">İki Faktörlü Doğrulama Sistemleri güvenliği maksimize eder. Birden fazla biyometrik veri bir arada kullanılır.</p>
+      </div>
+    </div>
+
+    <h3>Akıllı Kartlar</h3>
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">İçinde mikroçip bulunan, veri saklama ve işleme özelliklerine sahip kartlardır. Pazarlama açısından kimlik sahtekârlığını azaltır, güvenli ödeme sağlar ve süreçleri hızlandırır.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 7: 3B BASKI & BLOCKCHAIN
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="3b-blockchain">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">07</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">3B Baskı Teknolojisi ve Blockchain</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>3B Baskı Teknolojisi:</strong> Eklemeli <span class="eng-term">Additive</span> üretim demektir; dijital bir modelden yola çıkarak malzemeyi katman katman inşa eder.</p>
+    </div>
+
+    <h3>3B Baskının Pazarlamaya Katkısı</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-green">Kalıpsız Üretim</span><p style="font-size:13px; margin-top:6px">Kalıba gerek yoktur; tek bir bilgisayar dosyasıyla kişiye özel ürünler üretilebilir.</p></div>
+      <div class="card"><span class="badge b-blue">Kişiselleştirme</span><p style="font-size:13px; margin-top:6px">Her müşteri için farklı tasarım üretilebilir.</p></div>
+      <div class="card"><span class="badge b-amber">Tedarik Zinciri Kısalması</span><p style="font-size:13px; margin-top:6px">Dijital dosya aktarımıyla ürün doğrudan üretilir; ara aşamalar ortadan kalkar.</p></div>
+      <div class="card"><span class="badge b-purple">Yeni İş Modelleri</span><p style="font-size:13px; margin-top:6px">Dijital tasarım satışı gibi daha önce olmayan iş modelleri ortaya çıkar.</p></div>
+    </div>
+    <div class="info-box">
+      <p><strong>Örnek:</strong> Hastaların ağzı 3B taranır, bilgisayarda diş modeli oluşturulur ve doğrudan üretilir.</p>
+    </div>
+
+    <h3>3B Baskı Teknolojileri</h3>
+    <div class="card">
+      <ul style="list-style:none; padding-left:0; display:grid; grid-template-columns:1fr 1fr; gap:6px">
+        <li><span class="badge b-accent">Bağlayıcı Püskürtme</span></li>
+        <li><span class="badge b-accent">Malzeme Püskürtme</span></li>
+        <li><span class="badge b-accent">Malzeme Ekstrüzyonu</span></li>
+        <li><span class="badge b-accent">Plaka Tabakalaştırma</span></li>
+        <li><span class="badge b-accent">Toz Yataklı Birleştirme</span></li>
+      </ul>
+    </div>
+
+    <h3>Sektörel Kullanım Alanları</h3>
+    <div class="grid3">
+      <div class="card"><p style="font-size:13px">✈️ <strong>Havacılık & Uzay</strong></p></div>
+      <div class="card"><p style="font-size:13px">🏥 <strong>Sağlık & Tıp</strong></p></div>
+      <div class="card"><p style="font-size:13px">🏗️ <strong>Mimarlık & İnşaat</strong></p></div>
+      <div class="card"><p style="font-size:13px">🚗 <strong>Otomotiv</strong></p></div>
+      <div class="card"><p style="font-size:13px">👗 <strong>Moda:</strong> Kişiselleştirilmiş ürünler.</p></div>
+      <div class="card"><p style="font-size:13px">🍽️ <strong>Gıda:</strong> Özelleştirilmiş üretim ve estetik sunum.</p></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <p style="font-weight:600; color:var(--success-text); margin-bottom:8px">✅ Avantajları</p>
+        <ul style="font-size:13px">
+          <li>Hızlı, düşük maliyetli ve özgür tasarım.</li>
+          <li>Küçük partilerle üretim imkânı.</li>
+          <li>Stok maliyetlerinde azalma.</li>
+          <li>Çevre dostu üretim.</li>
+          <li>Müşteri katılımının artması.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--danger-text)">
+        <p style="font-weight:600; color:var(--danger-text); margin-bottom:8px">❌ Dezavantajları</p>
+        <ul style="font-size:13px">
+          <li>Güvenlik ve veri riski.</li>
+          <li>Fikri mülkiyet belirsizliği.</li>
+          <li>Büyük ölçekli üretimde aksaklık.</li>
+          <li>Malzeme çeşitliliği konusunda sınırlılık.</li>
+          <li>Yasal düzenleme eksikliği.</li>
+          <li>Başlangıç maliyeti yüksekliği.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent); margin-top:4px">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:6px">3B Teknolojisinin Geleceği</p>
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">Üretim müşteriye daha yakın yerlerde yapılacağından lojistik maliyetleri azalabilir ve ürünler daha hızlı teslim edilebilir. İnsanlar kendi ürünlerini bizzat tasarlayabilir hâle gelecek. Baskı hızı, malzeme çeşitliliği ve yasal düzenlemeler açısından hâlâ gelişime ihtiyaç duyulmaktadır.</p>
+    </div>
+
+    <div class="unit-divider" style="margin-top:40px"></div>
+
+    <div class="unit-header" style="margin-top:32px; margin-bottom:24px">
+      <div class="unit-num-block">
+        <span class="unit-num" style="opacity:1; color:var(--sub)">—</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title" style="font-size:26px">Blockchain</h2>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Blockchain:</strong> Verilerin birçok bilgisayarda saklandığı, güvenli dijital kayıt sistemidir.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <p style="font-weight:600; color:var(--success-text); margin-bottom:8px">✅ Faydaları</p>
+        <ul style="font-size:13px">
+          <li><strong>Güvenlik ve Kriptografi</strong></li>
+          <li><strong>Değiştirilemezlik:</strong> Eklenen kayıt sonradan değiştirilemez.</li>
+          <li><strong>Aracıların Ortadan Kalkması</strong></li>
+          <li><strong>Şeffaflık</strong></li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--danger-text)">
+        <p style="font-weight:600; color:var(--danger-text); margin-bottom:8px">❌ Dezavantajları</p>
+        <ul style="font-size:13px">
+          <li><strong>Regülasyon Eksikliği:</strong> Kurallar her ülkede net değildir.</li>
+          <li><strong>Mahremiyet Sorunları:</strong> İşlemler görülebilir olduğu için gizlilik problemleri yaşanır.</li>
+          <li><strong>Entegrasyon Güçlükleri:</strong> Eski sistemlerle uyum sağlaması zor olabilir.</li>
+          <li><strong>Yüksek Depolama Maliyeti:</strong> Veriler büyüdükçe maliyet artar.</li>
+          <li><strong>Standart Eksikliği:</strong> Herkes farklı sistem kullanabilir.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Blockchain Uzlaşma Algoritmaları</h3>
+    <div class="card">
+      <ul style="list-style:none; padding-left:0; display:grid; grid-template-columns:1fr 1fr; gap:6px">
+        <li><span class="badge b-blue">Proof of Work</span></li>
+        <li><span class="badge b-blue">Proof of Stake</span></li>
+        <li><span class="badge b-blue">Delegated Proof of Stake</span></li>
+        <li><span class="badge b-blue">Practical Byzantine Fault Tolerance</span></li>
+      </ul>
+    </div>
+
+    <h3>Blockchain Ağ Türleri</h3>
+    <div class="grid3">
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Açık Blockchain</span>
+        <p style="font-size:13px; margin-top:6px">Herkes ağa katılır ve işlemleri doğrular. Şeffaflık yüksektir ancak işlem süresi uzundur.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">Özel Blockchain</span>
+        <p style="font-size:13px; margin-top:6px">Tek kuruluş tarafından yönetilir; katılım için izin gerekir. İşlem hızı yüksek, veri erişimi sınırlıdır.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--purple-text)">
+        <span class="badge b-purple">Konsorsiyum Blockchain</span>
+        <p style="font-size:13px; margin-top:6px">Birden fazla kurum tarafından ortaklaşa yönetilir.</p>
+      </div>
+    </div>
+
+    <h3>Blockchain ve Pazarlama Yönetimi</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Dijital Pazarlama</span><p style="font-size:13px; margin-top:6px">Aracı platformlar kalkar, reklam maliyetleri düşer. Müşteri verileri doğrudan ve güvenli şekilde elde edilir.</p></div>
+      <div class="card"><span class="badge b-green">Sadakat Programları</span><p style="font-size:13px; margin-top:6px">Müşteri ödülleri doğrudan dijital cüzdanlara aktarılabilir.</p></div>
+      <div class="card"><span class="badge b-amber">Kimlik Yönetimi</span><p style="font-size:13px; margin-top:6px">Kişisel verilerin korunmasını güçlendirerek güveni artırır.</p></div>
+      <div class="card"><span class="badge b-purple">Tedarik Zinciri</span><p style="font-size:13px; margin-top:6px">Ürünün kaynağı, üretim süreci ve dağıtımı şeffaf şekilde takip edilebilir.</p></div>
+      <div class="card" style="grid-column:span 2"><span class="badge b-accent">Akıllı Sözleşmeler</span><p style="font-size:13px; margin-top:6px">Pazar araştırmasını ve kampanya yönetimini otomatikleştirir. Koşullar sağlandığında sözleşme kendiliğinden devreye girer.</p></div>
+    </div>
+
+    <div class="grid2" style="margin-top:4px">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Tüketici Perspektifi</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li>Kişisel veri kontrolü artar.</li>
+          <li>Aracılar ortadan kalkar.</li>
+          <li>Doğrudan marka-müşteri ilişkisi kurulur.</li>
+          <li>Güven seviyesi yükselir.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">İşletme Perspektifi</span>
+        <ul style="font-size:13px; margin-top:8px">
+          <li>Proaktif pazar yönelimi gelişir.</li>
+          <li>Kişiselleştirilmiş değer sunulur.</li>
+          <li>Rekabet avantajı elde edilir.</li>
+          <li>Şeffaf ve güven temelli pazarlama oluşur.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 8: METAVERSE & BIG DATA
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="metaverse">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">08</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Metaverse ve Big Data</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>Metaverse:</strong> Kullanıcıların etkileşim kurup dijital varlık satın alabildiği sanal bir ekosistemdir.</p>
+    </div>
+
+    <h3>Metaverse Ekosistemindeki Temel Aktörler ve Kavramlar</h3>
+    <div class="grid2">
+      <div class="card">
+        <p style="font-weight:600; color:var(--text); margin-bottom:8px">Büyük Oyuncular</p>
+        <ul style="list-style:none; padding-left:0; display:flex; flex-wrap:wrap; gap:6px">
+          <li><span class="badge b-blue">Meta</span></li>
+          <li><span class="badge b-blue">Microsoft</span></li>
+          <li><span class="badge b-blue">Epic Games</span></li>
+          <li><span class="badge b-blue">Tencent</span></li>
+          <li><span class="badge b-blue">Google</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p style="font-weight:600; color:var(--text); margin-bottom:8px">Temel Teknolojiler</p>
+        <ul style="list-style:none; padding-left:0; display:flex; flex-wrap:wrap; gap:6px">
+          <li><span class="badge b-purple">Avatar</span></li>
+          <li><span class="badge b-purple">Dijital İkiz</span></li>
+          <li><span class="badge b-purple">IoT</span></li>
+          <li><span class="badge b-purple">Blockchain</span></li>
+          <li><span class="badge b-purple">NFT</span></li>
+          <li><span class="badge b-purple">Kripto</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Metaverse Sisteminin İşleyişi</h3>
+    <table>
+      <thead>
+        <tr><th>Boyut</th><th>Merkezi Yaklaşım</th><th>Merkeziyetsiz Yaklaşım</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Yönetim</strong></td><td>Kurallar şirket tarafından belirlenir ve yönetilir.</td><td>Kullanıcılar oy kullanarak sistemi yönetir.</td></tr>
+        <tr><td><strong>Tasarım</strong></td><td>Giriş için şirket onayı veya satın alma gerekebilir.</td><td>Herkes özgür biçimde katılabilir.</td></tr>
+        <tr><td><strong>Mülkiyet</strong></td><td>Kullanıcılar ürünleri kullanır ama gerçek mülkiyet hakkı yoktur.</td><td>NFT aracılığıyla gerçek sahiplik sağlanır; satışta da kullanılabilir.</td></tr>
+        <tr><td><strong>Ortaklık</strong></td><td>Belirli iş ortakları sisteme entegre edilir.</td><td>Geniş iş birlikleri kurulabilir.</td></tr>
+        <tr><td><strong>Mahremiyet</strong></td><td>Şirketlerin verileri ticari amaçla kullanma riski vardır.</td><td>Merkeziyetsiz depolama ile güvenlik daha yüksektir.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Metaverse Dijital Pazarlama Araçları</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Büyük Veri <span class="eng-term">Big Data</span></span><p style="font-size:13px; margin-top:6px">Devasa hacimde veri üretimi ve işlenmesi.</p></div>
+      <div class="card"><span class="badge b-green">İş Zekâsı <span class="eng-term">Business Intelligence</span></span><p style="font-size:13px; margin-top:6px">Büyük verileri işleyip analiz ederek karar alma süreçlerinde kullanan sistemlerdir. Raporlama ve analiz temel işlevidir.</p></div>
+      <div class="card"><span class="badge b-amber">Veri Madenciliği</span><p style="font-size:13px; margin-top:6px">Ham verilerden örüntü <span class="eng-term">pattern</span> çıkarmayı amaçlar. Kümeleme, ilişkilendirme, sınıflandırma, regresyon ve görselleştirme teknikleriyle analiz eder.</p></div>
+      <div class="card"><span class="badge b-purple">Makine Öğrenmesi</span><p style="font-size:13px; margin-top:6px">Big Data'yı analiz ederek müşteri davranışlarını modelleyen sistemdir.</p></div>
+      <div class="card" style="grid-column:span 2"><span class="badge b-accent">Tahmine Dayalı Çözüm</span><p style="font-size:13px; margin-top:6px">Gelecekte ne olacağını tahmin etmeye dayalı sistemdir.</p></div>
+    </div>
+
+    <h3>Metaverse'de Pazarlama</h3>
+    <div class="card">
+      <ul>
+        <li>Avatar, kullanıcının gerçek kimliği de olabilir farklı bir kimliği de. Bu yüzden <strong>avatar davranışları</strong> müşteri isteklerini anlamada kritik bir veri kaynağıdır.</li>
+        <li>Lüks mağazalar sanal dünyada avatarla deneyim yaşatabilir.</li>
+      </ul>
+    </div>
+
+    <h3>Metaverse Pazarlama Süreci — 5 Aşama</h3>
+    <div class="card">
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div><p><strong>Müşteri Davranışlarını Anlama:</strong> Yapay zekâ ile müşterinin temas ettiği tüm kaynakların verileri toplanır.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><p><strong>Reklam Öngörme:</strong> Kişiye ilgi alanına göre reklam tasarlanır.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><p><strong>Çerçeve Oluşturma:</strong> Kullanıcının ilgisini çekecek unsurlar belirlenir: görüntü, müzik ve ödeme detayları netleştirilir.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div><p><strong>Sunum:</strong> Kişiye özel reklamların dijital ortamda dağıtılması aşamasıdır.</p></div></div>
+        <div class="step-item"><div class="step-num">5</div><div><p><strong>Geri Bildirim:</strong> Yapılan stratejilerin kullanıcılar üzerindeki etkisi ve sonuçları izlenir.</p></div></div>
+      </div>
+    </div>
+
+    <h3>Big Data</h3>
+    <div class="grid2">
+      <div class="card" style="border-left:3px solid var(--success-text)">
+        <p style="font-weight:600; color:var(--success-text); margin-bottom:8px">✅ Avantajları</p>
+        <ul style="font-size:13px">
+          <li>Dolandırıcılık tespiti</li>
+          <li>Erken hata tespiti</li>
+          <li>Gelir artışı sağlama</li>
+          <li>Müşteri analizi ve sadakat artırma</li>
+          <li>Operasyonel verimlilik</li>
+          <li>Yenilikçiliği destekleme</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--danger-text)">
+        <p style="font-weight:600; color:var(--danger-text); margin-bottom:8px">❌ Dezavantajları</p>
+        <ul style="font-size:13px">
+          <li>Kurulum ve yönetim maliyeti</li>
+          <li>Karmaşık altyapı</li>
+          <li>Uzman personel ihtiyacı</li>
+          <li>Doğru platform seçimi zorluğu</li>
+          <li>Veri güvenliği riski</li>
+          <li>Kişisel verilerin kötüye kullanılma riski</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Pazarlama Yöneticileri İçin Veri Türleri</h3>
+    <div class="grid3">
+      <div class="card"><span class="badge b-blue">Müşteri Verileri</span><p style="font-size:13px; margin-top:6px">Satın alma geçmişi, davranış verileri, sosyal medya etkileşimleri.</p></div>
+      <div class="card"><span class="badge b-green">Finansal Veriler</span><p style="font-size:13px; margin-top:6px">Satışlar, maliyet, rakip performansı.</p></div>
+      <div class="card"><span class="badge b-amber">Operasyonel Veriler</span><p style="font-size:13px; margin-top:6px">Lojistik, CRM, sensör verileri.</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 9: OMNICHANNEL & UBIQUİTOUS
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="omnichannel">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">09</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Omnichannel ve Yaygın Pazarlama</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>Omnichannel (Bütüncül Kanal):</strong> Tüm müşteri temas noktalarını birleştiren perakendecilik modelidir. Fiziksel ve dijital kanallar eş zamanlı kullanılır; müşteri istediği kanalda alışverişe başlayıp başka kanalda tamamlayabilir.</p>
+    </div>
+
+    <h3>Kanal Modelleri — Evrimi</h3>
+    <div class="card">
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div><p><strong>Tek Kanallı:</strong> Satış tek kanal üzerinden gerçekleşir; fiziksel ya da çevrimiçi mağaza. <em>(Bakkal, küçük market)</em></p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><p><strong>Çok Kanallı:</strong> Birden fazla kanal aktif: web sitesi, mağaza, mobil uygulama, sosyal medya. Kanallar arası uyumsuzluk ve maliyet sorunları oluşabilir.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><p><strong>Çapraz Kanallı:</strong> İki veya daha fazla kanal arka planda entegredir. Web sitesinden verilen sipariş mağazadan gönderilebilir; müşteri hâlâ iki ayrı kanal görür.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div><p><strong>Bütüncül Kanal (Omnichannel):</strong> Tüm sistem tek yapı altındadır. Müşteri verisi kullanımı en üst düzeydedir.</p></div></div>
+      </div>
+    </div>
+
+    <h3>Omnichannel Alışveriş Davranışları</h3>
+    <div class="grid2">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Showrooming</span>
+        <p style="font-size:11px; opacity:0.7; font-style:italic; margin-top:2px">Mağazada incele, internetten satın al</p>
+        <p style="font-size:13px; margin-top:8px">Tüketici ürünü mağazada görür, dener ve inceler; satın alma işlemini ise fiyat avantajı ve alternatif karşılaştırma için internetten yapar.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">Webrooming</span>
+        <p style="font-size:11px; opacity:0.7; font-style:italic; margin-top:2px">İnternetten incele, mağazadan al</p>
+        <p style="font-size:13px; margin-top:8px">Önce internette karşılaştırma yapar, sonra mağazadan alır. Pahalı ürünlerde riski azaltmak ve dokunma-deneme ihtiyacını karşılamak için tercih edilir.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Mağaza İçi Pazarlama <span class="eng-term">In-Store Marketing</span></span>
+        <p style="font-size:13px; margin-top:8px">Tüketici mağazada ürünü incelerken siparişi dijitalden verir. Anlık fiyat karşılaştırması ve hızlı karar verme mümkün olur.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--purple-text)">
+        <span class="badge b-purple">Tıkla ve Topla <span class="eng-term">Click and Collect</span></span>
+        <p style="font-size:13px; margin-top:8px">İnternetten sipariş verir, mağazadan teslim alır. Teslimat maliyeti ortadan kalkar ve ürünü inceleme fırsatı doğar.</p>
+      </div>
+    </div>
+
+    <h3>Fijital Kanal İşlevleri</h3>
+    <table>
+      <thead>
+        <tr><th>İşlev</th><th>Fiziksel Kanal</th><th>Dijital Kanal</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Ürün Bilgisi</strong></td><td>Mağazada yüz yüze</td><td>Web üzerinden</td></tr>
+        <tr><td><strong>Ürün Seçimi</strong></td><td>Kişisel destekle</td><td>Dijital sepet sistemiyle</td></tr>
+        <tr><td><strong>Ödeme</strong></td><td>Nakit, kredi kartı</td><td>Online bankacılık</td></tr>
+        <tr><td><strong>Tanıtım</strong></td><td>Basılı materyal ve katalog</td><td>Dijital afişler</td></tr>
+        <tr><td><strong>Müşteri İlişkileri</strong></td><td>Doğrudan temas</td><td>Dijital iletişim</td></tr>
+      </tbody>
+    </table>
+
+    <div class="unit-divider" style="margin-top:40px"></div>
+
+    <div class="unit-header" style="margin-top:32px; margin-bottom:24px">
+      <div class="unit-num-block">
+        <span class="unit-num" style="opacity:1; color:var(--sub)">—</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title" style="font-size:26px">Yaygın (Ubiquitous) Pazarlama</h2>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Yaygın Pazarlama:</strong> Zaman ve mekân engelinin aşıldığı pazarlamadır. İki temel özelliği vardır: <strong>gömülü olma</strong> (nesnelerin sensör ve RFID ile akıllanması) ve <strong>taşınabilirlik</strong> (nesnelerin kullanıcıyla birlikte hareket etmesi).</p>
+    </div>
+
+    <h3>Yaygın vs Mobil Pazarlama</h3>
+    <table>
+      <thead>
+        <tr><th>Boyut</th><th>Yaygın Pazarlama</th><th>Mobil Pazarlama</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Hedef</strong></td><td>Geniş kitleleri hedefler.</td><td>Bireyseldir, kişiye özel bildirimler sunar.</td></tr>
+        <tr><td><strong>Konum</strong></td><td>Konumdan bağımsız, sınırlı. <em>(Semtteki durak reklamı)</em></td><td>GPS ve lokasyon verisi kullanır (Beacon Teknolojisi).</td></tr>
+        <tr><td><strong>İletişim</strong></td><td>Tek yönlüdür; reklamla etkileşime geçilmez.</td><td>Çift yönlü ve anlıktır.</td></tr>
+        <tr><td><strong>Ölçüm</strong></td><td>Başarıyı ölçmek zordur; anket gibi yöntemler kullanılır.</td><td>Tamamen veriye dayalıdır: tıklama oranı, konum verisi vb.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Yaygın Bilişim Teknolojilerinin Pazarlama Karmasına Etkisi</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Ürün</span><p style="font-size:13px; margin-top:6px">Odak müşteri kolaylığıdır. Dijital hizmetlerle destek sağlanır. <em>Kameraların mobil uygulamalarla bütünleşmesi.</em></p></div>
+      <div class="card"><span class="badge b-green">Fiyat</span><p style="font-size:13px; margin-top:6px">Değer temelli fiyatlama önem kazanmıştır.</p></div>
+      <div class="card"><span class="badge b-amber">Dağıtım</span><p style="font-size:13px; margin-top:6px">Yeni iş birlikleri ve dijital kanallar gereklidir. <em>Müzik CD'lerinin yerini dijital platformların alması.</em></p></div>
+      <div class="card"><span class="badge b-purple">Tutundurma</span><p style="font-size:13px; margin-top:6px">Çift yönlü iletişim hâkimdir. Tüketici isterse iletişimi keser. Veri tabanları kişiye özel reklamlar sunar. <em>Amazon buna örnektir.</em></p></div>
+    </div>
+
+    <h3>Çoklu Cihaz Pazarlaması <span class="eng-term">Cross Device Marketing</span></h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub); margin-bottom:12px">Tüketicinin gün içinde kullandığı farklı cihazlar arasında kesintisiz ve tutarlı reklam deneyimi sunma stratejisidir.</p>
+      <div class="grid2" style="margin-bottom:12px">
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-weight:500; font-size:12.5px; color:var(--info-text)">Çok Kanallı <span class="eng-term">Multichannel</span>:</p>
+          <p style="font-size:12.5px; margin-top:4px">Markanın her cihazda bulunmasıdır. Kanallar birbiriyle etkileşim içinde olmayabilir.</p>
+        </div>
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-weight:500; font-size:12.5px; color:var(--success-text)">Bütüncül Kanallı <span class="eng-term">Omnichannel</span>:</p>
+          <p style="font-size:12.5px; margin-top:4px">Cihazlar arasındaki sınırlar kalkar. Telefondan sepete eklediğin ürün bilgisayarda da hazır olur.</p>
+        </div>
+      </div>
+      <p style="font-size:13px; font-weight:500; color:var(--text); margin-bottom:8px">Kullanıcı Takibi:</p>
+      <div class="grid2" style="margin-bottom:0">
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-weight:500; font-size:12.5px">Deterministik Eşleşme:</p>
+          <p style="font-size:12px; margin-top:4px">Bir platforma giriş yapıldığında o hesabın bağlı tüm cihazlar kesin olarak tanımlanır.</p>
+        </div>
+        <div style="background:var(--surface2); padding:10px; border-radius:6px">
+          <p style="font-weight:500; font-size:12.5px">Olasılıksal Eşleştirme <span class="eng-term">Probabilistic</span>:</p>
+          <p style="font-size:12px; margin-top:4px">IP adresi, konum, tarayıcı türü gibi verilerle farklı cihazların aynı kişiye ait olma ihtimali hesaplanır.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Yaygın Pazarlama Uygulamaları</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Geo Fencing</span><p style="font-size:13px; margin-top:6px">Belirlenen coğrafi sınırlar içine giren kullanıcılara otomatik bildirim gönderilir.</p></div>
+      <div class="card"><span class="badge b-amber">Geo Conquesting</span><p style="font-size:13px; margin-top:6px">Rakip mağazanın yakınındaki kullanıcılara kendi tekliflerini göstermektir.</p></div>
+      <div class="card"><span class="badge b-green">Beacon Teknolojisi</span><p style="font-size:13px; margin-top:6px">Mağaza içindeki küçük Bluetooth cihazları sayesinde yakındaki kullanıcılara özel bildirimler gönderilir.</p></div>
+      <div class="card"><span class="badge b-purple">Artırılmış Gerçeklik <span class="eng-term">AR</span></span><p style="font-size:13px; margin-top:6px">Gerçek dünya üzerine dijital katmanlar eklenerek zenginleştirilmiş deneyim sunulur.</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 10: KENDİN YAP (DIY)
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="diy">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">10</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Kendin Yap (DIY) Pazarlama Anlayışı</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box">
+      <p><strong>DIY <span class="eng-term">Do It Yourself</span>:</strong> Müşteri artık yalnızca ürünü satın alan kişi değil; ürün veya hizmetin oluşumuna aktif olarak katkı sağlayan kişidir.</p>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Prosumption:</strong> <em>Producer (Üretici) + Consumer (Tüketici)</em> kelimelerinden türemiştir. "Üreten Tüketim" anlamına gelir. DIY bir yaşam tarzıdır; sadece ihtiyaçtan değil, keyif verdiği için de yapılır ve bireyin kendini ifade etme biçimidir.</p>
+    </div>
+
+    <h3>DIY'ın Faydaları</h3>
+    <div class="grid2">
+      <div class="card"><span class="badge b-green">Her İki Taraf İçin Maliyet Azalması</span><p style="font-size:13px; margin-top:6px">İşletmeler için kasiyer ihtiyacı azalır; müşteri için montaj ücretleri gibi masraflar ortadan kalkar. <em>(Fast food restoranlarında ekranla sipariş vermek)</em></p></div>
+      <div class="card"><span class="badge b-blue">Bireysel Beceri Gelişimi</span><p style="font-size:13px; margin-top:6px">İnsanlar tamir etmeyi ve üretmeyi öğrenir. <em>(YouTube'daki "nasıl yapılır" videoları)</em></p></div>
+      <div class="card"><span class="badge b-amber">Ek Gelir Fırsatı</span><p style="font-size:13px; margin-top:6px">Ürettiklerini satabilirler.</p></div>
+      <div class="card"><span class="badge b-purple">Atık ve İsrafı Engeller</span><p style="font-size:13px; margin-top:6px">Eski ürünlerin yeniden kullanımıyla sürdürülebilirlik sağlanır. <em>(Cam kavanozu kalemlik yapmak)</em></p></div>
+      <div class="card" style="grid-column:span 2"><span class="badge b-accent">Yerel İstihdamı Destekler</span><p style="font-size:13px; margin-top:6px">Yerel üreticilerden malzeme almak, küçük işletmelerin ayakta kalmasına katkı sağlar. <em>(Marangozdan malzeme almak)</em></p></div>
+    </div>
+
+    <h3>DIY'ın 3 Temel Pazar Motivasyonu</h3>
+    <div class="grid3">
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">Algılanan Ekonomik Fayda</span>
+        <p style="font-size:13px; margin-top:8px">"Kendim yaparsam daha ucuza gelir." <em>Usta çağırmak yerine evi kendim boyamak.</em></p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Ürünü Piyasada Bulamama</span>
+        <p style="font-size:13px; margin-top:8px">"İstediğim şey yok, o zaman kendim yaparım." <em>Kendi tarzına uygun dekorasyon ürünü bulamamak.</em></p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--warn-text)">
+        <span class="badge b-amber">Kaliteden Memnun Olmama</span>
+        <p style="font-size:13px; margin-top:8px">Daha sağlam ve kişisel tasarımlar istemek.</p>
+      </div>
+    </div>
+
+    <h3>DIY Tüketici Tipleri</h3>
+    <div class="grid3">
+      <div class="card">
+        <span class="badge b-purple">Kendini İfade Edenler</span>
+        <p style="font-size:13px; margin-top:8px">İç dünyalarını dışa vurmak için yaparlar. Yaratıcı olmak ve eğlenmek temel motivasyonlarıdır. <em>Odasını kendine göre tasarlamak.</em></p>
+      </div>
+      <div class="card">
+        <span class="badge b-accent">Benzersizlik Arayanlar</span>
+        <p style="font-size:13px; margin-top:8px">Herkeste olan değil, yalnızca kendine özgü bir şey isterler. Özel ve farklı ürünler peşindedirler.</p>
+      </div>
+      <div class="card">
+        <span class="badge b-blue">İşlevselciler</span>
+        <p style="font-size:13px; margin-top:8px">Ucuzluk, kalite arayışı ya da mecburiyet nedeniyle yaparlar.</p>
+      </div>
+    </div>
+
+    <h3>İki Bakış Açısı</h3>
+    <div class="grid2">
+      <div class="card" style="border-top:2px solid var(--info-text)">
+        <span class="badge b-blue">Tüketici Bakış Açısı</span>
+        <p style="font-size:13px; margin-top:8px">Müşterinin bir şeyi kendi yapmasıdır. <em>YouTube videosu izleyerek telefon ekranını değiştirmek.</em></p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--success-text)">
+        <span class="badge b-green">İşletme Bakış Açısı</span>
+        <p style="font-size:13px; margin-top:8px">İşletmenin müşterilerine kendi yapabilecekleri ürün ve hizmetler sunmasıdır. <em>IKEA'nın montajı müşteriye bırakması.</em></p>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:10px">
+      <div class="card">
+        <span class="badge b-accent">İçsel DIY</span>
+        <p style="font-size:13px; margin-top:6px">İşletme kendi işini kendi yapar. <em>Bir kafenin Instagram gönderilerini kendi hazırlaması.</em></p>
+      </div>
+      <div class="card">
+        <span class="badge b-amber">Dışsal DIY</span>
+        <p style="font-size:13px; margin-top:6px">İşletme işi müşteriye bırakır; müşteri üretim sürecine katılır. <em>IKEA mobilyayı sen kurarsın.</em></p>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent); margin-top:10px">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:6px">Kitlesel Bireyselleştirme <span class="eng-term">Mass Customization</span></p>
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">Aynı ürünü üretirken herkese farklı seçenekler sunmaktır. Lego benzetmesi yapılabilir: parçalar standarttır ama herkes farklı bir şey yapabilir. Dell sayesinde kendi bilgisayarımızı istediğimiz gibi yapılandırabilmemiz buna örnektir.</p>
+    </div>
+
+    <h3>DIY'ın Geleceği</h3>
+    <div class="card">
+      <p style="font-size:14px; line-height:1.8; color:var(--sub)">Endüstri 4.0 ile insanlar mağazaya gitmeden pek çok şeyi yapabilir hâle geldi. Temassız hizmetler arttı, müşteri artık tasarımdan satış sonrasına kadar sürecin her noktasında yer alıyor. Kitlesel bireyselleştirme kişiselleştirilmiş ürünleri mümkün kılarken, AR/VR ile ürünleri satın almadan sanal ortamda deneme imkânı doğdu. Metaverse'in gelişimiyle birlikte evde fiziksel bir şey yapmak giderek yerini sanal ortamda üretmeye bırakacak.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ÜNİTE 11: MÜNAZARA DERSİ KELİMELERİ
+  ══════════════════════════════════════════ -->
+  <section class="unit" id="munazara">
+    <div class="unit-header">
+      <div class="unit-num-block">
+        <span class="unit-num">11</span>
+        <div class="unit-line"></div>
+      </div>
+      <div>
+        <h2 class="unit-title">Münazara Dersi — Kavramlar</h2>
+      </div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <div class="info-box">
+      <p>Bu bölüm, sınıfta yapılan münazara dersinde tahtaya yazılan kavramları dersin içeriğiyle ilişkilendirerek açıklamaktadır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text); margin-top:14px">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:4px">⭐ Evaluation 5 Stars — Beş Yıldızlı Değerlendirme</p>
+      <p style="font-size:13.5px">Ürün veya hizmetin dijital platformlarda kullanıcılar tarafından puanlanmasıdır. Yüksek puan güven oluşturur; eWOM'un (ağızdan ağıza pazarlamanın dijital biçimi) en somut göstergesidir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--info-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--info-text); margin-bottom:4px">E-Loyalty — E-Sadakat</p>
+      <p style="font-size:13.5px">Müşterinin dijital platformlara ya da çevrimiçi markalara duyduğu bağlılıktır. Fiziksel mağaza sadakatinin dijitaldeki karşılığıdır. Marka topluluklarının en önemli çıktılarından biridir. <em>Örn: Her seferinde aynı e-ticaret sitesinden alışveriş yapmak.</em></p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--purple-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--purple-text); margin-bottom:4px">UTAUT2</p>
+      <p style="font-size:13.5px">Kullanıcıların teknoloji kabulünü açıklayan modeldir <span class="eng-term">Unified Theory of Acceptance and Use of Technology</span>. Kişinin yeni bir dijital hizmet ya da uygulamayı benimseyip benimsemeyeceğini; algılanan fayda, kullanım kolaylığı, sosyal etki ve alışkanlık gibi faktörler üzerinden tahmin eder. Dijital pazarlamada yeni bir uygulamanın neden tutunup tutunmadığını anlamak için kullanılır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--warn-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--warn-text); margin-bottom:4px">AI Assistants — Yapay Zekâ Asistanları</p>
+      <p style="font-size:13.5px">Siri, Alexa, Google Assistant gibi sesle ya da yazıyla etkileşim kurulan zekâ destekli sistemlerdir. Davranışsal biyometri kapsamında değerlendirilen bu asistanlar; sesle ticareti mümkün kılar, müşteriye kişiselleştirilmiş öneriler sunar ve alışveriş süreçlerini sürtünmesiz hâle getirir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--danger-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--danger-text); margin-bottom:4px">Seller Pressure on Direct Purchase — Satıcının Direkt Satın Almaya Yönelik Baskısı</p>
+      <p style="font-size:13.5px">Dijital ortamda "Sadece 2 adet kaldı!", "Bu fiyat 1 saat geçerli" gibi mesajlarla kullanıcıyı anlık satın almaya itmektir. Dinamik fiyatlandırma ve gerçek zamanlı bildirim teknolojileriyle desteklenir. Kısa vadede dönüşüm oranını artırır; ancak aşırı kullanımı tüketici güvenini zedeleyebilir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--info-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--info-text); margin-bottom:4px">E-Security — Dijital Güvenlik</p>
+      <p style="font-size:13.5px">Müşterinin kişisel ve finansal verilerinin çevrimiçi ortamda korunmasıdır. Blockchain, biyometrik doğrulama ve iki faktörlü kimlik doğrulama bu güvenliği sağlayan teknolojilerdir. Güvensizlik, e-sadakati ve dönüşüm oranını doğrudan düşürür.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:4px">E-Distribution — Dijital Dağıtım / Fast Distribution — Hızlı Teslimat</p>
+      <p style="font-size:13.5px">Ürünün müşteriye en kısa sürede ulaştırılması stratejisidir. IoT'nin tedarik zinciri takibi, stok optimizasyonu ve lojistik izleme özellikleri bu hızı mümkün kılar. "Tıkla ve topla" modeli hem dijital dağıtımı hem de hız beklentisini karşılar.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--purple-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--purple-text); margin-bottom:4px">AR & AI Support — Artırılmış Gerçeklik ve Yapay Zekâ Desteği</p>
+      <p style="font-size:13.5px">AR, gerçek dünyaya dijital katmanlar ekleyerek ürünleri sanal olarak deneme imkânı sunar <em>(mobilyayı evinize yerleştirip nasıl durduğunu görmek)</em>. Buna yapay zekâ desteği eklenince sistem müşterinin tercihlerini öğrenir ve kişiselleştirilmiş AR deneyimleri oluşturabilir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--warn-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--warn-text); margin-bottom:4px">Discounts — İndirimler</p>
+      <p style="font-size:13.5px">Müşterileri satın almaya yönlendiren fiyat teşvikleridir. Dinamik fiyatlandırma ile birleştiğinde kişiye özel kampanya hâline gelir. Öğrenci indirimleri, STEPPS modelindeki "pratik değer" kavramına güzel bir örnektir; insanlar faydalı bilgileri paylaşmayı sever.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent); margin-top:10px">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:4px">Influencers — Etkileyiciler</p>
+      <p style="font-size:13.5px">Dijital fikir önderleridir. Ürün incelemelerine duyulan güven, geleneksel reklamın çok ötesine geçer. Erken benimseyenler, fikir liderleri ve pazarlama kurtları olmak üzere üç temel türe ayrılırlar. Özellikle viral pazarlamada ve marka topluluklarının büyümesinde kritik rol oynarlar.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--info-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--info-text); margin-bottom:4px">E-WOM — Elektronik Ağızdan Ağıza Pazarlama</p>
+      <p style="font-size:13.5px">Kullanıcıların deneyimlerini çevrimiçi ortamda paylaşmasıdır: ürün yorumları, sosyal medya gönderileri, forum tartışmaları. Geleneksel WOM'un internetle güçlenmiş biçimidir. Olumsuz bir deneyim de olumlusu kadar hızlı yayılabilir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--purple-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--purple-text); margin-bottom:4px">Maceraya Dayalı Alışveriş — Hedonic Shopping</p>
+      <p style="font-size:13.5px">Tüketicinin alışverişi bir zevk ve eğlence aracı olarak görmesidir; ihtiyaç değil, deneyim motivasyonu ön plandadır. Metaverse alışverişi ve sanal mağaza gezintileri bu kategoriye girer. Marka, ürünün ötesinde bir deneyim ve hikâye sunmak zorundadır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:4px">Role / Birey Dayalı Alışveriş — Role-Based Shopping</p>
+      <p style="font-size:13.5px">Kişinin sosyal rolüne göre alışveriş yapmasıdır. Bir kişi hem anne hem çalışan hem de sporcu kimliğiyle farklı satın alma kararları verebilir. Pazarlamacılar bu rolleri tespit edip kişiye hangi rolü için konuşması gerektiğini belirlemek durumundadır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--danger-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--danger-text); margin-bottom:4px">Security Issues — Güvenlik Sorunları</p>
+      <p style="font-size:13.5px">Dijital alışverişte veri ihlali, kimlik hırsızlığı ve dolandırıcılık gibi riskleri kapsar. IoT, biyometri ve blockchain güvenliği artırırken; her yeni teknoloji beraberinde yeni saldırı yüzeyleri de getirir. Tüketici güvenliğini kaybettiğinde e-sadakati anında yok olur.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--warn-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--warn-text); margin-bottom:4px">Direct Touch — Doğrudan Temas / Fiziksel Deneyim</p>
+      <p style="font-size:13.5px">Tüketicinin ürünü bizzat görmek, dokunmak ve denemek isteme ihtiyacıdır. Webrooming davranışının temel sebebidir; insanlar pahalı veya karmaşık ürünleri almadan önce elle tutmak ister. AR bu ihtiyacı kısmen karşılamaya çalışsa da fiziksel temas henüz tam anlamıyla yerini dijitale bırakmamıştır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--danger-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--danger-text); margin-bottom:4px">Disgusting Advertisement or Digital Service — Rahatsız Edici Reklam veya Dijital Hizmet</p>
+      <p style="font-size:13.5px">Kullanıcıyı bunaltan, gereksiz yere tekrar eden ya da kişisel sınırları zorlayan dijital içeriklerdir. Aşırı kişiselleştirilmiş reklamlar "beni gözetliyorlar" hissi yaratabilir. Tüketici bombardımanıyla birleşince marka algısı ciddi şekilde zarar görür.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:4px">Real Trust — Gerçek Güven</p>
+      <p style="font-size:13.5px">Tüketicinin bir markaya, platforma ya da ürüne kalıcı biçimde güven duymasıdır. Yalnızca reklam değil; şeffaflık, tutarlılık ve güvenli deneyimlerle kazanılır. Blockchain'in değiştirilemezlik özelliği ve biyometrik güvenlik bu güveni teknik altyapıdan destekler.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent); margin-top:10px">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:4px">Advice of Friends — Arkadaş Tavsiyesi</p>
+      <p style="font-size:13.5px">WOMM'un en güçlü biçimidir. Tanıdık birinin tavsiyesi, en büyük reklam bütçesinden daha etkili olabilir. Influencer pazarlaması da özünde bu güvenden beslenir; insanlar reklamı değil, güvendikleri kişinin deneyimini satın alır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--info-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--info-text); margin-bottom:4px">Researches — Araştırmalar / Ürün Araştırması</p>
+      <p style="font-size:13.5px">Tüketicilerin satın almadan önce yaptığı bilgi toplama sürecidir. Webrooming davranışının çıkış noktasıdır. Müşteri; yorumları, teknik özellikleri ve fiyat karşılaştırmalarını detaylıca inceler. Influencer'lar bu araştırma sürecine kısayol sunar: karmaşık ürünleri anlaşılır biçimde açıklarlar.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--warn-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--warn-text); margin-bottom:4px">Difficulty of Differentiation — Farklılaşma Güçlüğü</p>
+      <p style="font-size:13.5px">Dijital pazarda ürünlerin ve markaların birbirine giderek daha çok benzemesi sorunudur. Sayısız rakip arasında öne çıkmak zorlaşır. Bu nedenle markalar yalnızca ürün değil; hikâye, topluluk ve deneyim satar. STEPPS modelindeki "sosyal para" ve "hikâye" unsurları bu farklılaşmayı sağlar.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--purple-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--purple-text); margin-bottom:4px">Face to Face Marketing — Yüz Yüze Pazarlama</p>
+      <p style="font-size:13.5px">Dijitalleşmeye rağmen doğrudan insan temasına dayalı pazarlamanın hâlâ önemini korumasıdır. Mağaza içi pazarlama, showrooming ve "direct touch" ihtiyacı bu gerçeği doğrular. Omnichannel modeli tam da bu yüzden fiziksel ve dijitali birlikte yönetir.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--danger-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--danger-text); margin-bottom:4px">Cheating of AI — Yapay Zekânın Aldatması / Güven Sorunları</p>
+      <p style="font-size:13.5px">Yapay zekânın hatalı veya yanıltıcı öneriler üretmesidir: sahte yorumlar oluşturma, fiyat manipülasyonu ya da yanlış kişiselleştirme. Tüketici bu yanıltıcı deneyimi fark ettiğinde "gerçek güven" tamamen yıkılır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--danger-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--danger-text); margin-bottom:4px">Consuming Bombarding — Tüketici Bombardımanı</p>
+      <p style="font-size:13.5px">Tüketicinin her platformda, her cihazda aralıksız reklam ve bildirime maruz kalmasıdır. Çoklu cihaz pazarlamasının ve kişiselleştirmenin aşırıya kaçmasıyla ortaya çıkar. Tüketici bunalır ve içgüdüsel olarak markadan uzaklaşır; bu da "rahatsız edici reklam" sorunuyla doğrudan bağlantılıdır.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--success-text); margin-top:10px">
+      <p style="font-weight:600; color:var(--success-text); margin-bottom:4px">Individual Experience — Bireysel Deneyim</p>
+      <p style="font-size:13.5px">Her müşterinin markayı ve ürünü kendi bağlamında, kendi ihtiyaçları doğrultusunda yaşamasıdır. Kişiselleştirme, DIY anlayışı ve biyometrik profilleme bu bireysel deneyimi mümkün kılar. Metaverse'de avatar üzerinden yaşanan deneyimler de bu kavramın en ileri noktasını temsil eder.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent); margin-top:10px">
+      <p style="font-weight:600; color:var(--accent); margin-bottom:4px">Favorite Seller — Tercih Edilen Satıcı</p>
+      <p style="font-size:13.5px">Tüketicinin ihtiyacı olduğunda ilk akla gelen ve tercih ettiği markadır. E-sadakatin, gerçek güvenin ve olumlu bireysel deneyimin birikmiş sonucudur. WOMM ve influencer tavsiyesi bir markayı "favori satıcı" konumuna taşıyabilirken; güvenlik sorunları veya tüketici bombardımanı bu konumu anında sarsar.</p>
+    </div>
+
+  </section>
+
+</main>
+</div>
+
+<script>
+function goToSection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
+}
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+const sections = document.querySelectorAll('.unit');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navItems.forEach(item => {
+        const onclick = item.getAttribute('onclick');
+        item.classList.toggle('active', onclick && onclick.includes(id));
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+const progressFill = document.getElementById('progressFill');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressFill.style.width = progress + '%';
+});
+</script>
+</body>
+</html>
