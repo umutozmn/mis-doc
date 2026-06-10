@@ -2370,7 +2370,679 @@ document.getElementById("demo").innerHTML = "Today is " + day;
 &lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
       </div>
     </div>
+<!-- ══ JS: HTML DOM ══ -->
+<div class="topic-section" id="js_dom" data-lang="js">
+  <div class="topic-title">HTML DOM</div>
 
+  <div class="hl hl-info">
+    <p><strong>DOM (Document Object Model)</strong> — Tarayıcı, HTML sayfasını yüklendiğinde bir ağaç yapısına dönüştürür. JavaScript bu ağaç üzerinden sayfa içeriğini okuyabilir, değiştirebilir, ekleyebilir veya silebilir.</p>
+  </div>
+
+  <h3>Selecting Elements — Eleman Seçme</h3>
+
+  <div class="card">
+    <span class="badge b-blue">getElementsByTagName()</span>
+    <p style="margin-top:8px">Belirtilen etiket adına sahip tüm elementleri bir koleksiyon olarak döndürür. İndeks numarasıyla tek tek erişilir.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;JavaScript HTML DOM&lt;/h2&gt;
+
+&lt;div id="main"&gt;
+  &lt;p&gt;Etiket adına göre HTML elementi bulma&lt;/p&gt;
+  &lt;p&gt;Bu örnek &lt;b&gt;getElementsByTagName&lt;/b&gt; metodunu gösterir.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+// Önce id'si "main" olan div'i bul
+const x = document.getElementById("main");
+
+// Sonra o div içindeki tüm p etiketlerini al
+const y = x.getElementsByTagName("p");
+
+// 0. indeksteki (ilk) p'nin içeriğini demo'ya yaz
+document.getElementById("demo").innerHTML =
+  '"main" içindeki ilk paragraf (0. indeks): ' + y[0].innerHTML;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+    <div class="hl hl-info" style="margin-top:10px">
+      <p><code>x.</code> yazarak aramayı o div içiyle sınırladık — böylece sayfanın geri kalanındaki <code>&lt;p&gt;</code> etiketleri kapsama girmez. <code>y[0]</code> ise bulunan listeden 0. indeksteki (ilk) paragrafı alır.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="badge b-blue">getElementsByClassName()</span>
+    <p style="margin-top:8px">Belirtilen class adına sahip tüm elementleri döndürür.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;JavaScript HTML DOM&lt;/h2&gt;
+
+&lt;p&gt;Class adına göre HTML elementi bulma.&lt;/p&gt;
+&lt;p class="intro"&gt;Merhaba Dünya!&lt;/p&gt;
+&lt;p class="intro"&gt;Bu örnek &lt;b&gt;getElementsByClassName&lt;/b&gt; metodunu gösterir.&lt;/p&gt;
+
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+const x = document.getElementsByClassName("intro");
+document.getElementById("demo").innerHTML =
+  'class="intro" olan ilk paragraf (0. indeks): ' + x[0].innerHTML;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom:10px">Aynı class'a sahip birden fazla elementin içeriği ayrı ayrı şu şekilde değiştirilebilir:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="baslik1"&gt;&lt;/div&gt;
+  &lt;div class="baslik1"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+  // "baslik1" class'ına sahip 0. ve 1. div'lere içerik yaz
+  document.getElementsByClassName("baslik1")[0].innerHTML = "ybs";
+  document.getElementsByClassName("baslik1")[1].innerHTML = "ybs";
+
+  // Sayfadaki ilk div etiketini etiket adıyla seçip içeriğini değiştir
+  document.getElementsByTagName("div")[0].innerHTML = "AAA";
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>querySelector()</h3>
+  <div class="card">
+    <p>CSS seçici söz dizimini kullanır — hem etiket, hem class, hem de id seçebilir. Eşleşen <strong>ilk</strong> elementi döndürür.</p>
+    <table>
+      <thead><tr><th>Kullanım</th><th>Ne Seçer</th></tr></thead>
+      <tbody>
+        <tr><td><code>querySelector("p")</code></td><td>İlk p etiketi</td></tr>
+        <tr><td><code>querySelector(".demo")</code></td><td>demo class'ına sahip ilk eleman</td></tr>
+        <tr><td><code>querySelector("#demo")</code></td><td>demo id'sine sahip eleman</td></tr>
+      </tbody>
+    </table>
+    <div class="code-wrap" style="margin-top:12px"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;JavaScript HTML DOM&lt;/h1&gt;
+&lt;h2&gt;querySelector() Metodu&lt;/h2&gt;
+
+&lt;p class="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+// class'ı "demo" olan paragraf elementine eriş
+const metin = document.querySelector(".demo");
+
+// Elementin içeriğini değiştir
+metin.innerHTML = "Merhaba Dünya!";
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>querySelectorAll()</h3>
+  <div class="card">
+    <p><code>querySelector()</code>'dan farkı: eşleşen <strong>tüm</strong> elementleri bir liste olarak döndürür. İndeksle erişilir.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;JavaScript HTML DOM&lt;/h1&gt;
+&lt;h2&gt;querySelectorAll() Metodu&lt;/h2&gt;
+
+&lt;p class="demo"&gt;Birinci&lt;/p&gt;
+&lt;p class="demo"&gt;İkinci&lt;/p&gt;
+
+&lt;script&gt;
+// class'ı "demo" olan tüm paragraf elementlerini al
+const elemanlar = document.querySelectorAll(".demo");
+
+// Listedeki ilk elementin (0. indeks) içeriğini değiştir
+elemanlar[0].innerHTML = "İlk eleman";
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>document.forms</h3>
+  <div class="card">
+    <p>Sayfadaki form elementlerine isim veya indeksle erişmeyi sağlar. <code>document.forms["formId"]</code> ile forma, <code>.elements[i].value</code> ile de form içindeki her alanın değerine ulaşılır.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;JavaScript HTML DOM&lt;/h2&gt;
+&lt;p&gt;&lt;b&gt;document.forms&lt;/b&gt; kullanarak HTML elementlerini bulma.&lt;/p&gt;
+
+&lt;form id="frm1" action="/action_page.php"&gt;
+  Ad: &lt;input type="text" name="fname" value="Ahmet"&gt;&lt;br&gt;
+  Soyad: &lt;input type="text" name="lname" value="Yılmaz"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Gönder"&gt;
+&lt;/form&gt;
+
+&lt;p&gt;Formdaki her elemanın değerleri:&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+// id'si "frm1" olan forma eriş
+const x = document.forms["frm1"];
+let metin = "";
+
+// Formdaki her elementin value'sunu sırayla ekle
+for (let i = 0; i &lt; x.length; i++) {
+  metin += x.elements[i].value + "&lt;br&gt;";
+}
+
+document.getElementById("demo").innerHTML = metin;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+    <div class="hl hl-info" style="margin-top:10px">
+      <p>Çıktıda sırasıyla şunlar görünür: <strong>Ahmet</strong>, <strong>Yılmaz</strong>, <strong>Gönder</strong> — çünkü submit butonu da bir form elemanıdır ve value'su "Gönder"dir.</p>
+    </div>
+  </div>
+
+  <h3>CSS Değiştirme</h3>
+  <div class="card">
+    <p>JavaScript ile bir elementin <code>style</code> özelliğine erişip CSS değerleri anlık olarak değiştirilebilir.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1 id="id1"&gt;Başlık&lt;/h1&gt;
+
+&lt;button type="button"
+  onclick="document.getElementById('id1').style.color = 'red'"&gt;
+  Tıkla!
+&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <div class="card">
+    <p>Birden fazla CSS özelliği aynı anda değiştirilebilir:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;style&gt;
+    p { color: green; font-size: 50px; }
+  &lt;/style&gt;
+
+  &lt;p id="metin"&gt;Renk ve boyut değişecek&lt;/p&gt;
+  &lt;button onclick="renk()"&gt;Renk Değiştir&lt;/button&gt;
+
+  &lt;script&gt;
+  function renk() {
+    // Rengi kırmızıya çevir
+    document.getElementById("metin").style.color = "red";
+    // Font boyutunu küçült
+    document.getElementById("metin").style.fontSize = "20px";
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+    <div class="hl hl-warn" style="margin-top:10px">
+      <p>CSS'te <code>font-size</code> yazılırken JS'de <strong>camelCase</strong> kullanılır: <code>style.fontSize</code>. Tire işareti JS'de geçersizdir.</p>
+    </div>
+  </div>
+
+  <h3>Görsel Değiştirme</h3>
+  <div class="card">
+    <p>Bir <code>&lt;img&gt;</code> elementinin <code>src</code> özelliği JavaScript ile değiştirilerek farklı bir görsel yüklenebilir.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+&lt;img id="resim"
+  src="https://picsum.photos/seed/dog/300/200"
+  width="300" height="200"
+  alt="Resim"&gt;
+
+&lt;br&gt;&lt;br&gt;
+&lt;button onclick="degistir()"&gt;Resim Değiştir&lt;/button&gt;
+
+&lt;script&gt;
+function degistir() {
+  // img etiketinin src özelliğini yeni bir URL ile değiştir
+  document.getElementById("resim").src = "https://picsum.photos/seed/city/300/200";
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>childNodes</h3>
+  <div class="card">
+    <p><code>childNodes</code> sadece HTML etiketlerini değil, <strong>yorumları ve boşlukları (whitespace) da node olarak görür</strong>. Bu yüzden eleman sayısı beklenenden fazla çıkabilir.</p>
+    <div class="hl hl-warn" style="margin-top:8px">
+      <p>Satır sonu (enter) → <strong>#text</strong> node<br>
+      İki etiket arasındaki boşluk → <strong>#text</strong> node<br>
+      Bu yüzden <code>childNodes.length</code> beklenenden büyük olabilir.</p>
+    </div>
+    <div class="code-wrap" style="margin-top:10px"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;ul id="liste"&gt;&lt;li&gt;Elma&lt;/li&gt;&lt;li&gt;Armut&lt;/li&gt;&lt;li&gt;Muz&lt;/li&gt;&lt;/ul&gt;
+
+  &lt;button onclick="goster()"&gt;childNodes Göster&lt;/button&gt;
+
+  &lt;script&gt;
+  function goster() {
+    let liste = document.getElementById("liste").childNodes;
+    console.log(liste);
+    alert("Toplam child node sayısı: " + liste.length);
+  }
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+    <div class="hl hl-info" style="margin-top:10px">
+      <p>Etiketler aynı satırda ve aralarında boşluk bırakılmadan yazıldığı için bu örnekte <code>length</code> tam olarak 3 gelir. Etiketler ayrı satırlara taşınırsa araya #text node'ları girer ve sayı artar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <p>Aşağıdaki örnekte <code>&lt;p&gt;</code> etiketleri ayrı satırlarda yazıldığı için araya boşluk node'ları girer:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;div id="myDIV" style="background:coral; padding:16px;"&gt;
+  &lt;p&gt;Birinci p elementi (1. indeks)&lt;/p&gt;
+  &lt;p&gt;İkinci p elementi (3. indeks)&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;"myDIV" içindeki child node sayısı:&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;p&gt;Boşluklar #text node olarak sayılır. Bu örnekte 0, 2 ve 4. indeksler #text node'dur.&lt;/p&gt;
+
+&lt;script&gt;
+const element = document.getElementById("myDIV");
+let sayi = element.childNodes.length;
+document.getElementById("demo").innerHTML = sayi;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <div class="card">
+    <p>Tek satırda yazılınca boşluk node'u oluşmaz, sadece gerçek elemanlar sayılır:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;select id="mySelect" style="width:100px" size="5"&gt;&lt;option&gt;Audi&lt;/option&gt;&lt;option&gt;BMW&lt;/option&gt;&lt;option&gt;Saab&lt;/option&gt;&lt;option&gt;Volvo&lt;/option&gt;&lt;/select&gt;
+
+&lt;p&gt;Select elementinin 3. child node'unun metni:&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+let metin = document.getElementById("mySelect").childNodes[2].text;
+document.getElementById("demo").innerHTML = metin;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>parentNode</h3>
+  <div class="card">
+    <p>Bir elementin DOM ağacındaki bir üst (ebeveyn) node'una erişmeyi sağlar.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;ul id="liste"&gt;
+    &lt;li&gt;Elma&lt;/li&gt;
+    &lt;li&gt;Armut&lt;/li&gt;
+    &lt;li&gt;Muz&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;button onclick="goster()"&gt;Parent Node Göster&lt;/button&gt;
+
+  &lt;script&gt;
+  function goster() {
+    let liste = document.getElementById("liste");
+
+    // Bir üst node'a (ebeveyne) eriş
+    let parent = liste.parentNode;
+
+    console.log(parent);
+
+    // Ebeveyn elementin etiket adını göster
+    alert("Parent node etiketi: " + parent.tagName);
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>Form — Placeholder Örneği</h3>
+  <div class="card">
+    <p>Kullanıcıdan alınan form verilerini JavaScript ile işleme güzel bir örnek: not hesaplama uygulaması.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Not Hesaplama Uygulaması --&gt;
+  &lt;input type="number" id="vize" placeholder="Vize notu"&gt;
+  &lt;input type="number" id="final" placeholder="Final notu"&gt;
+  &lt;button onclick="hesapla()"&gt;Hesapla&lt;/button&gt;
+  &lt;p id="sonuc"&gt;&lt;/p&gt;
+
+  &lt;script&gt;
+  function hesapla() {
+    let vize  = Number(document.getElementById("vize").value);
+    let final = Number(document.getElementById("final").value);
+
+    // Vize %40, final %60 ağırlıklı ortalama
+    let ortalama = vize * 0.4 + final * 0.6;
+
+    if (ortalama &gt;= 50) {
+      document.getElementById("sonuc").innerHTML =
+        "Ortalama: " + ortalama + " — Geçti ✓";
+    } else {
+      document.getElementById("sonuc").innerHTML =
+        "Ortalama: " + ortalama + " — Kaldı ✗";
+    }
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>append()</h3>
+  <div class="card">
+    <p>Bir elementin <strong>sonuna</strong> metin veya başka bir element ekler. Mevcut içeriği silmez, üstüne ekler.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;div id="myDiv"&gt;&lt;/div&gt;
+
+&lt;p&gt;"Ekle" butonuna tıklayarak div'e metin ekleyin:&lt;/p&gt;
+&lt;button onclick="myFunction()"&gt;Ekle&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+  const div = document.getElementById("myDiv");
+  // div'in sonuna metin ekle
+  div.append("Merhaba! Ben eklenen bir metnin içindeyim.");
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>appendChild()</h3>
+  <div class="card">
+    <p><code>append()</code>'den farkı: metin değil, <strong>bir DOM node'u</strong> ekler. Yeni etiket oluşturup listeye eklemek için sıklıkla kullanılır.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;ul id="myList"&gt;
+  &lt;li&gt;Kahve&lt;/li&gt;
+  &lt;li&gt;Çay&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;"Ekle" butonuna tıklayarak listeye yeni bir öğe ekleyin:&lt;/p&gt;
+&lt;button onclick="myFunction()"&gt;Ekle&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+  // Yeni bir li elementi oluştur
+  const node = document.createElement("li");
+
+  // İçine metin node'u ekle
+  const textnode = document.createTextNode("Su");
+  node.appendChild(textnode);
+
+  // li'yi listeye ekle
+  document.getElementById("myList").appendChild(node);
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <div class="card">
+    <p>İki liste arasında eleman taşıma — <code>appendChild()</code> ile bir listeden alıp diğerine ekleme:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;ul id="myList1"&gt;
+  &lt;li&gt;Kahve&lt;/li&gt;
+  &lt;li&gt;Çay&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul id="myList2"&gt;
+  &lt;li&gt;Su&lt;/li&gt;
+  &lt;li&gt;Süt&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;"Taşı" butonuna tıklayarak bir öğeyi listeler arasında taşıyın:&lt;/p&gt;
+&lt;button onclick="myFunction()"&gt;Taşı&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+  // 2. listenin son elemanını al
+  const node = document.getElementById("myList2").lastElementChild;
+  // 1. listeye ekle (otomatik olarak 2. listeden çıkar)
+  document.getElementById("myList1").appendChild(node);
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <div class="card">
+    <p>Ürün ve fiyat girişi alarak listeye ekleyen, toplam tutarı hesaplayan uygulama:</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type="text"   id="urun"  placeholder="Ürün adı"&gt;
+&lt;input type="number" id="fiyat" placeholder="Fiyat"&gt;
+&lt;button onclick="urunEkle()"&gt;Ekle&lt;/button&gt;
+
+&lt;ul id="liste"&gt;&lt;/ul&gt;
+&lt;p id="toplam"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+let toplamFiyat = 0;
+
+function urunEkle() {
+  let urun  = document.getElementById("urun").value;
+  let fiyat = Number(document.getElementById("fiyat").value);
+
+  // Yeni li oluştur ve içine ürün + fiyat yaz
+  let li = document.createElement("li");
+  li.textContent = urun + " - " + fiyat + " TL";
+  document.getElementById("liste").appendChild(li);
+
+  // Toplam fiyatı güncelle
+  toplamFiyat += fiyat;
+  document.getElementById("toplam").innerHTML =
+    "Toplam Tutar: " + toplamFiyat + " TL";
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>toggle()</h3>
+  <div class="card">
+    <p>Butona her basıldığında <strong>tersini yapar</strong> — class varsa kaldırır, yoksa ekler. Tema değiştirme, menü açma/kapama gibi işlemler için kullanılır.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    .dark {
+      background-color: black;
+      color: white;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;button onclick="temaDegistir()"&gt;Tema Değiştir&lt;/button&gt;
+
+  &lt;h2&gt;JavaScript DOM Dersi&lt;/h2&gt;
+  &lt;p&gt;Bu sayfada tema değiştirilebilir.&lt;/p&gt;
+
+  &lt;script&gt;
+  function temaDegistir() {
+    // body'de "dark" class'ı varsa kaldır, yoksa ekle
+    document.body.classList.toggle("dark");
+  }
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>İçerik Değiştirme — textContent</h3>
+  <div class="card">
+    <p><code>textContent</code> ile bir elementin metin içeriği değiştirilebilir. <code>innerHTML</code>'den farkı: HTML etiketlerini işlemez, düz metin olarak yazar.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="yazi"&gt;Eski metin&lt;/p&gt;
+  &lt;button onclick="degistir()"&gt;Değiştir&lt;/button&gt;
+
+  &lt;script&gt;
+  function degistir() {
+    // Paragrafın metin içeriğini değiştir
+    document.getElementById("yazi").textContent = "Yeni metin";
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>classList</h3>
+  <div class="card">
+    <p>Bir HTML elementinin class listesini yönetmeni sağlar. <code>add()</code>, <code>remove()</code>, <code>toggle()</code>, <code>contains()</code> gibi metodları vardır.</p>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="kutu"&gt;Metin&lt;/p&gt;
+  &lt;button onclick="degistir()"&gt;Class Değiştir&lt;/button&gt;
+
+  &lt;style&gt;
+  .aktif {
+    color: white;
+    background-color: black;
+  }
+  &lt;/style&gt;
+
+  &lt;script&gt;
+  function degistir() {
+    // "aktif" class'ı yoksa ekle, varsa kaldır
+    document.getElementById("kutu").classList.toggle("aktif");
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+  <h3>Animasyonlar</h3>
+  <div class="card">
+    <p><code>setInterval()</code> ile belirli aralıklarla tekrar eden bir fonksiyon çalıştırılır. <code>clearInterval()</code> animasyonu durdurur.</p>
+    <div class="hl hl-info" style="margin-top:8px; margin-bottom:12px">
+      <p><strong>position: relative</strong> → kutuyu <code>left</code> değeriyle sağa/sola hareket ettirmeye izin verir.<br>
+      <strong>setInterval(fn, 5)</strong> → "Her 5 milisaniyede bir bu fonksiyonu çalıştır" anlamına gelir.<br>
+      <strong>clearInterval()</strong> → koşul sağlandığında animasyonu durdurur.</p>
+    </div>
+    <div class="code-wrap"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;style&gt;
+  #kutu {
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+  }
+  &lt;/style&gt;
+
+  &lt;div id="kutu"&gt;&lt;/div&gt;
+  &lt;br&gt;
+  &lt;button onclick="hareketEt()"&gt;Sağa Git&lt;/button&gt;
+  &lt;button onclick="hareketEt2()"&gt;Sola Git&lt;/button&gt;
+
+  &lt;script&gt;
+  function hareketEt() {
+    let kutu  = document.getElementById("kutu");
+    let konum = 0;
+
+    let animasyon = setInterval(function() {
+      if (konum &gt;= 400) {
+        // 400px'e ulaşınca animasyonu durdur
+        clearInterval(animasyon);
+      } else {
+        konum++;
+        kutu.style.left = konum + "px";
+      }
+    }, 5); // her 5 milisaniyede bir çalış
+  }
+
+  function hareketEt2() {
+    let kutu  = document.getElementById("kutu");
+    let konum = 400;
+
+    let animasyon = setInterval(function() {
+      if (konum &lt;= 0) {
+        // 0'a ulaşınca animasyonu durdur
+        clearInterval(animasyon);
+      } else {
+        konum--;
+        kutu.style.left = konum + "px";
+      }
+    }, 5); // her 5 milisaniyede bir çalış
+  }
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><button class="run-btn" onclick="runCode(this)">▶ Çalıştır</button></div>
+  </div>
+
+</div>
+<!-- ══ /JS: HTML DOM ══ -->
   </div><!-- /section-wrap -->
 </main>
 </div>
@@ -2425,6 +3097,7 @@ const TOPICS = {
     { id: 'js_diziler',    label: 'Diziler' },
     { id: 'js_math',       label: 'Math Operatörleri' },
     { id: 'js_date',       label: 'Date' },
+    { id: 'js_dom', label: 'HTML DOM' },
   ]
 };
 
@@ -2545,6 +3218,7 @@ const SEARCH_INDEX = [
   { id:'js_diziler',      lang:'js',   label:'Diziler', keywords:'array dizi new array concat length indeks elma armut' },
   { id:'js_math',         lang:'js',   label:'Math Operatörleri', keywords:'math abs floor ceil round pow max sqrt mutlak yuvarla üs karekök' },
   { id:'js_date',         lang:'js',   label:'Date', keywords:'date tarih saat dakika saniye gethours getminutes getseconds new date' },
+  { id:'js_dom', lang:'js', label:'HTML DOM', keywords:'dom getelementbyid getelementsbytagname getelementsbyclassname queryselector queryselectorall document forms css değiştirme görsel resim childnodes parentnode placeholder append appendchild toggle innerhtml classlist animasyon setinterval clearinterval konum' },
 ];
 
 // ── ARAMA FONKSİYONU ──
