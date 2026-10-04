@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilgisayar Ağları</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Renkleri index.html menüsündeki değerlerle değiştir: sadece bu 5 satır */
+:root{
+  --bg:#0b1326;
+  --ink:#f4f3ef;
+  --mute:#8fa0be;
+  --line:#1e2c4a;
+  --accent:#c5a880;
+  --on-accent:#0b1326;
+  color-scheme:dark;
+  --font:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.7 var(--font)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.layout{display:grid;grid-template-columns:200px minmax(0,640px);gap:4rem;max-width:960px;margin:auto;padding:0 1.5rem}
+aside{position:sticky;top:0;align-self:start;padding:3rem 0;font-size:.9rem}
+aside a{display:block;text-decoration:none;color:var(--mute);padding:.2rem 0 .2rem .8rem;border-left:1px solid var(--line);transition:color .2s,border-color .2s}
+aside a:hover,aside a.on{color:var(--ink);border-color:var(--accent)}
+aside .back{border:0;padding:0;margin-bottom:1.6rem;color:var(--ink);font-weight:500}
+header{padding:3rem 0 2.5rem}
+h1{font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05;letter-spacing:-.03em;margin:0}
+header small{display:block;margin-top:.6rem;color:var(--accent)}
+.wire{display:block;width:100%;height:24px;margin-top:2rem;overflow:visible}
+.wire line{stroke:var(--line);stroke-width:1}
+.wire circle.n{fill:var(--bg);stroke:var(--ink);stroke-width:1}
+.wire circle.p{fill:var(--accent);animation:run 6s cubic-bezier(.6,0,.4,1) infinite}
+@keyframes run{0%{cx:4}45%,55%{cx:50%}100%{cx:calc(100% - 4px)}}
+section{padding:2.4rem 0;border-top:1px solid var(--line)}
+h2{font-size:1.35rem;font-weight:700;letter-spacing:-.015em;margin:0 0 1rem;color:var(--accent)}
+h3{font-size:1rem;font-weight:700;margin:1.6rem 0 .3rem;color:var(--accent)}
+h3:first-of-type{margin-top:0}
+p{margin:0 0 .6rem}
+ul,ol{margin:0 0 .6rem;padding-left:1.2rem}
+li{margin-bottom:.15rem}
+li::marker{color:var(--mute)}
+dl{margin:0}
+dt{font-weight:700;margin-top:1rem}
+dd{margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--line)}
+th{font-weight:700;color:var(--ink)}
+td:first-child{color:var(--mute)}
+.wrap{overflow-x:auto}
+/* simülasyon */
+.bar{display:flex;gap:1.4rem;align-items:baseline;flex-wrap:wrap;margin:.4rem 0 .6rem}
+button{font:500 .95rem var(--font);background:none;border:0;border-bottom:1px solid transparent;padding:.1rem 0;color:var(--mute);cursor:pointer;transition:color .2s,border-color .2s}
+button:hover{color:var(--ink)}
+button[aria-pressed=true]{color:var(--ink);border-color:var(--accent)}
+.bar .sp{flex:1}
+#sim svg{width:100%;height:auto;display:block}
+.lk{stroke:var(--line);stroke-width:2;transition:stroke .25s}
+.lk.res{stroke:var(--accent)}
+.lk.cut{stroke:var(--ink);stroke-dasharray:2 8;stroke-linecap:round}
+.hit{stroke:transparent;stroke-width:24;cursor:pointer}
+.nd{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
+.nl{font:500 13px var(--font);fill:var(--ink);text-anchor:middle}
+.pk{fill:var(--accent)}
+#slots{display:flex;gap:.35rem;margin-top:.6rem}
+.slot{width:30px;height:30px;border:1px solid var(--line);display:grid;place-items:center;font-size:.85rem;color:var(--mute);transition:all .25s}
+.slot.ok{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+@media(max-width:760px){.layout{grid-template-columns:1fr;gap:0}aside{position:static;display:flex;flex-wrap:wrap;gap:.2rem 1rem;padding:1.2rem 0 0}aside a{border:0;padding:0}aside .back{width:100%;margin:0}.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.wire circle.p{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <a class="back" href="index.html">← Derslerim</a>
+  <a href="#haberlesme">Haberleşme</a>
+  <a href="#network">Network Üzerinden Haberleşme</a>
+  <a href="#elemanlar">Network Elemanları</a>
+  <a href="#kablolar">Network Kabloları</a>
+  <a href="#protokoller">Protokoller</a>
+  <a href="#mimari">Network Mimarisi</a>
+  <a href="#anahtarlama">Anahtarlama</a>
+  <a href="#guvenlik">Security</a>
+</aside>
+
+<main>
+<header>
+  <h1>Haberleşme ve Ağ (Network) Temelleri</h1>
+  <small>Ders Notları</small>
+  <svg class="wire" aria-hidden="true"><line x1="4" y1="12" x2="100%" y2="12"/><circle class="n" cx="4" cy="12" r="4"/><circle class="n" cx="50%" cy="12" r="4"/><circle class="n" cx="calc(100% - 4px)" cy="12" r="4"/><circle class="p" cx="4" cy="12" r="3"/></svg>
+</header>
+
+<section id="haberlesme">
+  <h2>Popüler İletişim Araçları</h2>
+  <dl>
+    <dt>Anlık Mesajlaşma (Instant Messaging – IM)</dt>
+    <dd>İnternet üzerinden anında mesajlaşmayı sağlayan uygulamalardır. Örnekler: MSN, ICQ, IRC, WhatsApp.</dd>
+    <dt>Webloglar (Bloglar)</dt>
+    <dd>Bilgi ve yazı paylaşılan web sayfalarıdır.</dd>
+    <dt>Wiki'ler</dt>
+    <dd>Aynı siteyi birçok kişinin birlikte düzenlediği sistemlerdir. Örnek: Wikipedia.</dd>
+    <dt>Podcasting</dt>
+    <dd>Sesli içeriklerdir.</dd>
+    <dt>İşbirliği Araçları</dt>
+    <dd>Aynı dosya üzerinde birçok kişinin birlikte çalışmasını sağlayan araçlardır. Örnekler: Google Docs, Microsoft Teams.</dd>
+  </dl>
+  <h3 style="margin-top:2rem">Intranet ve Extranet</h3>
+  <div class="two">
+    <div><strong>Intranet</strong><p>Şirketin kendi içindeki özel ağıdır. Yalnızca şirket çalışanları tarafından kullanılabilir.</p></div>
+    <div><strong>Extranet</strong><p>Şirketin dışındaki kişilerle (müşteri, tedarikçi vb.) bilgi paylaşımını sağlayan ağdır.</p></div>
+  </div>
+</section>
+
+<section id="network">
+  <h2>Haberleşme</h2>
+  <h3>İnsan İletişiminde Kullanılan Bazı Protokoller</h3>
+  <ul>
+    <li>Kimliği belirli bir alıcı ve gönderici</li>
+    <li>İletişim metodunun belirlenmesi (yüzyüze, telefon, mektup vb.)</li>
+    <li>Belirli bir dil ve gramerin belirlenmesi</li>
+    <li>Hız ve zamanın belirlenmesi</li>
+    <li>Doğrulama veya bilgilendirme</li>
+  </ul>
+  <h3>İletişimi Etkileyen Faktörler</h3>
+  <div class="two">
+    <div><strong>Dış Faktörler (Ağdan Kaynaklanan)</strong>
+      <ul>
+        <li>Alıcı ile verici arasındaki iletim yolu: Yol uzunsa gecikme olabilir.</li>
+        <li>Mesajın biçim değiştirme sayısı: Mesaj ağ üzerinde ilerlerken farklı cihazlar tarafından işlenebilir ve gecikme yaşanabilir.</li>
+        <li>Mesajın yeniden adreslenme veya yönlendirilme sayısı</li>
+        <li>Aynı anda gönderilen mesajların sayısı</li>
+        <li>Başarılı iletim için ayrılan zaman: Mesajın belli bir sürede ulaşması gerekir.</li>
+      </ul></div>
+    <div><strong>İç Faktörler (Mesajdan Kaynaklanan)</strong>
+      <ul>
+        <li>Mesajın türü ve karmaşıklığı: Bir yazı ile kaliteli bir video aynı miktarda veri taşımaz.</li>
+        <li>Açık ve kısa mesajlar daha kolay anlaşılır.</li>
+        <li>Önemli bilgiler önem sırasıyla gönderilmelidir.</li>
+        <li>Büyük boyutlu mesajlar gecikebilir.</li>
+        <li>Düşük öncelikli mesajlar yoğunlukta bekletilebilir.</li>
+      </ul></div>
+  </div>
+</section>
+
+<section id="elemanlar">
+  <h2>Network Üzerinden Haberleşme</h2>
+  <h3>Network'in Dört Temel Elemanı</h3>
+  <p>Bir ağ (network) dört temel elemana sahiptir:</p>
+  <ol>
+    <li><strong>Rules (Kurallar):</strong> Mesajların nasıl gönderileceğini ve alınacağını belirleyen kurallar veya anlaşmalar.</li>
+    <li><strong>Message (Mesaj):</strong> Bir cihazdan diğerine gidecek mesaj.</li>
+    <li><strong>Medium (Ortam):</strong> Mesajın bir cihazdan diğerine gidebileceği ortam.</li>
+    <li><strong>Devices (Cihazlar):</strong> Mesajı iletecek cihazlar.</li>
+  </ol>
+  <h3 style="margin-top:2rem">Network Elemanları</h3>
+  <ul style="list-style:none;padding:0">
+    <li><strong>Switch (Anahtar):</strong> Veriyi aynı ağ (LAN) içindeki cihazlara iletir. MAC adreslerine göre yönlendirme yapar.</li>
+    <li><strong>Router (Yönlendirici):</strong> Veriyi farklı ağlar (WAN) arasında yönlendirir. IP adreslerine göre yönlendirme yapar.</li>
+    <li><strong>Firewall (Güvenlik Duvarı):</strong> Ağ güvenliğini sağlayan cihazdır.</li>
+    <li><strong>Wireless Router (Kablosuz Yönlendirici):</strong> Kablosuz yönlendirme cihazıdır.</li>
+    <li><strong>Kablolar:</strong> Çeşitli tip ve özelliklere sahip ağ kablolarıdır.</li>
+  </ul>
+</section>
+
+<section id="kablolar">
+  <h2>Network Kabloları (Medium)</h2>
+  <p><strong>Medium (Ortam):</strong> Kablolu veya kablosuz yapılardır. Üç tipi vardır:</p>
+  <ol>
+    <li>Bakır kablolar
+      <ul><li>Twisted Pair (UTP, STP)</li></ul></li>
+    <li>Koaksiyel kablolar</li>
+    <li>Fiber (Fiber Optik) kablolar
+      <ul><li>Single Mode</li><li>Multi Mode</li></ul></li>
+  </ol>
+</section>
+
+<section id="protokoller">
+  <h2>Protokoller (Rules – Kurallar)</h2>
+  <p><strong>TCP/IP:</strong> Endüstri standardı olan protokol grubudur. Ev veya işyeri ağlarında kullanılır.</p>
+  <h3 style="margin-top:1.6rem">Servis – Protokol Eşleşmeleri</h3>
+  <div class="wrap"><table>
+    <tr><th>Servis</th><th>Protokol</th></tr>
+    <tr><td>WWW</td><td>HTTP</td></tr>
+    <tr><td>E-posta</td><td>SMTP (Simple Mail Transfer Protocol), POP (Post Office Protocol)</td></tr>
+    <tr><td>Anlık Mesajlaşma (IM)</td><td>XMPP (Extensible Messaging and Presence Protocol), OSCAR</td></tr>
+    <tr><td>IP Telefon</td><td>SIP (Session Initiation Protocol)</td></tr>
+  </table></div>
+</section>
+
+<section id="mimari">
+  <h2>Network Mimarisi</h2>
+  <h3>Fault Tolerance (Hata Toleransı)</h3>
+  <p>Ağda bir sorun olsa bile çalışmaya devam edebilmesidir.</p>
+  <p>Alternatif yollar maliyeti artırır. Bir yol bozulursa alternatifi hazır olmalı; bu da daha fazla kablo ve cihaz demektir.</p>
+  <h3>Scalability (Ölçeklenebilirlik)</h3>
+  <p>Ağın büyüyebilmesidir. Bugün şirkette 100 bilgisayar var, yarın 1000 bilgisayar olursa ağın bunu kaldırabilmesi gerekir.</p>
+  <h3>Quality of Service (QoS – Servis Kalitesi)</h3>
+  <p>Her veri aynı derecede önemli değildir. Ağdaki bazı verilere daha fazla öncelik vermek demektir.</p>
+  <p>Örnek: Telefon konuşması gecikmeli olursa konuşma bozulur; fakat bir e-postanın geç gelmesi büyük sorun olmaz.</p>
+  <h3>İnternetin Yapısı (Scalability)</h3>
+  <p>İnternet büyüse bile çalışmaya devam edebilmesi demektir.</p>
+  <p>İnternet, farklı seviyelerdeki ISP'lerden (Internet Service Provider – İnternet Servis Sağlayıcısı) oluşur.</p>
+  <p>Örnek ISP'ler: Türk Telekom, Turkcell Superonline, Vodafone Net.</p>
+</section>
+
+<section id="anahtarlama">
+  <h2>Circuit Switching ve Packet Switching</h2>
+  <h3>Circuit Switching (Devre Anahtarlama)</h3>
+  <p><strong>Mantık:</strong> İletişim başlamadan önce gönderici ile alıcı arasında özel bir yol devre oluşturulur.</p>
+  <p><strong>Bağlantı Temelli (Connection Oriented):</strong> Önce bağlantı kurulur, sonra veri gönderilir. Yani önce hat açılır, sonra konuşulur.</p>
+  <h3>Packet Switching (Paket Anahtarlama)</h3>
+  <p>Mesaj küçük paketlere bölünür ve her paket ayrı ayrı gönderilir, karşı tarafta tekrar birleştirilir.</p>
+
+  <h3 style="margin-top:2rem">İki Sistemin Farkı</h3>
+  <div class="wrap"><table>
+    <tr><th>Circuit Switching</th><th>Packet Switching</th></tr>
+    <tr><td>Önce bağlantı kurulur.</td><td>Önceden bağlantı kurmaya gerek yoktur.</td></tr>
+    <tr><td>Tek bir özel yol kullanılır.</td><td>Paketler farklı yollardan gidebilir.</td></tr>
+    <tr><td>Yol sadece bir iletişime ayrılır.</td><td>Aynı yolu birçok kişi kullanabilir.</td></tr>
+    <tr><td>Telefon hatlarında kullanılır.</td><td>İnternetin çalışma mantığıdır.</td></tr>
+    <tr><td>Daha az verimlidir.</td><td>Daha verimlidir.</td></tr>
+  </table></div>
+
+  <div id="sim" style="margin-top:2.2rem">
+    <div class="bar" role="group" aria-label="Mod">
+      <button id="mCir" aria-pressed="true">Circuit Switching</button>
+      <button id="mPak" aria-pressed="false">Packet Switching</button>
+      <span class="sp"></span>
+      <button id="go">Gönder</button>
+      <button id="rs">Sıfırla</button>
+    </div>
+    <svg viewBox="0 0 600 220" role="img" aria-label="A ile B arasındaki ağ; hatlara tıklayarak kes"><g id="links"></g><g id="nodes"></g><g id="fly"></g></svg>
+    <div id="slots" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section id="guvenlik">
+  <h2>Security (Güvenlik)</h2>
+  <p>Ağın güvenliği şu üç şeyi sağlamalıdır:</p>
+  <ul>
+    <li>Yetkisiz erişimi engellemek</li>
+    <li>Bilginin değiştirilmesini engellemek</li>
+    <li>Denial of Service (DoS) – Hizmet Dışı Bırakma saldırısını engellemek: Saldırgan sisteme çok fazla istek gönderir. Site aşırı yoğun olur ve gerçek kullanıcılar giremez.</li>
+  </ul>
+  <h3 style="margin-top:1.6rem">Güvenliği Sağlamak için Üç Temel İlke (CIA Üçlüsü)</h3>
+  <ul>
+    <li><strong>Gizlilik (Confidentiality):</strong> Bilgiyi sadece yetkililer görebilmelidir.</li>
+    <li><strong>Haberleşme Bütünlüğü (Integrity):</strong> Veri gönderilirken bozulmamalıdır.</li>
+    <li><strong>Erişebilirlik (Availability):</strong> Sistem ihtiyaç duyulduğunda çalışmalıdır.</li>
+  </ul>
+</section>
+<div style="height:4rem"></div>
+</main>
+</div>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)document.querySelectorAll('aside a[href^="#"]').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-30% 0px -65% 0px'});
+document.querySelectorAll('section').forEach(function(s){io.observe(s)});
+
+var N={A:[40,110],R1:[210,35],R2:[210,185],R3:[390,35],R4:[390,185],B:[560,110]};
+var L=[['A','R1'],['A','R2'],['R1','R3'],['R2','R4'],['R3','B'],['R4','B'],['R1','R4']];
+var P=[['A','R1','R3','B'],['A','R2','R4','B'],['A','R1','R4','B']];
+var cut={},mode='cir',busy=false,NS='http://www.w3.org/2000/svg';
+var key=function(a,b){return [a,b].sort().join('-')};
+function el(t,at,p){var e=document.createElementNS(NS,t);for(var k in at)e.setAttribute(k,at[k]);p.appendChild(e);return e}
+var gl=document.getElementById('links'),gn=document.getElementById('nodes'),gf=document.getElementById('fly'),sl=document.getElementById('slots'),lk={};
+L.forEach(function(l){var a=N[l[0]],b=N[l[1]],k=key(l[0],l[1]);
+  lk[k]=el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],'class':'lk'},gl);
+  el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],'class':'hit'},gl).addEventListener('click',function(){if(busy)return;cut[k]=!cut[k];paint()})});
+for(var n in N){el('circle',{cx:N[n][0],cy:N[n][1],r:n.length==1?17:13,'class':'nd'},gn);
+  el('text',{x:N[n][0],y:N[n][1]+4.5,'class':'nl'},gn).textContent=n}
+function paint(){for(var k in lk)lk[k].setAttribute('class','lk'+(cut[k]?' cut':''));
+  if(mode==='cir'&&!busy)res(P[0])}
+function res(p){for(var i=0;i<p.length-1;i++){var k=key(p[i],p[i+1]);if(!cut[k])lk[k].classList.add('res')}}
+function ok(p){for(var i=0;i<p.length-1;i++)if(cut[key(p[i],p[i+1])])return false;return true}
+var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function fly(path,dur,r,done){var c=el('circle',{r:r,'class':'pk'},gf),s=[],tot=0;
+  for(var i=0;i<path.length-1;i++){var a=N[path[i]],b=N[path[i+1]],d=Math.hypot(b[0]-a[0],b[1]-a[1]);s.push([a,b,d]);tot+=d}
+  var t0=performance.now();dur=rm?1:dur;
+  (function f(now){var u=Math.min((now-t0)/dur,1),x=u*tot,i=0;while(i<s.length-1&&x>s[i][2]){x-=s[i][2];i++}
+    var q=Math.min(x/s[i][2],1);c.setAttribute('cx',s[i][0][0]+(s[i][1][0]-s[i][0][0])*q);c.setAttribute('cy',s[i][0][1]+(s[i][1][1]-s[i][0][1])*q);
+    if(u<1)requestAnimationFrame(f);else{gf.removeChild(c);done()}})(t0)}
+function reset(){sl.innerHTML='';for(var i=1;i<=6;i++){var d=document.createElement('div');d.className='slot';d.textContent=i;sl.appendChild(d)}}
+function all(){[].forEach.call(sl.children,function(s){s.classList.add('ok')})}
+function send(){if(busy)return;reset();paint();
+  if(mode==='cir'){var p=P[0];if(!ok(p))return;busy=true;res(p);
+    setTimeout(function(){fly(p,1800,11,function(){all();busy=false;paint()})},450);
+  }else{var av=P.filter(ok);if(!av.length)return;busy=true;var got=0;
+    for(var i=0;i<6;i++)(function(i){setTimeout(function(){var p=av[Math.floor(Math.random()*av.length)];
+      fly(p,1100+Math.random()*900,7,function(){sl.children[i].classList.add('ok');if(++got===6)busy=false})},i*260)})(i)}}
+function setMode(m){if(busy)return;mode=m;document.getElementById('mCir').setAttribute('aria-pressed',m==='cir');document.getElementById('mPak').setAttribute('aria-pressed',m==='pak');reset();paint()}
+document.getElementById('mCir').onclick=function(){setMode('cir')};
+document.getElementById('mPak').onclick=function(){setMode('pak')};
+document.getElementById('go').onclick=send;
+document.getElementById('rs').onclick=function(){if(busy)return;cut={};reset();paint()};
+reset();paint();
+</script>
+</body>
+</html>
