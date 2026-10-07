@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bilgisayar Ağları</title>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
 <style>
 /* Renkleri index.html menüsündeki değerlerle değiştir: sadece bu 5 satır */
 :root{
@@ -299,5 +302,6 @@ document.getElementById('go').onclick=send;
 document.getElementById('rs').onclick=function(){if(busy)return;cut={};reset();paint()};
 reset();paint();
 </script>
+<script src="theme.js" defer></script>
 </body>
 </html>

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web Tasarım Notları</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,14 +16,14 @@
   --html: #e85d04;
   --css: #3d5aff;
   --js: #f5c400;
-  --bg: #0f0f11;
-  --bg2: #18181c;
-  --bg3: #222228;
-  --line: rgba(255,255,255,0.07);
-  --line2: rgba(255,255,255,0.13);
-  --text: #e8e8e0;
-  --muted: #7a7a72;
-  --faint: #3a3a40;
+  --bg: #0b1326;
+  --bg2: #121c33;
+  --bg3: #172240;
+  --line: rgba(30,44,74,0.8);
+  --line2: rgba(37,54,96,0.8);
+  --text: #f0ede6;
+  --muted: #7a8fb5;
+  --faint: #3d527a;
   --info: #5b8dee;
   --success: #4caf50;
   --warn: #e5a020;
@@ -3312,5 +3315,6 @@ document.addEventListener('keydown', e => {
 buildNav('html');
 </script>
 
+<script src="theme.js" defer></script>
 </body>
 </html>

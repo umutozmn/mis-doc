@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIS Portal | Kurumsal Kaynak Planlaması</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b1326;--surface:#121c33;--surface2:#172240;--border:#1e2c4a;--border2:#253660;
+  --text:#f0ede6;--sub:#7a8fb5;--muted:#3d527a;--accent:#c5a880;
+  --accent-dim:rgba(197,168,128,.15);--accent-border:rgba(197,168,128,.25);
+  --info-bg:rgba(59,130,246,.1);--info-text:#7ab4f5;--info-border:rgba(59,130,246,.2);
+  --success-bg:rgba(34,197,94,.08);--success-text:#6bcf8a;--success-border:rgba(34,197,94,.18);
+  --warn-bg:rgba(245,158,11,.08);--warn-text:#e8a83a;--warn-border:rgba(245,158,11,.2);
+  --danger-bg:rgba(239,68,68,.08);--danger-text:#f08080;--danger-border:rgba(239,68,68,.2);
+  --purple-bg:rgba(139,92,246,.08);--purple-text:#a78bfa;--purple-border:rgba(139,92,246,.2);
+  --sidebar-w:240px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.progress-bar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:2px;background:var(--border);z-index:200}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .1s}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sidebar-header{padding:28px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-back{display:flex;align-items:center;gap:8px;text-decoration:none;font:10px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--sub);text-transform:uppercase;margin-bottom:16px}
+.sidebar-back:hover{color:var(--accent)}
+.sidebar-course{font:9px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.sidebar-title{font:600 20px/1.2 'Crimson Pro',serif;color:var(--text)}
+.sidebar-nav{padding:16px 0 24px;flex:1}
+.nav-section-label{font:9px 'JetBrains Mono',monospace;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;padding:0 20px;margin:12px 0 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;text-decoration:none;font-size:12.5px;color:var(--sub);transition:all .2s;border-left:2px solid transparent;cursor:pointer;background:none;border-right:0;border-top:0;border-bottom:0;width:100%;text-align:left;line-height:1.4}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.nav-item-num{font:9px 'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:16px}
+.nav-item.active .nav-item-num{color:var(--accent);opacity:.7}
+.main{margin-left:var(--sidebar-w);flex:1;padding:64px 56px 120px;max-width:calc(920px + var(--sidebar-w));width:100%}
+.page-header{margin-bottom:58px;padding-bottom:30px;border-bottom:1px solid var(--border)}
+.page-title{font:300 46px/1.08 'Crimson Pro',serif;color:var(--text);letter-spacing:-.02em}
+.page-kicker{font:10px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.unit{margin-bottom:76px;scroll-margin-top:36px;animation:fadeUp .5s ease both}
+.unit-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:30px}
+.unit-num-block{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:6px}
+.unit-num{font:10px 'JetBrains Mono',monospace;letter-spacing:.15em;color:var(--accent);opacity:.7}
+.unit-line{width:1px;height:28px;background:var(--border);margin-top:8px}
+.unit-title{font:400 32px/1.2 'Crimson Pro',serif;color:var(--text);letter-spacing:-.01em}
+.unit-divider{height:1px;background:var(--border);margin-bottom:28px}
+h3{font:9.5px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--sub);text-transform:uppercase;margin:30px 0 12px}
+h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+p,li{font-size:14px;line-height:1.72;color:var(--sub)}
+ul{padding-left:18px}li{margin-bottom:6px}strong{color:var(--text);font-weight:500}em{color:var(--sub)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px}
+.card p,.card li{font-size:13.5px}
+.example-box,.theory-block{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:14px 0}
+.example-header,.theory-header{padding:9px 14px;background:var(--surface2);display:flex;align-items:center;gap:8px}
+.example-header span{font:9px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.highlight-box{border-left:2px solid var(--accent);padding:13px 16px;background:var(--accent-dim);border-radius:0 6px 6px 0;margin:14px 0}
+.highlight-box p{color:var(--text);font-size:13.5px;margin:0}
+.info-box,.warn-box,.success-box{padding:13px 16px;border-radius:0 6px 6px 0;margin:14px 0}
+.info-box{border-left:2px solid var(--info-border);background:var(--info-bg)}
+.warn-box{border-left:2px solid var(--warn-border);background:var(--warn-bg)}
+.success-box{border-left:2px solid var(--success-border);background:var(--success-bg)}
+.info-box p{color:var(--info-text)}.warn-box p{color:var(--warn-text)}.success-box p{color:var(--success-text)}
+.info-box p,.warn-box p,.success-box p{font-size:13.5px;margin:0}
+.badge{display:inline-block;font:10px 'JetBrains Mono',monospace;padding:3px 9px;border-radius:3px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.b-accent{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.b-blue{background:var(--info-bg);color:var(--info-text);border:1px solid var(--info-border)}
+.b-green{background:var(--success-bg);color:var(--success-text);border:1px solid var(--success-border)}
+.step-list{display:flex;flex-direction:column;gap:2px}
+.step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:6px}
+.step-item:hover{background:var(--surface2)}
+.step-num{min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:11px 'JetBrains Mono',monospace;background:var(--surface2);color:var(--sub);flex-shrink:0}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--border);border-radius:8px;margin:12px 0 18px}
+table{width:100%;min-width:580px;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;background:var(--surface2);font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border2)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--sub);vertical-align:top}
+tr:last-child td{border-bottom:0}td strong{color:var(--text)}
+.formula-box{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:18px;margin:14px 0;text-align:center}
+.formula{font:15px 'JetBrains Mono',monospace;color:var(--accent);line-height:1.8}
+.formula-label{font:9px 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.flow{display:flex;align-items:stretch;gap:7px;overflow-x:auto;padding:8px 2px 14px;margin:8px 0}
+.flow-node{display:flex;align-items:center;justify-content:center;text-align:center;min-width:112px;min-height:54px;padding:10px;background:var(--surface);border:1px solid var(--border2);border-radius:7px;color:var(--text);font-size:12px}
+.flow-arrow{align-self:center;color:var(--accent);font-size:18px;flex-shrink:0}
+.direction-note{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.direction-note>div{padding:12px;border:1px solid var(--border);border-radius:7px;background:var(--surface)}
+.direction-note strong{display:block;color:var(--accent);font-size:12px;margin-bottom:4px}
+.timeline{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px;position:relative;margin:20px 0}
+.era{position:relative;padding:16px 13px 14px;border:1px solid var(--border);border-radius:8px;background:var(--surface);border-top:2px solid var(--accent)}
+.era-year{font:11px 'JetBrains Mono',monospace;color:var(--accent);margin-bottom:8px}
+.era-name{font:600 14px 'Crimson Pro',serif;color:var(--text);margin-bottom:5px}
+.era p{font-size:12px;line-height:1.5}
+.callout{padding:13px 15px;border:1px solid var(--warn-border);border-radius:8px;background:var(--warn-bg);margin:14px 0}
+.callout p{font-size:13px;color:var(--warn-text);margin:0}
+.system-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}
+.system-node{padding:14px 10px;text-align:center;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:12px}
+.system-node small{display:block;color:var(--sub);font-size:11px;margin-top:7px}
+.system-plus{text-align:center;color:var(--accent);font-size:20px;align-self:center}
+.silo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}
+.silo{padding:12px 8px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.silo-title{font-size:12px;color:var(--text);font-weight:500;margin-bottom:8px}
+.silo-db{padding:9px 5px;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;color:var(--sub);font-size:11px}
+.shared-db{max-width:300px;margin:8px auto 14px;padding:14px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:8px;text-align:center;color:var(--accent);font:11px 'JetBrains Mono',monospace;letter-spacing:.04em}
+.connectors{text-align:center;color:var(--accent);font-size:20px;line-height:1}
+.architecture{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
+.architecture-card{position:relative;min-height:170px;padding:17px 15px;background:var(--surface);border:1px solid var(--border);border-radius:9px}
+.architecture-card:not(:last-child)::after{content:'→';position:absolute;right:-17px;top:50%;transform:translate(50%,-50%);z-index:1;color:var(--accent);font-size:20px}
+.architecture-index{font:10px 'JetBrains Mono',monospace;color:var(--accent);letter-spacing:.08em;margin-bottom:10px}
+.architecture-card h4{font:600 16px 'Crimson Pro',serif}
+.architecture-card p{font-size:12px}
+.micro-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px}
+.mobile-toggle{display:none;position:fixed;top:16px;left:16px;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:8px;align-items:center;justify-content:center;cursor:pointer;z-index:200;color:var(--text)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1000px){.main{padding-right:32px;padding-left:32px}.timeline{grid-template-columns:repeat(3,minmax(140px,1fr))}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .3s}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:72px 20px 80px}.mobile-toggle{display:flex}.progress-bar{left:0}
+  .page-title{font-size:36px}.grid2,.grid3,.architecture{grid-template-columns:1fr}
+  .architecture-card:not(:last-child)::after{content:'↓';right:50%;top:auto;bottom:-23px;transform:translate(50%,50%)}
+  .timeline{grid-template-columns:1fr 1fr}.system-grid,.silo-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.timeline{grid-template-columns:1fr}.direction-note{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Menü">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-back">← <span>MIS Portal</span></a>
+    <div class="sidebar-course">Kurumsal Kaynak Planlaması</div>
+    <div class="sidebar-title">Ders Notları</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">1. Hafta</div>
+    <button class="nav-item active" onclick="goToSection('kaynaklar')"><span class="nav-item-num">01</span>Kaynaklar ve KKP</button>
+    <button class="nav-item" onclick="goToSection('sistem')"><span class="nav-item-num">02</span>KKP Sistemi</button>
+    <button class="nav-item" onclick="goToSection('tarihce')"><span class="nav-item-num">03</span>Tarihsel Gelişim</button>
+    <button class="nav-item" onclick="goToSection('neden')"><span class="nav-item-num">04</span>KKP Neden Ortaya Çıktı?</button>
+    <button class="nav-item" onclick="goToSection('kullanim')"><span class="nav-item-num">05</span>Kullanım ve Katkılar</button>
+    <button class="nav-item" onclick="goToSection('ozellikler')"><span class="nav-item-num">06</span>Özellikler ve Çalışma</button>
+    <button class="nav-item" onclick="goToSection('mimari')"><span class="nav-item-num">07</span>Veri ve Mimari</button>
+    <button class="nav-item" onclick="goToSection('projeler')"><span class="nav-item-num">08</span>Projeler ve Başarı</button>
+    <button class="nav-item" onclick="goToSection('tartisma')"><span class="nav-item-num">09</span>Sınıf İçi Tartışma</button>
+  </nav>
+</aside>
 
+<main class="main">
+  <header class="page-header">
+    <div class="page-kicker">1. Hafta</div>
+    <h1 class="page-title">Kurumsal Kaynak Planlaması (KKP)</h1>
+  </header>
+
+  <section class="unit" id="kaynaklar">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">01</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">Kaynaklar ve KKP Nedir?</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>Kaynaklar ve Planlama Mantığı: 4M + 1T + 1I (Genişletilmiş Kaynak Matrisi)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Harf</th><th>Örnek</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Manpower</strong></td><td>Marangozlar, satış temsilcileri</td></tr>
+        <tr><td><strong>Machine</strong></td><td>Kesim ve zımpara makineleri</td></tr>
+        <tr><td><strong>Material</strong></td><td>Ahşap, kumaş, sünger</td></tr>
+        <tr><td><strong>Money</strong></td><td>Kasa, banka, kredi</td></tr>
+        <tr><td><strong>Time</strong></td><td>Teslim süresi, üretim süresi</td></tr>
+        <tr><td><strong>Information</strong></td><td>Sipariş, stok, müşteri verisi</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="grid2">
+      <div class="card">
+        <span class="badge b-accent">Optimizasyon Zorluğu</span>
+        <p>Bu kaynakların kıt olduğunu kabul edip onları boşa harcamak yerine en yararlı yere vermektir. Elde edilen faydayı en çok yapıp işlem maliyetini en az yapmak.</p>
+      </div>
+      <div class="card">
+        <span class="badge b-blue">Klasik Yöntemlerin Çıkmazı</span>
+        <p>Talep önceden kesin bilinmez (deterministik değildir). Satış, üretim ve satın alma ayrı ayrı plan yapınca kaynaklar birbirine uyumlanamaz.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box"><p><strong>KKP Nedir?</strong> Bir işletmenin işlerinin büyük kısmını tek çatı altında yöneten, çok modüllü bir uygulama yazılımıdır.</p></div>
+    <div class="grid3">
+      <div class="card"><h4>Kaynak</h4><p>İşgücü, makine, malzeme, para gibi üretim ve hizmet için gereken her şey.</p></div>
+      <div class="card"><h4>Planlama</h4><p>Bu kaynakları boşa harcamadan, doğru zamanda doğru yerde kullanmak.</p></div>
+      <div class="card"><h4>Bütünleşik / Entegre</h4><p>Satış, muhasebe, üretim, insan kaynakları, stok gibi tüm birimler birbirine bağlı çalışır; veri tek yerde durur.</p></div>
+    </div>
+    <div class="theory-block">
+      <div class="theory-header"><span class="badge b-accent">Önemli Tanım</span></div>
+      <div class="card" style="margin:0;border-radius:0 0 8px 8px">
+        <p>KKP; işletmenin amaç ve hedefleri doğrultusunda müşteri taleplerini en uygun şekilde karşılayabilmek için farklı yerlerde bulunan tedarik, üretim, dağıtım ve mali kaynaklarının en etkili ve verimli şekilde planlaması, kontrol edilmesi fonksiyonlarından oluşan bir yazılım sistemidir.</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-header"><span>Gerçek Hayattan Örnek</span></div>
+      <div class="card" style="margin:0;border:0">
+        <p>Lezzet Mobilya'da bir müşteri koltuk siparişi veriyor. KKP varsa: satış modülü siparişi kaydeder. Stok modülü kumaş ve ahşap yeterli mi bakar. Yetersizse satın alma modülü tedarikçiye talep açar. Üretim modülü planı günceller. Muhasebe modülü faturayı keser. Hiç aynı bilgiyi ikinci kez elle girmez.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="unit" id="sistem">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">02</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">KKP Sistemi</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>KKP Paradigmasında Epistemolojik Yanılgılar</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Yanılgı</th><th>Anlam</th><th>Yanılgı Nedeni</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fonksiyonel indirgemecilik</strong></td><td>KKP sadece finans/muhasebe yazılımıdır.</td><td>Satış, üretim, İK, stok da kapsam alanına girer.</td></tr>
+        <tr><td><strong>Teknomerkezcilik</strong></td><td>KKP sadece bir BT projesidir.</td><td>Asıl değişen iş yapış biçimi ve insanlardır.</td></tr>
+        <tr><td><strong>Panasea (her derde deva) miti</strong></td><td>Yazılımı kurarsak tüm sorunlar kendiliğinden çözülür.</td><td>Kültür ve süreç düzelmezse hatalı süreç sadece otomatikleşir.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>KKP Modülleri</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Modül</th><th>Ne yapar?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Satış ve pazarlama</strong></td><td>Sipariş alma, fiyat, kampanya</td></tr>
+        <tr><td><strong>Üretim yönetimi ve planlama</strong></td><td>Ne kadar, ne zaman, hangi makinede üretilecek</td></tr>
+        <tr><td><strong>Stok ve malzeme yönetimi</strong></td><td>Depoda ne var, ne azaldı</td></tr>
+        <tr><td><strong>Satın alma</strong></td><td>Tedarikçiden malzeme alma</td></tr>
+        <tr><td><strong>Muhasebe ve finans</strong></td><td>Fatura, ödeme, bilanço</td></tr>
+        <tr><td><strong>İnsan kaynakları</strong></td><td>Personel, maaş, izin</td></tr>
+        <tr><td><strong>CRM (müşteri ilişkileri)</strong></td><td>Müşteri geçmişi, şikâyet, takip</td></tr>
+        <tr><td><strong>Servis / bakım</strong></td><td>Satış sonrası destek, makine bakımı</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Tedarik Zinciri Bakışı</h3>
+    <div class="flow" aria-label="Tedarik zinciri akışı">
+      <div class="flow-node">Tedarikçi</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Nakliye</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Üretim</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Nakliye</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Distribütör</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Dağıtım</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Müşteri</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Tüketici</div>
+    </div>
+    <div class="info-box"><p>KKP bu zincirin her halkasına veri sağlar. Mal akışı soldan sağa, sipariş ve para akışı sağdan sola doğrudur.</p></div>
+  </section>
+
+  <section class="unit" id="tarihce">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">03</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">KKP'nin Tarihi Gelişimi</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <div class="highlight-box"><p>KKP bir anda ortaya çıkmadı; her on yılda bir önceki sistemin eksiğini kapatan yeni bir basamak geldi.</p></div>
+
+    <div class="timeline">
+      <article class="era"><div class="era-year">1960</div><div class="era-name">Depo Yönetimi</div><p>Stok yönetimi ve kontrol</p></article>
+      <article class="era"><div class="era-year">1970</div><div class="era-name">MRP</div><p>Malzeme İhtiyaç Planlama</p></article>
+      <article class="era"><div class="era-year">1980</div><div class="era-name">MRP II</div><p>Üretim Kaynak Planlama</p></article>
+      <article class="era"><div class="era-year">1990</div><div class="era-name">ERP</div><p>Kurumsal Kaynak Planlama</p></article>
+      <article class="era"><div class="era-year">2000+</div><div class="era-name">ERP II</div><p>SCM, CRM ve BI</p></article>
+    </div>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>Dönem</th><th>Sistem</th><th>Ne yapıyordu?</th><th>Lezzet Mobilya örneği</th></tr></thead>
+      <tbody>
+        <tr><td>1960</td><td>Depo yönetimi ve kontrol</td><td>Sadece stok takibi: depoda ne var?</td><td>Depocu defterine “50 metre kumaş girdi” yazıyor.</td></tr>
+        <tr><td>1970</td><td>MRP (Malzeme İhtiyaç Planlama)</td><td>Üretim için hangi malzemeden ne kadar lazım, ne zaman sipariş edilmeli?</td><td>“200 koltuk üreteceğim, 400 metre kumaş lazım, bunun 150'si depoda, 250'sini sipariş et.”</td></tr>
+        <tr><td>1980</td><td>MRP II (Üretim Kaynak Planlama)</td><td>Malzemeye ek olarak makine, işçilik ve maliyet de plana girdi.</td><td>“Bu koltuk için 3 usta ve 2 makine gerekli, 4 günde biter, maliyeti şu kadar.”</td></tr>
+        <tr><td>1990</td><td>ERP (Kurumsal Kaynak Planlama)</td><td>Üretimin ötesinde finans, İK, satış, her şey tek sistemde.</td><td>Muhasebe, İK ve satış da aynı sistemden çalışıyor.</td></tr>
+        <tr><td>2000+</td><td>ERP II (SCM, CRM, BI)</td><td>Şirket dışına da açıldı: tedarikçi (SCM), müşteri (CRM), raporlama/analiz (BI).</td><td>Tedarikçi kendi ekranından stoğunu görüyor; yönetici “hangi ürün daha çok satıyor?” panosunu izliyor.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="micro-note"><strong>Kısaltmalar:</strong> SCM = Tedarik Zinciri Yönetimi · CRM = Müşteri İlişkileri Yönetimi · BI = İş Zekâsı (veriden rapor ve analiz üretme).</p>
+    <div class="callout"><p><strong>Sınav notu:</strong> Sıralamayı ezberlemenin kolay yolu: <strong>Depo → Malzeme → Üretim → Kurumsal → Kurum dışına açılma.</strong> Her adım bir öncekinin kapsamını genişletiyor.</p></div>
+
+    <h3>Dönemlere Göre Gelişim</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">60</span><div><p><strong>1960'lar: Stok Kontrol (IC - Inventory Control)</strong><br>Yöntemler: Sipariş Noktası (ROP - Reorder Point) ve Ekonomik Sipariş Miktarı (EOQ - Economic Order Quantity).</p></div></div>
+      <div class="step-item"><span class="step-num">70</span><div><p><strong>1970'ler: MRP I</strong><br><strong>Öncüler:</strong> Joseph Orlicky ve George Plossl.<br><strong>Temel ayrım:</strong> Bağımsız talep (nihai ürün tahmini) ve bağımlı talep (ürün için gerekli bileşenler).<br><strong>Girdiler:</strong> MPS (Ana Üretim Çizelgesi), BOM (Ürün Ağacı), stok kayıtları.<br><strong>Kazanım:</strong> Net malzeme ihtiyacını zamanda geriye doğru çizelgeler.<br><strong>Kısıt:</strong> Sonsuz kapasite varsayımı; işgücü ve makine sınırlarını hesaba katmaz.</p></div></div>
+    </div>
+    <div class="example-box">
+      <div class="example-header"><span>MRP I Örneği</span></div>
+      <div class="card" style="margin:0;border:0">
+        <p>200 koltuk üreteceğiz (bağımsız talep). Her koltuk 2 metre kumaş ister; kumaş bağımlı taleptir: 400 m. Depoda 150 m var, bu yüzden 250 m sipariş edilmeli ve teslim süresi kadar önceden verilmeli. MRP bunu hesaplar ve atölyede “o kadar koltuğu yetiştirecek usta var mı?” diye sormaz.</p>
+      </div>
+    </div>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">80</span><div><p><strong>1980'ler: MRP II</strong><br><strong>Öncü:</strong> Oliver Wight.<br><strong>CRP (Capacity Requirements Planning - Kapasite İhtiyaç Planlaması):</strong> Makine / işgücü kısıtı sürece girdi; böylelikle üretim çizelgesi ile bütçe ve finansal planlama ilk kez birleşti.</p></div></div>
+      <div class="step-item"><span class="step-num">90</span><div><p><strong>1990'lar: ERP</strong><br>Gartner Group tarafından kavramsallaştırıldı. İmalat odaklı olmaktan çıkıp finans, İK, satış-dağıtım, satın alma ve bakım da sisteme alındı.</p></div></div>
+      <div class="step-item"><span class="step-num">00</span><div><p><strong>2000'ler: ERP II</strong><br>Şirket dışına açıldı: tedarikçi ve müşteriler dahil edildi. CRM (Customer Relationship Management - Müşteri İlişkileri Yönetimi), SCM (Supply Chain Management - Tedarik Zinciri Yönetimi) ve e-ticaret.</p></div></div>
+      <div class="step-item"><span class="step-num">AI</span><div><p><strong>Günümüz: Bulut ve Zeki ERP</strong><br>Monolitik yapıdan SaaS ve mikroservis mimarisine geçiş: yapay zekâ, IoT, uçtan uca analitik ve otomatik karar mekanizmaları.</p></div></div>
+    </div>
+  </section>
+
+  <section class="unit" id="neden">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">04</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">KKP Neden Ortaya Çıktı?</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <h3>Fonksiyonel Adacılar (Silo Sendromu)</h3>
+    <div class="card">
+      <ul>
+        <li>KKP'den önce her departmanın kendi yazılımı (bazen sadece defter ve Excel'i) vardı.</li>
+        <li><strong>Örgütsel parçalanmışlık:</strong> Herkes kendi adasında.</li>
+        <li><strong>Asimetrik enformasyon:</strong> Satışın bildiğini üretim bilmez, üretimin bildiğini finans bilmez.</li>
+        <li><strong>Görünmez duvarlar:</strong> Bilgi, fiziksel ve hiyerarşik engellere takılır.</li>
+      </ul>
+    </div>
+
+    <h3>Noktadan Noktaya İletişim (Geleneksel) ve Merkezi Entegrasyon (KKP)</h3>
+    <div class="highlight-box"><p>Birimler birbirleriyle tek tek konuşursa bağlantı sayısı <strong>n(n-1)/2</strong> olarak artar. Merkezde tek bir sistem varsa herkes sadece ona bağlanır.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Birim sayısı (N)</th><th>Noktadan noktaya bağlantı</th><th>Merkezi sistemle bağlantı</th></tr></thead>
+      <tbody><tr><td>4</td><td>6</td><td>4</td></tr><tr><td>10</td><td>45</td><td>10</td></tr><tr><td>20</td><td>190</td><td>20</td></tr></tbody>
+    </table></div>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Geleneksel</span><p>Her birim diğer birimlerle ayrı ayrı bağlantı kurar. Birim sayısı arttıkça bağlantılar hızla çoğalır.</p></div>
+      <div class="card"><span class="badge b-accent">Merkezi KKP</span><p>Her birim tek bir ortak sisteme bağlanır. Merkezi sistemle bağlantı sayısı, birim sayısı kadar olur.</p></div>
+    </div>
+
+    <h3>Mükerrer Veri Girişi ve Hata Yayılımı</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">1</span><p style="margin:0">Müşteri siparişi</p></div>
+      <div class="step-item"><span class="step-num">2</span><p style="margin:0">Satış veri girişi</p></div>
+      <div class="step-item"><span class="step-num">3</span><p style="margin:0">Üretim planlama yorumu</p></div>
+      <div class="step-item"><span class="step-num">4</span><p style="margin:0">Sevkiyat / Muhasebe manuel kaydı</p></div>
+    </div>
+    <div class="warn-box"><p><strong>Kümülatif hata etkisi:</strong> Elle aktarılan her adımda yeni bir insan hatası eklenir ve maliyeti katlar.</p></div>
+    <div class="example-box">
+      <div class="example-header"><span>Örnek</span></div>
+      <div class="card" style="margin:0;border:0"><p>Sipariş “120 adet” girildi, üretim kâğıttan “110” okudu, muhasebe “120” faturaladı. Müşteri 10 koltuk fazla ödemeye itiraz ediyor. Hatanın nerede doğduğunu bulmak bile zaman kaybı.</p></div>
+    </div>
+
+    <h3>Karar Almada “Veri Asimetrisi Çatışması”</h3>
+    <div class="card"><p>Yönetim kurulunda satış, üretim ve finans farklı rakamlar sunar. Toplantı strateji üretmek yerine hangi rakamın doğru olduğunu tartışmakla geçecektir (stratejik sapma).</p></div>
+    <div class="example-box">
+      <div class="example-header"><span>Örnek</span></div>
+      <div class="card" style="margin:0;border:0"><p>Genel müdür “Bu ay ne kadar sattık?” diye soruyor. Satış 1,2 milyon, muhasebe 1,05 milyon diyor. KKP'de ise rapor tek veriden çıkacağından bu tartışma hiç yaşanmamış olacaktı.</p></div>
+    </div>
+
+    <h3>İşletmelerde Görülen Sorunlar</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Sorun</th><th>Anlamı</th><th>Lezzet Mobilya'da nasıl görünür?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Veri bütünlüğünün bozulması</strong></td><td>Her birimin verisi farklı; aynı bilgi iki yerde farklı yazıyor.</td><td>Satışta sipariş 120 adet, muhasebede 110 adet görünüyor. Hangisi doğru?</td></tr>
+        <tr><td><strong>Bilgi akışının yavaşlaması</strong></td><td>Bilgi telefon, e-posta, kâğıtla taşınıyor.</td><td>Satıştan üretime sipariş kâğıtla gidiyor, sipariş 2 gün gecikmeli başlıyor.</td></tr>
+        <tr><td><strong>Koordinasyon zorluğu</strong></td><td>Üretim planı satış tahminini ve stoğu anlık göremiyor. Sonuç: stok fazlası ya da eksikliği.</td><td>Satış “bu ay çok satacağız” demiş ama üretim bilmiyor; ya depoda dolup taşıyor ya müşteri bekliyor.</td></tr>
+        <tr><td><strong>Maliyet ve verimsizlik</strong></td><td>Her birim için ayrı yazılım kurmak pahalı; aynı veriyi tekrar girmek zaman kaybı ve hata riski.</td><td>Müşteri adresini satışçı, kargocu ve muhasebeci ayrı ayrı yazıyor; biri yanlış yazıyor.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Dış Etkenler</h3>
+    <div class="card"><ul>
+      <li>Küreselleşme ve uluslararası rekabet</li>
+      <li>Bilgi teknolojisinin sunduğu yeni olanaklar</li>
+      <li>Uluslararası dağıtım zincirlerinin yaygın ve daha etkin kullanılır hâle gelmesi</li>
+      <li>Çok tesisli (birden çok fabrika/şube) organizasyonları yönetme ihtiyacı</li>
+      <li>Ürün ve üretim politikalarında rekabete bağlı değişimler</li>
+      <li>Yönetim organizasyonlarında sadeleşme</li>
+    </ul></div>
+    <div class="example-box">
+      <div class="example-header"><span>Gerçek Hayattan Örnek</span></div>
+      <div class="card" style="margin:0;border:0"><p>Bir online giyim sitesini düşünün. Sipariş anında stok, kargo, ödeme ve iade aynı anda dönüyor. Bu hız, birimler birbirinden kopuk olsaydı mümkün olmazdı. Rekabet arttıkça “gün içinde teslimat” beklentisi de arttı; KKP bu beklentiyi karşılamanın altyapısı oldu.</p></div>
+    </div>
+  </section>
+
+  <section class="unit" id="kullanim">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">05</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">Kurumlar KKP'yi Neden Kullanır?</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Grup</th><th>Maddeler</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Verimlilik ve maliyet</strong></td><td>Arka plandaki (back office) işlerin otomasyonu. Bireysel ve kurumsal verimliliğin artması. İşletme maliyetlerinin azalması beklentisi.</td></tr>
+        <tr><td><strong>Koordinasyon ve bütünleşme</strong></td><td>Sipariş bilgisi ile finansal bilginin bütünleşmesi. Coğrafi olarak uzak birimler arasında koordinasyon. Birimler arası ortak terminoloji. Fonksiyonlar arası bütünleşme ihtiyacı.</td></tr>
+        <tr><td><strong>Yönetim ve karar</strong></td><td>Stratejik kararlar için veriye kolay erişim. BT altyapısını yönetmeyi kolaylaştıran tek sistem. Tutarlı uygulama mantığı, bilgi ve arayüz. Müşteri katkısının artırılması.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="info-box"><p><strong>Terminoloji birliği</strong> küçük görünen ama önemli bir madde: Satış “sipariş” derken muhasebe “fatura” diyor. Aynı iş farklı adlarla anılırsa karışıklık çıkar. KKP'de herkes aynı kayıt ve aynı terimlerle çalışır.</p></div>
+
+    <h3>KKP'nin Katkıları: Somut (Tangible) ve Soyut (Intangible)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tür</th><th>Katkı</th><th>Açıklama</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Somut</strong></td><td>Envanter optimizasyonu (%15-%30)</td><td>Stok tutma maliyetinde kanıtlanmış düşüş.</td></tr>
+        <tr><td><strong>Somut</strong></td><td>Döngü süreleri</td><td>Sipariş karşılama ve teslimat süresi (lead time) kısalır.</td></tr>
+        <tr><td><strong>Somut</strong></td><td>Operasyonel verimlilik</td><td>Rutin idari işlem maliyeti en aza iner.</td></tr>
+        <tr><td><strong>Soyut</strong></td><td>Kurumsal yönetişim</td><td>Şeffaflık, denetlenebilirlik, hesap verebilirlik.</td></tr>
+        <tr><td><strong>Soyut</strong></td><td>Kişi bağımsızlığı</td><td>Süreçler standart olduğu için kilit personel riski azalır.</td></tr>
+        <tr><td><strong>Soyut</strong></td><td>Kurumsal hafıza</td><td>Kişinin kafasındaki bilgi sisteme aktarılır.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="unit" id="ozellikler">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">06</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">KKP'nin Temel Özellikleri ve Çalışma Biçimi</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><p><strong>Web tabanlı veya istemci / sunucu mimarisi:</strong> Program ya tarayıcıdan ya da kurulu bir uygulama ile merkezi sunucuya bağlanarak çalışır.</p></div>
+      <div class="step-item"><span class="step-num">02</span><p><strong>Hemen her süreçle entegre:</strong> Neredeyse tüm iş süreçlerini kapsar ve işler.</p></div>
+      <div class="step-item"><span class="step-num">03</span><p><strong>Geniş, bütünleşik veritabanı:</strong> Hem ana verileri (müşteri, ürün) hem iş süreçlerine ait verileri (sipariş, fatura) tutar.</p></div>
+      <div class="step-item"><span class="step-num">04</span><p><strong>Gerçek zamanlı veri erişimi:</strong> Bir birim işlem yaptığı anda diğerleri güncel bilgiyi görür.</p></div>
+      <div class="step-item"><span class="step-num">05</span><p><strong>Paylaşıma dayalı çalışma:</strong> Diğer işletmelerle senkronize çalışmaya imkân tanır.</p></div>
+      <div class="step-item"><span class="step-num">06</span><p><strong>Coğrafi dağınıklığa uygun:</strong> İstanbul, İzmir ve Berlin ofisi aynı sistemi kullanabilir (sunucu/istemci, web, bulut).</p></div>
+      <div class="step-item"><span class="step-num">07</span><p><strong>Modüler yapı:</strong> Ülkelere göre değişen muhasebe ve İK kuralları, ilgili modülün ayarlarıyla karşılanır.</p></div>
+      <div class="step-item"><span class="step-num">08</span><p><strong>Ticari uygulama yazılımı:</strong> Hazır paket olarak satılır; kurum “sıfırdan yazmak” yerine satın alır ve uyarlar.</p></div>
+    </div>
+    <div class="warn-box"><p><strong>ÖNEMLİ: Özelleştirme Azalıyor</strong><br>KKP yazılımları ilk çıktıklarında tüm sektörlere hitap ediyor ve kurulumda firmaya göre çok özelleştirilebiliyordu. Zamanla yazılımlar belirli sektörlerde derinleşti; bugün sektöre odaklı üretiliyor ve özelleştirme oranı giderek azalıyor.</p></div>
+
+    <h3>KKP Nasıl Çalışır?</h3>
+    <div class="highlight-box"><p><strong>Temel fikir:</strong> Veri tek yerde tutulur, herkes oradan okur ve oraya yazar.</p></div>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">1</span><p>Tüm önemli süreçler aynı yazılım ailesinden olduğu için süreçler arası uyumsuzluk en aza iner.</p></div>
+      <div class="step-item"><span class="step-num">2</span><p>Modüller istemci/sunucu, web ve bulut yapısında çalışarak uç noktalardaki maliyeti düşürür.</p></div>
+      <div class="step-item"><span class="step-num">3</span><p>Kullanıcı bilgisayarları, güçlü bir sunucuya bağlanarak veriye tek noktadan ulaşır.</p></div>
+      <div class="step-item"><span class="step-num">4</span><p>Her modül kendi konumuna özel işlemleri yapar.</p></div>
+    </div>
+  </section>
+
+  <section class="unit" id="mimari">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">07</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">Ortak Veri ve Üç Katmanlı Mimari</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+
+    <h3>Ayrık Yapı (KKP Öncesi)</h3>
+    <div class="highlight-box"><p>Her birim kendi verisini tutuyor → Veriler birbirini tutmayabilir.</p></div>
+    <div class="silo-grid" aria-label="Her birimin ayrı veritabanı kullandığı yapı">
+      <div class="silo"><div class="silo-title">Satış Birimi</div><div class="silo-db">Kendi veritabanı</div></div>
+      <div class="silo"><div class="silo-title">Üretim Birimi</div><div class="silo-db">Kendi veritabanı</div></div>
+      <div class="silo"><div class="silo-title">Satın alma Birimi</div><div class="silo-db">Kendi veritabanı</div></div>
+      <div class="silo"><div class="silo-title">Muhasebe Birimi</div><div class="silo-db">Kendi veritabanı</div></div>
+    </div>
+
+    <h3>Ortak Veritabanı (KKP ile)</h3>
+    <div class="silo-grid" aria-label="Ortak veritabanına bağlanan birimler">
+      <div class="system-node">Satış Birimi</div><div class="system-node">Üretim Birimi</div><div class="system-node">Satın alma Birimi</div><div class="system-node">Muhasebe Birimi</div>
+    </div>
+    <div class="connectors" aria-hidden="true">↘　↓　↙　↓</div>
+    <div class="shared-db">ORTAK VERİTABANI</div>
+    <div class="success-box"><p>Herkes aynı veriyi görüyor → tek doğru bilgi.</p></div>
+
+    <h3>Çekirdek Felsefe (Single Source of Truth - SSOT, Tek Doğruluk Kaynağı)</h3>
+    <div class="highlight-box"><p>Bir bilgi kaynağında yalnızca bir kez üretilir, sistemin her yerinde aynı hâliyle kullanılır.</p></div>
+    <div class="grid2">
+      <div class="card"><h4>Veri Tutarlılığı</h4><p>Aynı kayıt iki yerde farklı olmaz.</p></div>
+      <div class="card"><h4>Karar Desteği</h4><p>Tüm yöneticiler aynı, doğrulanmış ve anlık veriye bakar.</p></div>
+    </div>
+    <div class="example-box">
+      <div class="example-header"><span>Örnek</span></div>
+      <div class="card" style="margin:0;border:0"><p>Müşteri “Ahmet Yılmaz” bir yerde “A. Yılmaz”, başka yerde “Ahmet Yilmaz” yazılırsa sistem onları farklı müşteriler sanabilir. SSOT'ta tek müşteri kartı vardır; satış da muhasebe de aynı karta bağlanır.</p></div>
+    </div>
+
+    <h3>Üç Katmanlı Yapı</h3>
+    <div class="architecture">
+      <article class="architecture-card"><div class="architecture-index">01 / İSTEMCİ KATMANI</div><h4>Kullanıcı arayüzü</h4><p>Masaüstü, web, mobil uygulama ekranları.</p><p class="micro-note">Satış temsilcisi tabletten sipariş girer.</p></article>
+      <article class="architecture-card"><div class="architecture-index">02 / İŞ UYGULAMA KATMANI</div><h4>Uygulama sunucusu</h4><p>Modüllerin mantığı burada çalışır; kuralları uygular.</p><p class="micro-note">“Stok yetersizse sipariş onaylanmasın” kuralı burada.</p></article>
+      <article class="architecture-card"><div class="architecture-index">03 / VERİTABANI KATMANI</div><h4>Veritabanı sunucusu</h4><p>Tüm veri tek yerde (ör. SQL Server).</p><p class="micro-note">Müşteriler, ürünler, stok, faturalar hep burada.</p></article>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Katman</th><th>Görevi</th><th>Lezzet Mobilya'da</th></tr></thead>
+      <tbody>
+        <tr><td><strong>İstemci (kullanıcı arayüzü)</strong></td><td>Kullanıcının gördüğü ekran: masaüstü, web, mobil.</td><td>Satış temsilcisi tabletten sipariş girer.</td></tr>
+        <tr><td><strong>İş uygulama (uygulama sunucusu)</strong></td><td>Modüllerin mantığı burada çalışır; kuralları uygular.</td><td>“Stok yetersizse sipariş onaylanmasın” kuralı burada.</td></tr>
+        <tr><td><strong>Veritabanı</strong></td><td>Tüm verinin saklandığı yer.</td><td>Müşteriler, ürünler, stok, faturalar hep burada.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid2">
+      <div class="card"><span class="badge b-blue">Ana Veri (Master Data)</span><p>Nadiren değişir. Örnek olarak malzeme kartı, hesap planı.</p></div>
+      <div class="card"><span class="badge b-green">Hareket Verisi (Transactional Data)</span><p>Günlük işlemlerde sürekli oluşur, zamana bağlıdır. Örnek olarak sipariş, fatura, tahsilat.</p></div>
+    </div>
+  </section>
+
+  <section class="unit" id="projeler">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">08</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">En İyi Uygulamalar, Proje Zorlukları ve Başarı</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <h3>En İyi Uygulamalar</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">1</span><p><strong>Gömülü endüstri standartları (hazır reçete):</strong> En başarılı şirketlerin bir işi nasıl yaptığı KKP paketlerinin içine önceden kodlanmıştır.</p></div>
+      <div class="step-item"><span class="step-num">2</span><p><strong>Kurumsal olgunluk (düzen ve disiplin kazandırma):</strong> İşler dağınık, kuralsız ya da kişilere bağlıysa KKP sistemi o şirkete zorunlu bir kural disiplini getirir; bu sayede şirket kendini baştan yapılandırır (BPR - Business Process Reengineering, İş Sürecinin Yeniden Yapılandırılması).</p></div>
+    </div>
+    <div class="info-box"><p><strong>Not:</strong> Kurumsal olgunluk, işlerin kişilere değil, kurallara ve sistemlere bağlı olarak yürüme derecesidir.</p></div>
+
+    <h3>KKP Projeleri Neden Zordur?</h3>
+    <div class="highlight-box"><p>İnsan ve süreç kaynaklı zorluklardır.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Neden</th><th>Anlatım</th><th>Örnek</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Alışkanlıklar değişmek zorunda</strong></td><td>KKP'ye geçmek, kurumun iş yapış şeklini yeniden gözden geçirmesi demektir.</td><td>Yıllardır Excel kullanan muhasebeci, yeni sisteme geçmek istemez.</td></tr>
+        <tr><td><strong>Her şey her şeyle ilişkili</strong></td><td>Bir karar tek kişiyi değil, birçok birimi etkiler.</td><td>Stok kodlarını değiştirmek hem depoyu hem satışı hem muhasebeyi etkiler.</td></tr>
+        <tr><td><strong>Suçlanma riski</strong></td><td>Sorun KKP'den kaynaklanmasa bile sebep olarak KKP gösterilebilir.</td><td>“Sevkiyat geciktiyse bu yeni sistem yüzünden!”</td></tr>
+        <tr><td><strong>Öncelik çatışması</strong></td><td>Her birim kendi isteğini listenin başına koymak ister.</td><td>Satış mobil ekran, muhasebe rapor ister.</td></tr>
+        <tr><td><strong>Uzun süre, motivasyon kaybı</strong></td><td>Değişim adım adım ve uzun sürede olacağından motivasyon düşebilir.</td><td>Altıncı ayda ekip “bitmedi mi hâlâ?” demeye başlar.</td></tr>
+        <tr><td><strong>Değişim direnci (son kullanıcı)</strong></td><td>Kullanıcılar eskiye benzetme ister; olmayınca memnuniyetsizlik doğar.</td><td>“Eski program bunu tek tuşla yapıyordu!”</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Başarı Faktörleri</h3>
+    <div class="highlight-box"><p>İnsan ve süreç kaynaklı zorlukların çözümleri yönetim desteği, eğitim ve liderlik odaklıdır.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Başarı faktörü</th><th>Önemi</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Üst yönetimin desteği</strong></td><td>Çatışma çıktığında karar verecek ve kaynak ayıracak kişi yönetimdir.</td></tr>
+        <tr><td><strong>Etkin proje yönetimi (yetkili, güçlü proje lideri)</strong></td><td>Projeyi dağılmadan, takvimle yürütmek için.</td></tr>
+        <tr><td><strong>Yoğun kullanıcı eğitimi</strong></td><td>Sistemi kullanacak insanlar bilmiyorsa en iyi yazılım bile işe yaramaz.</td></tr>
+        <tr><td><strong>İyi BT ve veri iletişim altyapısı</strong></td><td>Sunucu, ağ ve internet yavaşsa gerçek zamanlı çalışma olmaz.</td></tr>
+        <tr><td><strong>KKP'yi bir işletme çözümü ve değişim aracı olarak görmek</strong></td><td>Sadece “yazılım kurulumu” değil, iş yapış biçimini iyileştirme projesi olarak görmek gerekir.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="unit" id="tartisma">
+    <div class="unit-header">
+      <div class="unit-num-block"><span class="unit-num">09</span><div class="unit-line"></div></div>
+      <div><h2 class="unit-title">Sınıf İçi Tartışma Sorusu</h2></div>
+    </div>
+    <div class="unit-divider"></div>
+    <div class="theory-block">
+      <div class="theory-header"><span class="badge b-accent">Tartışma Sorusu</span></div>
+      <div class="card" style="margin:0;border:0;border-radius:0 0 8px 8px">
+        <p><em>Her alanda mükemmel çalışan bağımsız yazılımlara sahip işletme, bunları KKP altında birleştirmeli mi, hibrit yapıyı mı korumalı?</em></p>
+      </div>
+    </div>
+    <div class="highlight-box"><p>Hepsini KKP altında toplarsak bütün departmanlar tek sistem kullanır. Verilerin tek yerde olacağından ve bilgilerin otomatik paylaşılmasından dolayı yönetmesi kolay olacaktır. Ama ERP'nin bazı modülleri, özel yazılım kadar güçlü olmayabilir. Hibrit yapıda en iyi programlar kullanılır ama ERP ile birbirine bağlanır. Her bölüm en güçlü yazılımını kullanmaya devam edeceğinden performans yüksek olur. Ama programları entegre etmenin maliyeti vardır.</p></div>
+  </section>
+</main>
+</div>
+<script>
+function goToSection(id){
+  const section=document.getElementById(id);
+  if(!section)return;
+  section.scrollIntoView({behavior:'smooth',block:'start'});
+  if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+const sections=document.querySelectorAll('.unit');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){
+    navItems.forEach(item=>item.classList.toggle('active',item.getAttribute('onclick')?.includes(entry.target.id)));
+  }
+}),{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(section=>observer.observe(section));
+const progressFill=document.getElementById('progressFill');
+window.addEventListener('scroll',()=>{
+  const total=document.documentElement.scrollHeight-window.innerHeight;
+  progressFill.style.width=(total>0?window.scrollY/total*100:0)+'%';
+});
+</script>
+<script src="theme.js" defer></script>
+</body>
+</html>
