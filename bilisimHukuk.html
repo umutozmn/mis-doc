@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+<link rel="stylesheet" href="theme.css">
 <title>MIS Portal | Bilişim Hukuku</title>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -265,7 +267,7 @@ em { color: var(--sub); font-style: italic; }
 .highlight-box p { color: var(--text); font-size: 13.5px; margin: 0; }
 
 .info-box {
-  border-left: 2px solid rgba(59,130,246,0.4);
+  border-left: 2px solid var(--info-border);
   padding: 12px 16px;
   background: var(--info-bg);
   border-radius: 0 6px 6px 0;
@@ -274,7 +276,7 @@ em { color: var(--sub); font-style: italic; }
 .info-box p { color: var(--info-text); font-size: 13.5px; margin: 0; }
 
 .danger-box {
-  border-left: 2px solid rgba(239,68,68,0.4);
+  border-left: 2px solid var(--danger-border);
   padding: 12px 16px;
   background: var(--danger-bg);
   border-radius: 0 6px 6px 0;
@@ -283,7 +285,7 @@ em { color: var(--sub); font-style: italic; }
 .danger-box p { color: var(--danger-text); font-size: 13.5px; margin: 0; }
 
 .warn-box {
-  border-left: 2px solid rgba(245,158,11,0.4);
+  border-left: 2px solid var(--warn-border);
   padding: 12px 16px;
   background: var(--warn-bg);
   border-radius: 0 6px 6px 0;
@@ -501,9 +503,7 @@ tr:last-child td { border-bottom: none; }
 <main class="main">
 
   <div class="page-header">
-    <div class="page-label">Yönetim Bilişim Sistemleri — YBS Çalışma Portalı</div>
     <div class="page-title">Bilişim Hukuku</div>
-    <div class="page-sub">Umut Not Arşivi · 12 Ünite</div>
   </div>
 
   <!-- ══════════════════════════════════════
@@ -1151,5 +1151,6 @@ window.addEventListener('scroll', () => {
   progressFill.style.width = progress + '%';
 });
 </script>
+<script src="theme.js" defer></script>
 </body>
 </html>

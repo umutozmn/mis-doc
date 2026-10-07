@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+<link rel="stylesheet" href="theme.css">
 <title>MIS Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --bg: #0b1326;            /* Old Money: Derin, asil kulüp laciverti */
-  --surface: #121c33;       /* Ders satırları için biraz daha açık mat lacivert */
-  --border: #1e2c4a;        /* Zarif ve net çizgiler */
-  --text: #f4f3ef;          /* Metinler: Saf beyaz değil, göz yormayan elit kemik/fildişi tonu */
-  --sub: #8fa0be;           /* Yardımcı yazılar için soft mavi-gri */
-  --accent: #c5a880;        /* Detaylar için mat,  altın/bronz tonu */
-  --accent-bg: rgba(197, 168, 128, 0.12); /* Rozet dolgusu */
-  --tag-hover: #192744;     /* Üzerine gelindiğinde ağırbaşlı geçiş rengi */
+  --bg: #0b1326;
+  --surface: #121c33;
+  --border: #1e2c4a;
+  --text: #f4f3ef;
+  --sub: #8fa0be;
+  --accent: #c5a880;
+  --accent-bg: rgba(197, 168, 128, 0.12);
+  --tag-hover: #192744;
 }
 
 body {
@@ -86,8 +88,8 @@ h1 {
 
 .course-row:hover {
   background: var(--tag-hover);
-  border-color: var(--accent); /* Hover durumunda asil bronz çerçeve */
-  transform: translateY(-2px); /* Aşağı yerine hafifçe yukarı esneme (Daha elit bir hareket) */
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .course-row:hover .cr-arrow {
@@ -105,7 +107,7 @@ h1 {
 .cr-num {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  color: var(--accent); /* Sıra numaraları altın/bronz tonunda parlasın */
+  color: var(--accent);
   opacity: 0.8;
   width: 20px;
   text-align: left;
@@ -308,11 +310,8 @@ footer {
 
   </div>
 
-  <footer>
-    <span class="ft">© 2026 Management Information Systems</span>
-  </footer>
-
 </div>
 
+<script src="theme.js" defer></script>
 </body>
 </html>
