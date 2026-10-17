@@ -69,6 +69,86 @@
 }
 .theme-toggle-icon { color: var(--accent); font-size: 15px; line-height: 1; }
 
+.sidebar-collapse-toggle {
+  position: fixed;
+  top: 50%;
+  left: calc(var(--sidebar-expanded-width, 240px) - 1px);
+  z-index: 201;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 42px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid var(--border2, var(--border));
+  border-radius: 0 8px 8px 0;
+  background: var(--surface);
+  color: var(--sub);
+  font: 22px/1 'DM Sans', 'Inter', sans-serif;
+  cursor: pointer;
+  transition: left .22s ease, background .2s ease, color .2s ease;
+}
+.sidebar-collapse-toggle:hover {
+  background: var(--surface2, var(--tag-hover, var(--surface)));
+  color: var(--accent);
+}
+body.sidebar-collapsed .sidebar-collapse-toggle {
+  left: calc(var(--sidebar-collapsed-width, 64px) - 1px);
+}
+body.sidebar-collapsed .sidebar {
+  width: var(--sidebar-collapsed-width, 64px) !important;
+  transition: width .22s ease;
+}
+body.sidebar-collapsed .main {
+  margin-left: var(--sidebar-collapsed-width, 64px) !important;
+  transition: margin-left .22s ease;
+}
+body.sidebar-collapsed .progress-bar {
+  left: var(--sidebar-collapsed-width, 64px) !important;
+  transition: left .22s ease;
+}
+body.sidebar-collapsed .sidebar-header,
+body.sidebar-collapsed .sidebar .sidebar-logo,
+body.sidebar-collapsed .sidebar .search-wrap,
+body.sidebar-collapsed .sidebar .nav-section-label {
+  display: none !important;
+}
+body.sidebar-collapsed .sidebar-nav {
+  padding: 10px 0;
+}
+body.sidebar-collapsed .nav-item {
+  justify-content: center;
+  gap: 0;
+  padding: 10px 0 !important;
+  overflow: hidden;
+  font-size: 0 !important;
+  text-align: center;
+}
+body.sidebar-collapsed .nav-item-num {
+  font-size: 9px !important;
+}
+body.sidebar-collapsed .sidebar .nav-dot {
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  margin: 0;
+}
+body.sidebar-collapsed .sidebar-top {
+  padding: 8px 5px;
+}
+body.sidebar-collapsed .lang-tabs {
+  flex-direction: column;
+  gap: 2px;
+}
+body.sidebar-collapsed .lang-tab {
+  flex: none;
+  padding: 6px 0;
+  font-size: 9px;
+}
+
 @media (max-width: 500px) {
   .theme-toggle { right: 14px; bottom: 14px; }
+}
+@media (max-width: 768px) {
+  .sidebar-collapse-toggle { display: none; }
 }

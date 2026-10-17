@@ -137,6 +137,11 @@ button{font:inherit}
 .unit .step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:6px}
 .unit .step-item:hover{background:var(--surface2)}
 .unit .step-num{min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:11px 'JetBrains Mono',monospace;background:var(--surface2);color:var(--sub);flex-shrink:0}
+#encapsulation-demo .pdu-wrap{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:16px 0}
+#encapsulation-demo .pdu-part{padding:9px 11px;border:1px solid var(--accent-border);border-radius:5px;background:var(--accent-dim);color:var(--text);font:11px 'JetBrains Mono',monospace}
+#encapsulation-demo .pdu-part.payload{background:var(--surface2);border-color:var(--border2)}
+#encapsulation-demo .pdu-part.trailer{background:var(--warn-bg);border-color:var(--warn-border)}
+#encapsulation-demo .bar button:disabled{opacity:.4;cursor:not-allowed}
 @media(max-width:768px){
   .mobile-toggle{display:flex}
   .progress-bar{left:0}
@@ -163,15 +168,22 @@ button{font:inherit}
       <div class="sidebar-title">Ders Notları</div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-section-label">Ağ Temelleri</div>
-      <a class="nav-item active" href="#haberlesme"><span class="nav-item-num">01</span>Haberleşme</a>
-      <a class="nav-item" href="#network"><span class="nav-item-num">02</span>İletişim</a>
-      <a class="nav-item" href="#elemanlar"><span class="nav-item-num">03</span>Elemanlar</a>
-      <a class="nav-item" href="#kablolar"><span class="nav-item-num">04</span>Kablolar</a>
-      <a class="nav-item" href="#protokoller"><span class="nav-item-num">05</span>Protokoller</a>
-      <a class="nav-item" href="#mimari"><span class="nav-item-num">06</span>Mimari</a>
-      <a class="nav-item" href="#anahtarlama"><span class="nav-item-num">07</span>Anahtarlama</a>
-      <a class="nav-item" href="#guvenlik"><span class="nav-item-num">08</span>Security</a>
+      <div class="nav-section-label">İletişim ve Ağ Temelleri</div>
+      <a class="nav-item active" href="#haberlesme"><span class="nav-item-num">01</span>Popüler İletişim Araçları</a>
+      <a class="nav-item" href="#network"><span class="nav-item-num">02</span>İletişim Süreci</a>
+      <a class="nav-item" href="#network-temelleri"><span class="nav-item-num">03</span>Ağ Haberleşmesinin Temelleri</a>
+      <div class="nav-section-label">Ağ Bileşenleri ve Altyapısı</div>
+      <a class="nav-item" href="#elemanlar"><span class="nav-item-num">04</span>Ağ Cihazları ve Bileşenleri</a>
+      <a class="nav-item" href="#kablolar"><span class="nav-item-num">05</span>Kablolar ve İletim Ortamları</a>
+      <div class="nav-section-label">Mimari ve Veri İletimi</div>
+      <a class="nav-item" href="#mimari"><span class="nav-item-num">06</span>Ağ Mimarisi</a>
+      <a class="nav-item" href="#anahtarlama"><span class="nav-item-num">07</span>Devre ve Paket Anahtarlama</a>
+      <div class="nav-section-label">Protokoller ve Katman Modelleri</div>
+      <a class="nav-item" href="#protokoller"><span class="nav-item-num">08</span>Ağ Protokolleri</a>
+      <a class="nav-item" href="#tcp-ip"><span class="nav-item-num">09</span>TCP/IP Modeli</a>
+      <a class="nav-item" href="#osi"><span class="nav-item-num">10</span>OSI ve TCP/IP Katmanları</a>
+      <div class="nav-section-label">Ağ Güvenliği</div>
+      <a class="nav-item" href="#guvenlik"><span class="nav-item-num">11</span>Ağ Güvenliği</a>
     </nav>
   </aside>
 
@@ -340,6 +352,156 @@ button{font:inherit}
         <li><strong>Erişebilirlik (Availability):</strong> Sistem ihtiyaç duyulduğunda çalışmalıdır.</li>
       </ul>
     </section>
+
+    <section class="unit" id="network-temelleri">
+      <h2>2. Ünite: Network Haberleşmesinin Temelleri</h2>
+      <h3>Haberleşmenin Üç Elemanı</h3>
+      <div class="grid3">
+        <div class="card"><h4>Kaynak (Source)</h4><p>Mesajı gönderen cihaz veya kişidir.</p></div>
+        <div class="card"><h4>Ortam (Medium)</h4><p>Mesajın üzerinden geçtiği kablolu ya da kablosuz yoldur.</p></div>
+        <div class="card"><h4>Hedef (Destination)</h4><p>Mesajı alan cihaz veya kişidir.</p></div>
+      </div>
+
+      <h3>Mesajlar Neden Parçalara Bölünür?</h3>
+      <div class="two">
+        <div class="warn-box"><p><strong>Tek parça gönderim:</strong> Büyük bir mesaj hattı uzun süre meşgul eder. Bir sorun çıkarsa mesajın tamamını yeniden göndermek gerekebilir.</p></div>
+        <div class="success-box"><p><strong>Segmentasyon:</strong> Mesaj küçük parçalara ayrılır. Parçalar sırayla iletilirken başka cihazlar da ağı kullanabilir; alıcı parçaları birleştirir.</p></div>
+      </div>
+      <p><strong>TDM (Time Division Multiplexing – Zaman Bölmeli Çoklama)</strong>, aynı iletim ortamını kısa zaman aralıklarıyla farklı iletişimlere paylaştırır. Her iletişim sırayla hattı kullanır; bu yüzden birden çok iletişim aynı anda sürüyormuş gibi görünür.</p>
+
+      <h3>Ağ Bileşenleri ve Cihazlar</h3>
+      <div class="grid3">
+        <div class="card"><h4>Cihazlar (Devices)</h4><p>Bilgisayar, telefon, switch ve router gibi ağa bağlanan veya trafiği ileten donanımlardır.</p></div>
+        <div class="card"><h4>Ortam (Media)</h4><p>Cihazları birbirine bağlayan kablo ya da kablosuz bağlantıdır.</p></div>
+        <div class="card"><h4>Servisler</h4><p>Web ve mesajlaşma gibi haberleşmeyi sağlayan programlardır.</p></div>
+      </div>
+      <div class="two">
+        <div class="card">
+          <h4>Son kullanıcı cihazları (Host)</h4>
+          <p>İnsanların ağla doğrudan iletişim kurduğu cihazlardır. Bilgisayar ve telefon birer hosttur. Hostlar ağda adreslenir ve gönderilecek mesajın hedefi bu adresle belirtilir.</p>
+        </div>
+        <div class="card">
+          <h4>Ara bağlantı cihazları</h4>
+          <p>Hostları veya ağları birbirine bağlar. Veriyi iletir, uygun yolu seçer, gerektiğinde sinyali yeniler; arıza durumunda alternatif yola yönlendirebilir. QoS (Quality of Service – Hizmet Kalitesi) ile öncelikli trafiği öne alabilir ve güvenlik kurallarına uymayan trafiği engelleyebilir.</p>
+        </div>
+      </div>
+      <div class="wrap"><table>
+        <tr><th>Cihaz grubu</th><th>Görevi</th><th>Örnek</th></tr>
+        <tr><td>Network Access cihazları</td><td>Kullanıcı cihazlarını yerel ağa bağlar.</td><td>Hub, switch, kablosuz erişim noktası (AP)</td></tr>
+        <tr><td>Internetwork cihazları</td><td>Farklı ağları birbirine bağlar.</td><td>Router</td></tr>
+        <tr><td>İletişim sunucuları ve modemler</td><td>Bağlantı sinyallerini uygun biçime dönüştürür.</td><td>Modem</td></tr>
+        <tr><td>Güvenlik cihazları</td><td>Gelen ve giden trafiği kurallara göre süzer.</td><td>Firewall</td></tr>
+      </table></div>
+
+      <h3>Bağlantı Ortamları</h3>
+      <div class="wrap"><table>
+        <tr><th>Ortam</th><th>Veri nasıl taşınır?</th><th>Genel kullanım örneği</th></tr>
+        <tr><td>Bakır kablo</td><td>Elektrik sinyalleriyle</td><td>Oda içindeki bilgisayarı modeme bağlamak</td></tr>
+        <tr><td>Fiber kablo</td><td>Işık sinyalleriyle</td><td>Binalar veya şehirler arasında yüksek hızlı bağlantı</td></tr>
+        <tr><td>Kablosuz</td><td>Elektromanyetik dalgalarla</td><td>Telefonun Wi-Fi üzerinden ağa bağlanması</td></tr>
+      </table></div>
+      <h3>Hangi Ortam Seçilmeli?</h3>
+      <div class="info-box">
+        <p><strong>Ortam seçerken şu noktaları değerlendirin:</strong></p>
+        <ul>
+          <li>Bağlantı ne kadar mesafeye ulaşmalı?</li>
+          <li>Bağlantı bina içinde mi, dışında mı kullanılacak?</li>
+          <li>Ne kadar hız ve veri kapasitesi gerekiyor?</li>
+          <li>Maliyet ve kurulum zorluğu nedir?</li>
+        </ul>
+      </div>
+
+      <h3>Ağ Türleri: LAN ve WAN</h3>
+      <p>Ağ altyapısı; kapsadığı alana, kullanıcı sayısına ve sunduğu servislere göre değişir.</p>
+      <div class="wrap"><table>
+        <tr><th>Özellik</th><th>LAN (Yerel Alan Ağı)</th><th>WAN (Geniş Alan Ağı)</th></tr>
+        <tr><td>Alan</td><td>Ev, işyeri veya kampüs gibi sınırlı bir alan</td><td>Farklı şehirler veya ülkeler gibi geniş alan</td></tr>
+        <tr><td>Yönetim</td><td>Genellikle tek kurum veya kişi yönetir.</td><td>Kurum kendi LAN'larını yönetebilir; aradaki bağlantıyı TSP sağlayabilir.</td></tr>
+        <tr><td>Bağlantı</td><td>Yerel kablo veya kablosuz ağ kurulur.</td><td>Bir telekomünikasyon sağlayıcısından hat kiralanabilir.</td></tr>
+      </table></div>
+      <p><strong>TSP (Telecommunication Service Provider):</strong> Telekomünikasyon servis sağlayıcısıdır.</p>
+      <div class="info-box">
+        <p><strong>WAN kurmak için kullanılan teknolojiler:</strong></p>
+        <ul>
+          <li>Leased line</li>
+          <li>Frame Relay</li>
+          <li>ISDN</li>
+          <li>ATM</li>
+          <li>Metro Ethernet</li>
+          <li>DSL (ADSL)</li>
+          <li>G.SHDSL</li>
+        </ul>
+      </div>
+
+      <h3>İnternet, Intranet ve Sağlayıcılar</h3>
+      <ul>
+        <li><strong>İnternet:</strong> Dünyanın en geniş WAN ağıdır.</li>
+        <li><strong>Internetwork:</strong> Birbirine bağlanmış ağlardan oluşan yapıdır.</li>
+        <li><strong>ISP (Internet Service Provider):</strong> Kullanıcıları ve şirketleri internete bağlayan internet servis sağlayıcısıdır.</li>
+        <li><strong>Intranet:</strong> Bir kurumun kendi içindeki, yetkili kişilere açık özel ağıdır.</li>
+      </ul>
+
+      <h3>NIC, Port ve Interface</h3>
+      <div class="wrap"><table>
+        <tr><th>Terim</th><th>Anlamı</th><th>Örnek</th></tr>
+        <tr><td>NIC (Network Interface Card)</td><td>Cihazın ağa fiziksel olarak bağlanmasını sağlayan ağ kartıdır.</td><td>Bilgisayarın ağ kartı</td></tr>
+        <tr><td>Fiziksel port</td><td>Kablonun takıldığı fiziksel bağlantı noktasıdır.</td><td>Bilgisayarın Ethernet girişi</td></tr>
+        <tr><td>Interface (arayüz)</td><td>Cihazın ağa bağlandığı arayüzdür; fiziksel bağlantıyı veya mantıksal ağ arayüzünü ifade edebilir.</td><td>Router'ın LAN interface'i</td></tr>
+      </table></div>
+
+      <h3>Bağlantıyı Test Etme: Ping ve Tracert</h3>
+      <div class="wrap"><table>
+        <tr><th>Komut</th><th>Ne yapar?</th><th>Kullanım</th></tr>
+        <tr><td><code>ping</code></td><td>Hedefe ulaşılıp ulaşılamadığını sınar.</td><td><code>ping host</code> veya <code>ping ip_adresi</code></td></tr>
+        <tr><td><code>tracert</code></td><td>Paketin hedefe giderken geçtiği ara cihazları gösterir.</td><td>Windows: <code>tracert host</code>; Linux: <code>traceroute host</code></td></tr>
+      </table></div>
+    </section>
+
+    <section class="unit" id="tcp-ip">
+      <h2>Protokoller ve TCP/IP Modeli</h2>
+      <h3>Protokoller Neleri Belirler?</h3>
+      <ul>
+        <li>Mesajın biçimini</li>
+        <li>Yol üzerindeki cihazların bilgiyi nasıl paylaşacağını</li>
+        <li>Hata ve sistem mesajlarının nasıl iletileceğini</li>
+        <li>Veri aktarımının nasıl başlayıp biteceğini (oturum)</li>
+      </ul>
+      <p>Aynı iletişimde farklı protokoller birlikte çalışır. Örneğin web isteğinde HTTP, TCP, IP ve Ethernet farklı görevler üstlenir.</p>
+
+      <h3>Katmanlı Yapı ve TCP/IP</h3>
+      <p>Katmanlar, ağ iletişimini yönetilebilir görevlere böler. Böylece bir katman kendi işine odaklanır; farklı üreticilerin uyumlu ürünleri birlikte çalışabilir, bir katmandaki değişiklik diğerlerini daha az etkiler ve ortak bir teknik dil oluşur.</p>
+      <p><strong>TCP/IP</strong>, internetin kullandığı açık protokol grubu ve modelidir. Teknik ve yönetimsel bilgiler RFC (Request for Comments – Yorum İsteği) dokümanlarında yayımlanır.</p>
+
+      <h3>Enkapsülasyon: Veri Aşağı İnerken Nasıl Değişir?</h3>
+      <p>Gönderici cihazda veri katmanlardan aşağı inerken her katman kendi kontrol bilgisini ekler. Bu paketlemeye <strong>enkapsülasyon</strong> denir. Alıcıda başlıklar ters sırayla çıkarılır; buna <strong>dekapsülasyon</strong> denir.</p>
+      <div class="card" id="encapsulation-demo">
+        <p id="encap-step" aria-live="polite"></p>
+        <div class="pdu-wrap" id="encap-pdu" aria-label="Veri birimi görünümü"></div>
+        <p id="encap-detail"></p>
+        <div class="bar" role="group" aria-label="Veri katmanlarında ilerletme">
+          <button id="encap-up" type="button">Bir katman yukarı (dekapsülasyon)</button>
+          <button id="encap-down" type="button">Bir katman aşağı (enkapsülasyon)</button>
+          <span class="sp"></span>
+          <button id="encap-reset" type="button">Başa dön</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="unit" id="osi">
+      <h2>OSI ve TCP/IP Katmanları</h2>
+      <p><strong>OSI (Open Systems Interconnection)</strong> modeli ağları tasarlarken, iletişim özelliklerini tanımlarken ve sorun giderirken kullanılan yedi katmanlı bir referans modelidir. TCP/IP modeli OSI'nin bazı katmanlarını bir arada ele alır: OSI'nin üst üç katmanı TCP/IP'de Application, alt iki katmanı ise Network Access katmanında toplanır.</p>
+      <p>Aşağıdaki tabloda iki modelin eşleşmesiyle birlikte her katmanın görevi, protokol örneği, veri biriminin adı (PDU) ve enkapsülasyon sırasında eklenen bilgiler yer alır.</p>
+      <div class="wrap"><table>
+        <tr><th>OSI katmanı</th><th>TCP/IP katmanı</th><th>Görevi</th><th>Protokol örneği</th><th>PDU</th><th>Eklenen / işlenen bilgi</th></tr>
+        <tr><td>7 · Application</td><td>Application</td><td>Uygulama ve ağ servislerinin iletişimini sağlar; web isteği burada hazırlanır.</td><td>HTTP</td><td>Veri</td><td>Kullanıcı verisi ve HTTP isteği/yanıtı.</td></tr>
+        <tr><td>6 · Presentation</td><td>Application</td><td>Verinin biçimini ve kodlamasını düzenler.</td><td>—</td><td>Veri</td><td>Veri, uygulamanın kullanacağı biçimde temsil edilir.</td></tr>
+        <tr><td>5 · Session</td><td>Application</td><td>Oturumun kurulmasını ve sonlandırılmasını yönetir.</td><td>—</td><td>Veri</td><td>Uygulamalar arasındaki oturumun başlangıç ve bitiş bilgileri.</td></tr>
+        <tr><td>4 · Transport</td><td>Transport</td><td>Veriyi segmentlere böler; uçtan uca iletim, sıralama ve teslim kontrolünü sağlar. TCP kontrol sağlar; UDP de bu katmanda kullanılır.</td><td>TCP, UDP</td><td>Segment</td><td>TCP başlığı (TH): kaynak/hedef port, sıra numarası ve onay (ACK) bilgisi.</td></tr>
+        <tr><td>3 · Network</td><td>Internet</td><td>Veriyi ağlar arasında yönlendirir ve yolu belirler.</td><td>IP</td><td>Paket</td><td>IP başlığı (NH): kaynak ve hedef IP adresi.</td></tr>
+        <tr><td>2 · Data Link</td><td>Network Access</td><td>Frame oluşturur ve aynı bağlantı üzerindeki iletimi, ortama erişimi düzenler.</td><td>Ethernet, Token Ring</td><td>Frame (çerçeve)</td><td>Ethernet başlığı (FH): kaynak/hedef MAC adresi; trailer (FT): hata kontrol bilgisi.</td></tr>
+        <tr><td>1 · Physical</td><td>Network Access</td><td>Bitlerin fiziksel bağlantı ve ortam üzerinden iletimini tanımlar.</td><td>Bakır, fiber, kablosuz ortam</td><td>Bit</td><td>0 ve 1'ler ortamda taşınır: bakırda elektrik, fiberde ışık, kablosuzda elektromanyetik dalga.</td></tr>
+      </table></div>
+    </section>
     <div style="height:4rem"></div>
   </main>
 </div>
@@ -385,6 +547,41 @@ document.getElementById('mPak').onclick=function(){setMode('pak')};
 document.getElementById('go').onclick=send;
 document.getElementById('rs').onclick=function(){if(busy)return;cut={};reset();paint()};
 reset();paint();
+</script>
+<script>
+(function(){
+  var layers=[
+    {name:'Application',pdu:'Veri',parts:[['HTTP VERİSİ','payload']],detail:'HTTP isteği uygulamada oluşturulur. Bu aşamada veri birimine genel olarak veri denir.'},
+    {name:'Transport',pdu:'Segment',parts:[['TCP BAŞLIĞI','header'],['VERİ','payload']],detail:'TCP başlığı kaynak/hedef portları ile parçaları sıralayıp onaylamaya yarayan bilgileri taşır.'},
+    {name:'Internet',pdu:'Paket',parts:[['IP BAŞLIĞI','header'],['TCP BAŞLIĞI','header'],['VERİ','payload']],detail:'IP başlığı kaynak ve hedef IP adreslerini ekler. Veri biriminin adı paket olur.'},
+    {name:'Network Access',pdu:'Frame (çerçeve)',parts:[['ETHERNET BAŞLIĞI','header'],['IP BAŞLIĞI','header'],['TCP BAŞLIĞI','header'],['VERİ','payload'],['TRAILER','trailer']],detail:'Ethernet başlığı kaynak ve hedef MAC adreslerini taşır; trailer hata kontrol bilgisi içerir.'},
+    {name:'Physical',pdu:'Bit',parts:[['0 1 0 1 1 0 0 1','payload']],detail:'Frame bitlere dönüştürülür ve kabloda elektrik, fiberde ışık ya da kablosuz ortamda elektromanyetik sinyal olarak taşınır.'}
+  ];
+  var step=0;
+  var title=document.getElementById('encap-step');
+  var pdu=document.getElementById('encap-pdu');
+  var detail=document.getElementById('encap-detail');
+  var up=document.getElementById('encap-up');
+  var down=document.getElementById('encap-down');
+  function render(){
+    var layer=layers[step];
+    title.textContent='Adım '+(step+1)+' / '+layers.length+' · '+layer.name+' katmanı — PDU: '+layer.pdu;
+    detail.textContent=layer.detail;
+    pdu.replaceChildren();
+    layer.parts.forEach(function(part){
+      var item=document.createElement('span');
+      item.className='pdu-part '+part[1];
+      item.textContent=part[0];
+      pdu.appendChild(item);
+    });
+    up.disabled=step===0;
+    down.disabled=step===layers.length-1;
+  }
+  up.addEventListener('click',function(){if(step>0){step--;render()}});
+  down.addEventListener('click',function(){if(step<layers.length-1){step++;render()}});
+  document.getElementById('encap-reset').addEventListener('click',function(){step=0;render()});
+  render();
+})();
 </script>
 <script src="theme.js" defer></script>
 </body>
