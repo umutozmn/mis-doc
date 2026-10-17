@@ -6,258 +6,342 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bilgisayar Ağları</title>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css">
 <style>
-/* Renkleri index.html menüsündeki değerlerle değiştir: sadece bu 5 satır */
-:root{
+:root {
   --bg:#0b1326;
-  --ink:#f4f3ef;
-  --mute:#8fa0be;
-  --line:#1e2c4a;
+  --surface:#121c33;
+  --surface2:#172240;
+  --border:#1e2c4a;
+  --border2:#253660;
+  --text:#f0ede6;
+  --sub:#7a8fb5;
+  --muted:#3d527a;
   --accent:#c5a880;
-  --on-accent:#0b1326;
+  --accent-dim:rgba(197,168,128,.15);
+  --accent-border:rgba(197,168,128,.25);
+  --info-bg:rgba(59,130,246,.1);
+  --info-text:#7ab4f5;
+  --info-border:rgba(59,130,246,.2);
+  --success-bg:rgba(34,197,94,.08);
+  --success-text:#6bcf8a;
+  --success-border:rgba(34,197,94,.18);
+  --warn-bg:rgba(245,158,11,.08);
+  --warn-text:#e8a83a;
+  --warn-border:rgba(245,158,11,.2);
+  --danger-bg:rgba(239,68,68,.08);
+  --danger-text:#f08080;
+  --danger-border:rgba(239,68,68,.2);
+  --purple-bg:rgba(139,92,246,.08);
+  --purple-text:#a78bfa;
+  --purple-border:rgba(139,92,246,.2);
+  --sidebar-w:240px;
+  --font:'DM Sans','Segoe UI',sans-serif;
   color-scheme:dark;
-  --font:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.7 var(--font)}
-a{color:inherit}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.layout{display:grid;grid-template-columns:200px minmax(0,640px);gap:4rem;max-width:960px;margin:auto;padding:0 1.5rem}
-aside{position:sticky;top:0;align-self:start;padding:3rem 0;font-size:.9rem}
-aside a{display:block;text-decoration:none;color:var(--mute);padding:.2rem 0 .2rem .8rem;border-left:1px solid var(--line);transition:color .2s,border-color .2s}
-aside a:hover,aside a.on{color:var(--ink);border-color:var(--accent)}
-aside .back{border:0;padding:0;margin-bottom:1.6rem;color:var(--ink);font-weight:500}
-header{padding:3rem 0 2.5rem}
-h1{font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05;letter-spacing:-.03em;margin:0}
-header small{display:block;margin-top:.6rem;color:var(--accent)}
-.wire{display:block;width:100%;height:24px;margin-top:2rem;overflow:visible}
-.wire line{stroke:var(--line);stroke-width:1}
-.wire circle.n{fill:var(--bg);stroke:var(--ink);stroke-width:1}
-.wire circle.p{fill:var(--accent);animation:run 6s cubic-bezier(.6,0,.4,1) infinite}
+.progress-bar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:2px;background:var(--border);z-index:200}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .1s}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sidebar-header{padding:28px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-back{display:flex;align-items:center;gap:8px;text-decoration:none;font:10px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--sub);text-transform:uppercase;margin-bottom:16px}
+.sidebar-back:hover{color:var(--accent)}
+.sidebar-course{font:9px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.sidebar-title{font:600 20px/1.2 'Crimson Pro',serif;color:var(--text)}
+.sidebar-nav{padding:16px 0 24px;flex:1}
+.nav-section-label{font:9px 'JetBrains Mono',monospace;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;padding:0 20px;margin:12px 0 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;text-decoration:none;font-size:12.5px;color:var(--sub);transition:all .2s;border-left:2px solid transparent;cursor:pointer;background:none;border-right:0;border-top:0;border-bottom:0;width:100%;text-align:left;line-height:1.4}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.nav-item-num{font:9px 'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:16px}
+.nav-item.active .nav-item-num{color:var(--accent);opacity:.7}
+.main{margin-left:var(--sidebar-w);flex:1;padding:64px 56px 120px;max-width:calc(920px + var(--sidebar-w));width:100%}
+.mobile-toggle{display:none;position:fixed;left:18px;top:18px;z-index:130;width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 5px 18px rgba(0,0,0,.2)}
+.page-header{margin-bottom:58px;padding-bottom:30px;border-bottom:1px solid var(--border)}
+.page-title{font:300 46px/1.08 'Crimson Pro',serif;color:var(--text);letter-spacing:-.02em}
+.page-kicker{font:10px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.unit{margin-bottom:76px;scroll-margin-top:36px;animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.unit h2{font:400 32px/1.2 'Crimson Pro',serif;color:var(--text);letter-spacing:-.01em;margin:0 0 18px}
+.unit .unit-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:24px}
+.unit .unit-num-block{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:6px}
+.unit .unit-num{font:10px 'JetBrains Mono',monospace;letter-spacing:.15em;color:var(--accent);opacity:.7}
+.unit .unit-line{width:1px;height:28px;background:var(--border);margin-top:8px}
+.unit > h3{font:9.5px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--sub);text-transform:uppercase;margin:30px 0 12px}
+.unit h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+.unit p,.unit li,.unit dd,.unit dt{font-size:14px;line-height:1.72;color:var(--sub)}
+.unit p{margin:0 0 .8rem}
+.unit ul,.unit ol{padding-left:18px;margin:0 0 1rem}
+.unit li{margin-bottom:6px}
+.unit strong{color:var(--text);font-weight:500}
+.unit em{color:var(--sub)}
+.unit dl{margin:0}
+.unit dt{font-weight:700;margin-top:1rem;color:var(--text)}
+.unit dd{margin:0}
+.unit .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:12px 0 18px}
+.unit .wrap{width:100%;overflow-x:auto;margin:12px 0 18px}
+.unit table{width:100%;min-width:580px;border-collapse:collapse;font-size:13px}
+.unit th,.unit td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--border)}
+.unit th{background:var(--surface2);font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border2)}
+.unit td{color:var(--sub)}
+.unit td:first-child{color:var(--text)}
+.unit .bar{display:flex;gap:1.4rem;align-items:baseline;flex-wrap:wrap;margin:.4rem 0 .6rem}
+.unit .bar button{font:500 .95rem 'DM Sans','Segoe UI',sans-serif;background:none;border:0;border-bottom:1px solid transparent;padding:.1rem 0;color:var(--sub);cursor:pointer;transition:color .2s,border-color .2s}
+.unit .bar button:hover{color:var(--text)}
+.unit .bar button[aria-pressed=true]{color:var(--text);border-color:var(--accent)}
+.unit .bar .sp{flex:1}
+.unit #sim svg{width:100%;height:auto;display:block}
+.unit .lk{stroke:var(--border);stroke-width:2;transition:stroke .25s}
+.unit .lk.res{stroke:var(--accent)}
+.unit .lk.cut{stroke:var(--text);stroke-dasharray:2 8;stroke-linecap:round}
+.unit .hit{stroke:transparent;stroke-width:24;cursor:pointer}
+.unit .nd{fill:var(--bg);stroke:var(--text);stroke-width:1.5}
+.unit .nl{font:500 13px 'DM Sans','Segoe UI',sans-serif;fill:var(--text);text-anchor:middle}
+.unit .pk{fill:var(--accent)}
+.unit #slots{display:flex;gap:.35rem;margin-top:.6rem}
+.unit .slot{width:30px;height:30px;border:1px solid var(--border);display:grid;place-items:center;font-size:.85rem;color:var(--sub);transition:all .25s}
+.unit .slot.ok{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.unit .wire{display:block;width:100%;height:24px;margin-top:2rem;overflow:visible}
+.unit .wire line{stroke:var(--border);stroke-width:1}
+.unit .wire circle.n{fill:var(--bg);stroke:var(--text);stroke-width:1}
+.unit .wire circle.p{fill:var(--accent);animation:run 6s cubic-bezier(.6,0,.4,1) infinite}
 @keyframes run{0%{cx:4}45%,55%{cx:50%}100%{cx:calc(100% - 4px)}}
-section{padding:2.4rem 0;border-top:1px solid var(--line)}
-h2{font-size:1.35rem;font-weight:700;letter-spacing:-.015em;margin:0 0 1rem;color:var(--accent)}
-h3{font-size:1rem;font-weight:700;margin:1.6rem 0 .3rem;color:var(--accent)}
-h3:first-of-type{margin-top:0}
-p{margin:0 0 .6rem}
-ul,ol{margin:0 0 .6rem;padding-left:1.2rem}
-li{margin-bottom:.15rem}
-li::marker{color:var(--mute)}
-dl{margin:0}
-dt{font-weight:700;margin-top:1rem}
-dd{margin:0}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-table{width:100%;border-collapse:collapse;font-size:.95rem}
-th,td{text-align:left;vertical-align:top;padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--line)}
-th{font-weight:700;color:var(--ink)}
-td:first-child{color:var(--mute)}
-.wrap{overflow-x:auto}
-/* simülasyon */
-.bar{display:flex;gap:1.4rem;align-items:baseline;flex-wrap:wrap;margin:.4rem 0 .6rem}
-button{font:500 .95rem var(--font);background:none;border:0;border-bottom:1px solid transparent;padding:.1rem 0;color:var(--mute);cursor:pointer;transition:color .2s,border-color .2s}
-button:hover{color:var(--ink)}
-button[aria-pressed=true]{color:var(--ink);border-color:var(--accent)}
-.bar .sp{flex:1}
-#sim svg{width:100%;height:auto;display:block}
-.lk{stroke:var(--line);stroke-width:2;transition:stroke .25s}
-.lk.res{stroke:var(--accent)}
-.lk.cut{stroke:var(--ink);stroke-dasharray:2 8;stroke-linecap:round}
-.hit{stroke:transparent;stroke-width:24;cursor:pointer}
-.nd{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
-.nl{font:500 13px var(--font);fill:var(--ink);text-anchor:middle}
-.pk{fill:var(--accent)}
-#slots{display:flex;gap:.35rem;margin-top:.6rem}
-.slot{width:30px;height:30px;border:1px solid var(--line);display:grid;place-items:center;font-size:.85rem;color:var(--mute);transition:all .25s}
-.slot.ok{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-@media(max-width:760px){.layout{grid-template-columns:1fr;gap:0}aside{position:static;display:flex;flex-wrap:wrap;gap:.2rem 1rem;padding:1.2rem 0 0}aside a{border:0;padding:0}aside .back{width:100%;margin:0}.two{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.wire circle.p{animation:none}html{scroll-behavior:auto}}
+.unit .grid2,.unit .grid3{display:grid;gap:10px;margin-bottom:12px}
+.unit .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.unit .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.unit .card,.unit .example-box,.unit .theory-block,.unit .highlight-box,.unit .info-box,.unit .warn-box,.unit .success-box{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:14px 0;background:var(--surface)}
+.unit .card{padding:16px 18px}
+.unit .card p,.unit .card li{font-size:13.5px}
+.unit .example-header,.unit .theory-header{padding:9px 14px;background:var(--surface2);display:flex;align-items:center;gap:8px}
+.unit .example-header span,.unit .theory-header span{font:9px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.unit .highlight-box{border-left:2px solid var(--accent);padding:13px 16px;background:var(--accent-dim);border-radius:0 6px 6px 0}
+.unit .highlight-box p{color:var(--text);font-size:13.5px;margin:0}
+.unit .info-box,.unit .warn-box,.unit .success-box{padding:13px 16px;border-radius:0 6px 6px 0}
+.unit .info-box{border-left:2px solid var(--info-border);background:var(--info-bg)}
+.unit .warn-box{border-left:2px solid var(--warn-border);background:var(--warn-bg)}
+.unit .success-box{border-left:2px solid var(--success-border);background:var(--success-bg)}
+.unit .info-box p,.unit .warn-box p,.unit .success-box p{font-size:13.5px;margin:0}
+.unit .badge{display:inline-block;font:10px 'JetBrains Mono',monospace;padding:3px 9px;border-radius:3px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.unit .b-accent{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.unit .b-blue{background:var(--info-bg);color:var(--info-text);border:1px solid var(--info-border)}
+.unit .b-green{background:var(--success-bg);color:var(--success-text);border:1px solid var(--success-border)}
+.unit .step-list{display:flex;flex-direction:column;gap:2px}
+.unit .step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:6px}
+.unit .step-item:hover{background:var(--surface2)}
+.unit .step-num{min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:11px 'JetBrains Mono',monospace;background:var(--surface2);color:var(--sub);flex-shrink:0}
+@media(max-width:768px){
+  .mobile-toggle{display:flex}
+  .progress-bar{left:0}
+  .sidebar{transform:translateX(-100%);transition:transform .3s}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:72px 20px 80px}
+  .page-title{font-size:36px}
+  .unit .two,.unit .grid2,.unit .grid3{grid-template-columns:1fr}
+  .unit table{min-width:500px}
+}
+@media(prefers-reduced-motion:reduce){.unit .wire circle.p{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menü">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
 <div class="layout">
-<aside>
-  <a class="back" href="index.html">← Derslerim</a>
-  <a href="#haberlesme">Haberleşme</a>
-  <a href="#network">Network Üzerinden Haberleşme</a>
-  <a href="#elemanlar">Network Elemanları</a>
-  <a href="#kablolar">Network Kabloları</a>
-  <a href="#protokoller">Protokoller</a>
-  <a href="#mimari">Network Mimarisi</a>
-  <a href="#anahtarlama">Anahtarlama</a>
-  <a href="#guvenlik">Security</a>
-</aside>
-
-<main>
-<header>
-  <h1>Haberleşme ve Ağ (Network) Temelleri</h1>
-  <small>Ders Notları</small>
-  <svg class="wire" aria-hidden="true"><line x1="4" y1="12" x2="100%" y2="12"/><circle class="n" cx="4" cy="12" r="4"/><circle class="n" cx="50%" cy="12" r="4"/><circle class="n" cx="calc(100% - 4px)" cy="12" r="4"/><circle class="p" cx="4" cy="12" r="3"/></svg>
-</header>
-
-<section id="haberlesme">
-  <h2>Popüler İletişim Araçları</h2>
-  <dl>
-    <dt>Anlık Mesajlaşma (Instant Messaging – IM)</dt>
-    <dd>İnternet üzerinden anında mesajlaşmayı sağlayan uygulamalardır. Örnekler: MSN, ICQ, IRC, WhatsApp.</dd>
-    <dt>Webloglar (Bloglar)</dt>
-    <dd>Bilgi ve yazı paylaşılan web sayfalarıdır.</dd>
-    <dt>Wiki'ler</dt>
-    <dd>Aynı siteyi birçok kişinin birlikte düzenlediği sistemlerdir. Örnek: Wikipedia.</dd>
-    <dt>Podcasting</dt>
-    <dd>Sesli içeriklerdir.</dd>
-    <dt>İşbirliği Araçları</dt>
-    <dd>Aynı dosya üzerinde birçok kişinin birlikte çalışmasını sağlayan araçlardır. Örnekler: Google Docs, Microsoft Teams.</dd>
-  </dl>
-  <h3 style="margin-top:2rem">Intranet ve Extranet</h3>
-  <div class="two">
-    <div><strong>Intranet</strong><p>Şirketin kendi içindeki özel ağıdır. Yalnızca şirket çalışanları tarafından kullanılabilir.</p></div>
-    <div><strong>Extranet</strong><p>Şirketin dışındaki kişilerle (müşteri, tedarikçi vb.) bilgi paylaşımını sağlayan ağdır.</p></div>
-  </div>
-</section>
-
-<section id="network">
-  <h2>Haberleşme</h2>
-  <h3>İnsan İletişiminde Kullanılan Bazı Protokoller</h3>
-  <ul>
-    <li>Kimliği belirli bir alıcı ve gönderici</li>
-    <li>İletişim metodunun belirlenmesi (yüzyüze, telefon, mektup vb.)</li>
-    <li>Belirli bir dil ve gramerin belirlenmesi</li>
-    <li>Hız ve zamanın belirlenmesi</li>
-    <li>Doğrulama veya bilgilendirme</li>
-  </ul>
-  <h3>İletişimi Etkileyen Faktörler</h3>
-  <div class="two">
-    <div><strong>Dış Faktörler (Ağdan Kaynaklanan)</strong>
-      <ul>
-        <li>Alıcı ile verici arasındaki iletim yolu: Yol uzunsa gecikme olabilir.</li>
-        <li>Mesajın biçim değiştirme sayısı: Mesaj ağ üzerinde ilerlerken farklı cihazlar tarafından işlenebilir ve gecikme yaşanabilir.</li>
-        <li>Mesajın yeniden adreslenme veya yönlendirilme sayısı</li>
-        <li>Aynı anda gönderilen mesajların sayısı</li>
-        <li>Başarılı iletim için ayrılan zaman: Mesajın belli bir sürede ulaşması gerekir.</li>
-      </ul></div>
-    <div><strong>İç Faktörler (Mesajdan Kaynaklanan)</strong>
-      <ul>
-        <li>Mesajın türü ve karmaşıklığı: Bir yazı ile kaliteli bir video aynı miktarda veri taşımaz.</li>
-        <li>Açık ve kısa mesajlar daha kolay anlaşılır.</li>
-        <li>Önemli bilgiler önem sırasıyla gönderilmelidir.</li>
-        <li>Büyük boyutlu mesajlar gecikebilir.</li>
-        <li>Düşük öncelikli mesajlar yoğunlukta bekletilebilir.</li>
-      </ul></div>
-  </div>
-</section>
-
-<section id="elemanlar">
-  <h2>Network Üzerinden Haberleşme</h2>
-  <h3>Network'in Dört Temel Elemanı</h3>
-  <p>Bir ağ (network) dört temel elemana sahiptir:</p>
-  <ol>
-    <li><strong>Rules (Kurallar):</strong> Mesajların nasıl gönderileceğini ve alınacağını belirleyen kurallar veya anlaşmalar.</li>
-    <li><strong>Message (Mesaj):</strong> Bir cihazdan diğerine gidecek mesaj.</li>
-    <li><strong>Medium (Ortam):</strong> Mesajın bir cihazdan diğerine gidebileceği ortam.</li>
-    <li><strong>Devices (Cihazlar):</strong> Mesajı iletecek cihazlar.</li>
-  </ol>
-  <h3 style="margin-top:2rem">Network Elemanları</h3>
-  <ul style="list-style:none;padding:0">
-    <li><strong>Switch (Anahtar):</strong> Veriyi aynı ağ (LAN) içindeki cihazlara iletir. MAC adreslerine göre yönlendirme yapar.</li>
-    <li><strong>Router (Yönlendirici):</strong> Veriyi farklı ağlar (WAN) arasında yönlendirir. IP adreslerine göre yönlendirme yapar.</li>
-    <li><strong>Firewall (Güvenlik Duvarı):</strong> Ağ güvenliğini sağlayan cihazdır.</li>
-    <li><strong>Wireless Router (Kablosuz Yönlendirici):</strong> Kablosuz yönlendirme cihazıdır.</li>
-    <li><strong>Kablolar:</strong> Çeşitli tip ve özelliklere sahip ağ kablolarıdır.</li>
-  </ul>
-</section>
-
-<section id="kablolar">
-  <h2>Network Kabloları (Medium)</h2>
-  <p><strong>Medium (Ortam):</strong> Kablolu veya kablosuz yapılardır. Üç tipi vardır:</p>
-  <ol>
-    <li>Bakır kablolar
-      <ul><li>Twisted Pair (UTP, STP)</li></ul></li>
-    <li>Koaksiyel kablolar</li>
-    <li>Fiber (Fiber Optik) kablolar
-      <ul><li>Single Mode</li><li>Multi Mode</li></ul></li>
-  </ol>
-</section>
-
-<section id="protokoller">
-  <h2>Protokoller (Rules – Kurallar)</h2>
-  <p><strong>TCP/IP:</strong> Endüstri standardı olan protokol grubudur. Ev veya işyeri ağlarında kullanılır.</p>
-  <h3 style="margin-top:1.6rem">Servis – Protokol Eşleşmeleri</h3>
-  <div class="wrap"><table>
-    <tr><th>Servis</th><th>Protokol</th></tr>
-    <tr><td>WWW</td><td>HTTP</td></tr>
-    <tr><td>E-posta</td><td>SMTP (Simple Mail Transfer Protocol), POP (Post Office Protocol)</td></tr>
-    <tr><td>Anlık Mesajlaşma (IM)</td><td>XMPP (Extensible Messaging and Presence Protocol), OSCAR</td></tr>
-    <tr><td>IP Telefon</td><td>SIP (Session Initiation Protocol)</td></tr>
-  </table></div>
-</section>
-
-<section id="mimari">
-  <h2>Network Mimarisi</h2>
-  <h3>Fault Tolerance (Hata Toleransı)</h3>
-  <p>Ağda bir sorun olsa bile çalışmaya devam edebilmesidir.</p>
-  <p>Alternatif yollar maliyeti artırır. Bir yol bozulursa alternatifi hazır olmalı; bu da daha fazla kablo ve cihaz demektir.</p>
-  <h3>Scalability (Ölçeklenebilirlik)</h3>
-  <p>Ağın büyüyebilmesidir. Bugün şirkette 100 bilgisayar var, yarın 1000 bilgisayar olursa ağın bunu kaldırabilmesi gerekir.</p>
-  <h3>Quality of Service (QoS – Servis Kalitesi)</h3>
-  <p>Her veri aynı derecede önemli değildir. Ağdaki bazı verilere daha fazla öncelik vermek demektir.</p>
-  <p>Örnek: Telefon konuşması gecikmeli olursa konuşma bozulur; fakat bir e-postanın geç gelmesi büyük sorun olmaz.</p>
-  <h3>İnternetin Yapısı (Scalability)</h3>
-  <p>İnternet büyüse bile çalışmaya devam edebilmesi demektir.</p>
-  <p>İnternet, farklı seviyelerdeki ISP'lerden (Internet Service Provider – İnternet Servis Sağlayıcısı) oluşur.</p>
-  <p>Örnek ISP'ler: Türk Telekom, Turkcell Superonline, Vodafone Net.</p>
-</section>
-
-<section id="anahtarlama">
-  <h2>Circuit Switching ve Packet Switching</h2>
-  <h3>Circuit Switching (Devre Anahtarlama)</h3>
-  <p><strong>Mantık:</strong> İletişim başlamadan önce gönderici ile alıcı arasında özel bir yol devre oluşturulur.</p>
-  <p><strong>Bağlantı Temelli (Connection Oriented):</strong> Önce bağlantı kurulur, sonra veri gönderilir. Yani önce hat açılır, sonra konuşulur.</p>
-  <h3>Packet Switching (Paket Anahtarlama)</h3>
-  <p>Mesaj küçük paketlere bölünür ve her paket ayrı ayrı gönderilir, karşı tarafta tekrar birleştirilir.</p>
-
-  <h3 style="margin-top:2rem">İki Sistemin Farkı</h3>
-  <div class="wrap"><table>
-    <tr><th>Circuit Switching</th><th>Packet Switching</th></tr>
-    <tr><td>Önce bağlantı kurulur.</td><td>Önceden bağlantı kurmaya gerek yoktur.</td></tr>
-    <tr><td>Tek bir özel yol kullanılır.</td><td>Paketler farklı yollardan gidebilir.</td></tr>
-    <tr><td>Yol sadece bir iletişime ayrılır.</td><td>Aynı yolu birçok kişi kullanabilir.</td></tr>
-    <tr><td>Telefon hatlarında kullanılır.</td><td>İnternetin çalışma mantığıdır.</td></tr>
-    <tr><td>Daha az verimlidir.</td><td>Daha verimlidir.</td></tr>
-  </table></div>
-
-  <div id="sim" style="margin-top:2.2rem">
-    <div class="bar" role="group" aria-label="Mod">
-      <button id="mCir" aria-pressed="true">Circuit Switching</button>
-      <button id="mPak" aria-pressed="false">Packet Switching</button>
-      <span class="sp"></span>
-      <button id="go">Gönder</button>
-      <button id="rs">Sıfırla</button>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-back">← <span>Derslerim</span></a>
+      <div class="sidebar-course">Bilgisayar Ağları</div>
+      <div class="sidebar-title">Ders Notları</div>
     </div>
-    <svg viewBox="0 0 600 220" role="img" aria-label="A ile B arasındaki ağ; hatlara tıklayarak kes"><g id="links"></g><g id="nodes"></g><g id="fly"></g></svg>
-    <div id="slots" aria-hidden="true"></div>
-  </div>
-</section>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Ağ Temelleri</div>
+      <a class="nav-item active" href="#haberlesme"><span class="nav-item-num">01</span>Haberleşme</a>
+      <a class="nav-item" href="#network"><span class="nav-item-num">02</span>İletişim</a>
+      <a class="nav-item" href="#elemanlar"><span class="nav-item-num">03</span>Elemanlar</a>
+      <a class="nav-item" href="#kablolar"><span class="nav-item-num">04</span>Kablolar</a>
+      <a class="nav-item" href="#protokoller"><span class="nav-item-num">05</span>Protokoller</a>
+      <a class="nav-item" href="#mimari"><span class="nav-item-num">06</span>Mimari</a>
+      <a class="nav-item" href="#anahtarlama"><span class="nav-item-num">07</span>Anahtarlama</a>
+      <a class="nav-item" href="#guvenlik"><span class="nav-item-num">08</span>Security</a>
+    </nav>
+  </aside>
 
-<section id="guvenlik">
-  <h2>Security (Güvenlik)</h2>
-  <p>Ağın güvenliği şu üç şeyi sağlamalıdır:</p>
-  <ul>
-    <li>Yetkisiz erişimi engellemek</li>
-    <li>Bilginin değiştirilmesini engellemek</li>
-    <li>Denial of Service (DoS) – Hizmet Dışı Bırakma saldırısını engellemek: Saldırgan sisteme çok fazla istek gönderir. Site aşırı yoğun olur ve gerçek kullanıcılar giremez.</li>
-  </ul>
-  <h3 style="margin-top:1.6rem">Güvenliği Sağlamak için Üç Temel İlke (CIA Üçlüsü)</h3>
-  <ul>
-    <li><strong>Gizlilik (Confidentiality):</strong> Bilgiyi sadece yetkililer görebilmelidir.</li>
-    <li><strong>Haberleşme Bütünlüğü (Integrity):</strong> Veri gönderilirken bozulmamalıdır.</li>
-    <li><strong>Erişebilirlik (Availability):</strong> Sistem ihtiyaç duyulduğunda çalışmalıdır.</li>
-  </ul>
-</section>
-<div style="height:4rem"></div>
-</main>
+  <main class="main">
+    <header class="page-header">
+      <div class="page-kicker">Ağ Temelleri</div>
+      <h1 class="page-title">Haberleşme ve Ağ (Network) Temelleri</h1>
+    </header>
+
+    <section class="unit" id="haberlesme">
+      <h2>Popüler İletişim Araçları</h2>
+      <dl>
+        <dt>Anlık Mesajlaşma (Instant Messaging – IM)</dt>
+        <dd>İnternet üzerinden anında mesajlaşmayı sağlayan uygulamalardır. Örnekler: MSN, ICQ, IRC, WhatsApp.</dd>
+        <dt>Webloglar (Bloglar)</dt>
+        <dd>Bilgi ve yazı paylaşılan web sayfalarıdır.</dd>
+        <dt>Wiki'ler</dt>
+        <dd>Aynı siteyi birçok kişinin birlikte düzenlediği sistemlerdir. Örnek: Wikipedia.</dd>
+        <dt>Podcasting</dt>
+        <dd>Sesli içeriklerdir.</dd>
+        <dt>İşbirliği Araçları</dt>
+        <dd>Aynı dosya üzerinde birçok kişinin birlikte çalışmasını sağlayan araçlardır. Örnekler: Google Docs, Microsoft Teams.</dd>
+      </dl>
+      <h3 style="margin-top:2rem">Intranet ve Extranet</h3>
+      <div class="two">
+        <div><strong>Intranet</strong><p>Şirketin kendi içindeki özel ağıdır. Yalnızca şirket çalışanları tarafından kullanılabilir.</p></div>
+        <div><strong>Extranet</strong><p>Şirketin dışındaki kişilerle (müşteri, tedarikçi vb.) bilgi paylaşımını sağlayan ağdır.</p></div>
+      </div>
+    </section>
+
+    <section class="unit" id="network">
+      <h2>Haberleşme</h2>
+      <h3>İnsan İletişiminde Kullanılan Bazı Protokoller</h3>
+      <ul>
+        <li>Kimliği belirli bir alıcı ve gönderici</li>
+        <li>İletişim metodunun belirlenmesi (yüzyüze, telefon, mektup vb.)</li>
+        <li>Belirli bir dil ve gramerin belirlenmesi</li>
+        <li>Hız ve zamanın belirlenmesi</li>
+        <li>Doğrulama veya bilgilendirme</li>
+      </ul>
+      <h3>İletişimi Etkileyen Faktörler</h3>
+      <div class="two">
+        <div><strong>Dış Faktörler (Ağdan Kaynaklanan)</strong>
+          <ul>
+            <li>Alıcı ile verici arasındaki iletim yolu: Yol uzunsa gecikme olabilir.</li>
+            <li>Mesajın biçim değiştirme sayısı: Mesaj ağ üzerinde ilerlerken farklı cihazlar tarafından işlenebilir ve gecikme yaşanabilir.</li>
+            <li>Mesajın yeniden adreslenme veya yönlendirilme sayısı</li>
+            <li>Aynı anda gönderilen mesajların sayısı</li>
+            <li>Başarılı iletim için ayrılan zaman: Mesajın belli bir sürede ulaşması gerekir.</li>
+          </ul></div>
+        <div><strong>İç Faktörler (Mesajdan Kaynaklanan)</strong>
+          <ul>
+            <li>Mesajın türü ve karmaşıklığı: Bir yazı ile kaliteli bir video aynı miktarda veri taşımaz.</li>
+            <li>Açık ve kısa mesajlar daha kolay anlaşılır.</li>
+            <li>Önemli bilgiler önem sırasıyla gönderilmelidir.</li>
+            <li>Büyük boyutlu mesajlar gecikebilir.</li>
+            <li>Düşük öncelikli mesajlar yoğunlukta bekletilebilir.</li>
+          </ul></div>
+      </div>
+    </section>
+
+    <section class="unit" id="elemanlar">
+      <h2>Network Üzerinden Haberleşme</h2>
+      <h3>Network'in Dört Temel Elemanı</h3>
+      <p>Bir ağ (network) dört temel elemana sahiptir:</p>
+      <ol>
+        <li><strong>Rules (Kurallar):</strong> Mesajların nasıl gönderileceğini ve alınacağını belirleyen kurallar veya anlaşmalar.</li>
+        <li><strong>Message (Mesaj):</strong> Bir cihazdan diğerine gidecek mesaj.</li>
+        <li><strong>Medium (Ortam):</strong> Mesajın bir cihazdan diğerine gidebileceği ortam.</li>
+        <li><strong>Devices (Cihazlar):</strong> Mesajı iletecek cihazlar.</li>
+      </ol>
+      <h3 style="margin-top:2rem">Network Elemanları</h3>
+      <ul style="list-style:none;padding:0">
+        <li><strong>Switch (Anahtar):</strong> Veriyi aynı ağ (LAN) içindeki cihazlara iletir. MAC adreslerine göre yönlendirme yapar.</li>
+        <li><strong>Router (Yönlendirici):</strong> Veriyi farklı ağlar (WAN) arasında yönlendirir. IP adreslerine göre yönlendirme yapar.</li>
+        <li><strong>Firewall (Güvenlik Duvarı):</strong> Ağ güvenliğini sağlayan cihazdır.</li>
+        <li><strong>Wireless Router (Kablosuz Yönlendirici):</strong> Kablosuz yönlendirme cihazıdır.</li>
+        <li><strong>Kablolar:</strong> Çeşitli tip ve özelliklere sahip ağ kablolarıdır.</li>
+      </ul>
+    </section>
+
+    <section class="unit" id="kablolar">
+      <h2>Network Kabloları (Medium)</h2>
+      <p><strong>Medium (Ortam):</strong> Kablolu veya kablosuz yapılardır. Üç tipi vardır:</p>
+      <ol>
+        <li>Bakır kablolar
+          <ul><li>Twisted Pair (UTP, STP)</li></ul></li>
+        <li>Koaksiyel kablolar</li>
+        <li>Fiber (Fiber Optik) kablolar
+          <ul><li>Single Mode</li><li>Multi Mode</li></ul></li>
+      </ol>
+    </section>
+
+    <section class="unit" id="protokoller">
+      <h2>Protokoller (Rules – Kurallar)</h2>
+      <p><strong>TCP/IP:</strong> Endüstri standardı olan protokol grubudur. Ev veya işyeri ağlarında kullanılır.</p>
+      <h3 style="margin-top:1.6rem">Servis – Protokol Eşleşmeleri</h3>
+      <div class="wrap"><table>
+        <tr><th>Servis</th><th>Protokol</th></tr>
+        <tr><td>WWW</td><td>HTTP</td></tr>
+        <tr><td>E-posta</td><td>SMTP (Simple Mail Transfer Protocol), POP (Post Office Protocol)</td></tr>
+        <tr><td>Anlık Mesajlaşma (IM)</td><td>XMPP (Extensible Messaging and Presence Protocol), OSCAR</td></tr>
+        <tr><td>IP Telefon</td><td>SIP (Session Initiation Protocol)</td></tr>
+      </table></div>
+    </section>
+
+    <section class="unit" id="mimari">
+      <h2>Network Mimarisi</h2>
+      <h3>Fault Tolerance (Hata Toleransı)</h3>
+      <p>Ağda bir sorun olsa bile çalışmaya devam edebilmesidir.</p>
+      <p>Alternatif yollar maliyeti artırır. Bir yol bozulursa alternatifi hazır olmalı; bu da daha fazla kablo ve cihaz demektir.</p>
+      <h3>Scalability (Ölçeklenebilirlik)</h3>
+      <p>Ağın büyüyebilmesidir. Bugün şirkette 100 bilgisayar var, yarın 1000 bilgisayar olursa ağın bunu kaldırabilmesi gerekir.</p>
+      <h3>Quality of Service (QoS – Servis Kalitesi)</h3>
+      <p>Her veri aynı derecede önemli değildir. Ağdaki bazı verilere daha fazla öncelik vermek demektir.</p>
+      <p>Örnek: Telefon konuşması gecikmeli olursa konuşma bozulur; fakat bir e-postanın geç gelmesi büyük sorun olmaz.</p>
+      <h3>İnternetin Yapısı (Scalability)</h3>
+      <p>İnternet büyüse bile çalışmaya devam edebilmesi demektir.</p>
+      <p>İnternet, farklı seviyelerdeki ISP'lerden (Internet Service Provider – İnternet Servis Sağlayıcısı) oluşur.</p>
+      <p>Örnek ISP'ler: Türk Telekom, Turkcell Superonline, Vodafone Net.</p>
+    </section>
+
+    <section class="unit" id="anahtarlama">
+      <h2>Circuit Switching ve Packet Switching</h2>
+      <h3>Circuit Switching (Devre Anahtarlama)</h3>
+      <p><strong>Mantık:</strong> İletişim başlamadan önce gönderici ile alıcı arasında özel bir yol devre oluşturulur.</p>
+      <p><strong>Bağlantı Temelli (Connection Oriented):</strong> Önce bağlantı kurulur, sonra veri gönderilir. Yani önce hat açılır, sonra konuşulur.</p>
+      <h3>Packet Switching (Paket Anahtarlama)</h3>
+      <p>Mesaj küçük paketlere bölünür ve her paket ayrı ayrı gönderilir, karşı tarafta tekrar birleştirilir.</p>
+
+      <h3 style="margin-top:2rem">İki Sistemin Farkı</h3>
+      <div class="wrap"><table>
+        <tr><th>Circuit Switching</th><th>Packet Switching</th></tr>
+        <tr><td>Önce bağlantı kurulur.</td><td>Önceden bağlantı kurmaya gerek yoktur.</td></tr>
+        <tr><td>Tek bir özel yol kullanılır.</td><td>Paketler farklı yollardan gidebilir.</td></tr>
+        <tr><td>Yol sadece bir iletişime ayrılır.</td><td>Aynı yolu birçok kişi kullanabilir.</td></tr>
+        <tr><td>Telefon hatlarında kullanılır.</td><td>İnternetin çalışma mantığıdır.</td></tr>
+        <tr><td>Daha az verimlidir.</td><td>Daha verimlidir.</td></tr>
+      </table></div>
+
+      <div id="sim" style="margin-top:2.2rem">
+        <div class="bar" role="group" aria-label="Mod">
+          <button id="mCir" aria-pressed="true">Circuit Switching</button>
+          <button id="mPak" aria-pressed="false">Packet Switching</button>
+          <span class="sp"></span>
+          <button id="go">Gönder</button>
+          <button id="rs">Sıfırla</button>
+        </div>
+        <svg viewBox="0 0 600 220" role="img" aria-label="A ile B arasındaki ağ; hatlara tıklayarak kes"><g id="links"></g><g id="nodes"></g><g id="fly"></g></svg>
+        <div id="slots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="unit" id="guvenlik">
+      <h2>Security (Güvenlik)</h2>
+      <p>Ağın güvenliği şu üç şeyi sağlamalıdır:</p>
+      <ul>
+        <li>Yetkisiz erişimi engellemek</li>
+        <li>Bilginin değiştirilmesini engellemek</li>
+        <li>Denial of Service (DoS) – Hizmet Dışı Bırakma saldırısını engellemek: Saldırgan sisteme çok fazla istek gönderir. Site aşırı yoğun olur ve gerçek kullanıcılar giremez.</li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Güvenliği Sağlamak için Üç Temel İlke (CIA Üçlüsü)</h3>
+      <ul>
+        <li><strong>Gizlilik (Confidentiality):</strong> Bilgiyi sadece yetkililer görebilmelidir.</li>
+        <li><strong>Haberleşme Bütünlüğü (Integrity):</strong> Veri gönderilirken bozulmamalıdır.</li>
+        <li><strong>Erişebilirlik (Availability):</strong> Sistem ihtiyaç duyulduğunda çalışmalıdır.</li>
+      </ul>
+    </section>
+    <div style="height:4rem"></div>
+  </main>
 </div>
 
 <script>
