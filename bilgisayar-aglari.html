@@ -142,6 +142,11 @@ button{font:inherit}
 #encapsulation-demo .pdu-part.payload{background:var(--surface2);border-color:var(--border2)}
 #encapsulation-demo .pdu-part.trailer{background:var(--warn-bg);border-color:var(--warn-border)}
 #encapsulation-demo .bar button:disabled{opacity:.4;cursor:not-allowed}
+.unit abbr.term-tip{text-decoration:underline dotted var(--accent);text-underline-offset:3px;cursor:help}
+.unit .stepper-step{padding:10px 12px;margin:0 0 8px!important;border:1px solid var(--border);border-radius:6px;background:var(--surface2);color:var(--sub)}
+.unit .stepper-step.active{border-color:var(--accent-border);background:var(--info-bg);color:var(--text)}
+.unit .stepper .bar button:disabled{opacity:.4;cursor:not-allowed}
+.term-tooltip{position:fixed;z-index:300;display:none;max-width:min(280px,calc(100vw - 24px));padding:8px 11px;border:1px solid var(--border2);border-radius:6px;background:var(--surface2);color:var(--text);font-size:12px;line-height:1.5;font-style:italic;box-shadow:0 8px 24px rgba(0,0,0,.28);pointer-events:none}
 @media(max-width:768px){
   .mobile-toggle{display:flex}
   .progress-bar{left:0}
@@ -163,7 +168,7 @@ button{font:inherit}
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" class="sidebar-back">← <span>Derslerim</span></a>
+      <a href="index.html" class="sidebar-back">← <span>MIS Portal</span></a>
       <div class="sidebar-course">Bilgisayar Ağları</div>
       <div class="sidebar-title">Ders Notları</div>
     </div>
@@ -182,15 +187,16 @@ button{font:inherit}
       <a class="nav-item" href="#protokoller"><span class="nav-item-num">08</span>Ağ Protokolleri</a>
       <a class="nav-item" href="#tcp-ip"><span class="nav-item-num">09</span>TCP/IP Modeli</a>
       <a class="nav-item" href="#osi"><span class="nav-item-num">10</span>OSI ve TCP/IP Katmanları</a>
+      <a class="nav-item" href="#unit3"><span class="nav-item-num">11</span>3. Ünite: Uygulama Katmanı</a>
       <div class="nav-section-label">Ağ Güvenliği</div>
-      <a class="nav-item" href="#guvenlik"><span class="nav-item-num">11</span>Ağ Güvenliği</a>
+      <a class="nav-item" href="#guvenlik"><span class="nav-item-num">12</span>Ağ Güvenliği</a>
     </nav>
   </aside>
 
   <main class="main">
     <header class="page-header">
       <div class="page-kicker">Ağ Temelleri</div>
-      <h1 class="page-title">Haberleşme ve Ağ (Network) Temelleri</h1>
+      <h1 class="page-title">1. Ünite: Haberleşme ve Ağ (Network) Temelleri</h1>
     </header>
 
     <section class="unit" id="haberlesme">
@@ -502,6 +508,207 @@ button{font:inherit}
         <tr><td>1 · Physical</td><td>Network Access</td><td>Bitlerin fiziksel bağlantı ve ortam üzerinden iletimini tanımlar.</td><td>Bakır, fiber, kablosuz ortam</td><td>Bit</td><td>0 ve 1'ler ortamda taşınır: bakırda elektrik, fiberde ışık, kablosuzda elektromanyetik dalga.</td></tr>
       </table></div>
     </section>
+
+    <section class="unit" id="unit3">
+      <h2>3. Ünite: Uygulama Katmanı ve Ağ Servisleri</h2>
+
+      <h3>OSI Katmanlarının Uygulandığı Yerler</h3>
+      <p>En üstteki üç katman genellikle işletim sistemi içindeki yazılımlar aracılığıyla uygulanır. En alttaki üç katman ise çoğunlukla switch, router ve firewall gibi cihazların donanımları içinde uygulanır.</p>
+      <div class="wrap"><table>
+        <tr><th>OSI katmanı</th><th>Uygulandığı yer</th></tr>
+        <tr><td>7 · Application</td><td>Yazılım</td></tr>
+        <tr><td>6 · Presentation</td><td>Yazılım</td></tr>
+        <tr><td>5 · Session</td><td>Yazılım</td></tr>
+        <tr><td>4 · Transport</td><td>Yazılım katmanları ile donanım katmanlarını birbirine bağlar.</td></tr>
+        <tr><td>3 · Network</td><td>Donanım</td></tr>
+        <tr><td>2 · Data Link</td><td>Donanım</td></tr>
+        <tr><td>1 · Physical</td><td>Donanım</td></tr>
+      </table></div>
+
+      <div class="info-box">
+        <p><strong>NOT:</strong> SDN (Software Defined Networking - Yazılım Tanımlı Ağlar), donanım katmanlarının daha fazlasının yazılım aracılığıyla yönetilmesine ve uygulanmasına olanak tanıyan bir teknolojidir.</p>
+      </div>
+      <h3>Uygulama Katmanı</h3>
+      <p>Verilerle etkileşime girdiğimiz katmandır; web tarayıcıları ve e-posta uygulamaları bu katmanda çalışır. Veriler “veri” (data) adını alır.</p>
+      <h4>Protokoller</h4>
+      <ul>
+        <li><strong>HTTP:</strong> Web uygulamalarına erişmemizi sağlar.</li>
+        <li><strong>FTP:</strong> Dosya aktarımı yapmayı sağlar.</li>
+        <li><strong>SNMP:</strong> Ağ cihazlarını uzaktan yönetmeyi sağlar.</li>
+        <li><strong>DNS:</strong> İnternet adresini IP adresine çevirir.</li>
+        <li><strong>SMTP:</strong> E-postaların taşınması için kullanılır.</li>
+        <li><strong>Telnet:</strong> Sunuculara ve ağ cihazlarına uzaktan erişim sağlar.</li>
+      </ul>
+      <h3>Presentation (Sunum) Katmanı</h3>
+      <p>Veriyi bilgisayar diline çevirir.</p>
+      <h4>Görevleri</h4>
+      <ul>
+        <li><strong>Encoding (Kodlama):</strong> Metinleri <abbr class="term-tip" tabindex="0" aria-label="ASCII: American Standard Code for Information Interchange — Bilgi Değişimi için Amerikan Standart Kodu" data-tooltip="American Standard Code for Information Interchange — Bilgi Değişimi için Amerikan Standart Kodu">ASCII</abbr> ve UTF (Unicode Transformation Format) gibi formatlara çevirir.</li>
+        <li><strong>Encryption (Şifreleme):</strong> Ağ üzerinden güvenli veri aktarımı sağlar. Örneğin banka sayfasına girerken şifrenin korunması.
+          <ul>
+            <li><strong>SSL:</strong> Baştan sona şifreli iletişim sağlar.</li>
+            <li><strong>TLS:</strong> Şifresiz başlar, sonra sertifikalama ile şifreleme başlar.</li>
+          </ul>
+        </li>
+        <li><strong>Compression (Sıkıştırma):</strong> Gzip gibi yöntemlerle veriyi sıkıştırıp boyutunu küçültür.</li>
+      </ul>
+
+      <h3>Session (Oturum) Katmanı</h3>
+      <p>Bilgisayarlar arası iletişimi sürdürür.</p>
+      <h4>Protokoller</h4>
+      <ul>
+        <li><strong>SIP:</strong> VoIP (Voice over IP - internetten sesli/görüntülü arama) başlatmak için kullanılır.</li>
+        <li><strong>SOCKS:</strong> Proxy sunucuları üzerinden bağlantı kurar.</li>
+        <li><strong>NetBIOS:</strong> Ağdaki cihazların oturum kurup haberleşmesini sağlayan eski bir Windows protokolüdür.</li>
+      </ul>
+
+      <h3>İstemci-Sunucu Modeli</h3>
+      <p>Bilgi isteyen client, cevap veren server'dır. Uygulama katmanında asıl çalışan ikisinin işlemleridir. Client bir istek mesajı gönderir, server cevap verir. Protokol bu isteğin ve cevabın yapısını belirler. Client'tan server'a gönderilen bilgiye upload (yükleme), server'dan client'a gelen bilgiye download (indirme) denir.</p>
+      <h4>Servers</h4>
+      <ul>
+        <li>Server'lar, kullanıcının veriye ulaşması için authentication (kimsin?) ve authorization (buna yetkin var mı?) ister.
+          <ul>
+            <li>Örneğin bir FTP server, dosya yüklemek için kimlik isteyip indirmek için istemeyebilir.</li>
+          </ul>
+        </li>
+        <li>Client-server ağlarda server, daemon denen bir servis çalıştırır; işi istekleri dinlemektir. İstek gelirse cevap verir.</li>
+      </ul>
+      <div class="info-box">
+        <p><strong>NOT:</strong> Client = isteyen, server = cevap veren. Upload = client'tan server'a, download = server'dan client'a. Daemon = dinleyen servis. Authentication ile authorization'ı karıştırma: biri “kimsin”, diğeri “yetkin var mı”.</p>
+      </div>
+
+      <h3>P2P Modeli (Peer-to-Peer - Eşler Arası): Sunucusuz Paylaşım</h3>
+      <p>İki ya da daha fazla bilgisayar bir ağa bağlıdır ve kaynaklarını birbiriyle paylaşır. Bir bilgisayar bir an başka bir bilgisayardan servis ister, başka bir anda kendisi servis sunar. Merkezde ana sunucu yoktur. Yani her bilgisayar gerektiğinde hem istemci (client) hem de sunucu (server) olabilir.</p>
+      <h4>P2P Ağları</h4>
+      <div class="wrap"><table>
+        <tr><th>Özellik</th><th>İstemci-Sunucu</th><th>P2P</th></tr>
+        <tr><td>Kaynaklar</td><td>Tüm dosyalar tek bir ana sunucudadır (merkez sunucu).</td><td>Dosyalar her bilgisayarın kendi içinde bulunur (dağınık).</td></tr>
+        <tr><td>Roller</td><td>İstemci ister, sunucu hizmet verir.</td><td>Aynı bilgisayar hem istemci hem sunucu olabilir. Torrent kullanırken hem dosya indirir hem de başkalarına gönderirsin.</td></tr>
+        <tr><td>Kullanıcı hesapları</td><td>Hesaplar tek merkezden yönetilir.</td><td>Her bilgisayar kendi kullanıcılarını yönetir.</td></tr>
+        <tr><td>Güvenlik</td><td>Merkez tek olduğundan güvenlik kurallarını uygulamak kolaydır.</td><td>Her bilgisayar ayrı olduğundan hepsini tek tek korumak gerekir.</td></tr>
+      </table></div>
+      <h4>P2P Uygulamaları</h4>
+      <p>Cihazın hem client hem server olarak çalışmasını sağlayan programlardır. Örneğin instant messaging (anlık mesajlaşma).</p>
+      <h4>Torrent</h4>
+      <p>Torrent, dosyanın tek bir kişiden gelmesi yerine aynı dosyaya sahip onlarca veya yüzlerce bilgisayardan farklı parçalarının aynı anda indirilmesi ve indirilen parçaların otomatik olarak başkalarıyla da paylaşılması mantığıyla çalışan bir P2P sistemidir.</p>
+
+      <h3>Port Numaraları ve DNS</h3>
+      <p>Transport katmanı verinin üstüne port numarası ekler. Port numarası, verinin bilgisayardaki hangi uygulamaya ait olduğunu söyler. Uygulama protokolleri de Transport katmanında TCP veya UDP kullanır.</p>
+      <ul>
+        <li><strong>TCP:</strong> Verilerin sırasını korur, kaybolanları tekrar gönderir. Kullanan servis örnekleri: HTTP, FTP, Gmail.</li>
+        <li><strong>UDP:</strong> Veri gider ama alındı mı diye kontrol etmez. Kullanan servis örnekleri: YouTube, çevrimiçi oyunlar.</li>
+      </ul>
+      <h4>DNS (Domain Name System)</h4>
+      <p>İsimleri IP adreslerine çevirir. Tarayıcıya www.google.com yazarsın ama bilgisayar bunu anlamaz; DNS'ye sorar ve DNS bunu IP adresine (142.250.xxx.xxx) çevirir. Bilgisayar soru sorar (client), DNS server cevap verir (server). Sitenin IP adresi değişirse isim aynı kalır, yeni IP'yi de DNS bulur.</p>
+      <h4>DNS Kayıt Türleri</h4>
+      <div class="wrap"><table>
+        <tr><th>Kayıt</th><th>Anlamı</th><th>NOT</th></tr>
+        <tr><td>A</td><td>Bir uç cihazın adresi</td><td>İsim → IP</td></tr>
+        <tr><td>NS</td><td>Name server kaydı: Bu alan adını kimin yönettiğini belirtir.</td><td>“Bu konuyu şu kişiye sor” notu.</td></tr>
+        <tr><td>CNAME</td><td>Canonical name: Takma ad.</td><td>www.site.com ile site.com olması.</td></tr>
+        <tr><td>MX</td><td>Mail exchanger: O alanın e-posta sunucusu.</td><td>umut@example.com maili nereye gidecek?</td></tr>
+      </table></div>
+      <div class="info-box">
+        <p><strong>NOT:</strong> Bugün “youtube.com” girdin. DNS IP'yi öğrendi. PC artık bunu hafızasında (önbellek/cache) tutuyor. Yarın tekrar girince yeniden DNS Server'a sormuyor, hafızadan alıyor ve daha hızlı olmuş oluyor. Windows'ta <code>ipconfig /displaydns</code> ile bu kayıtları görebilirsin.</p>
+      </div>
+      <div class="info-box">
+        <p><strong>NOT:</strong> Terminale <code>nslookup google.com</code> yazarsın ve DNS cevap verir:</p>
+        <p><code>google.com</code><br>↓<br><code>142.250.xxx.xxx</code></p>
+        <p>Yani “Google'ın IP'si nedir” demiş oluyorsun.</p>
+      </div>
+
+      <div class="card stepper" data-stepper="dns">
+        <h4>Ahmet www.osym.gov.tr adresini yazdı. Adım adım neler oluyor?</h4>
+        <ol class="stepper-list" aria-live="polite">
+          <li class="stepper-step">Yerel DNS sunucusu, cihazın ağ ayarlarında tanımlı DNS sunucusudur. Ahmet'in telefonu bu sunucuya “www.osym.gov.tr kimde?” diye sorar. Cevabı bilmiyorsa aşağıdaki adımlar başlar.</li>
+          <li class="stepper-step">Yerel DNS, kök DNS sunucusuna “.tr'yi kim tutuyor?” diye sorar.</li>
+          <li class="stepper-step">Yerel DNS, .tr'yi tutan sunucuya “gov'u kim tutuyor?” diye sorar.</li>
+          <li class="stepper-step">Yerel DNS, gov'u tutan sunucuya “osym'yi kim tutuyor?” diye sorar.</li>
+          <li class="stepper-step">Yerel DNS, osym'yi tutan sunucuya “www'yu kim tutuyor?” diye sorar ve IP adresini öğrenir.</li>
+          <li class="stepper-step">Yerel DNS cevabı (IP adresini) Ahmet'in telefonuna gönderir. Telefon artık siteye bağlanabilir.</li>
+        </ol>
+        <div class="bar" role="group" aria-label="DNS çözümleme adımları">
+          <button type="button" data-step-next>Sonraki adım</button>
+          <button type="button" data-step-reset>Başa dön</button>
+        </div>
+      </div>
+
+      <h3>WWW Servisi ve HTTP</h3>
+      <p>Tarayıcıya bir web adresi (URL, Uniform Resource Locator) yazınca tarayıcı sunucudaki web servisiyle HTTP protokolü üzerinden bağlantı kurar. Ahmet'in yazdığı adres şu olsun: <code>http://www.osym.gov.tr/sinavsonuc.htm</code></p>
+      <div class="wrap"><table>
+        <tr><th>Parça</th><th>Tarayıcı ne anlar?</th></tr>
+        <tr><td><code>http</code></td><td>HTTP protokolü, istek 80. porta gidecek.</td></tr>
+        <tr><td><code>www.osym.gov.tr</code></td><td>Alan adı (ulaşılacak sunucunun ismi).</td></tr>
+        <tr><td><code>sinavsonuc.htm</code></td><td>İstenen web sayfasının adı.</td></tr>
+      </table></div>
+      <div class="card stepper" data-stepper="http">
+        <h4>Sayfa Ahmet'in ekranına nasıl geliyor?</h4>
+        <ol class="stepper-list" aria-live="polite">
+          <li class="stepper-step">Tarayıcı adresi yorumlar: http → istek 80. porta gidecek; www.osym.gov.tr → alan adı; sinavsonuc.htm → istenen sayfa.</li>
+          <li class="stepper-step">Tarayıcı DNS'yi kullanarak www.osym.gov.tr adresinin IP'sini bulur.</li>
+          <li class="stepper-step">HTTP ile GET isteği gönderir: “sinavsonuc.htm sayfasını istiyorum.”</li>
+          <li class="stepper-step">Sunucu, HTML kodunu içeren sayfayı tarayıcıya gönderir.</li>
+          <li class="stepper-step">Tarayıcı HTML kodunu yorumlar ve sayfayı Ahmet'in ekranında gösterir.</li>
+        </ol>
+        <div class="bar" role="group" aria-label="HTTP isteği adımları">
+          <button type="button" data-step-next>Sonraki adım</button>
+          <button type="button" data-step-reset>Başa dön</button>
+        </div>
+      </div>
+      <h4>HTTP Komutları</h4>
+      <div class="wrap"><table>
+        <tr><th>Komut</th><th>Anlamı</th><th>Örnek</th></tr>
+        <tr><td>GET</td><td>Sayfa ister.</td><td>Sonuç sayfasını açar.</td></tr>
+        <tr><td>PUT</td><td>Veriyi (içeriği) sunucuya yükler.</td><td>Bir dosyayı siteye yükler.</td></tr>
+        <tr><td>POST</td><td>Web formunu sunucuya gönderir.</td><td>Giriş formunu doldurup “Gönder”e basar.</td></tr>
+      </table></div>
+
+      <h3>HTTP ve HTTPS</h3>
+      <p>HTTP'de veri düz metin olarak gider; yani yolda biri yakalarsa okuyabilir. Güvenli sayfalar için HTTPS kullanılır: kimlik doğrulama (authentication) ve şifreleme (encryption).</p>
+
+      <h3>E-posta Servisi: SMTP ve POP</h3>
+      <ul>
+        <li><strong>SMTP:</strong> E-posta gönderme.</li>
+        <li><strong>POP:</strong> E-posta alma.</li>
+      </ul>
+
+      <h3>FTP: Dosya Aktarım Protokolü</h3>
+      <p>İstemci-sunucu arası dosya aktarımı sağlar.</p>
+      <ul>
+        <li>İstemci, sunucudan download eder: dosyayı çeker (pull).</li>
+        <li>İstemci, sunucuya upload eder: dosyayı iter (push).</li>
+      </ul>
+
+      <h3>DHCP: IP Adresini Otomatik Alma</h3>
+      <p>DHCP (Dynamic Host Configuration Protocol / Dinamik Ana Bilgisayar Yapılandırma Protokolü): Ağa bağlanan her cihazın IP adresi olmalı ve cihazlar bunu DHCP sayesinde kendileri alır. Client server'dan istekte bulunur, server ona bir IP adresi kiralar. DHCP, UDP kullanır.</p>
+      <div class="card stepper" data-stepper="dhcp">
+        <h4>Ayşe'nin telefonu Wi-Fi'a bağlanıyor. IP nasıl alıyor?</h4>
+        <ol class="stepper-list" aria-live="polite">
+          <li class="stepper-step"><strong>Discover (client → herkes):</strong> Telefon “bu ağda DHCP server var mı?” diye ağdaki tüm hostlara seslenir.</li>
+          <li class="stepper-step"><strong>Offer (server → client):</strong> DHCP server varsa kiralayacağı bir IP adresi önerisiyle cevap verir.</li>
+          <li class="stepper-step"><strong>Request (client → server):</strong> Telefon “önerdiğin adresi alıyorum” diye istekte bulunur.</li>
+          <li class="stepper-step"><strong>ACK veya NACK (server → client):</strong> Server onaylarsa (ACK) IP telefona atanır. Reddederse NACK gönderir. Adres belirli bir süre için geçerlidir.</li>
+        </ol>
+        <div class="bar" role="group" aria-label="DHCP adres alma adımları">
+          <button type="button" data-step-next>Sonraki adım</button>
+          <button type="button" data-step-reset>Başa dön</button>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Örnek</h4>
+        <p>Otele gidince resepsiyondan oda anahtarı alırsın. “Boş oda var mı?” diye sorarsın (Discover), resepsiyon “412 numaralı oda boş” der (Offer), sen “Tamam, 412'yi alıyorum” dersin (Request), resepsiyon “Onaylandı, anahtarın bu, 3 gün kalabilirsin” der (ACK). Süre bitince oda sana ait olmaktan çıkar. DHCP'nin IP adresini kiralaması tam olarak böyledir.</p>
+      </div>
+      <h4>Ağa Bağlanma Yöntemleri: 3 Yöntem</h4>
+      <ol>
+        <li><strong><abbr class="term-tip" tabindex="0" aria-label="DHCP: Dynamic Host Configuration Protocol — Dinamik Ana Bilgisayar Yapılandırma Protokolü" data-tooltip="Dynamic Host Configuration Protocol — Dinamik Ana Bilgisayar Yapılandırma Protokolü">DHCP</abbr> tipi bağlanma:</strong> Bağlanma zaten anlatıldı.</li>
+        <li><strong><abbr class="term-tip" tabindex="0" aria-label="APIPA: Automatic Private IP Addressing — Otomatik Özel IP Adresleme" data-tooltip="Automatic Private IP Addressing — Otomatik Özel IP Adresleme">APIPA</abbr> tipi bağlanma:</strong> Aslında DHCP çalışmadığında bilgisayarın kendi kendine IP vermesi durumudur. Ama bu IP ile internete bağlanılamaz.</li>
+        <li><strong>Statik IP (manuel IP):</strong> IP adresini kişi kendisi girer.</li>
+      </ol>
+
+      <h3>SMB ve Telnet</h3>
+      <p><strong>SMB (Server Message Block):</strong> Bir client-server uygulamasıdır. Yazıcı, dosya ve klasör gibi kaynakların paylaşımını tanımlar. Windows'ta SMB kullanılır. Linux ve UNIX ise Samba kullanır.</p>
+      <p><strong>Telnet:</strong> Başka yerdeki sunucu veya ağ cihazının komut ekranına, sanki karşısında oturuyormuşuz gibi bağlanırız.</p>
+    </section>
     <div style="height:4rem"></div>
   </main>
 </div>
@@ -581,6 +788,178 @@ reset();paint();
   down.addEventListener('click',function(){if(step<layers.length-1){step++;render()}});
   document.getElementById('encap-reset').addEventListener('click',function(){step=0;render()});
   render();
+})();
+</script>
+<script>
+(function(){
+  var expansions={
+    'TCP/IP':'Transmission Control Protocol / Internet Protocol — İletim Kontrol Protokolü / İnternet Protokolü',
+    'HTTP':'Hypertext Transfer Protocol — Hiper Metin Aktarım Protokolü',
+    'HTTPS':'Hypertext Transfer Protocol Secure — Güvenli Hiper Metin Aktarım Protokolü',
+    'FTP':'File Transfer Protocol — Dosya Aktarım Protokolü',
+    'TCP':'Transmission Control Protocol — İletim Kontrol Protokolü',
+    'UDP':'User Datagram Protocol — Kullanıcı Datagram Protokolü',
+    'IP':'Internet Protocol — İnternet Protokolü',
+    'DNS':'Domain Name System — Alan Adı Sistemi',
+    'SNMP':'Simple Network Management Protocol — Basit Ağ Yönetim Protokolü',
+    'SMTP':'Simple Mail Transfer Protocol — Basit E-posta Aktarım Protokolü',
+    'POP':'Post Office Protocol — Posta Ofisi Protokolü',
+    'URL':'Uniform Resource Locator — Tekdüzen Kaynak Bulucu',
+    'OSI':'Open Systems Interconnection — Açık Sistemler Arası Bağlantı',
+    'TDM':'Time Division Multiplexing — Zaman Bölmeli Çoklama',
+    'QoS':'Quality of Service — Hizmet Kalitesi',
+    'LAN':'Local Area Network — Yerel Alan Ağı',
+    'WAN':'Wide Area Network — Geniş Alan Ağı',
+    'TSP':'Telecommunication Service Provider — Telekomünikasyon Servis Sağlayıcısı',
+    'ISP':'Internet Service Provider — İnternet Servis Sağlayıcısı',
+    'NIC':'Network Interface Card — Ağ Arayüz Kartı',
+    'AP':'Access Point — Erişim Noktası',
+    'RFC':'Request for Comments — Yorum İsteği',
+    'PDU':'Protocol Data Unit — Protokol Veri Birimi',
+    'ACK':'Acknowledgment — Onay',
+    'MAC':'Media Access Control — Ortam Erişim Denetimi',
+    'SSL':'Secure Sockets Layer — Güvenli Yuva Katmanı',
+    'TLS':'Transport Layer Security — Taşıma Katmanı Güvenliği',
+    'UTF':'Unicode Transformation Format — Unicode Dönüşüm Biçimi',
+    'VoIP':'Voice over Internet Protocol — İnternet Protokolü Üzerinden Ses',
+    'SOCKS':'Socket Secure — Güvenli Soket',
+    'NetBIOS':'Network Basic Input/Output System — Ağ Temel Giriş/Çıkış Sistemi',
+    'P2P':'Peer-to-Peer — Eşler Arası',
+    'IM':'Instant Messaging — Anlık Mesajlaşma',
+    'SIP':'Session Initiation Protocol — Oturum Başlatma Protokolü',
+    'SMB':'Server Message Block — Sunucu Mesaj Bloğu',
+    'DHCP':'Dynamic Host Configuration Protocol — Dinamik Ana Bilgisayar Yapılandırma Protokolü',
+    'APIPA':'Automatic Private IP Addressing — Otomatik Özel IP Adresleme',
+    'NS':'Name Server — Ad Sunucusu',
+    'CNAME':'Canonical Name — Kanonik Ad',
+    'SDN':'Software Defined Networking — Yazılım Tanımlı Ağlar',
+    'MX':'Mail Exchanger — E-posta Değiştiricisi',
+    'GET':'GET — Alma/İsteme komutu',
+    'PUT':'PUT — Kaynak oluşturma veya güncelleme komutu',
+    'POST':'POST — Veri gönderme komutu',
+    'ISDN':'Integrated Services Digital Network — Tümleşik Hizmetler Sayısal Ağı',
+    'ATM':'Asynchronous Transfer Mode — Eşzamansız Aktarım Kipi',
+    'DSL':'Digital Subscriber Line — Sayısal Abone Hattı',
+    'ADSL':'Asymmetric Digital Subscriber Line — Asimetrik Sayısal Abone Hattı',
+    'G.SHDSL':'G. Symmetric High-Speed Digital Subscriber Line — Simetrik Yüksek Hızlı Sayısal Abone Hattı',
+    'XMPP':'Extensible Messaging and Presence Protocol — Genişletilebilir Mesajlaşma ve Durum Protokolü',
+    'OSCAR':'Open System for Communication in Realtime — Gerçek Zamanlı İletişim Sistemi',
+    'ASCII':'American Standard Code for Information Interchange — Bilgi Değişimi için Amerikan Standart Kodu',
+    'Telnet':'Terminal Emulation Protocol — Terminal Öykünme Protokolü',
+    'daemon':'Daemon — Arka planda çalışan servis',
+    'authentication':'Authentication — Kimlik doğrulama',
+    'authorization':'Authorization — Yetkilendirme',
+    'upload':'Upload — Yükleme',
+    'download':'Download — İndirme',
+    'pull':'Pull — Çekme',
+    'push':'Push — İtme',
+    'instant messaging':'Instant messaging — Anlık mesajlaşma'
+  };
+  var terms=Object.keys(expansions).sort(function(a,b){return b.length-a.length});
+  var pattern=new RegExp('\\b('+terms.map(function(term){return term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('|')+')\\b','g');
+  function decorateTextNode(node){
+    var parent=node.parentElement;
+    if(!parent||/^(SCRIPT|STYLE|CODE|TEXTAREA|ABBR)$/.test(parent.tagName))return;
+    pattern.lastIndex=0;
+    if(!pattern.test(node.nodeValue))return;
+    pattern.lastIndex=0;
+    var text=node.nodeValue,fragment=document.createDocumentFragment(),last=0,match,decorated=false;
+    while((match=pattern.exec(text))){
+      var trailing=text.slice(pattern.lastIndex);
+      if(text[pattern.lastIndex]!==':'&&!/^\s+\(/.test(trailing)){
+        continue;
+      }
+      if(match.index>last)fragment.appendChild(document.createTextNode(text.slice(last,match.index)));
+      var abbreviation=document.createElement('abbr');
+      abbreviation.className='term-tip';
+      abbreviation.tabIndex=0;
+      abbreviation.textContent=match[0];
+      abbreviation.setAttribute('aria-label',match[0]+': '+expansions[match[0]]);
+      abbreviation.setAttribute('data-tooltip',expansions[match[0]]);
+      fragment.appendChild(abbreviation);
+      last=pattern.lastIndex;
+      decorated=true;
+    }
+    if(!decorated)return;
+    if(last<text.length)fragment.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(fragment,node);
+  }
+  function decorateTerms(root){
+    var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(node){
+        var parent=node.parentElement;
+        if(!parent||/^(SCRIPT|STYLE|CODE|TEXTAREA|ABBR)$/.test(parent.tagName))return NodeFilter.FILTER_REJECT;
+        pattern.lastIndex=0;
+        return pattern.test(node.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+      }
+    });
+    var textNodes=[];
+    while(walker.nextNode())textNodes.push(walker.currentNode);
+    textNodes.forEach(decorateTextNode);
+  }
+  var main=document.querySelector('.main');
+  decorateTerms(main);
+  new MutationObserver(function(mutations){
+    mutations.forEach(function(mutation){
+      Array.prototype.forEach.call(mutation.addedNodes,function(node){
+        if(node.nodeType===Node.TEXT_NODE)decorateTextNode(node);
+        else if(node.nodeType===Node.ELEMENT_NODE)decorateTerms(node);
+      });
+    });
+  }).observe(main,{childList:true,subtree:true});
+
+  document.querySelectorAll('[data-stepper]').forEach(function(stepper){
+    var steps=Array.prototype.slice.call(stepper.querySelectorAll('.stepper-step'));
+    var next=stepper.querySelector('[data-step-next]');
+    var reset=stepper.querySelector('[data-step-reset]');
+    var current=0;
+    function render(){
+      steps.forEach(function(step,index){
+        step.hidden=index>current;
+        step.classList.toggle('active',index===current);
+      });
+      next.disabled=current===steps.length-1;
+    }
+    next.addEventListener('click',function(){if(current<steps.length-1){current++;render()}});
+    reset.addEventListener('click',function(){current=0;render()});
+    render();
+  });
+
+  var tooltip=document.createElement('div');
+  tooltip.className='term-tooltip';
+  tooltip.id='term-tooltip';
+  tooltip.setAttribute('role','tooltip');
+  document.body.appendChild(tooltip);
+  function showTooltip(term){
+    tooltip.textContent=term.getAttribute('data-tooltip');
+    tooltip.style.display='block';
+    term.setAttribute('aria-describedby',tooltip.id);
+    var rect=term.getBoundingClientRect(),left=Math.max(8,Math.min(rect.left,window.innerWidth-tooltip.offsetWidth-8));
+    var top=rect.bottom+8;
+    if(top+tooltip.offsetHeight>window.innerHeight)top=Math.max(8,rect.top-tooltip.offsetHeight-8);
+    tooltip.style.left=left+'px';
+    tooltip.style.top=top+'px';
+  }
+  function hideTooltip(term){
+    tooltip.style.display='none';
+    if(term)term.removeAttribute('aria-describedby');
+  }
+  document.addEventListener('pointerover',function(event){
+    var term=event.target.closest&&event.target.closest('abbr.term-tip');
+    if(term)showTooltip(term);
+  });
+  document.addEventListener('pointerout',function(event){
+    var term=event.target.closest&&event.target.closest('abbr.term-tip');
+    if(term&&(!event.relatedTarget||!term.contains(event.relatedTarget))&&document.activeElement!==term)hideTooltip(term);
+  });
+  document.addEventListener('focusin',function(event){
+    var term=event.target.closest&&event.target.closest('abbr.term-tip');
+    if(term)showTooltip(term);
+  });
+  document.addEventListener('focusout',function(event){
+    var term=event.target.closest&&event.target.closest('abbr.term-tip');
+    if(term)hideTooltip(term);
+  });
 })();
 </script>
 <script src="theme.js" defer></script>
