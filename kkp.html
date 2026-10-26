@@ -50,13 +50,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .unit-line{width:1px;height:28px;background:var(--border);margin-top:8px}
 .unit-title{font:400 32px/1.2 'Crimson Pro',serif;color:var(--text);letter-spacing:-.01em}
 .unit-divider{height:1px;background:var(--border);margin-bottom:28px}
-h3{font:9.5px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--sub);text-transform:uppercase;margin:30px 0 12px}
-h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+h3{font:500 20px/1.35 'Crimson Pro',serif;letter-spacing:.01em;color:var(--accent);margin:34px 0 14px}
+h4{font-size:16px;line-height:1.4;font-weight:600;color:var(--text);margin:20px 0 10px}
 p,li{font-size:14px;line-height:1.72;color:var(--sub)}
 ul{padding-left:18px}li{margin-bottom:6px}strong{color:var(--text);font-weight:500}em{color:var(--sub)}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px}
 .card p,.card li{font-size:13.5px}
 .example-box,.theory-block{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:14px 0}
+.example-box{background:var(--surface2);box-shadow:inset 0 2px 10px rgba(0,0,0,.18)}
+.example-box>.card{background:var(--surface2);box-shadow:inset 0 2px 8px rgba(0,0,0,.12)}
 .example-header,.theory-header{padding:9px 14px;background:var(--surface2);display:flex;align-items:center;gap:8px}
 .example-header span{font:9px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
@@ -122,6 +124,7 @@ tr:last-child td{border-bottom:0}td strong{color:var(--text)}
   .sidebar{transform:translateX(-100%);transition:transform .3s}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0;padding:72px 20px 80px}.mobile-toggle{display:flex}.progress-bar{left:0}
   .page-title{font-size:36px}.grid2,.grid3,.architecture{grid-template-columns:1fr}
+  h3{font-size:19px;margin-top:30px}
   .architecture-card:not(:last-child)::after{content:'↓';right:50%;top:auto;bottom:-23px;transform:translate(50%,50%)}
   .timeline{grid-template-columns:1fr 1fr}.system-grid,.silo-grid{grid-template-columns:1fr 1fr}
 }
@@ -151,6 +154,13 @@ tr:last-child td{border-bottom:0}td strong{color:var(--text)}
     <button class="nav-item" onclick="goToSection('mimari')"><span class="nav-item-num">07</span>Veri ve Mimari</button>
     <button class="nav-item" onclick="goToSection('projeler')"><span class="nav-item-num">08</span>Projeler ve Başarı</button>
     <button class="nav-item" onclick="goToSection('tartisma')"><span class="nav-item-num">09</span>Sınıf İçi Tartışma</button>
+    <div class="nav-section-label">2. Hafta · Proje Yönetimi</div>
+    <button class="nav-item" onclick="goToSection('proje-temelleri')"><span class="nav-item-num">10</span>Proje ve Başarısızlık</button>
+    <button class="nav-item" onclick="goToSection('proje-yonetimi')"><span class="nav-item-num">11</span>Üçgen ve Teknik Risk</button>
+    <button class="nav-item" onclick="goToSection('iletisim-veri')"><span class="nav-item-num">12</span>İletişim ve Veri Riski</button>
+    <button class="nav-item" onclick="goToSection('planlama-zaman')"><span class="nav-item-num">13</span>Planlama, Zaman ve Maliyet</button>
+    <button class="nav-item" onclick="goToSection('basari-insan')"><span class="nav-item-num">14</span>Başarı, İnsan ve Değişim</button>
+    <button class="nav-item" onclick="goToSection('vakalar-risk')"><span class="nav-item-num">15</span>Vakalar ve Risk Yönetimi</button>
   </nav>
 </aside>
 
@@ -545,6 +555,298 @@ tr:last-child td{border-bottom:0}td strong{color:var(--text)}
       </div>
     </div>
     <div class="highlight-box"><p>Hepsini KKP altında toplarsak bütün departmanlar tek sistem kullanır. Verilerin tek yerde olacağından ve bilgilerin otomatik paylaşılmasından dolayı yönetmesi kolay olacaktır. Ama ERP'nin bazı modülleri, özel yazılım kadar güçlü olmayabilir. Hibrit yapıda en iyi programlar kullanılır ama ERP ile birbirine bağlanır. Her bölüm en güçlü yazılımını kullanmaya devam edeceğinden performans yüksek olur. Ama programları entegre etmenin maliyeti vardır.</p></div>
+  </section>
+
+  <section class="unit" id="proje-temelleri">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">10</span><div class="unit-line"></div></div><div><h2 class="unit-title">KKP Projesi ve Başarısızlık Dinamikleri</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>KKP Bir Bilişim Teknolojisi Projesi midir?</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><p><strong>Teknomerkezci İllüzyon:</strong> Projeyi sadece donanım, veri tabanı ve lisans kurulumu sanmak. KKP sadece bir bilgisayar sistemi kurmak değildir.</p></div>
+      <div class="step-item"><span class="step-num">02</span><p><strong>Sosyo-teknik Gerçek:</strong> KKP; iş yapış biçimini, güç ve otorite dengelerini, rol hiyerarşisini ve şirket kültürünü kökten değiştirir.</p></div>
+    </div>
+    <div class="highlight-box"><p>Geleceğin yöneticisi kod yazan değil, <strong>insan + teknoloji + süreci birlikte yöneten</strong> kişidir.</p></div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Lezzet Mobilya KKP'yi kurdu ama satış müdürü siparişleri hâlâ Excel'e yazıyor, kimin neyi onaylayacağı belli değil. Sunucu çalışıyor ama iş yapış biçimi değişmedi; <strong>proje başarısız.</strong></p></div></div>
+
+    <h3>Leavitt Elması: 4 Parçanın Dengesi</h3>
+    <p>Kurumsal sistem dört bileşenin dengesidir:</p>
+    <div class="grid2">
+      <div class="card"><h4>Görev</h4><p>İş süreçleri</p></div>
+      <div class="card"><h4>Yapı</h4><p>Örgüt şeması</p></div>
+      <div class="card"><h4>Teknoloji</h4><p>Yazılım, donanım</p></div>
+      <div class="card"><h4>İnsan</h4><p>Kültür, yetkinlik</p></div>
+    </div>
+    <div class="warn-box"><p>Sadece teknolojiye odaklanıp insan ve yapıyı ihmal eden proje <strong>sistemik çöküşe (collapse)</strong> gider. Yazılımın getirdiği süreç mantığı ile örgüt hiyerarşisi karşılıklı ayarlanmalıdır.</p></div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Sistemi kurduk (teknoloji) ama usta ve satıcıların görevleri tanımlanmadı (görev), kim kime onay verecek belli değil (yapı), çalışanlar sisteme güvenmiyor (insan). Elmanın sadece bir köşesi güçlü olunca sistem çöker.</p></div></div>
+
+    <h3>KKP Projesi Sıradan Yazılım Projesinden Nasıl Ayrılır?</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><p><strong>Yatay/çapraz fonksiyonel bağımlılık:</strong> Bir modüldeki veri hatası tedarik → üretim → finans zincirini kilitleyebilir.</p></div>
+      <div class="step-item"><span class="step-num">02</span><p><strong>Alışkanlıklar ve standart süreçler:</strong> Şirketin eski usulleri ile KKP'nin hazır en iyi uygulamaları çatışır.</p></div>
+      <div class="step-item"><span class="step-num">03</span><p><strong>Kritik görev niteliği:</strong> Aksama faturalamayı, hammadde kabulünü ve sevkiyatı durdurabilir.</p></div>
+    </div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir şubede yanlış girilen kumaş kodu fabrikada yanlış kesime, muhasebede yanlış maliyete dönüşür. Sosyal medya uygulaması hata verse kullanıcı sinirlenir ama fabrikanın KKP'si durursa kamyon yüklenmez, fatura kesilmez.</p></div></div>
+
+    <h3>KKP Maliyet ve Efor Dağılımında “Buzdağı” Fenomeni</h3>
+    <div class="table-wrap"><table><thead><tr><th>Görünen Maliyetler (%20)</th><th>Su Altındaki Stratejik Efor (%80)</th></tr></thead><tbody><tr><td>Yazılım lisansı, sunucu/donanım, temel kullanıcı eğitimi</td><td>İş süreçlerini yeniden tasarlama (BPR), direnç yönetimi ve ikna, eski (legacy) verinin temizliği ve taşınması, süreç danışmanlığı, entegrasyon testleri, kültür değişimi</td></tr></tbody></table></div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Araba alırken etiket fiyatı buzdağının ucudur. Lezzet Mobilya lisansa 1 milyon verdi; eski verileri temizleme, süreçleri yeniden tasarlama ve ikna toplantıları toplamı 4 milyona çıkardı.</p></div></div>
+
+    <h3>CHAOS Raporu: Projeler Ne Kadar Başarısız?</h3>
+    <ul>
+      <li>Standish Group CHAOS istatistikleri iki başarısızlık türü gösterir.</li>
+      <li><strong>Kısmi / Niteliksel Başarısızlık:</strong> Proje tamamen çöp olmaz, çalışır ama beklenen sonucu vermez. Sistem teknik olarak çalışır ama hedeflenen fayda, yatırım getirisi (ROI) ve süreç hızı gelmez; bütçe aşımı veya kapsamın daraltılması yaşanır.</li>
+      <li><strong>Tam Başarısızlık:</strong> Sistem canlıya alınamadan proje iptal olur, yatırım tamamen batar.</li>
+    </ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Düğün için salon, menü, davetiye parası ödenip düğün iptal olursa tam başarısızlık. Düğün olur ama bütçe aşılır, misafir yarım kalırsa kısmi başarısızlıktır.</p></div></div>
+
+    <h3>Kapsam Kayması (Scope Creep) Sendromu ve Patolojik Büyüme</h3>
+    <ul>
+      <li>Bir projenin başta belirlenen sınırlarının kontrolsüz şekilde büyümesi demektir.</li>
+      <li><strong>Çarpan Etkisi:</strong> Plansız her %10 genişleme; test, entegrasyon riski ve bütçede geometrik artış yaratır.</li>
+    </ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Yeni eklenen özellik eski özellikleri de etkiler. Uygulamaya yeni bir mobil ekran eklendi diyelim; veri tabanı değişebilir, güvenlik kontrolleri gerekir, eski sistemle bağlantı test edilir. Bu yüzden maliyet ve süre katlanarak artar.</p></div></div>
+    <div class="success-box"><p><strong>Tedbir:</strong> Katı bir Değişim Talep Yönetimi (Change Request) ve onay kurulu.</p></div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Analizde “sadece sipariş ve stok” denmişti. Sonra satış “mobil ekran”, muhasebe “yeni raporlar”, fabrika “bakım modülü” ekletti. Proje 8 ay yerine 18 ay sürdü. Yani proje başladıktan sonra insanlar “Şunu da eklesek güzel olur.”, “Buna şu özellik de lazım.”, “Madem yapıyoruz bunu da yapalım.” demeye başlarsa proje büyür. İşte buna kapsam kayması denir.</p></div></div>
+  </section>
+
+  <section class="unit" id="proje-yonetimi">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">11</span><div class="unit-line"></div></div><div><h2 class="unit-title">Proje Yönetimi ve Teknik Risk</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>Proje Yönetiminin Demir Üçgeni ve Kalite Dengesi</h3>
+    <ul><li>Ne kadar iş yapacağız (<strong>Kapsam</strong>)</li><li>Ne kadar sürede yapacağız (<strong>Zaman</strong>)</li><li>Ne kadar para harcayacağız (<strong>Maliyet</strong>)</li></ul>
+    <p>Bu üçü birbirine bağlıdır, birine dokunursan diğerleri kıpırdar. Üçgenin tam ortasında ise <strong>kalite</strong> durur ve en çok o zarar görür.</p>
+    <svg viewBox="0 0 700 470" role="img" aria-labelledby="triangleTitle triangleDesc" style="width:100%;max-width:700px;display:block;margin:18px auto;border-radius:8px;background:#141f3a">
+      <title id="triangleTitle">Proje yönetiminin demir üçgeni</title><desc id="triangleDesc">Kapsam, zaman ve maliyet üçgenin köşelerini; kalite ortasını oluşturur.</desc>
+      <polygon points="350,75 105,390 595,390" fill="#10364a" stroke="#58c0dc" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="350" cy="278" r="58" fill="#141f3a" stroke="#58c0dc" stroke-width="3"/>
+      <text x="350" y="43" fill="#edf2fa" text-anchor="middle" font-size="25" font-family="DM Sans,sans-serif">KAPSAM</text>
+      <text x="67" y="428" fill="#edf2fa" text-anchor="start" font-size="23" font-family="DM Sans,sans-serif">ZAMAN</text>
+      <text x="633" y="428" fill="#edf2fa" text-anchor="end" font-size="23" font-family="DM Sans,sans-serif">MALİYET</text>
+      <text x="350" y="286" fill="#edf2fa" text-anchor="middle" font-size="22" font-family="DM Sans,sans-serif">KALİTE</text>
+      <text x="350" y="185" fill="#aebbd1" text-anchor="middle" font-size="17" font-family="DM Sans,sans-serif">ne yapılacak</text>
+      <text x="205" y="350" fill="#aebbd1" text-anchor="middle" font-size="16" font-family="DM Sans,sans-serif">ne zamana kadar</text>
+      <text x="495" y="350" fill="#aebbd1" text-anchor="middle" font-size="16" font-family="DM Sans,sans-serif">ne kadar harcanacak</text>
+    </svg>
+    <h4>Üçlü Kısıt (Triple Constraint)</h4>
+    <ul>
+      <li><strong>Kapsam</strong> projede neyin yapılacağının sınırıdır. KKP'de “satış, stok ve muhasebe modülleri kurulacak” demek bir kapsam tanımıdır.</li>
+      <li>“Kısıt” diye adlandırılır, çünkü her biri diğerini sınırlar.</li>
+      <li><strong>Prensip:</strong> Hızlı, ucuz, kusursuz üçünden aynı anda ikisi seçilebilir; KKP'de ödün verilemeyecek tek şey kalitedir.</li>
+    </ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Mutfak yenileme işi 20 gün sürecek ve 100 bin TL tutacak. “15 günde bitsin” dersen üç yol kalır. İşçi sayısını artırırsın, maliyet yükselir. Bazı işleri çıkarırsın, kapsam küçülür. Ya da acele edilir, kalite düşer. Bedava bir dördüncü yol yoktur.</p></div></div>
+
+    <h3>Stratejik İkilem: Kapsam Sabit, Süre Kısalıyor</h3>
+    <ul><li>KKP'de en tehlikeli durum şudur: yapılacak iş aynı kalıyor ama süre kısalıyor. Bu yüzden zamandan kısmak için ilk olarak test süreçleri atlanıyor zira test “ürün üretmeyen” bir iş gibi görünür.</li><li>Testler atlanırsa hatalar canlıya sızar. Eski sistemden hatalı veri aktarılırsa yanlış rakamlarla çalışmaya başlarsın.</li></ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>40 şubeli bir market zincirinin stok sistemi 3 ayda kurulacaktı. Yönetim bayram öncesi açılış istedi, süre 2 aya indi. Şube testleri yapılmadı. Açılışta bazı şubelerde raf fiyatı ile kasa fiyatı farklı çıktı, müşteri kuyruğu uzadı, şubeler elle düzeltme yapmak zorunda kaldı. Kazanılan bir ay, sonraki aylarda kaybedildi.</p></div></div>
+
+    <h3>Teknik Risk</h3>
+    <h4>Aşırı Özelleştirme (Customization) Tuzağı ve Teknik Borç</h4>
+    <p>KKP yazılımı hazır bir pakettir. Özelleştirme ise bu paketin kodunu şirkete uysun diye değiştirmektir. Biraz değişiklik normaldir, ama fazlası projeyi yıllarca taşınacak bir yüke çevirir.</p>
+    <h4>“Bizim Sektörümüz Çok Farklı” Yanılgısı</h4>
+    <p>“Bizim işimiz başka, standart ekran bize uymaz.” Sorun sektörün farklı olması değil, şirketin uzun süreli alışkanlıklarıdır.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir tekstil firmasında siparişin sevk edilmesi için eskiden beri üç ayrı yöneticinin kâğıda imza atması gerekiyor. Firma bu zinciri yazılıma aynen yaptırmak için özel kod yazdırıyor. Oysa bu imzalardan ikisi hiçbir kontrol işlevi görmüyordu, sadece âdet olmuştu.</p></div></div>
+    <h4>Teknik Borç (Technical Debt)</h4>
+    <p>Hızlı çözüm bulmak için yazılan her özel kod, ileride ödenecek borçlardır aslında:</p>
+    <ul>
+      <li><strong>Versiyon yükseltme kilitlenir:</strong> Yazılım üreticisi yeni sürüm çıkardığında, standart yazılımda her şey kendiliğinden güncellenir. Özel kodlu yerler bozulabilir.</li>
+      <li><strong>Bakım maliyeti katlanır:</strong> Özel kodu sadece onu yazan bilir. O kişi ayrılınca sorun çıkar.</li>
+      <li><strong>Kararlılık bozulur:</strong> Özel kod, çok kişi tarafından denenmemiştir, hata çıkma ihtimali yüksektir.</li>
+    </ul>
+    <div class="highlight-box"><p><strong>Kural: Süreci Yazılıma Uydur.</strong> BPR (Business Process Reengineering) iş süreçlerini baştan düşünüp yeniden tasarlamaktır. Şirketin süreçlerini KKP'nin mantığına uydurmak daha ucuz ve uzun ömürlüdür. Çünkü KKP'nin içindeki akışlar şirketlerin tecrübelerinden çıkmıştır.</p></div>
+  </section>
+
+  <section class="unit" id="iletisim-veri">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">12</span><div class="unit-line"></div></div><div><h2 class="unit-title">İletişim ve Veri Riski</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>İletişim Riski: Danışmanlık ve Paydaş İletişimi Eksenindeki Uyuşmazlıklar</h3>
+    <p>KKP projelerinde iki taraf vardır: yazılımı kuran danışman firma ve yazılımı kullanacak şirket. Aynı dili konuştuklarını sanırlar ama konuşmazlar. Sorun yazılım değil, anlaşmadır.</p>
+    <h4>Semantik Boşluk</h4>
+    <p>Aynı kelimeye iki tarafın farklı anlam yüklemesi ve vizyonlarının ayrışmasıdır.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Sipariş kelimesi satış ekibi için müşterinin verdiği talep, depo için sevk edilecek mal listesi, muhasebe için faturaya dönüşecek kayıttır. Toplantıda herkes sipariş der ve aynı şeyden bahsettiğini sanır.</p></div></div>
+    <h4>Çift Yönlü Yetersizlik</h4>
+    <ul><li>Danışman KKP bilir ama şirketin sektörünü derinden bilmez.</li><li>Çalışan kendi işini bilir ama KKP mantığını bilmez.</li></ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Danışman “parti/lot takibi açalım” der. Gıda firmasındaki depocu bunun ne olduğunu bilmez, ama “son kullanma tarihi” derseniz hemen anlar. Aynı iş, farklı kelime. Karşılıklı çeviri yapılmazsa yanlış kurulum çıkar.</p></div></div>
+    <h4>Kaynak İsrafı</h4>
+    <p>Gereksinim yanlış anlaşılırsa sonuç pahalıdır. Aynı konu için tekrar tekrar analiz toplantısı yapılır. Yazılımcılar haftalarca bir özellik geliştirir, sonra kullanıcı “ben bunu istememiştim” der ve geliştirme çöpe gider, buna atıl kalan yazılım geliştirmeleri denir.</p>
+    <p>Ortak bir terim sözlüğü hazırlanmalı ve gereksinimleri yazıya dökerek iki tarafa onaylatman gerekir.</p>
+    <div class="highlight-box"><p><strong>Kısaca:</strong> Danışman şirketi bilmez, şirket KKP'yi bilmez. Ortak sözlük ve yazılı gereksinim bu boşluğu kapatır.</p></div>
+
+    <h3>Veri Riski: Veri Kalitesi Problemi ve Eski (Legacy) Sistem Mirası</h3>
+    <h4>GIGO (Çöp Girerse Çöp Çıkar)</h4>
+    <p>Sisteme yanlış veri girersen, ne kadar iyi yazılım olursa olsun yanlış sonuç alırsın.</p>
+    <h4>Veri Temizliği (Data Cleansing) Zorluğu</h4>
+    <p>Temizlik; aynı şeyin tekrarlarını birleştirmek, eksikleri tamamlamak, yanlışları düzeltmektir.</p>
+    <p><strong>Ürün ağacı (BOM),</strong> bir ürünün hangi parçalardan oluştuğunu gösterir. Örneğin bir sandalye için 4 ayak, 1 oturak, 1 sırt ve 12 vida. Ağaç yanlışsa sistem yanlış hammadde ister ve üretim planı bozulur.</p>
+    <div class="warn-box"><p>En büyük hata takvimde hafife alınmasıdır. “Bir haftada hallederiz” diye planlanır, aylar sürer. Çünkü her kaydı kimin düzelteceğine, hangisinin doğru olduğuna karar vermek zaman ister.</p></div>
+    <h4>Veri Göçü (Data Migration) Riski</h4>
+    <p>Göç, eski sistemdeki verinin yeni sisteme taşınmasıdır. İki tür veri taşınır: <strong>açılış bakiyeleri</strong> ve <strong>hareket verileri.</strong> Açılış bakiyesi, yeni sistemin ilk gün başladığı rakamlardır: depodan ne kadar stok var, müşteriler bize ne kadar borçlu, kasada ne kadar para var.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir malzemenin açılış stoğu 1.000 yerine yanlışlıkla 100 olarak aktarılırsa sistem “stokta yok” der. Depoda mal dolu olduğu hâlde üretim planı durur, satış siparişi alınamaz. Bu, operasyonu durdurabilir.</p></div></div>
+    <div class="highlight-box"><p><strong>Kısaca:</strong> Kirli veri taşınırsa yeni sistem de kirli olur. Temizliğe takvimde yeterli yer ayrılmalı ve açılış bakiyeleri çift kontrol edilmeli.</p></div>
+  </section>
+
+  <section class="unit" id="planlama-zaman">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">13</span><div class="unit-line"></div></div><div><h2 class="unit-title">Planlama, Zaman ve Maliyet</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>Planlama Riski: İyimserlik Yanılgısı (Optimism Bias) ve Kaynak Tahsisi Krizleri</h3>
+    <p>İnsanlar işlerin yolunda gideceğini varsayma eğilimindedir. KKP projelerinde bu eğilim üç yerde karşımıza çıkar: satış sürecinde verilen sözlerde, şirketin kendi ekibini ayırma biçiminde ve kişilerin üstlendiği rollerde.</p>
+    <h4>Satış Süreci İyimserliği</h4>
+    <p>İhaleyi kazanmak isteyen danışman ve yazılım firmaları, rakiplerinden iyi görünmek için olabileceğinden kısa takvim ve düşük bütçe söyler. Bunlar idealize edilmiş vaatlerdir, yani her şeyin kusursuz gideceğini varsayan vaatler.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Tadilat ustasına “ne kadar sürer?” diye sorduğunda en kısa süreyi söyleyen ustayı seçmek cazip gelir. Ama iş bitiminde süre iki katına çıkmış olabilir. İhalede de durum aynı: en kısa takvimi veren, çoğu zaman en gerçekçi olan değildir.</p></div></div>
+    <h4>İç Kaynak Yetmezliği</h4>
+    <p>Şirkette KKP'yi en iyi bilenler aslında günlük işleri yürütenlerdir. Proje için onların zamanları olmalı ve kafalarını vermeleri gerekir. İş yükü devam ederse eğer zaman kazanılamaz.</p>
+    <h4>Rol Çatışması</h4>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Üretim planlama şefi sabah vardiyadaki makine arızalarıyla uğraşıyor. Öğleden sonra KKP toplantısına yorgun giriyor, kararları acele veriyor. Akşam üstü yine fabrikaya dönüyor. Üç ay sonra hem tasarım hatalı hem de fabrikada aksamalar var.</p></div></div>
+    <div class="highlight-box"><p><strong>Kısaca:</strong> Satıcı iyimser söyler, şirket iyimser planlar. Gerçekçi takvim ve ayrılmış zaman, proje başarısının yarısıdır.</p></div>
+
+    <h3>Zaman ve Maliyet: KKP Proje Yaşam Eğrisi ve Kümülatif Maliyet Dinamiği</h3>
+    <p>Projeler aşamalıdır ve ilerledikçe geri dönmek zorlaşır. Bu konunun ana fikri şu: bir hatayı ne kadar geç yakalarsan o kadar pahalıya mal olur.</p>
+    <h4>Fazlar Boyunca Efor Akışı</h4>
+    <p>Beş aşama var. Bir bina yapıyormuşsun gibi düşün.</p>
+    <div class="table-wrap"><table><thead><tr><th>Aşama</th><th>KKP'de Ne Olur?</th></tr></thead><tbody>
+      <tr><td><strong>Kapsam Belirleme</strong></td><td>Projenin hedefleri ve gereksinimler yazılır.</td></tr>
+      <tr><td><strong>Kavramsal Tasarım</strong></td><td>Mimari ve çözüm yaklaşımı çizilir.</td></tr>
+      <tr><td><strong>Geliştirme / Konfigürasyon</strong></td><td>Sistem ayarlanır, gerekirse özelleştirilir.</td></tr>
+      <tr><td><strong>Test</strong></td><td>Entegrasyon ve kullanıcı kabul testleri yapılır.</td></tr>
+      <tr><td><strong>Canlıya Geçiş</strong></td><td>Sistem gerçek işte kullanılmaya başlar.</td></tr>
+    </tbody></table></div>
+    <h4>Geri Dönüşü Olmayan Nokta (Point of No Return)</h4>
+    <p>Eski sistemlerin kapatıldığı, veritabanlarının dondurulduğu ve yeni sisteme geçişin başladığı eşiktir. Bu noktadan sonra “bu iş olmadı, eskiye dönelim” demek ya imkânsız ya da çok pahalıdır. Köprüden geçtikten sonra köprüyü yıkmışsın gibi düşün.</p>
+    <h4>Maliyet Eğrisi</h4>
+    <p>Bir tasarım değişikliğinin maliyeti projenin başında küçüktür, hızla artar.</p>
+    <svg viewBox="0 0 760 340" role="img" aria-labelledby="costTitle costDesc" style="width:100%;display:block;margin:14px 0 20px;border-radius:8px;background:#141f3a">
+      <title id="costTitle">Proje aşamalarına göre değişiklik maliyeti</title><desc id="costDesc">Kapsamdan canlıya geçişe ilerledikçe değişiklik maliyeti yükselir; test sonrasında geri dönüşü olmayan nokta gösterilir.</desc>
+      <path d="M65 285H720M65 285V32" stroke="#8998b2" stroke-width="2" fill="none"/>
+      <path d="M105 270 C205 268 280 255 360 229 S485 170 550 110 S630 48 680 35" fill="none" stroke="#58c0dc" stroke-width="5"/>
+      <path d="M585 45V285" stroke="#e88786" stroke-width="2" stroke-dasharray="8 8"/>
+      <g fill="#58c0dc"><circle cx="105" cy="270" r="7"/><circle cx="250" cy="260" r="7"/><circle cx="370" cy="226" r="7"/><circle cx="510" cy="151" r="7"/><circle cx="680" cy="35" r="7"/></g>
+      <text x="72" y="28" fill="#aebbd1" font-size="15" font-family="DM Sans,sans-serif">Değişikliğin göreli maliyeti</text>
+      <text x="585" y="67" fill="#e88786" text-anchor="end" font-size="15" font-family="DM Sans,sans-serif">Geri dönüşü olmayan nokta</text>
+      <g fill="#aebbd1" font-size="14" text-anchor="middle" font-family="DM Sans,sans-serif"><text x="105" y="315">Kapsam</text><text x="250" y="315">Tasarım</text><text x="390" y="315">Geliştirme</text><text x="520" y="315">Test</text><text x="670" y="315">Canlıya geçiş</text></g>
+    </svg>
+  </section>
+
+  <section class="unit" id="basari-insan">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">14</span><div class="unit-line"></div></div><div><h2 class="unit-title">Başarı Faktörleri, İnsan ve Değişim</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>Kuramsal Çerçeve: Kritik Başarı Faktörleri (CSF) Literatür Modelleri</h3>
+    <p><strong>KBF,</strong> projenin başarısı için mutlaka doğru yapılması gereken işlerdir. Bir pastanın tutması için fırın ısısı, malzeme oranı ve süre gibi. Bunlardan biri yanlışsa diğerleri ne kadar iyi olursa olsun pasta tutmaz.</p>
+    <h4>Çok Boyutlu Başarı</h4>
+    <div class="table-wrap"><table><thead><tr><th>Boyut</th><th>Sorduğu Soru</th><th>Örnek Faktör</th></tr></thead><tbody>
+      <tr><td><strong>Stratejik</strong></td><td>Neden yapıyoruz? Hedef ne?</td><td>Net iş hedefi, üst yönetim vizyonu</td></tr>
+      <tr><td><strong>Taktiksel</strong></td><td>Nasıl yöneteceğiz?</td><td>Proje planı, test, veri hazırlığı</td></tr>
+      <tr><td><strong>Örgütsel</strong></td><td>Şirket yapısı buna uygun mu?</td><td>Yetki dağılımı, ekip kurulumu</td></tr>
+      <tr><td><strong>Davranışsal</strong></td><td>İnsanlar buna nasıl tepki verecek?</td><td>Direnç yönetimi, eğitim, sahiplenme</td></tr>
+    </tbody></table></div>
+
+    <h3>KBF 1: Üst Yönetim Desteği ve Stratejik Liderlik</h3>
+    <p>Üst yönetim yani genel müdür, projeye evet demekle kalmamalı, projenin her zaman arkasında durmalıdır.</p>
+    <ol>
+      <li><strong>Hakemlik ve Otorite:</strong> KKP tek bir sistem olduğu için departmanların ortak kurallara uyması gerekir. Departmanların istekleri çoğu zaman çelişir. O anda bir hakem gerekir ve bu hakem üst yönetimdir.</li>
+      <li><strong>Sürekli İletişim:</strong> Yönetim projeyi şirketin geleceği gibi sunmalıdır. Mesajı tek seferlik bir açılış konuşması değil, sürekli ve tüm kademelere ulaşan bir iletişim olmalıdır.</li>
+      <li><strong>Sabotaj Riski:</strong> Üst yönetim isteksiz olmaya başlarsa birimler bunu fark eder. Sistemi devre dışı bırakırlar ve eski yöntemle çalışmaya devam ederler. Kayıtlar sisteme geç girilir. Buna gayriresmî yollarla devre dışı bırakma denir.</li>
+    </ol>
+    <div class="highlight-box"><p><strong>Kısaca:</strong> Üst yönetim hakemdir, sözcüdür ve kararlılığını göstermelidir. Geri çekilirse proje sessizce sabote edilir.</p></div>
+
+    <h3>KBF 2: Doğru Proje Ekibi ve Anahtar Kullanıcı Mimarisi</h3>
+    <p><strong>Key User,</strong> kendi bölümünü projede temsil edendir. Muhasebenin key user'ı muhasebeyi en iyi bilendir.</p>
+    <h4>Yönetsel İkilem</h4>
+    <p>İşi en iyi bilen, vazgeçilmez kişiyi projeye vermek mi, iş yükü az olan kişiye vermek mi? İkincisi kolay görünür, operasyon aksamaz ama süreci iyi bilmez, tasarım eksik kalır.</p>
+    <div class="highlight-box"><p><strong>Doğru Yanıt:</strong> “Feda edilemeyecek kadar kritik” uzmanlar verilmelidir.</p></div>
+    <h4>Yetkilendirme</h4>
+    <p>Key user'ın süreç tasarımı yapabilmesi için karar alma yetkisi olmalıdır. Her küçük konuda “müdüre sorayım” derse proje yavaşlar.</p>
+
+    <h3>KBF 3: Ölçülebilir Hedefler ve Performans Göstergeleri (KPI)</h3>
+    <p><strong>KPI (Key Performance Indicator),</strong> yani anahtar performans göstergesidir: başarıyı rakamla ölçen göstergeler.</p>
+    <h4>Somut Problem Çözümü</h4>
+    <p>Daha modern bir sistem kurmak soyut bir hedeftir. Stok devir hızını 4'ten 7'ye çıkarmak, sipariş hazırlama süresini 48 saatten 12 saate indirmek stratejik, ölçülebilir hedeftir.</p>
+    <h4>Temel Başarı Göstergeleri</h4>
+    <ul><li><strong>Veri doğruluğu:</strong> Kayıtların yüzde kaçı doğru?</li><li><strong>Faturalama hızı:</strong> Mal sevk edildikten ne kadar süre sonra fatura kesiliyor?</li><li><strong>Eksik sevk oranı:</strong> Müşteriye giden siparişlerin yüzde kaçında eksik ürün var.</li></ul>
+
+    <h3>İnsan ve Değişim: İnsan Faktörü ve Örgütsel Değişime Karşı Psikolojik Direnç</h3>
+    <p>Direncin arkasında korku vardır: güç kaybı, izlenme ve konfor kaybı. Korkuyu anlamadan direnci çözemezsin.</p>
+    <ol>
+      <li><strong>Güç ve Kontrol Kaybı Korkusu:</strong> Bazı insanların gücü, bildikleri bilgidir. Bilgiyi kendinde tutmak onu vazgeçilmez yapar. KKP bilgiyi herkese açık, şeffaf hâle getirir ve bu güç kaybolur.</li>
+    </ol>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Depocu Umut hangi rafta ne olduğunu sadece kendisi biliyor, herkes ona soruyor. Sistem kurulunca herkes stok bilgisini ekranda görüyor. Umut artık kendini eskisi kadar önemli hissetmiyor.</p></div></div>
+    <ol start="2"><li><strong>Gözetlenme Endişesi:</strong> Sistem her işlemi kaydeder. Log, kimin ne zaman ne yaptığının tutulduğu kayıt defteridir. Zaman damgası ise bu kaydın üstündeki tarih ve saattir. Çalışan “beni izliyorlar” diye düşünür ve savunmaya geçer. Bu bir kontrol değil, bir hata takibi aracı olduğu anlatılmazsa tepki doğar.</li><li><strong>Konfor Alanına Sığınma:</strong> İnsan bildiği işi yapmak ister. “Biz yıllardır Excel ile bu şirketi yönetiyoruz, bu karmaşık sistem işimizi yavaşlatıyor” cümlesi kültürel bir bariyerdir.</li></ol>
+
+    <h3>Kurt Lewin'in 3 Aşamalı Değişim Modeli</h3>
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><p><strong>Çözme:</strong> Mevcut durumun artık sürdürülemez olduğunu göstermek gerekir. Çalışanlar neden değişilmesi gerektiğini anlamazsa direnç artar.</p></div>
+    </div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Yönetim çalışanlara şunu gösteriyor: “Excel'de geçen ay üç sipariş kayboldu, 200 bin TL zarar ettik.” Çalışan “evet, bu böyle gitmez” diyor. Buz çözülmüş oldu.</p></div></div>
+    <div class="step-list"><div class="step-item"><span class="step-num">02</span><p><strong>Değiştirme:</strong> Yeni süreçler, ekranlar, roller ve değerleri sisteme yerleştir.</p></div><div class="step-item"><span class="step-num">03</span><p><strong>Dondurma:</strong> Değişim kalıcı hâle getirilmezse insanlar bir süre sonra eski alışkanlıklarına döner. Kalıcılık için yeni davranış ödüllendirilmeli ve performans değerlendirmesine girmelidir.</p></div></div>
+
+    <h3>Çözüm Yolları: Örgütsel Direnç Yönetimi Stratejileri</h3>
+    <p>Direnç korkudan geldiğine göre, çözüm korkuyu azaltmaktır. Anlat, katıl, ödüllendir.</p>
+    <h4>Stratejik İletişim</h4>
+    <p>Çalışana sistemin onu işinden etmek için değil, sıkıcı rutin işlerinden kurtarmak için kurulduğu anlatılmalı.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Muhasebeci günde 200 faturayı elle giriyor. Sistem bunu otomatik yapınca muhasebeci raporları yorumlamaya, hataları analiz etmeye zaman bulur. Bu anlatılırsa “işimi elimden alıyorlar” endişesi azalır.</p></div></div>
+    <h4>Katılımcı Tasarım</h4>
+    <p>Ekranlar ve süreçler tasarlanırken kullanıcıların fikri alınırsa kişi sistemi “benim sistemim” diye sahiplenir. Sahiplenme duygusu direnci en etkili azaltan şeylerden biridir.</p>
+    <h4>Pozitif Teşvik</h4>
+    <p>Proje canlıya geçtikten sonra başarıları ödüllendirmek davranışı pekiştirir.</p>
+    <h3>Eğitim</h3>
+    <h4>Eğitim Metodolojisi: Ekran Ezberinden Süreç Yetkinliğine</h4>
+    <p>Kullanıcıya hangi butona basacağını öğretmek yetmez. Sistemin ne yaptığını anlaması gerekir. Eğitimin zamanlaması ve türü projenin kaderini etkiler.</p>
+  </section>
+
+  <section class="unit" id="vakalar-risk">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">15</span><div class="unit-line"></div></div><div><h2 class="unit-title">Başarısızlık Vakaları, Risk ve Değerlendirme</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <h3>Tarihe Geçen Vaka 1: FoxMeyer Drug Felaketi</h3>
+    <p>FoxMeyer, ABD'de eczanelere ve hastanelere ilaç dağıtan dev bir toptancıydı. Büyümek için yeni bir sistem kurdu, ama bu sistem şirketi iflasa götürdü.</p>
+    <div class="highlight-box"><p>Büyümek için kurulan sistem, doğru yönetilmediği için şirketi bitirdi.</p></div>
+    <h4>Neden İflas Etti?</h4>
+    <ul><li><strong>Ölçeklenebilirlik / Kapasite Uyuşmazlığı:</strong> Yazılımın o dönemdeki kapasitesi gecede birkaç bin sipariş işlemeye yetiyordu. Şirketin günlük ilaç hareketi ise yüz binlerce satırdı.</li><li><strong>Sahadaki Çalışan Sabotajı:</strong> Yeni sistemle, depoların kapanacağını ve işten çıkarılacağını anladılar. Sisteme kasıtlı olarak hatalı veri girdiler.</li><li><strong>Aşırı İyimser Canlıya Geçiş:</strong> Stres testi (sistemi en yoğun gün test etmek) yeterince yapılmadan erken geçiş kararı alındı.</li></ul>
+
+    <h3>Tarihe Geçen Vaka 2: Hershey's Cadılar Bayramı Krizi</h3>
+    <p>Şirket çok hızlı bir sistem geçişi yaptı ve en değerli satış döneminde ürün gönderemez hâle geldi.</p>
+    <h4>Hershey's Felaketinin Mekanizması: Big Bang Tuzağı</h4>
+    <p>Yoğun sezonda ve tek hamlede (Big Bang) geçiş yapma. Mal dolu depo, çalışmayan sistemle işe yaramaz.</p>
+
+    <h3>Tarihe Geçen Vaka 3: Nike ve Algoritmik Talep Tahmin Hatası</h3>
+    <p>Sistem çalışıyor ama yanlış kararlar öneriyor ve insanlar da önerileri sorgulamadan uyguluyor.</p>
+
+    <h3>Tarihi Vakaların Bilişim Dünyasına Öğrettiği 5 Temel İlke</h3>
+    <div class="table-wrap"><table><thead><tr><th>İlke</th><th>Anlamı</th><th>Hangi Vaka?</th></tr></thead><tbody>
+      <tr><td><strong>1. Asla testlerden ödün vermeyin</strong></td><td>Takvim yetişmiyor diye entegrasyon ve kullanıcı kabul testlerini atlama.</td><td>Hershey's, FoxMeyer</td></tr>
+      <tr><td><strong>2. Yoğun sezonda canlıya geçmeyin</strong></td><td>Şirketin en çok kazandığı dönemde sistem değiştirme.</td><td>Hershey's</td></tr>
+      <tr><td><strong>3. İnsan faktörünü merkeze alın</strong></td><td>Sahadaki kullanıcının onayını almazsan sistem sahada yaşamaz.</td><td>FoxMeyer</td></tr>
+      <tr><td><strong>4. Rollback planı hazırlayın</strong></td><td>Sistem çöktüğünde işi sürdürecek bir B planı olmadan canlıya geçme.</td><td>Hepsi</td></tr>
+      <tr><td><strong>5. Teknolojiyi araç görün</strong></td><td>KKP amaç değil, şirket stratejisini yürütmeye yarayan araçtır.</td><td>Nike</td></tr>
+    </tbody></table></div>
+    <h4>Rollback Nedir?</h4>
+    <p>Geri alma demektir: yeni sistem çökerse eski duruma dönebilmektir.</p>
+
+    <h3>Risk Yönetimi: KKP Projelerinde Risk Matrisi ve Isı Haritası</h3>
+    <p>Her riske aynı ölçüde zaman harcayamazsın. Risk matrisi hangi riskin önce ele alınacağını belirlemene yardım eder.</p>
+    <h4>Kırmızı Alan Riskleri</h4>
+    <ul><li>Kritik anahtar personelin proje ortasında istifası</li><li>Açılış veri tabanındaki kirlilik ve senkronizasyon kaybı</li><li>Danışman firmanın yetkinlik kaybı ve sözleşmeyi feshetmek</li></ul>
+
+    <h3>Başarıyı Ölçmek: KKP Başarısının Çok Katmanlı Değerlendirme Çerçevesi</h3>
+    <div class="table-wrap"><table><thead><tr><th>Katman</th><th>Sorduğu Soru</th></tr></thead><tbody>
+      <tr><td><strong>1. Proje düzeyi</strong></td><td>Bütçe, takvim ve kapsam içinde bitti mi?</td></tr>
+      <tr><td><strong>2. Sistem düzeyi</strong></td><td>Sistem kararlı, kesintisiz, hızlı ve veri bütünlüğünü koruyor mu?</td></tr>
+      <tr><td><strong>3. Örgütsel/stratejik düzey</strong></td><td>Şirket pazarda daha rekabetçi, daha ucuz ve daha verimli hâle geldi mi?</td></tr>
+    </tbody></table></div>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir proje 6 ay gecikti ve bütçeyi %30 aştı. Proje düzeyinde başarısız. Ama sonraki 3 yıl sistem kesintisiz çalıştı ve şirketin stok maliyeti %15 düştü. Sistem ve örgütsel düzeyde başarılı.</p></div></div>
+
+    <h3>Sınıf İçin Karar Simülasyonu: Proje Yöneticisinin İkilemi</h3>
+    <div class="theory-block"><div class="theory-header"><span class="badge b-accent">Senaryo</span></div><div class="card" style="margin:0;border-radius:0 0 8px 8px"><p>Sen bir üretim şirketinde KKP proje liderisin. Üst yönetim, pazar lansmanı gerekçesiyle canlıya geçişi 2 ay öne çekmeni ve entegrasyon testlerini atlamanı istiyor. Kurula nasıl bir rapor sunarsın?</p></div></div>
+    <ol>
+      <li><strong>Talebi reddetme, anla:</strong> Kurulun amacı pazar lansmanı, bir iş hedefi.</li>
+      <li><strong>Riski rakamla göster:</strong> Test atlanırsa neler olabilir?</li>
+      <li><strong>Demir Üçgeni göster:</strong> Süreyi kısaltmak için kapsam, maliyet veya kaliteden birini seçmek gerektiğini açıkla.</li>
+      <li><strong>Alternatif sun:</strong> Örneğin sadece lansman için kritik modülleri öne al, kalan kısımları aşamalı geçirme. Ya da en kritik testleri koru, daha az kritik olanları sonraya bırak. Kaynak ekleme önerisi de olabilir.</li>
+      <li><strong>Karar çerçevesi ve B planı ver:</strong> “Bu şartlarla geçersek bu riskleri üstleniyoruz ve rollback planımız şu” diyerek kararı kurula bırak, ama yazılı olarak.</li>
+    </ol>
   </section>
 </main>
 </div>

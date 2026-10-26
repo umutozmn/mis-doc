@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script>(function(){try{if(localStorage.getItem('mis-portal-theme')==='alt')document.documentElement.setAttribute('data-theme','alt')}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Arama Motoru Optimizasyonu dersi: SEO'ya giriş ve SEO terimleri.">
+<title>MIS Portal | Arama Motoru Optimizasyonu</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b1326;--surface:#121c33;--surface2:#172240;--border:#1e2c4a;--border2:#253660;
+  --text:#f0ede6;--sub:#7a8fb5;--muted:#3d527a;--accent:#c5a880;
+  --accent-dim:rgba(197,168,128,.15);--accent-border:rgba(197,168,128,.25);
+  --info-bg:rgba(59,130,246,.1);--info-text:#7ab4f5;--info-border:rgba(59,130,246,.2);
+  --success-bg:rgba(34,197,94,.08);--success-text:#6bcf8a;--success-border:rgba(34,197,94,.18);
+  --warn-bg:rgba(245,158,11,.08);--warn-text:#e8a83a;--warn-border:rgba(245,158,11,.2);
+  --danger-bg:rgba(239,68,68,.08);--danger-text:#f08080;--danger-border:rgba(239,68,68,.2);
+  --purple-bg:rgba(139,92,246,.08);--purple-text:#a78bfa;--purple-border:rgba(139,92,246,.2);
+  --sidebar-w:240px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.progress-bar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:2px;background:var(--border);z-index:200}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .1s}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sidebar-header{padding:28px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-back{display:flex;align-items:center;gap:8px;text-decoration:none;font:10px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--sub);text-transform:uppercase;margin-bottom:16px}
+.sidebar-back:hover{color:var(--accent)}
+.sidebar-course{font:9px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.sidebar-title{font:600 20px/1.2 'Crimson Pro',serif;color:var(--text)}
+.sidebar-nav{padding:16px 0 24px;flex:1}
+.nav-section-label{font:9px 'JetBrains Mono',monospace;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;padding:0 20px;margin:12px 0 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;text-decoration:none;font-size:12.5px;color:var(--sub);transition:all .2s;border:0;border-left:2px solid transparent;cursor:pointer;background:none;width:100%;text-align:left;line-height:1.4}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.nav-item-num{font:9px 'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:16px}
+.nav-item.active .nav-item-num{color:var(--accent);opacity:.7}
+.main{margin-left:var(--sidebar-w);flex:1;padding:64px 56px 120px;max-width:calc(920px + var(--sidebar-w));width:100%}
+.page-header{margin-bottom:58px;padding-bottom:30px;border-bottom:1px solid var(--border)}
+.page-kicker{font:10px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.page-title{font:300 46px/1.08 'Crimson Pro',serif;color:var(--text);letter-spacing:-.02em;margin:0}
+.page-sub{margin:10px 0 0;color:var(--sub);font-size:13px}
+.unit{margin-bottom:76px;padding:0;border:0;scroll-margin-top:36px;animation:fadeUp .5s ease both}
+.unit-heading{display:flex;align-items:flex-start;gap:20px;margin-bottom:30px}
+.unit-index{flex-shrink:0;width:auto;padding:6px 0 0;color:var(--accent);font:10px 'JetBrains Mono',monospace;letter-spacing:.15em}
+.unit-heading h2{font:400 32px/1.2 'Crimson Pro',serif;color:var(--text);letter-spacing:-.01em;margin:0}
+.unit-heading p{max-width:none;margin:7px 0 0;color:var(--sub);font-size:13px;line-height:1.7}
+.topic{margin:0}
+.topic-heading{display:flex;align-items:baseline;gap:12px;margin:34px 0 14px}
+.topic-heading .topic-no{font:9px 'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0}
+.topic-heading h3{font:500 20px/1.35 'Crimson Pro',serif;letter-spacing:.01em;color:var(--accent);margin:0}
+.topic-heading::after{display:none}
+.note-panel{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.note-panel p,.note-panel li{margin-bottom:8px;color:var(--sub);font-size:14px;line-height:1.72}
+.note-panel p:last-child,.note-panel li:last-child{margin-bottom:0}
+.note-panel strong{color:var(--text);font-weight:500}
+.note-panel ul{margin:8px 0 0;padding-left:18px}
+.note-panel ol{margin:0;padding-left:22px}
+.note-panel ol li{padding-left:4px;margin-bottom:12px}
+.note-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.note-columns .note-panel{height:100%}
+.note-label{display:inline-block;margin-bottom:8px;color:var(--accent);font:9px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.definition{border-left:2px solid var(--accent)}
+.short-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.short-list li{margin:0;padding:15px 17px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--sub);font-size:13.5px;line-height:1.7}
+.short-list li::before{content:"";display:block;width:18px;height:2px;margin-bottom:10px;background:var(--accent)}
+.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border:0;margin:0}
+.term{display:block;padding:16px 18px;border:1px solid var(--border);border-top:2px solid var(--border2);border-radius:8px;background:var(--surface)}
+.term:nth-child(even){background:var(--surface)}
+.term:first-child,.term:last-child{border-radius:8px}
+.term-name{margin-bottom:8px;color:var(--accent);font:600 17px/1.25 'Crimson Pro',serif}
+.term-name small{display:block;margin-top:4px;color:var(--muted);font:9px/1.55 'JetBrains Mono',monospace}
+.term-copy p,.term-copy li{margin:0;color:var(--sub);font-size:13px;line-height:1.72}
+.term-copy p+p{margin-top:7px}
+.term-copy ul{margin:7px 0 0;padding-left:18px}
+.term-copy li+li{margin-top:4px}
+.term-copy strong{color:var(--text)}
+.flow{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;align-items:stretch;gap:7px;margin:14px 0}
+.flow-step{padding:14px 12px;text-align:center;background:var(--surface);border:1px solid var(--border2);border-radius:7px}
+.flow-step b{display:block;color:var(--text);font:500 15px 'Crimson Pro',serif}
+.flow-step span{display:block;margin-top:6px;color:var(--sub);font-size:12px;line-height:1.55}
+.flow-arrow{text-align:center;align-self:center;color:var(--accent);font-size:18px}
+.serp-demo p{font-size:11px;line-height:1.55;color:var(--sub)}
+.serp-figure{margin:16px 0 28px;padding:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.serp-figure figcaption{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--muted);font:9px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+.serp-demo{max-width:640px;margin:0 auto;padding:18px 22px}
+.serp-query{padding:10px 13px;margin-bottom:15px;background:var(--surface);border:1px solid var(--border2);border-radius:20px;color:var(--text);font-size:12px}
+.serp-query span{color:var(--accent);margin-right:8px}
+.serp-results{position:relative;padding:2px 39px 7px 0}
+.serp-results::before{content:"1";position:absolute;right:2px;top:31%;width:26px;height:26px;display:grid;place-items:center;border:1px solid var(--warn-text);border-radius:50%;color:var(--warn-text);font:12px 'JetBrains Mono',monospace}
+.serp-result{padding:10px 0;border-bottom:1px solid var(--border)}
+.serp-result:last-child{border-bottom:0}
+.serp-result small{display:block;margin-bottom:4px;color:var(--success-text);font-size:10px}
+.serp-result strong{display:block;margin-bottom:3px;color:var(--info-text);font-size:14px;font-weight:500}
+.serp-result p{margin:0;color:var(--sub);font-size:11px;line-height:1.55}
+.serp-organic{position:relative;margin-top:10px;padding:11px 39px 8px 0;border-top:1px solid var(--border)}
+.serp-organic::after{content:"2";position:absolute;right:2px;top:20px;width:26px;height:26px;display:grid;place-items:center;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font:12px 'JetBrains Mono',monospace}
+.serp-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--sub);font-size:11px}
+.serp-legend span{display:flex;align-items:center;gap:7px}
+.serp-legend b{width:20px;height:20px;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%;font:10px 'JetBrains Mono',monospace}
+.footer{padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:15px;color:var(--muted);font:10px 'JetBrains Mono',monospace}
+.footer a{color:var(--sub);text-decoration:none}.footer a:hover{color:var(--accent)}
+.mobile-toggle{display:none;position:fixed;top:16px;left:16px;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:8px;align-items:center;justify-content:center;cursor:pointer;z-index:200;color:var(--text)}
+@media(max-width:1000px){.main{padding-right:32px;padding-left:32px}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:72px 20px 80px}
+  .mobile-toggle{display:flex}
+  .progress-bar{left:0}
+  .page-title{font-size:36px}
+  .note-columns,.short-list,.term-list{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .main{padding:72px 18px 72px}
+  .unit-heading{gap:14px}
+  .unit-heading h2{font-size:28px}
+  .flow{grid-template-columns:1fr;gap:5px}
+  .flow-arrow{transform:rotate(90deg)}
+  .serp-demo{padding:14px}
+  .footer{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Menü">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-back">← <span>MIS Portal</span></a>
+    <div class="sidebar-course">Arama Motoru Optimizasyonu</div>
+    <div class="sidebar-title">Ders Notları</div>
+  </div>
+  <nav class="sidebar-nav" aria-label="Ders içeriği">
+    <div class="nav-section-label">İçindekiler</div>
+    <button class="nav-item active" onclick="goToSection('seo-giris')"><span class="nav-item-num">01</span>SEO'ya Giriş</button>
+    <button class="nav-item" onclick="goToSection('seo-terimleri')"><span class="nav-item-num">02</span>SEO Terimleri</button>
+  </nav>
+</aside>
+<main class="main">
+  <header class="page-header">
+    <div class="page-kicker">SEO · 1 ve 2. Ünite</div>
+    <h1 class="page-title">Arama Motoru Optimizasyonu</h1>
+  </header>
+    <section class="unit" id="seo-giris">
+      <div class="unit-header">
+        <div class="unit-num-block"><span class="unit-num">01</span><div class="unit-line"></div></div>
+        <div><h2 class="unit-title">SEO'ya Giriş</h2><p class="page-sub">Arama Motoru Optimizsyonu Giriş ve Temel Kavramlar</p></div>
+      </div>
+      <div class="unit-divider"></div>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.1</span><h3>SEO (Search Engine Optimization) Tanımı</h3></div>
+        <div class="note-panel definition">
+          <p>Online pazarlama tekniğinin kısaltmasıdır.</p>
+          <p>Şirketler için interneti etkili bir tanıtım olarak kullanmak adına önem taşır.</p>
+          <p>Dijital pazarlama stratejisi ve online pazarlama araçlarından biridir.</p>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.2</span><h3>SEO Nedir?</h3></div>
+        <div class="note-panel definition">
+          <p>Web sitelerinin; Google, Yandex, Bing vb. arama motorlarının arama kriterlerine uygun hale getirilmesidir.</p>
+          <p>Kısaca: Sitelerin iyileştirilmesi ve geliştirilmesidir.</p>
+          <p>Marka bilinirliği, kitlelere ulaşma ve ürün satışlarında yükselişi amaçlayan şirketler için zorunludur.</p>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.3</span><h3>SEO</h3></div>
+        <div class="note-panel">
+          <p>Web sitesinin sektörel kelimelerde üst sıralarda yer alıp kitlelere ulaşmasını sağlayan yatırım maliyeti en düşük ve ticari dönüşü en yüksek olan dijital reklam stratejisidir.</p>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.4</span><h3>Arama Trafiği</h3></div>
+        <ul class="short-list">
+          <li>Organik trafik ve ücretli trafik (Google Adwords vb.) olarak ikiye ayrılır.</li>
+          <li>Kaliteli trafik getiren ve geri dönüşüm oranlarını yükselten genelde organik ziyaretçilerdir.</li>
+        </ul>
+        <div class="note-panel" style="margin-top:10px"><span class="note-label">Organik Arama Trafiği Artırma</span><p>Aramalarda Google, Yandex veya Bing gibi bilinen arama motorlarında üst sıralarda yer almasıdır.</p><p>Üst sıralar demek ilk sayfa, ilk 5 ve ilk 3'tür.</p></div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.5</span><h3>SEO Çalışmaları vs Google Adwords</h3></div>
+        <div class="note-panel">
+          <p>SEO çalışmaları, Google Adwords (ppc: Pay Per Click-Tıklama Başına Ödeme) ile karıştırılır ve sonuç alma süreci ücretli online pazarlama kampanyalarına göre çok daha uzundur.</p>
+          <p>SEO çalışmaları ile yapılan iyileştirmelerin arama motorları tarafından fark edilmesi, dikkate alınması ve sonuç vermesi zaman alır. İlk olumlu sonuçlar en az 2 3 ay sürer.</p>
+          <p>Google Adwords kampanyası başladığında trafik hemen sağlanır fakat bittiğinde trafik anında kesilir. SEO çalışması dursa bile arama motorlarındaki pozisyonun korunması ve trafik alınması mümkündür.</p>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.6</span><h3>SEO Süreci</h3></div>
+        <ul class="short-list">
+          <li>Web sitenin başlangıç arama motoru pozisyonu,</li>
+          <li>Sektörün rekabet boyutu,</li>
+          <li>Rakiplerin SEO çalışmaları,</li>
+          <li>Yapılacak geliştirmelerin siteye uygulanma zamanı ve kalitesi gibi faktörler önemli rol oynar.</li>
+        </ul>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.7</span><h3>Google'da Üst Sıralarda Yer Almak</h3></div>
+        <div class="note-columns">
+          <div class="note-panel"><span class="note-label">Sayfa</span><p>Sayfalar doğru optimize edilmeli.</p></div>
+          <div class="note-panel"><span class="note-label">Teknik altyapı</span><p>Site teknik altyapısı iyileştirilmeli.</p></div>
+          <div class="note-panel"><span class="note-label">Bağlantı</span><p>Link inşası çalışması yapılması gerekir.</p></div>
+          <div class="note-panel"><span class="note-label">Başlıca amaç</span><p>Web sitesine gelen organik trafiği artırmak ve bunun sayesinde marka bilinirliğini artırmak, içerik siteleri için reklam alımlarını ve e-ticaret siteleri için ürün satışlarını artırmaktır.</p></div>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.8</span><h3>SEM (Search Engine Marketing- Arama Motoru Pazarlamacılığı)</h3></div>
+        <div class="note-panel">
+          <p>NOT: İnternetten etkin pazarlama yöntemleri: SEO ve SEM'dir.</p>
+          <p>SEO ile aynı amacı vardır: Google arama motorunda ilk sıralara çıkmak.</p>
+          <p>Yöntemi: Fiyatını ödeyerek arama motorlarında en üst sıralara çıkmaktır (Ücretli Reklam Gösterimi)</p>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.9</span><h3>SEO ve SEM Farkı</h3></div>
+        <div class="note-panel"><p>İlk sıralara çıkmak SEO ile zaman alacaktır ama en azından ilk sayfaya çıkmak için SEM ile parası hızlıca ilk sayfaya çıkabiliriz.</p></div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.10</span><h3>Google Adwords</h3></div>
+        <div class="note-panel">
+          <p>"Kabin" kelimesi için Google arama ekranında 1 yazan yerdeki sonuçlar Adwords ile yayınlanan Reklam / Sponsor linklerdir.</p>
+          <p>Adwords, SEM için önemlidir.</p>
+          <p>Sponsor linkler, metin ve video reklamları istenilen konumda, zaman diliminde, kıtada veya sadece belli dilleri konuşan ülkelere göre ayarlanabilir.</p>
+          <p>Yaş, cinsiyet, ilgi alanları gibi kriterler belirlenip özelleştirilmiş reklamlar hazırlanabilir.</p>
+        </div>
+        <figure class="serp-figure">
+          <figcaption>SEM ve SEO farkı · Arama sonuçlarında reklam ve organik sonuç</figcaption>
+          <div class="serp-demo">
+            <div class="serp-query"><span aria-hidden="true">⌕</span>"Kabin" araması</div>
+            <div class="serp-results" aria-label="Ücretli reklam sonuçları">
+              <div class="serp-result"><small>Reklam · www.karmod.com</small><strong>En İyi Konteyner En İyi Fiyata - Türkiye'nin Avrupai Konteyneri</strong><p>Her Ebata Ofis Şantiye Konteyner En Uygun Fiyatlara Konteyner Ev Sipariş Verin</p></div>
+              <div class="serp-result"><small>Reklam · www.yelkencilerpazarlama.com.tr</small><strong>Hesaplı Polyester Mobo Kabin - YELKENCİLER Kabin Çeşitleri</strong><p>Kaliteli ve Ekonomik Bekçi Kabinleri Bütçe WC Duş Modüler Özel Amaçlı Kabinler</p></div>
+              <div class="serp-result"><small>Reklam · www.kabin.com.tr</small><strong>Polyester Mobo Kabin Fiyatları - Güvenlik Kabini Bekçi Kulübesi</strong><p>Her Ebata Ekonomik Modüler Kabinler, Güvenlik Kabin Kulübeleri Mobil WC Duşlar</p></div>
+            </div>
+            <div class="serp-organic">
+              <div class="serp-result"><small>www.karmod.com/kabin</small><strong>Kabin | Polyester Modüler Kabinler, Karmod</strong><p>Değişik ebatlarda ve ölçülerde modüler kabin modellerini görebilirsiniz.</p></div>
+            </div>
+            <div class="serp-legend"><span><b>1</b> Sponsor linkler · Ücretli reklam</span><span><b>2</b> Organik arama sonucu</span></div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.11</span><h3>SEM Ücretlendirme</h3></div>
+        <div class="note-panel">
+          <ol>
+            <li><strong>BGBM (Bin Gösterim Başı Maliyet)</strong><br>İngilizcesi CPM Cost Per Mille (1000). Her binlik gösterim için belli bir fiyat belirlenir.</li>
+            <li><strong>ABM Aksiyon Başına Maliyet</strong><br>Müşterinin kayıt olma veya talepte bulunması gibi faaliyetleri ile yapılan ücretlendirme tipidir. Uygulaması zor olduğu için nadiren görülür.</li>
+            <li><strong>TBM Tıklama Başına Maliyet</strong><br>Reklam gösterilir ancak ödeme, reklama tıklanma durumlarında yapılır. CPC Cost Per Click olarak bilinir. En çok tercih edilendir.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">01.12</span><h3>Arama Motorları</h3></div>
+        <div class="note-panel"><p>Google ve Bing en popüleridir.</p><p>Yandex ise piyasada ağırlığını gitgide artırıyor.</p></div>
+      </section>
+    </section>
+
+    <section class="unit" id="seo-terimleri">
+      <div class="unit-header">
+        <div class="unit-num-block"><span class="unit-num">02</span><div class="unit-line"></div></div>
+        <div><h2 class="unit-title">SEO Terimleri</h2></div>
+      </div>
+      <div class="unit-divider"></div>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">02.1</span><h3>Web Sitesi ve Yönetimi</h3></div>
+        <div class="term-list">
+          <article class="term"><div class="term-name">Webmaster<small>Site Sorumlusu, Yöneticisi</small></div><div class="term-copy"><p>Siteyi geliştiren ve yöneten kişidir.</p><p>Sitenin yazılım, grafik tasarım, SEO gibi teknik işleriyle uğraşır.</p></div></article>
+          <article class="term"><div class="term-name">Domain<small>Alan Adı</small></div><div class="term-copy"><p>Sitenin adresini gösterir.</p><p>google.com adresinde "google" domain adı, ".com" ise domain uzantısıdır.</p></div></article>
+          <article class="term"><div class="term-name">Hosting<small>Barındırma Hizmeti</small></div><div class="term-copy"><p>Site içindeki resim, metin, video vb. dosyaların depolandığı, internet üzerinden erişmemizi sağlayan bir hizmettir.</p><p>Sitenin yayında kalabilmesi için dosyalarını bir bilgisayarda saklaması gerekir işte bu saklama hizmetine hosting (barındırma) denir.</p><p>Hosting firmaları büyük veri merkezlerindeki güçlü sunucuları kullanır. Bu merkezlerde:</p><ul><li>Yüksek hızlı internet bağlantısı,</li><li>Yedekli sistemler,</li><li>UPS (Kesintisiz Güç Kaynağı): Elektrik gidince kısa süreli enerji sağlar.</li><li>Yangın söndürme sistemleri: Donanımları korur.</li></ul></div></article>
+          <article class="term"><div class="term-name">CMS<small>Content Management System / İçerik Yönetim Sistemi</small></div><div class="term-copy"><p>Siteyi kod yazmadan yönetmeyi sağlayan bir yönetim panelidir.</p><p>Siteye içerikler (yazı, resim, haber, ürün gibi) eklemek için kodlarla uğraşmak yerine hazır bir panel kullanır.</p><p>CMS; siteyi kaç kişi ziyaret etti, görüntülenme sayısı, sayfada kalma süresi gibi verileri raporlar.</p></div></article>
+          <article class="term"><div class="term-name">WordPress</div><div class="term-copy"><p>En yaygın CMS'dir. Açık kaynak kodludur, bu yüzden sürekli gelişir.</p><p>Template (tema/şablon) ve pluginler (eklentiler) içerir.</p><p>Template: Bir tema haber sitesi görünümü verir, diğeri e-ticaret sitesi görünümü verir.</p><p>Plugin: Form eklentisi ile iletişim formu eklenebilir, güvenlik eklentisi siteyi korur.</p></div></article>
+          <article class="term"><div class="term-name">Joomla</div><div class="term-copy"><p>Popüler açık kaynak araçlardan biridir.</p><p>Temel mantığı WordPress ile aynıdır.</p></div></article>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">02.2</span><h3>Link / Bağlantı</h3></div>
+        <div class="note-panel">
+          <p>Tıklandığında kullanıcıyı başka sayfaya götüren adreslerdir.</p>
+          <p>Hypertext: Metinlerin içine bağlantı eklemesini sağlayan yapıdır.</p>
+          <p>Eskiden sayfaların PageRank'ının yükselmesi büyük ölçüde linklere dayalıydı.</p>
+        </div>
+        <div class="term-list" style="margin-top:12px">
+          <article class="term"><div class="term-name">1. İç Bağlantı<small>Internal Link</small></div><div class="term-copy"><p>Aynı sitedeki başka bir sayfaya verilen bağlantıdır.</p><p>ÖR: SEO tekniklerini öğrenmek için SEO rehberimize bakabilirsiniz.</p></div></article>
+          <article class="term"><div class="term-name">2. Backlink<small>Inbound Link · Tavsiye Bağlantı</small></div><div class="term-copy"><p>Başka sitenin senin sitene verdiği bağlantıdır.</p><p>Bir siteye hangi sitelerin link verdiğini görmek için Google Webmaster Tools (günümüzde Google Search Console) ve Open Site Explorer kullanılır.</p><p>Organik yollarla alınan bağlantılardan yapılan backlinkler marka bilinirliği açısından olumlu etki yapar.</p></div></article>
+          <article class="term"><div class="term-name">3. Dış bağlantı<small>Outbound Link</small></div><div class="term-copy"><p>Kendi sitenden başka siteye verilen bağlantıdır.</p><p>Örnek: Bir blog yazısı yazdın ve "Google'ın SEO rehberine buradan ulaşabilirsiniz" dedin. Link çıkışı, harici link de denir.</p><p>NOT: Google eskiden şöyle düşünürdü. "Bir site başka siteye link veriyorsa, ona bir miktar değer aktarıyor olabilir". Bu yüzden siteler verdiği linklerin kendi SEO değerini düşürmemesi için nofollow etiketi ekler. Günümüzde bu etiket etkisini kaybetmiştir çünkü Google algoritmaları gelişmiştir.</p></div></article>
+          <article class="term"><div class="term-name">4. Hacklink<small>İzinsiz BackLink</small></div><div class="term-copy"><p>Sitenin güvenlik açığından yararlanarak, site sahibinden habersiz eklenen backlinktir.</p><p>Sayfada görünmeyebilir ancak kaynak kodunda göründüğünden arama motorları tarafından algılanır.</p></div></article>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">02.3</span><h3>Arama Motoru ve Sonuçları</h3></div>
+        <div class="term-list">
+          <article class="term"><div class="term-name">Algoritma</div><div class="term-copy"><p>Bir amaca ulaşmak için gerekli olan sıralı adımlardır.</p><p>Arama motorları için de bir algoritma vardır.</p><p>Google Algoritmaları:</p><ul><li>Panda (The Content Algorithm - İçerik Algoritması)</li><li>Penguin (The Links Algorithm - Bağlantı Algoritması)</li><li>Pirate (The Copyright Algorithm - Telif Hakkı Algoritması)</li><li>Pigeon (The Local Search Algorithm - Yerel Arama Algoritması)</li><li>Page Layout (The Layout Algorithm - Sayfa Düzeni Algoritması)</li></ul></div></article>
+          <article class="term"><div class="term-name">SERP<small>Search Engine Results Pages · Arama Motoru Sonuç Sayfaları</small></div><div class="term-copy"><p>Arama motorunun önümüze getirdiği listeleme sayfanın kendisidir.</p></div></article>
+          <article class="term"><div class="term-name">Robots.txt</div><div class="term-copy"><p>Arama motoru botlarının bir web sitesini ilk ziyaret ettiğinde baktığı ilk dosyadır.</p><p>Arama motorunun sitede hangi sayfaları ziyaret edeceği, hangilerini kayıt altına alması veya almaması gerektiği ile ilgili bilgileri içerir.</p><p>Arama motoru botları: Google siteleri kendi kendine gezer ve bunları yapan yazılımlara Googlebot veya arama motoru botları denir.</p></div></article>
+          <article class="term"><div class="term-name">Sitemap<small>Site Haritası</small></div><div class="term-copy"><p>Sitedeki tüm önemli sayfaların listesini içeren dosyadır.</p><p>Amacı: Google'a "Benim sitemde şu sayfalar var, bunları bulabilirsin" demektir.</p><p>Google'ın siteyi daha kolay taramasını sağlar.</p></div></article>
+          <article class="term"><div class="term-name">Meta Tags<small>Meta Etiketleri</small></div><div class="term-copy"><p>HTML kodunda bulunan site hakkında bilgiler içeren etiketlerdir.</p><p>Description: açıklama etiketi</p><p>Keywords: Anahtar kelimeler</p><p>Content Language: Sayfanın hangi dilde olduğu.</p></div></article>
+          <article class="term"><div class="term-name">Title<small>Başlık</small></div><div class="term-copy"><p>Arama motorları 55 karakter gösterir.</p><p>Her sayfanın başlıklarının farklı olması tıklanma oranlarını artırır.</p></div></article>
+          <article class="term"><div class="term-name">Meta Description<small>Meta Açıklama</small></div><div class="term-copy"><p>Sitede yer alan her bir sayfa ile ilgili kısa özetlerdir.</p><p>160 karakter gösterilir.</p><p>Her sayfa için farklı olması tıklanma oranlarını artırır.</p></div></article>
+          <article class="term"><div class="term-name">PageRank</div><div class="term-copy"><p>Google'ın geçmişte sayfaların değerini ölçmek için kullandığı bir puanlama sistemidir.</p></div></article>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">02.4</span><h3>SEO Türleri ve Sıralama</h3></div>
+        <div class="term-list">
+          <article class="term"><div class="term-name">On Site / On Page SEO<small>Site İçi SEO</small></div><div class="term-copy"><p>Sitenin kendi içinde yapılan tüm SEO çalışmalarıdır.</p><p>Sayfa başlıkları, meta açıklamaları, URL düzeni, iç bağlantılar, site hızı, mobil uyumluluk.</p><p>Amaç: Kullanıcı deneyimini artırmak ve Google'ın siteyi daha kolay anlamasını sağlamaktır.</p></div></article>
+          <article class="term"><div class="term-name">Off Site / Off Page SEO<small>Site Dışı SEO</small></div><div class="term-copy"><p>Sitenin dışında yapılan SEO çalışmalarıdır.</p><p>Backlink almak, marka bilinirliği artırmak, sosyal medyada paylaşılmak, başka sitelerde adının geçmesi.</p></div></article>
+          <article class="term"><div class="term-name">Google Dance<small>Dalgalanma</small></div><div class="term-copy"><p>Google'ın algoritma değişiklikleri nedeniyle arama sonuçlarındaki büyük sıralama değişiklikleridir.</p></div></article>
+          <article class="term"><div class="term-name">Filtre<small>Sıralama Cezası</small></div><div class="term-copy"><p>Google'ın kurallara uymayan veya hileli SEO yapan siteleri arama sonuçlarında geriye atmasıdır. Ceza bildirimi gönderilmez ancak Google Analytics üzerinden takip edilebilir.</p><p>Sandbox: Site uzun süre ciddi şekilde görünürlüğünü kaybedebilir.</p></div></article>
+          <article class="term"><div class="term-name">Sandbox</div><div class="term-copy"><p>Sitenin arama sonuçlarında ciddi şekilde görünürlük kaybetmesidir.</p><p>Domain yani site adını arattığında çıkmıyorsa, çok arka sayfalarda yer alıyorsa site sandbox'a düşmüştür.</p><p>Kopya ve tekrarlanan içerik kullanmak, aşırı etiketleme, alakasız keywordsler, yeni sitenin hızlı backlink alması durumu, hızlı ve yoğun SEO çalışmaları cezaya neden olur.</p></div></article>
+          <article class="term"><div class="term-name">White Hat SEO<small>Legal SEO</small></div><div class="term-copy"><p>Arama motoru kurallarına uygun olarak siteyi üst sıralara ulaştırma teknikleridir.</p></div></article>
+          <article class="term"><div class="term-name">Black Hat SEO<small>Illegal SEO</small></div><div class="term-copy"><p>Yasal olmayan yollarla siteyi üst sıralara getirmeyi sağlayan tekniklerdir.</p><p>Arama motorlarının spam olarak algılayabileceği işlemler yapmaktır.</p></div></article>
+        </div>
+      </section>
+
+      <section class="topic">
+        <div class="topic-heading"><span class="topic-no">02.5</span><h3>Reklam, Analiz ve Dönüşüm</h3></div>
+        <div class="term-list">
+          <article class="term"><div class="term-name">Cookie<small>Çerez</small></div><div class="term-copy"><p>Siteye girdiğinde tarayıcına kaydedilen küçük metin dosyasıdır. Bu dosya sayesinde site seni hatırlar.</p><p>Ne İşe Yarar:</p><ul><li>Kullanıcı oturumunu hatırlar.</li><li>Google Analytics: Ziyaretçilerin siteyi nasıl kullandığını analiz etmek.</li><li>Google Ads Remarketing: Siteye gelen kişilere daha sonra başka sitelerden reklam göstermek.</li></ul><p>Örneğin: Bir telefon sitesine baktın, sonra YouTube'a girdin karşına aynı telefonun reklamı çıkması çerezlerden dolayıdır.</p></div></article>
+          <article class="term"><div class="term-name">Remarketing<small>Yeniden Pazarlama</small></div><div class="term-copy"><p>Siteni ziyaret eden kişilere siteden ayrıldıktan sonra başka web sitelerinde reklam göstermektir.</p><p>Kullanıcı siteye girer, tarayıcısına cookie bırakılır, başka sitelere girer ve reklam tekrar karşısına çıkar.</p><p>Marka bilinirliği artırılır, satışa dönüşüm oranı artar.</p></div></article>
+          <article class="term"><div class="term-name">AdSense</div><div class="term-copy"><p>Site sahiplerinin sitelerine reklam koyarak para kazanmasını sağlayan Google hizmetidir.</p><p>Sahip AdSense'e başvurur, Google siteyi inceler; eğer uygunsa reklam yayınlama izni verir.</p><p>AdSense: Site sahipleri para kazanır.</p></div></article>
+          <article class="term"><div class="term-name">AdWords<small>Günümüzde Google Ads</small></div><div class="term-copy"><p>Google'ın reklam verenler için sunduğu reklam platformudur.</p><p>AdWords: Reklam verenler para öder ve reklam çıkar.</p><p>Yeni açılmış veya henüz gelişmemiş siteler beklemek yerine tercih edebileceği yöntemdir.</p></div></article>
+          <article class="term"><div class="term-name">Analytics</div><div class="term-copy"><p>Ziyaretçiler hakkında analiz ve raporlar sunan ücretsiz Google hizmetidir.</p></div></article>
+          <article class="term"><div class="term-name">Alexa</div><div class="term-copy"><p>Sitelerin trafiklerine göre popülerliğini sıralayan bir analiz sitesidir.</p></div></article>
+          <article class="term"><div class="term-name">Landing Page<small>Varış Sayfası, Karşılama Sayfası</small></div><div class="term-copy"><p>Ziyaretçiyi belli hedefe yönlendirmek için özel hazırlanmış tek web sayfasıdır.</p><p>Amaç: Ziyaretçiyi sadece bilgilendirmek değil harekete geçirmektir.</p></div></article>
+          <article class="term"><div class="term-name">Lead</div><div class="term-copy"><p>Şirketin ürün ve hizmetleri ile ilgilenen ve firmaya iletişim bilgilerini bırakan potansiyel müşteridir.</p><p>Örneğin: Bir yazılım şirketinin sitesine girdin, “Ücretsiz demo al” dedin ve adını e-postanı girdin, artık o firma için potansiyel müşterisin yani lead'sin.</p></div></article>
+          <article class="term"><div class="term-name">CTA<small>Call to Action · Eylem Çağrısı</small></div><div class="term-copy"><p>Ziyaretçileri harekete geçirmeye yönlendiren mesaj ve butonlardır.</p></div></article>
+        </div>
+        <div class="flow" aria-label="Landing Page, CTA ve Lead ilişkisi">
+          <div class="flow-step"><b>1. Landing Page</b><span>Ziyaretçiyi belirli bir amaca yönlendiren özel hazırlanmış sayfa.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-step"><b>2. CTA</b><span>Ziyaretçiye yapılacak eylemi gösteren buton/mesaj.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-step"><b>3. Lead</b><span>CTA sayesinde bilgilerini bırakan veya iletişim kuran potansiyel müşteri.</span></div>
+        </div>
+      </section>
+
+    </section>
+
+    <footer class="footer"><a href="index.html">← MIS Portal'a dön</a><span>Arama Motoru Optimizasyonu · Ders notları</span></footer>
+</main>
+</div>
+<script>
+function goToSection(id){
+  const section=document.getElementById(id);
+  if(!section)return;
+  section.scrollIntoView({behavior:'smooth',block:'start'});
+  if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+const sections=document.querySelectorAll('.unit');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){
+    navItems.forEach(item=>item.classList.toggle('active',item.getAttribute('onclick')?.includes(entry.target.id)));
+  }
+}),{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(section=>observer.observe(section));
+const progressFill=document.getElementById('progressFill');
+function updateProgress(){
+  const total=document.documentElement.scrollHeight-window.innerHeight;
+  progressFill.style.width=(total>0?window.scrollY/total*100:0)+'%';
+}
+window.addEventListener('scroll',updateProgress,{passive:true});
+window.addEventListener('resize',updateProgress);
+updateProgress();
+</script>
+<script src="theme.js" defer></script>
+</body>
+</html>
