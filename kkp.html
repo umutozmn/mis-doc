@@ -161,6 +161,8 @@ tr:last-child td{border-bottom:0}td strong{color:var(--text)}
     <button class="nav-item" onclick="goToSection('planlama-zaman')"><span class="nav-item-num">13</span>Planlama, Zaman ve Maliyet</button>
     <button class="nav-item" onclick="goToSection('basari-insan')"><span class="nav-item-num">14</span>Başarı, İnsan ve Değişim</button>
     <button class="nav-item" onclick="goToSection('vakalar-risk')"><span class="nav-item-num">15</span>Vakalar ve Risk Yönetimi</button>
+    <div class="nav-section-label">Yeni Notlar</div>
+    <button class="nav-item" onclick="goToSection('moduller-surec')"><span class="nav-item-num">16</span>Modüller ve Süreç Akışı</button>
   </nav>
 </aside>
 
@@ -846,6 +848,371 @@ tr:last-child td{border-bottom:0}td strong{color:var(--text)}
       <li><strong>Demir Üçgeni göster:</strong> Süreyi kısaltmak için kapsam, maliyet veya kaliteden birini seçmek gerektiğini açıkla.</li>
       <li><strong>Alternatif sun:</strong> Örneğin sadece lansman için kritik modülleri öne al, kalan kısımları aşamalı geçirme. Ya da en kritik testleri koru, daha az kritik olanları sonraya bırak. Kaynak ekleme önerisi de olabilir.</li>
       <li><strong>Karar çerçevesi ve B planı ver:</strong> “Bu şartlarla geçersek bu riskleri üstleniyoruz ve rollback planımız şu” diyerek kararı kurula bırak, ama yazılı olarak.</li>
+    </ol>
+  </section>
+
+  <section class="unit" id="moduller-surec">
+    <div class="unit-header"><div class="unit-num-block"><span class="unit-num">16</span><div class="unit-line"></div></div><div><h2 class="unit-title">KKP Modülleri ve Süreç Akışı</h2></div></div>
+    <div class="unit-divider"></div>
+
+    <div class="highlight-box"><p><strong>Not:</strong> Bir KKP sisteminin gücü, parçalarının tek tek çok iyi olmasından gelmez; parçaların aynı veri tabanını kullanarak birbiriyle bir düzen içinde çalışmasından gelir.</p></div>
+    <h3>KKP Nedir?</h3>
+    <p>Bir şirketin satış, satın alma, üretim, depo, muhasebe, insan kaynakları gibi bütün işlerini tek bir yazılımda ve veri tabanında yöneten sistemdir.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir orkestrayı düşün. Kemanı, flütü, davulu ayrı ayrı mükemmel çalan müzisyenler olsa da şef ve ortak nota olmazsa ortaya gürültü çıkar. KKP'de “ortak nota” tek veri tabanı, “şef” ise sistemin kurallarıdır.</p></div></div>
+
+    <h3>Modüler Mimari Nedir, Neden Gerekli?</h3>
+    <h4>Modül Nedir?</h4>
+    <p>Belirli bir işe odaklanan (satış, üretim, lojistik, finans gibi), kendi iş kuralları olan ama merkezdeki ortak omurgaya bağlı çalışan yazılım parçasıdır.</p>
+    <h4>Modüler Yapının 3 Avantajı</h4>
+    <div class="table-wrap"><table><thead><tr><th>Fayda</th><th>Ne Demek?</th><th>Örnek</th></tr></thead><tbody>
+      <tr><td><strong>Kademeli Uyarlama (Phased Rollout)</strong></td><td>Şirket riskini göze alabildiği kadar modülü adım adım devreye alabilir.</td><td>Önce sadece Satın Alma ve Depo modülleri açılır; sistem sorunsuz çalışırsa üç ay sonra Üretim modülü eklenir.</td></tr>
+      <tr><td><strong>Ölçeklenebilirlik ve Esneklik</strong></td><td>Şirket büyüyünce (yeni fabrika, yeni iş birimi) sistem kesintiye uğramadan genişler.</td><td>Şirket Bursa'da ikinci bir fabrika açtı. Sisteme yeni bir üretim yeri tanımlanır; yeni yazılım kurmak gerekmez.</td></tr>
+      <tr><td><strong>Bakım ve Sürdürülebilirlik</strong></td><td>Bir modül güncellenirken diğerleri kilitlenmez; güncelleme standart yönetilir.</td><td>Bordro modülü yeni vergi oranı için güncellenirken satış ekibi çalışmaya devam eder.</td></tr>
+    </tbody></table></div>
+
+    <h4>Monolitik ve Modüler Mimari</h4>
+    <div class="grid2">
+      <div class="card"><h4>Monolitik (Tek Parça) Eski Mimari</h4><p>Bütün sistemin tek parça hâlinde tasarlanmasıdır. Tüm özellikler aynı büyük yazılımın içinde bulunur. Modüller birbirine çok sıkı bağlıdır. Bir yerde hata olursa tüm sistem etkilenir.</p></div>
+      <div class="card"><h4>Modüler Yeni Mimari</h4><p>Sistem parçalara ayrılır. Her modül kendi işini yapar ama diğerleriyle kontrollü iletişim kurar.</p></div>
+    </div>
+    <ol>
+      <li><strong>Gevşek Bağlılık (Loose Coupling):</strong> Modüller birbirinin iç çalışma şeklini bilmez. Sadece belirlenen yollarla (API) haberleşir.</li>
+      <li><strong>Yüksek Uyum (High Cohesion):</strong> Her modül sadece kendi uzman olduğu işi yapar.</li>
+    </ol>
+
+    <h3>KKP'nin Genel Modül Haritası</h3>
+    <p>KKP modülleri 3 katmanda toplanır:</p>
+    <div class="table-wrap"><table><thead><tr><th>Katman</th><th>Modüller</th><th>Görevi</th></tr></thead><tbody>
+      <tr><td><strong>Çekirdek Operasyonel</strong></td><td>MM (Malzeme Yönetimi), SD (Satış ve Dağıtım), PP (Üretim Planlama ve Kontrol)</td><td>Şirketin fiziksel işleri: mal almak, üretmek, satmak.</td></tr>
+      <tr><td><strong>Finansal ve Yönetsel Kontrol</strong></td><td>FI (Finansal Muhasebe), CO (Yönetim Muhasebesi / Maliyet Kontrol)</td><td>Paranın kaydı ve maliyetin kontrolü.</td></tr>
+      <tr><td><strong>Destekleyici / Genişletilmiş</strong></td><td>QM (Kalite), PM (Bakım-Onarım), HCM (İnsan Kaynakları), CRM (Müşteri İlişkileri), SCM (Tedarik Zinciri)</td><td>Çekirdeği güçlendiren yardımcı alanlar.</td></tr>
+    </tbody></table></div>
+
+    <h3>Modülleri Birbirine Bağlayan Temel: Ortak Veri Tabanı ve Ana Veriler</h3>
+    <h4>Tek İlişkisel Veri Tabanı</h4>
+    <p>Modüllerin ayrı veri tabanları yoktur. Hepsi tek bir ortak veri tabanı kullanır. ACID standardı, verilerin güvenli ve doğru şekilde kaydedilmesini sağlar. Örneğin bir işlem yarıda kalırsa sistem hatalı kayıt bırakmaz.</p>
+    <h4>Kurumsal Ana Veri Omurgası (Master Data)</h4>
+    <p>Ana veri, şirketin herkes tarafından kullanılan temel ve ortak bilgileridir.</p>
+    <ul>
+      <li><strong>Malzeme Ana Verisi:</strong> Şirketin kullandığı ürünlerin bilgileridir.</li>
+      <li><strong>Cari Hesap Ana Verisi:</strong> Müşteri ve tedarikçi bilgileridir.</li>
+      <li><strong>Hesap Planı ve Organizasyonel Yapı:</strong> Şirketin finansal ve yapısal bilgilerinin düzenidir.</li>
+    </ul>
+
+    <h3>Süreç Entegrasyonu: Fonksiyonel Adalardan Süreç Odaklılığa</h3>
+    <h4>Departman Sınırlarının Kalkması</h4>
+    <p>Eskiden bilgi, kâğıtlar ve onay imzalarıyla bir departmandan diğerine giderdi. KKP'de yerini sistem içi veri akışına bıraktı.</p>
+    <h4>Olay Güdümlü (Event-Driven) Mimari</h4>
+    <p>Bir olay gerçekleştiği anda, insan müdahalesine gerek kalmadan başka işlemleri otomatik tetikler. Bir sipariş girildiğinde aynı anda şunlar olur: üretim planlaması devreye girer, depoda ürün rezerve edilir, müşterinin kredi riski kontrol edilir.</p>
+
+    <h3>Malzeme ve Depo Yönetimi Modülü (MM / WMS)</h3>
+    <ol>
+      <li><strong>Stok Varlık Sınıflandırılması:</strong> Depodaki malzemeler türlerine göre ayrılır ve takip edilir.
+        <ul>
+          <li><strong>Ham Madde (ROH):</strong> Üretimde kullanılan temel malzeme. Örnek: Mobilya üretiminde tahta.</li>
+          <li><strong>Yarı Mamul (HALB):</strong> Üretimin bir kısmı tamamlanmış ürün. Örnek: Boyanmamış masa parçası.</li>
+          <li><strong>Mamul (FERT):</strong> Üretimi tamamen bitmiş ürün. Örnek: Satışa hazır masa.</li>
+          <li><strong>Ticari Mal (HAWA):</strong> Üretilmeyip satın alınıp satılan ürün.</li>
+          <li><strong>Sarf Malzemesi:</strong> Üretimde tüketilen yardımcı malzemeler. Örnek: Vida, temizlik malzemesi.</li>
+        </ul>
+      </li>
+      <li><strong>İzlenebilirlik Altyapısı:</strong> Bir ürünün geçmişinin takip edilmesini sağlar.
+        <ul>
+          <li><strong>Parti (Lot / Batch):</strong> Aynı üretimde çıkan ürün grubunu takip eder.</li>
+          <li><strong>Seri Numarası:</strong> Tek bir ürünü özel olarak takip eder.</li>
+          <li><strong>Barkod / Karekod:</strong> Ürünün hızlı tanınmasını sağlar.</li>
+        </ul>
+      </li>
+      <li><strong>Fiziksel ve Mantıksal Depo Mimarisi:</strong> Deponun nasıl düzenlendiğini ve stok hareketlerini yönetir.
+        <ul>
+          <li><strong>Depo Adresleme:</strong> Ürünün hangi raf, koridor veya katta olduğunu gösterir.</li>
+          <li><strong>Stok Transferi:</strong> Ürünlerin bir depodan diğerine taşınmasını takip eder.</li>
+          <li><strong>Konsinye Stok:</strong> Tedarikçiye ait ama şirket deposunda bulunan ürünleri yönetir.</li>
+          <li><strong>Dinamik Sayım:</strong> Stokları düzenli olarak kontrol eder.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>Satın Alma Yönetimi Modülü: Tedarik Zincirinin Başlangıcı</h3>
+    <ol>
+      <li><strong>Satın Alma Talebi (PR, Purchase Requisition):</strong> Bir departmanın veya sistemin bir ürüne ihtiyacı olduğunu bildirmesidir.</li>
+      <li><strong>Tedarikçi Seçimi ve Teklif Değerlendirme:</strong> Şirket, ürün alacağı firmaları değerlendirir ve Satın Alma Siparişi (PO) oluşturulur. PO, şirketin tedarikçiye verdiği resmî sipariş belgesidir.</li>
+      <li><strong>Üçlü Eşleştirme (Three-Way Matching):</strong> Şirket ödeme yapmadan önce şunları kontrol eder:
+        <ol>
+          <li><strong>Satın Alma Siparişi (PO):</strong> Ne sipariş edildi?</li>
+          <li><strong>Mal Kabul İrsaliyesi (GR):</strong> Gerçekte ne geldi?</li>
+          <li><strong>Satıcı Faturası (IR):</strong> Tedarikçi ne kadar para istiyor?</li>
+        </ol>
+      </li>
+    </ol>
+
+    <h3>Satış ve Dağıtım Modülü: Müşteri Arayüzü ve Gelir Akışı</h3>
+    <p>Şirketin müşteriyle buluştuğu ve gelirin doğduğu modüldür.</p>
+    <ol type="a">
+      <li><strong>Fiyatlandırma ve Koşul Tekniği:</strong> Müşteriye/ürüne özel fiyat listeleri, kampanyalar, vergi hesapları.</li>
+      <li><strong>Kullanılabilir Stok Kontrolü (ATP, Available to Promise):</strong> Sistem, sipariş verildiği anda ürünün ne zaman teslim edilebileceğini hesaplar.</li>
+      <li><strong>Operasyonel Döngü:</strong> Bir satışın baştan sona nasıl ilerlediğini gösterir.
+        <ul>
+          <li>Müşteri sözleşmesi: Satış şartları belirlenir.</li>
+          <li>Satış siparişi: Müşteri sipariş verir.</li>
+          <li>Sevkiyat / çeki listesi: Depo ürünleri hazırlar ve paketler.</li>
+          <li>İrsaliye: Ürün müşteriye gönderilir.</li>
+          <li>Satış faturası: Ödeme için resmî fatura kesilir.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>Üretim Planlama ve Kontrol Modülü</h3>
+    <div class="table-wrap"><table><thead><tr><th>Kavram</th><th>Açıklama</th></tr></thead><tbody>
+      <tr><td><strong>Ürün Ağacı (BOM - Bill of Materials)</strong></td><td>Bir ürünün üretimi için gereken tüm hammadde, yarı mamul ve sarf malzemenin çok seviyeli “yemek tarifi”.</td></tr>
+      <tr><td><strong>İş Merkezi (Work Center)</strong></td><td>Üretimin yapıldığı makine, hat veya işçi istasyonu. Kapasite ve verimlilik bilgisini taşır.</td></tr>
+      <tr><td><strong>Operasyon Rotası (Routing)</strong></td><td>Ürünün hangi iş merkezlerinden, hangi sırayla ve ne sürede geçeceğini gösteren yol.</td></tr>
+    </tbody></table></div>
+    <h4>Hiyerarşik Planlama Katmanları</h4>
+    <ul>
+      <li><strong>Satış ve Operasyon Planlama (S&amp;OP):</strong> Şirket gelecekte ne kadar ürün satacağını tahmin eder ve buna göre genel üretim planı yapar.</li>
+      <li><strong>Ana Üretim Çizelgesi (MPS):</strong> Hangi ürünün ne zaman ve ne kadar üretileceği kesinleştirilir. Örnek: 1. hafta 2.500 telefon, 2. hafta 2.500 telefon.</li>
+      <li><strong>Malzeme İhtiyaç Planlaması (MRP):</strong> Üretim planına göre hangi malzemelerden ne kadar gerektiği hesaplanır. MPS (üretim planı) ve BOM (ürün ağaçları) kullanılır.</li>
+      <li><strong>Kapasite İhtiyaç Planlaması (CRP):</strong> Şirketin makineleri ve çalışanları bu üretimi yapabilecek mi diye kontrol edilir.</li>
+    </ul>
+    <h4>Üretim Emri Yönetimi ve Sahadan Veri Toplama (Shop Floor Control)</h4>
+    <p>Üretimin hayata geçmesi şu sırayla olur:</p>
+    <ol>
+      <li><strong>Emir Serbest Bırakma:</strong> Planlanan üretim resmen başlar. Planlı üretim, Üretim Emri'ne (Work Order) dönüşür. Gerekli hammaddeler bu üretim için ayrılır.</li>
+      <li><strong>Üretime Mal Çıkışı:</strong> Üretimde kullanılacak hammaddeler depodan alınır. Bu aşamada malzemeler WIP (Work in Progress - Yarı Mamul) hâline gelir.</li>
+      <li><strong>Operasyonel Teyit (Confirmation):</strong> Üretim tamamlandıktan sonra çalışanlar sisteme üretim bilgilerini girer.</li>
+      <li><strong>Mamul Kabulü:</strong> Üretimi tamamlanan sağlam ürünler depoya alınır.</li>
+    </ol>
+
+    <h3>Finansal Muhasebe Modülü (FI): Yasal ve Dışsal Raporlama</h3>
+    <h4>Yasal Uyum ve Defter Tutma</h4>
+    <ul>
+      <li>Genel Muhasebe (General Ledger), Yevmiye Defteri ve Defteri Kebir.</li>
+      <li>Alt Defterler (Sub-Ledgers):
+        <ul>
+          <li>AR (Accounts Receivable): Müşterilerden alınacak paralar.</li>
+          <li>AP (Accounts Payable): Tedarikçilere ödenecek paralar.</li>
+        </ul>
+      </li>
+      <li>Resmî Mali Tablolar: Bilanço, Gelir Tablosu, Nakit Akım Tablosu.</li>
+    </ul>
+
+    <h3>Yönetim Muhasebesi ve Maliyet Kontrol Modülü (CO): İçsel Karar Desteği</h3>
+    <h4>Örgütsel Karlılık Yapısı</h4>
+    <p>Şirket, hangi bölümün ne kadar harcama yaptığını ve ne kadar kâr ettiğini takip eder.</p>
+    <ul>
+      <li><strong>Maliyet Merkezi (Cost Center):</strong> Masraf yapan birimlerdir.</li>
+      <li><strong>Kâr Merkezi (Profit Center):</strong> Gelir elde eden veya kârlılığı ölçülen birimlerdir.</li>
+    </ul>
+    <h4>Ürün Maliyetlendirme</h4>
+    <p>Bir ürünün üretim maliyeti hesaplanır.</p>
+    <ul>
+      <li><strong>Standart Maliyet:</strong> Üretime başlamadan tahmini maliyet hesaplanır. Hesaplanırken standart hammadde fiyatı, planlanan işçilik ve GÜG (Genel Üretim Gideri) kullanılır.</li>
+      <li><strong>Fiilî Maliyet:</strong> Üretim bittikten sonra gerçekte ne kadar harcandığı hesaplanır.</li>
+    </ul>
+    <h4>Varyans / Sapma Analizi</h4>
+    <p>Standart maliyet ile fiilî maliyet karşılaştırılır.</p>
+
+    <h3>Kalite Yönetimi Modülü (QM): Süreç İçi Güvence</h3>
+    <p>QM modülü, ürünlerin kaliteli üretilmesini ve hatalı ürünlerin müşteriye gitmemesini sağlar.</p>
+    <h4>Kalite Planları</h4>
+    <ul>
+      <li><strong>Giriş Kontrol Toleransları:</strong> Hammaddenin kabul edilebilir sınırları belirlenir.</li>
+      <li><strong>AQL:</strong> Tüm ürün yerine numune kontrolü yapılır.</li>
+      <li><strong>Ölçüm Parametreleri:</strong> Ölçülecek özellikler belirlenir (boy, ağırlık, sertlik vb.).</li>
+    </ul>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>1.000 parçalık partiden rastgele 50 parça kontrol edilir. Kuralımız: En fazla 2 hatalı çıkarsa parti kabul, 3 veya fazlası çıkarsa parti reddedilir.</p></div></div>
+    <h4>Üç Kalite Kapısı</h4>
+    <ol>
+      <li><strong>Giriş Kalite Kontrolü:</strong> Gelen hammaddeler test edilir. Tedarikçi performansı değerlendirilir. Örnek: Gelen çelik levhaların kalınlığı ölçülür; sürekli hatalı gönderen tedarikçinin puanı düşer.</li>
+      <li><strong>Proses İçi Kalite:</strong> Üretim sırasında ara kalite kontrolleri yapılır.</li>
+      <li><strong>Son Kontrol:</strong> Sevkiyattan önce son kalite kontrolü yapılır. Örnek: Hazır sandalyenin ağırlık taşıma testi.</li>
+    </ol>
+    <p><strong>Bloke Stok:</strong> Hatalı ürünler aynı depoya alınır. Üretime ve sevkiyata gönderilmez.</p>
+    <p><strong>8D:</strong> Hatanın nedeni araştırılır. Tekrar oluşmaması için kalıcı çözüm uygulanır.</p>
+
+    <h3>Bakım ve Onarım Yönetimi (PM): Varlık Verimliliği</h3>
+    <h4>Tesis ve Ekipman Varlık Ağacı</h4>
+    <p>Fabrikadaki tüm makineler sisteme kayıtlıdır. Makinenin teknik bilgileri, yedek parçaları ve çalışma saatleri takip edilir.</p>
+    <h4>Bakım Stratejileri</h4>
+    <ol>
+      <li><strong>Arızi (Düzeltici) Bakım:</strong> Makine bozulunca tamir edilir. Arıza bildirimi yapılır, iş emri açılır.</li>
+      <li><strong>Önleyici (Periyodik) Bakım:</strong> Arıza oluşmadan belli aralıklarla bakım yapılır. Örnek: Her 6 ayda bir yağ değişimi.</li>
+      <li><strong>Kestirimci Bakım:</strong> Sensörlerden gelen veriler takip edilir. Arıza olmadan önce müdahale edilir.</li>
+    </ol>
+    <h4>Maliyet Entegrasyonu</h4>
+    <ul>
+      <li>Kullanılan yedek parçalar MM (Malzeme Yönetimi) stoklarından düşülür.</li>
+      <li>Bakım maliyetleri CO (Maliyet Muhasebesi) modülüne aktarılır.</li>
+    </ul>
+
+    <h3>İnsan Kaynakları Yönetimi Modülü (HR / HCM)</h3>
+    <ul>
+      <li><strong>Özlük ve organizasyonel yönetim:</strong> Personel ana kartı, yetki matrisi (kim hangi ekrana erişebilir), departman şemaları ve vekâlet hiyerarşisi (yönetici izindeyken onay yetkisi kimde). Örnek: Müdür izne çıkınca onay yetkisi otomatik olarak yardımcısına geçer.</li>
+      <li><strong>Zaman ve bordro yönetimi:</strong> Vardiya planlama, puantaj (kim hangi gün kaç saat çalıştı), resmî bordro hesabı ve bunun muhasebe fişine otomatik dönüşmesi. Örnek: Ay sonunda bordro hesaplanınca maaş gider kaydı FI modülüne kendiliğinden düşer.</li>
+      <li><strong>Stratejik İK:</strong> Yetkinlik yönetimi, 360 derece performans değerlendirme (çalışan; amiri, astı ve akranları tarafından değerlendirilir), eğitim planlama ve kariyer yedekleme (bir üst pozisyona kim hazırlanıyor).</li>
+    </ul>
+
+    <h3>Elektronik Veri Değişimi (EDI) ve B2B Ekosistem Entegrasyonu</h3>
+    <p><strong>EDI:</strong> Şirketlerin sipariş, irsaliye ve faturaları bilgisayar sistemleri arasında kâğıtsız ve otomatik göndermesidir. Örnek: Bir firma siparişi sisteme girer, diğer firmanın sistemine otomatik olarak ulaşır.</p>
+    <p>Ortak dil gereklidir; global standartlar şunlardır: EDIFACT, ANSI X12, XML, JSON.</p>
+    <h4>Önemli Mesaj Tipleri</h4>
+    <ul>
+      <li><strong>ORDERS:</strong> Elektronik sipariş gönderir.</li>
+      <li><strong>DESADV (Despatch Advice):</strong> Sevkiyat (irsaliye) bildirimi yapar, yani “mal yola çıktı” bilgisini gönderir.</li>
+      <li><strong>INVOIC:</strong> Elektronik fatura gönderir.</li>
+    </ul>
+
+    <h3>Türkiye'ye Özgü Regülatif Entegrasyon: e-Dönüşüm Mimarisi</h3>
+    <h4>GİB (Gelir İdaresi Başkanlığı)</h4>
+    <ul>
+      <li>Türkiye'deki vergi işlemlerini düzenler.</li>
+      <li>İşletmelerin elektronik belge kullanmasını sağlar.</li>
+      <li>Kapsamındaki belgeler: e-Fatura, e-Arşiv, e-İrsaliye, e-Defter, e-Müstahsil.</li>
+    </ul>
+    <h4>Entegrasyon Metotları</h4>
+    <ul>
+      <li><strong>Özel Entegratör Servisleri (SaaS ara katman):</strong> İşletme ile GİB arasında aracı bir servis bulunur. KKP sistemi belgeyi entegratöre gönderir, entegratör GİB'e iletir.</li>
+      <li><strong>Doğrudan GİB Bilgi İşlem Entegrasyonu:</strong> KKP sistemi doğrudan GİB sistemiyle haberleşir. Aracı kullanılmaz.</li>
+    </ul>
+    <h4>Zaman Damgası ve Mali Mühür</h4>
+    <p>Elektronik belgelerin yasal geçerlilik kazanmasını sağlar. Belgeler XML formatında dijital olarak imzalanır ve şifrelenir.</p>
+    <ul>
+      <li><strong>Mali Mühür:</strong> Dijital imza + kaşe karşılığıdır.</li>
+      <li><strong>Zaman Damgası:</strong> Belgenin oluşturulduğu zamanı kanıtlar.</li>
+    </ul>
+
+    <h3>Finans Kuruluşu Entegrasyonları: MT940 ve Açık Bankacılık</h3>
+    <h4>Hesap Özeti Entegrasyonu</h4>
+    <ul>
+      <li>Bankadan gelen hesap hareketlerinin KKP sistemine aktarılmasıdır.</li>
+      <li>KKP, gelen hareketleri otomatik olarak eşleştirir ve muhasebeleştirir.</li>
+    </ul>
+    <h4>Online Ödeme ve Tahsilat</h4>
+    <ul>
+      <li>KKP üzerinden bankacılık işlemleri yapılmasını sağlar.</li>
+      <li>Bankaya otomatik EFT/havale talimatı gönderilebilir.</li>
+      <li>Sanal POS ve DBS (Doğrudan Borçlandırma Sistemi) bilgileri takip edilir.</li>
+    </ul>
+
+    <h3>Müşteri İlişkileri Yönetimi (CRM) ile KKP Sinerjisi</h3>
+    <h4>Satış Hunisinden Siparişe</h4>
+    <p><strong>Satış Hunisi:</strong> Geniş kitlenin kampanyayla ilgilenmesinden başlayıp az sayıda müşterinin gerçek alıcıya dönüşmesine kadarki süreçtir.</p>
+    <p>Pazarlama → Lead (potansiyel müşteri) → Opportunity → Satış Siparişi aşamaları takip edilir.</p>
+    <div class="example-box"><div class="example-header"><span>Örnek</span></div><div class="card" style="margin:0;border:0"><p>Bir müşteri reklamdan firmaya ulaştı (lead). Ürünle ilgilenmeye başladı (opportunity). Satın alma gerçekleşince KKP'de satış siparişine dönüşür.</p></div></div>
+    <h4>Müşteri 360 Derece Görünümü</h4>
+    <p>Müşteriyle ilgili tüm bilgiler tek ekranda görülür. Satış temsilcisi müşterinin geçmiş siparişlerini, borç durumunu, üretimdeki siparişlerini ve servis taleplerini görebilir.</p>
+
+    <h3>Uçtan Uca Entegrasyonun Zirvesi: Siparişten Tahsilata (Order to Cash)</h3>
+    <p>Order to Cash, müşterinin siparişi ile paranın kasaya girmesi arasındaki tüm süreçtir.</p>
+    <ol>
+      <li><strong>Satış Siparişi:</strong> Sipariş girilir, müşterinin kredisi (müşterinin bize borcu var mı?) ve ATP (depoda bu ürün var mı, yoksa ne zaman teslim edebiliriz?) kontrol edilir.</li>
+      <li><strong>MRP ve Satın Alma:</strong> Reçete (BOM) açılır, eksik malzeme varsa satın alma talebi oluşturulur. Örneğin, masa üretilecekse “4 ayak, 1 tabla, 8 vida lazım” der.</li>
+      <li><strong>Üretim ve Kabul:</strong> Üretim tamamlanır (teyit), kalite kontrolü yapılır ve depoya girer.</li>
+      <li><strong>Mal Çıkışı:</strong> Ürün sevk edilir; irsaliye kesilir ve otomatik COGS (Satılan Malın Maliyeti) muhasebe kaydı atılır.</li>
+      <li><strong>Faturalama:</strong> Müşteriye e-Fatura kesilir, sistem otomatik gelir ve KDV muhasebe kaydını yapar.</li>
+    </ol>
+
+    <h4>Adım 1 ve 2: Satış Siparişi, Dinamik Stok (ATP) ve Risk Kontrolü</h4>
+    <p>Bu aşama, siparişin sisteme girildiği ve iki temel kontrolün yapıldığı andır:</p>
+    <ul>
+      <li><strong>Sipariş Girişi (SD):</strong> Satış temsilcisi; müşteri talebini, teslimat adresini ve anlaşılan indirim (iskonto) oranlarını sisteme işler.</li>
+      <li><strong>Stok Uygunluk Kontrolü (SD → MM):</strong> Sistem anında ATP kontrolü yapar (Depoda satılabilir ürün var mı?).
+        <ul><li>Stok varsa ayrılır.</li><li>Stok yoksa teslim tarihi hesaplanır ve üretim için rezervasyon açılır.</li></ul>
+      </li>
+      <li><strong>Finansal Risk Kontrolü (SD → FI):</strong> Sistem müşterinin ödenmemiş faturalarına, gecikmiş borçlarına ve kredi limitine bakar.
+        <ul><li>Risk sınırı aşılmışsa sipariş onaylanmaz; otomatik olarak onay blokajına düşer.</li></ul>
+      </li>
+    </ul>
+
+    <h4>Adım 3: Üretimin Tetiklenmesi ve Malzeme Temin Orkestrasyonu</h4>
+    <ul>
+      <li><strong>Üretim Emri Açılışı (PP):</strong> Gelen siparişi karşılamak için ürünün reçetesine (BOM) dayalı resmî bir Üretim Emri oluşturulur.</li>
+      <li><strong>BOM Patlatma ve Malzeme Kontrolü (PP ↔ MM):</strong> Ürün ağacındaki alt bileşenlerin depo mevcudu taranır. Eksik hammadde ve ambalaj için sistem anında onaylı Satın Alma Talebi (PR) oluşturur.</li>
+    </ul>
+    <div class="info-box"><p><strong>Not:</strong> BOM patlatma, bir ürünün reçetesini en alt seviyeye kadar açıp ihtiyaç duyulan her malzemenin miktarını hesaplamaktır.</p></div>
+
+    <h4>Adım 4: Üretim İcrası, Kalite Kabulü ve Eşzamanlı Maliyet Dağıtımı</h4>
+    <ul>
+      <li><strong>Depodan Üretime Mal Çıkışı (MM → PP):</strong> İhtiyaç duyulan hammaddeler depodan alınıp üretim sahasına verilir. Depodaki stok miktarı ve bu malzemelerin maliyeti stoktan anında düşer.</li>
+      <li><strong>Kalite Onayı (PP ↔ QM):</strong> Üretim bittiğinde Kalite Modülü (QM) üründen numune alır ve kontrol eder. Ürün standartlara uygunsa durumu “serbest stok” (satılabilir ürün) olarak güncellenir.</li>
+      <li><strong>Gerçekleşen Maliyet Tahakkuku (PP ↔ CO):</strong> Üretim sırasında harcanan hammadde, makine yıpranması (amortisman) ve işçilik giderleri hesaplanır. Bu giderler doğrudan üretilen mamulün fiilî maliyet kartına yazılır.</li>
+    </ul>
+    <p><strong>Amortisman (eskime payı):</strong> Bir malın zamanla eskimesi nedeniyle değer kaybetmesidir.</p>
+
+    <h4>Adım 5: Sevkiyat İcrası ve Otomatik Maliyet Muhasebesi</h4>
+    <ul>
+      <li><strong>Lojistik Çıkış (Sevkiyat):</strong> Depo çalışanı ürünleri araca yükler. İrsaliye (ürünün gönderildiğini gösteren belge) kesilir.</li>
+      <li><strong>Fiziksel ve Finansal Stok Hareketi:</strong> Ürün depodan çıkınca stok miktarı otomatik azalır.</li>
+      <li><strong>Otomatik Muhasebe Kaydı:</strong> Sistem muhasebe kaydını kendi oluşturur.</li>
+    </ul>
+
+    <h4>Adım 6: Faturalama ve Satış Gelirinin Muhasebeleşmesi</h4>
+    <p><strong>Fatura:</strong> İrsaliyeye göre e-Fatura oluşturulur ve müşteriye gönderilir.</p>
+
+    <h4>Adım 7: Tahsilat, Açık Kalem Eşleme ve Kapanış</h4>
+    <ul>
+      <li><strong>Tahsilat:</strong> Müşteri ödemeyi yapar (havale/EFT). Ödeme sisteme otomatik işlenir.</li>
+      <li><strong>Açık Kalem Eşleme (Clearing):</strong> Gelen ödeme, ilgili faturayla eşleştirilir. Böylece faturanın borcu kapanmış olur.</li>
+      <li><strong>Risk Güncellemesi:</strong> Müşterinin borcu kapandığı için risk limiti tekrar açılır.</li>
+    </ul>
+    <div class="highlight-box"><p><strong>Kısaca:</strong> Müşteri öder → Ödeme faturayla eşleşir → Borç kapanır → Risk limiti güncellenir.</p></div>
+
+    <h3>Kurumsal Şeffaflığın Temeli: Doküman Akışı (Document Flow)</h3>
+    <h4>Doküman Akışı</h4>
+    <ul>
+      <li>Bir işlemin baştan sona tüm belgelerini birbirine bağlar.</li>
+      <li>Her belge sonrakini oluşturur.</li>
+    </ul>
+    <h4>İzlenebilirlik</h4>
+    <ul>
+      <li>Yapılan her işlem sistemde kayıtlıdır.</li>
+      <li>İstenildiğinde tüm süreç takip edilebilir.</li>
+    </ul>
+    <h4>Denetim</h4>
+    <p>Yönetici veya denetçi tek ekrandan işlemlerin tamamını görebilir.</p>
+    <h4>Süreç Sırası</h4>
+    <div class="flow" aria-label="Doküman akışı">
+      <div class="flow-node">Müşteri Teklifi</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Sipariş</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Üretim Emri</div><span class="flow-arrow">→</span>
+      <div class="flow-node">İrsaliye</div><span class="flow-arrow">→</span>
+      <div class="flow-node">e-Fatura</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Yevmiye Fişi</div><span class="flow-arrow">→</span>
+      <div class="flow-node">Banka Dekontu</div>
+    </div>
+
+    <h3>Entegrasyon Riskleri ve İşlem Bütünlüğü</h3>
+    <h4>Arayüz (Interface) Kırılganlığı</h4>
+    <p>KKP'nin başka yazılımlarla veri alışverişi yaparken sorun yaşamasıdır. Ağ kesintisi veya veri kaybı olursa bilgiler eksik ya da yanlış aktarılabilir.</p>
+    <div class="info-box"><p><strong>Kısacası:</strong> Farklı sistemler arasındaki veri aktarımında hata oluşması.</p></div>
+    <h4>ACID Kuralları</h4>
+    <p>ACID, veri tabanındaki işlemlerin güvenli olmasını sağlayan kurallardır.</p>
+    <ul>
+      <li><strong>Atomicity (Atomiklik):</strong> İşlem ya tamamen olur ya da hiç olmaz.</li>
+      <li><strong>Consistency (Tutarlılık):</strong> Veriler her zaman doğru ve tutarlı kalır.</li>
+      <li><strong>Isolation (Yalıtım):</strong> Aynı anda yapılan işlemler birbirini etkilemez.</li>
+      <li><strong>Durability (Kalıcılık):</strong> İşlem tamamlandıktan sonra kayıt kalıcı olur.</li>
+    </ul>
+    <p><strong>Rollback:</strong> İşlem yarıda kalırsa sistem yapılan değişiklikleri geri alır. Böylece eksik veya hatalı kayıt oluşmaz.</p>
+
+    <h3>Sınıf İçi Vaka Analizi</h3>
+    <div class="theory-block"><div class="theory-header"><span class="badge b-accent">Problem</span></div><div class="card" style="margin:0;border-radius:0 0 8px 8px"><p>Satın Alma Müdürü, KKP'de satın alma talebi ve siparişi oluşturmadan telefonla hammadde sipariş ediyor.</p></div></div>
+    <h4>Yaşanacak Sorunlar</h4>
+    <div class="grid2">
+      <div class="card"><h4>MM (Malzeme Yönetimi)</h4><p>Sistemde sipariş kaydı olmadığı için mal kabulü yapılamaz.</p></div>
+      <div class="card"><h4>QM (Kalite Yönetimi)</h4><p>Gelen hammadde kalite kontrol sürecine alınamaz.</p></div>
+      <div class="card"><h4>PP (Üretim Planlama)</h4><p>Sistemde hammadde görünmediği için üretim planı aksar.</p></div>
+      <div class="card"><h4>FI (Finans)</h4><p>Fatura ve ödeme kaydı oluşturulamaz. Muhasebe kayıtları eksik kalır.</p></div>
+    </div>
+    <h4>KKP Bu Krizi Nasıl Önler?</h4>
+    <ol>
+      <li>Önce Satın Alma Talebi oluşturulur.</li>
+      <li>Sonra Satın Alma Siparişi (PO) açılır.</li>
+      <li>Mal kabulü yapılır.</li>
+      <li>Kalite kontrol gerçekleştirilir.</li>
+      <li>Stok sisteme girer.</li>
+      <li>Muhasebe kayıtları otomatik oluşur.</li>
     </ol>
   </section>
 </main>
