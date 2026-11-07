@@ -110,6 +110,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
       <a class="nav-item" href="#h4-6"><span class="nav-item-num">42</span>Adayları Eleme, Puanlama ve Canlı Testler</a>
       <a class="nav-item" href="#h4-7"><span class="nav-item-num">43</span>Satınalmada Yapılan 4 Ölümcül Hata</a>
       <a class="nav-item" href="#h4-8"><span class="nav-item-num">44</span>Yönetim Kuruluna Kararın Sunulması ve Vaka Analizi</a>
+      <a class="nav-item" href="#ekstra"><span class="nav-item-num">45</span>Ekstra</a>
   </nav>
 </aside>
 
@@ -1913,6 +1914,111 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
           </ul>
         </div>
       </div>
+    </section>
+    <section id="ekstra">
+      <h2><strong>Ekstra</strong></h2>
+      <h3><strong>ERP Sistemi Hangi Mimariyle Kurulmalı?</strong></h3>
+      <div class="grid">
+        <div class="card">
+          <strong>1. İstemci-Sunucu Mimarisi (Client-Server Architecture) ve ".exe" Olayı</strong>
+          <p><strong>En basit hâliyle:</strong> Bilgisayarına kurman gereken programlardır.</p>
+          <p>ERP sisteminde kullanıcıların istemci bilgisayarları üzerinden merkezi ERP sunucusuna bağlanarak ortak veritabanı üzerinden işlem yapmasını sağlar.</p>
+          <p><strong>İstemci (Client):</strong> Senin bilgisayarına kurduğun o .exe uzantılı programdır. Sen bu programı açıp şifreni girersin.</p>
+          <p><strong>Sunucu (Server):</strong> Şirketin sistem odasında duran, asıl veritabanını barındıran devasa bilgisayardır.</p>
+          <p><strong>Nasıl çalışır?</strong> Sen bilgisayarındaki .exe programından "Ahmet'in maaşını göster" tuşuna basarsın, senin bilgisayarın (istemci) sunucuya bağlanıp bu veriyi çeker.</p>
+          <p><strong>Zorluğu nedir?</strong> Şirkette 500 çalışan varsa ve programa bir güncelleme gelirse, IT departmanı 500 bilgisayara tek tek gidip yeni .exe dosyasını kurmak zorundadır. Bu yüzden KKP sistemlerinde yavaş yavaş terk edilmektedir. Web tabanlı/bulut mimariye geçilmiştir.</p>
+        </div>
+        <div class="card">
+          <strong>2. Web Tabanlı Mimari (Web-Based Architecture)</strong>
+          <p><strong>En basit tabirle:</strong> İnternet tarayıcısı (Chrome, Safari, Edge vb.) üzerinden girilen sistemlerdir.</p>
+          <p><strong>Farkı nedir?</strong> Bilgisayarına hiçbir şey (.exe falan) kurmana gerek yoktur!</p>
+          <p><strong>Nasıl çalışır?</strong> Şirketin sunucusuna bir web sitesi gibi giriş yaparsın. Sen sadece ekranı görürsün, bütün hesaplama, veri kaydetme gibi ağır işleri sunucu yapar ve sana sadece "web sayfası" olarak sonucu gösterir.</p>
+          <p><strong>Avantajı:</strong> IT departmanının tek tek bilgisayarlara program kurmasına gerek yoktur. Sadece ana sunucuyu günceller ve herkes sabah Chrome'dan girdiğinde yeni versiyonu kullanmaya başlar.</p>
+        </div>
+        <div class="card">
+          <strong>3. Bulut Mimarisi (Cloud Architecture) ve "Sanallaştırma" Olayı</strong>
+          <p><strong>En basit tabirle:</strong> Sunucunun (ana bilgisayarın) senin şirketinde değil, dünyanın başka bir yerindeki devasa veri merkezlerinde (Amazon, Google, Microsoft vb.) olmasıdır.</p>
+          <p><strong>"Sanallaştırma" (Virtualization):</strong> Amazon veya Google sana özel fiziksel bir bilgisayar ayırmaz. Onların elinde devasa süper bilgisayarlar vardır. Bir program aracılığıyla o devasa bilgisayarı, yüzlerce küçük "sanal" bilgisayara bölerler (İşte buna sanallaştırma denir). Şirketiniz de gider bu sanal bilgisayarlardan birini kiralar.</p>
+          <p><strong>Nasıl çalışır?</strong> Şirket gidip on binlerce dolar verip sunucu (server) satın almaz, bozuldu mu diye korkmaz. İnternet üzerinden buluttaki sanal sunucuya aylık/yıllık kira öder. Sisteme yine web tabanlı (Chrome üzerinden) giriş yaparsın ama arka planda verilerin senin şirketinde değil, buluttadır.</p>
+          <p><strong>Avantajı:</strong> Sisteme her yerden ulaşabilirsin. Şirket büyürse anında "bana buluttan biraz daha hafıza verin" diyerek sistemi büyütebilirsin.</p>
+        </div>
+      </div>
+
+      <h3><strong>Bakkal Neden ERP Kullanmamalı?</strong></h3>
+      <div class="callout"><strong>Sinek avlamak için bazuka kullanmaya gerek yok :)</strong></div>
+      <div class="grid">
+        <div class="card">
+          <strong>Maliyet-Fayda Dengesizliği</strong>
+          <p>Bakkalın kâr marjı düşüktür. ERP sistemine harcanacak para, bakkalın 10 yıllık toplam kârından fazladır.</p>
+        </div>
+        <div class="card">
+          <strong>Departmanlaşma ve Entegrasyon İhtiyacının Olmaması</strong>
+          <p>ERP'nin temel amacı, farklı departmanları entegre etmek ve veri iletişimini sağlamaktır.</p>
+          <p>Bakkalda departman yoktur, bir kere. İnsan Kaynakları vs. yoktur :).</p>
+        </div>
+        <div class="card">
+          <strong>İş Süreçlerinin Basitliği</strong>
+          <p>ERP karmaşık iş süreçlerini standartlaştırmak için kullanılır zaten.</p>
+          <p>Bakkalın iş süreci basittir: Toptancıdan malı alır, rafa koyar, müşteriye satar. Ne gerek var ERP'ye.</p>
+        </div>
+      </div>
+
+      <h3><strong>Modüller Arası İlişki</strong></h3>
+      <div class="callout"><strong>Mantık:</strong> Veriyi kim oluşturuyor? Kim kullanıyor?</div>
+      <div class="grid">
+        <div class="card">
+          <strong>Temel Modüller</strong>
+          <ul class="ul">
+            <li>Satış ve Dağıtım</li>
+            <li>Satın Alma</li>
+            <li>Malzeme ve Depo Yönetimi</li>
+            <li>Üretim</li>
+            <li>Muhasebe / Finans</li>
+          </ul>
+        </div>
+      </div>
+      <h4><strong>Örnekler</strong></h4>
+      <div class="grid">
+        <div class="card">
+          <strong>Ürün (Malzeme) Kodu</strong>
+          <p><strong>Tanımlayan:</strong> Malzeme ve Depo Yönetimi, şirket bir kalem üretmeye karar verdi diyelim. Bu ilk olarak depocular tarafından sisteme tanımlanır.</p>
+          <p><strong>Kullananlar</strong></p>
+          <ul class="ul">
+            <li><strong>Üretim Modülü:</strong> Kalemi üretmem için emir geldi diyerek kullanır.</li>
+            <li><strong>Satın Alma Modülü:</strong> Üretmek için gereken malzeme için kullanır.</li>
+            <li><strong>Satış Modülü:</strong> Kalemi satmak için kullanır.</li>
+          </ul>
+          <p><strong>Not:</strong> Hiçbiri ürünü baştan tanımlamadı, depocunun tanımladığı kodu kullandı.</p>
+        </div>
+        <div class="card">
+          <strong>Müşteri Kodu</strong>
+          <p><strong>Tanımlayan:</strong> Müşteri İlişkileri (CRM) veya Satış Modülü. Ahmet diye bir müşteri geldi ve sisteme girildi.</p>
+          <p><strong>Kullananlar</strong></p>
+          <ul class="ul">
+            <li><strong>Satış Modülü:</strong> Müşteri Ahmet'e sipariş açar.</li>
+            <li><strong>Muhasebe Modülü:</strong> Ahmet'in faturasını kesmek için kullanır.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <strong>Tedarikçi Kodu</strong>
+          <p><strong>Tanımlayan:</strong> Satın Alma Modülü ve Tedarikçi Yönetimi. Bize karton satan Mehmet'in bilgileri sisteme girildi.</p>
+          <p><strong>Kullananlar</strong></p>
+          <ul class="ul">
+            <li><strong>Satın Alma:</strong> Mehmet'ten mal tedarik ettiği için kullanır.</li>
+            <li><strong>Muhasebe:</strong> Mehmet'e parasını ödemek için banka hesabı bilgisini sistemden almak için kullanır.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3><strong>KKP'nin 4 Fonksiyonu</strong></h3>
+      <div class="grid">
+        <div class="card"><strong>Üretim</strong></div>
+        <div class="card"><strong>Finans ve Muhasebe</strong></div>
+        <div class="card"><strong>İK</strong></div>
+        <div class="card"><strong>Satış ve Pazarlama</strong></div>
+      </div>
+      <h3><strong>KKP'den İlk Ayrılan Departman?</strong></h3>
+      <div class="callout"><strong>CRM (Müşteri İlişkileri Yönetimi), duygusaldır.</strong> KKP dediğimiz şey aslında bir matematiktir, depoda kaç mal var, faturası vs. vs.</div>
     </section>
   </main>
 
