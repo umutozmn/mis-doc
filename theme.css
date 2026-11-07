@@ -1,47 +1,102 @@
-/* Alternate (light) palette: parchment, forest green, and aged gold. */
+/* Alternate palette: white background, navy headings, and black text. */
 :root[data-theme="alt"] {
   color-scheme: light;
-  --bg: #eee7d5;
-  --surface: #e3dbc5;
-  --surface2: #d9d0b8;
-  --bg2: #e3dbc5;
-  --bg3: #d9d0b8;
-  --border: #c8bea5;
-  --border2: #aa9f82;
-  --line: rgba(170, 159, 130, 0.55);
-  --line2: rgba(170, 159, 130, 0.78);
-  --text: #292f25;
-  --sub: #5c6250;
-  --muted: #7e795f;
-  --faint: #7e795f;
-  --accent: #8a6b2d;
-  --accent-bg: rgba(138, 107, 45, 0.12);
-  --accent-dim: rgba(138, 107, 45, 0.12);
-  --accent-border: rgba(138, 107, 45, 0.25);
-  --tag-hover: #d8cfb8;
-  --ink: #292f25;
-  --mute: #5c6250;
-  --on-accent: #292f25;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f5f7fb;
+  --bg2: #f5f7fb;
+  --bg3: #eef2f8;
+  --border: #e1e6ef;
+  --border2: #cbd4e2;
+  --line: rgba(203, 212, 226, 0.6);
+  --line2: rgba(203, 212, 226, 0.85);
+  --text: #111827;
+  --sub: #111827;
+  --muted: #68758a;
+  --faint: #68758a;
+  --accent: #183153;
+  --accent-bg: rgba(24, 49, 83, 0.08);
+  --accent-dim: rgba(24, 49, 83, 0.08);
+  --accent-border: rgba(24, 49, 83, 0.2);
+  --tag-hover: #eef2f8;
+  --ink: #111827;
+  --mute: #4b5563;
+  --on-accent: #ffffff;
 
-  --info-bg: rgba(92, 117, 83, 0.1);
-  --info-text: #4f7047;
-  --info-border: rgba(92, 117, 83, 0.23);
-  --info: #4f7047;
-  --success: #4f7047;
-  --warn: #8a6726;
-  --danger: #8f4e3e;
-  --danger-bg: rgba(151, 83, 65, 0.09);
-  --danger-text: #8f4e3e;
-  --danger-border: rgba(151, 83, 65, 0.24);
-  --success-bg: rgba(92, 117, 83, 0.1);
-  --success-text: #4f7047;
-  --success-border: rgba(92, 117, 83, 0.23);
-  --warn-bg: rgba(160, 119, 43, 0.1);
-  --warn-text: #8a6726;
-  --warn-border: rgba(160, 119, 43, 0.23);
-  --purple-bg: rgba(117, 101, 75, 0.1);
-  --purple-text: #75654b;
-  --purple-border: rgba(117, 101, 75, 0.23);
+  --info-bg: rgba(48, 86, 145, 0.08);
+  --info-text: #294d7e;
+  --info-border: rgba(48, 86, 145, 0.2);
+  --info: #294d7e;
+  --success: #28664d;
+  --warn: #8a5a16;
+  --danger: #993e3e;
+  --danger-bg: rgba(153, 62, 62, 0.08);
+  --danger-text: #993e3e;
+  --danger-border: rgba(153, 62, 62, 0.2);
+  --success-bg: rgba(40, 102, 77, 0.08);
+  --success-text: #28664d;
+  --success-border: rgba(40, 102, 77, 0.2);
+  --warn-bg: rgba(138, 90, 22, 0.08);
+  --warn-text: #8a5a16;
+  --warn-border: rgba(138, 90, 22, 0.2);
+  --purple-bg: rgba(75, 65, 135, 0.08);
+  --purple-text: #4b4187;
+  --purple-border: rgba(75, 65, 135, 0.2);
+}
+
+/* Inline page palettes use :root, so keep the shared dark palette more specific. */
+:root:not([data-theme="alt"]) {
+  color-scheme: dark;
+  --bg: #0b1326;
+  --surface: #121c33;
+  --surface2: #172240;
+  --bg2: #121c33;
+  --bg3: #172240;
+  --border: #1e2c4a;
+  --border2: #253660;
+  --line: rgba(37, 54, 96, 0.55);
+  --line2: rgba(37, 54, 96, 0.78);
+  --text: #ffffff;
+  --sub: #ffffff;
+  --muted: #93a6c8;
+  --faint: #93a6c8;
+  --accent: #9aafd8;
+  --accent-bg: rgba(154, 175, 216, 0.12);
+  --accent-dim: rgba(154, 175, 216, 0.12);
+  --accent-border: rgba(154, 175, 216, 0.25);
+  --tag-hover: #192744;
+  --ink: #ffffff;
+  --mute: #d5deed;
+  --on-accent: #0b1326;
+
+  --info-bg: rgba(100, 149, 230, 0.12);
+  --info-text: #a9c7ff;
+  --info-border: rgba(100, 149, 230, 0.24);
+  --info: #a9c7ff;
+  --success: #8bd1aa;
+  --warn: #f2c477;
+  --danger: #ff9a9a;
+  --danger-bg: rgba(239, 100, 100, 0.1);
+  --danger-text: #ffaaaa;
+  --danger-border: rgba(239, 100, 100, 0.24);
+  --success-bg: rgba(68, 170, 112, 0.1);
+  --success-text: #9be0b6;
+  --success-border: rgba(68, 170, 112, 0.22);
+  --warn-bg: rgba(245, 180, 70, 0.1);
+  --warn-text: #f2c477;
+  --warn-border: rgba(245, 180, 70, 0.22);
+  --purple-bg: rgba(154, 135, 238, 0.1);
+  --purple-text: #c0b4ff;
+  --purple-border: rgba(154, 135, 238, 0.22);
+}
+
+:root[data-theme="alt"] :is(h1, h2, h3, h4, h5, h6, .page-title, .unit-title, .sidebar-title, .topic-heading h3, .term-name, .cr-name) {
+  color: #174ea6;
+  font-weight: 700;
+}
+:root:not([data-theme="alt"]) :is(h1, h2, h3, h4, h5, h6, .page-title, .unit-title, .sidebar-title, .topic-heading h3, .term-name, .cr-name) {
+  color: #b6c8eb;
+  font-weight: 700;
 }
 
 .theme-toggle {
