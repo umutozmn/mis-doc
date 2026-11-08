@@ -54,6 +54,17 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
 .definition-note{background:#edf6ef;border-color:#cfe2d3;border-left-color:#4c8b62;color:#111}.definition-note strong{color:#28623b}.example-note,.written-visual,.match-note,.sales-document-note{margin:14px 0;padding:16px 18px;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:0 10px 10px 0;background:#f3f5fa;color:#111}.example-note>strong,.written-visual>strong,.match-note>strong,.sales-document-note>strong{display:block;margin-bottom:8px;color:var(--navy)}.example-note p,.written-visual p,.match-note p{margin:0 0 8px}.example-note p:last-child,.written-visual p:last-child,.match-note p:last-child{margin-bottom:0}.equation{padding:10px;text-align:center;border-radius:8px;background:#fff;font-size:19px;font-weight:700;color:var(--navy)}.info-note{margin-top:14px;padding:13px 16px;border:1px solid #cfe2d3;border-left:4px solid #4c8b62;border-radius:0 9px 9px 0;background:#edf6ef;color:#111}.info-note strong{color:#28623b}.error-flow .tl{margin-bottom:0}.tier-explanations .step{border-left:4px solid var(--navy);background:#f3f5fa;padding:16px}.tier-explanations .step>div>strong{display:inline-block;margin-bottom:5px;padding:3px 8px;border-radius:6px;background:var(--navy);color:#fff}.tier-explanations .step p{margin-top:4px}.practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.practice-card{display:flex;gap:14px;padding:20px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#fff,#f3f5fa);box-shadow:0 8px 24px rgba(11,31,77,.07)}.practice-number{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;font-weight:700}.practice-card strong{display:block;color:var(--navy);margin:1px 0 5px}.practice-card p{margin:0;color:#333}#h1-10 .risk-heading,#h1-10 .risk-heading strong{color:#a52a2a}#h1-10 .success-heading,#h1-10 .success-heading strong{color:#287348}#h1-10 .risk-grid .card{border-color:#e8caca;background:#fff5f5}#h1-10 .risk-grid .card strong{color:#9e2929}#h1-10 .success-grid .card{border-color:#c8dfce;background:#f1f8f2}#h1-10 .success-grid .card strong{color:#286d43}.life-cycle{list-style:none;padding:0;display:grid;gap:9px;margin:16px 0}.life-cycle li{display:flex;align-items:center;gap:12px;padding:12px 15px;border:1px solid var(--line);border-radius:9px;background:#f3f5fa}.life-cycle li span{color:var(--navy);font:700 12px 'Hanken Grotesk',sans-serif}.life-cycle li strong{color:#111}.strategy-label{color:var(--navy)}.training-wrong{color:#b42323}.training-right{color:#287348}.plain-label{color:#111}.match-list,.sales-documents{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}.match-list li,.sales-documents li{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid #dde2ee;border-radius:8px;background:#fff}.match-list li strong,.sales-documents li strong{min-width:220px;color:#111}.match-list li span,.sales-documents li span{color:#333}.sales-document-note{margin-top:20px}.cash-steps{display:grid;gap:12px;margin:18px 0}.cash-step{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(11,31,77,.05)}.cash-step>div{min-width:0}.cash-step>div>strong{display:block;margin:2px 0 5px;color:var(--navy)}.cash-step p{margin:0;color:#222}.cash-step .num{border-radius:8px;min-width:32px;height:32px}aside{transition:transform .2s}#mt{left:302px;cursor:pointer;box-shadow:0 4px 14px rgba(11,31,77,.12);transition:left .2s}@media(min-width:861px){main{transition:margin-left .2s}body.menu-hidden aside{transform:translateX(-100%)}body.menu-hidden main{margin-left:0}body.menu-hidden #mt{left:12px}}@media(max-width:600px){.practice-grid{grid-template-columns:1fr}.match-list li,.sales-documents li{display:grid;gap:3px}.match-list li strong,.sales-documents li strong{min-width:0}}@media(max-width:860px){aside{transform:translateX(-100%);transition:transform .2s;z-index:4}aside.open{transform:none}main{margin:0;padding:68px 18px 80px}#mt{display:block}.top h1{font-size:32px}.two,.cmp,.tabbed.side{grid-template-columns:1fr}.side .tablist{flex-direction:row}.wk h1{font-size:18px}}
 :focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 </style><link rel="stylesheet" href="theme.css">
+<style>
+.life-cycle{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.life-cycle li{display:flex;align-items:flex-start;gap:14px;min-width:0;padding:18px;border-radius:12px;background:linear-gradient(145deg,#fff,#f3f5fa);box-shadow:0 6px 18px rgba(11,31,77,.06)}
+.life-cycle .phase-number{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;font:700 14px 'Hanken Grotesk',sans-serif}
+.life-cycle .phase-content{min-width:0}
+.life-cycle .phase-content>strong{display:block;margin:2px 0 5px;color:var(--navy);font-size:16px}
+.life-cycle .phase-content p{margin:0 0 10px;color:#333}
+.life-cycle .phase-example{padding:10px 12px;border-left:3px solid #4c8b62;border-radius:0 8px 8px 0;background:#edf6ef;color:#222;line-height:1.55}
+.life-cycle .phase-example strong{color:#28623b}
+@media(max-width:600px){.life-cycle{grid-template-columns:1fr}}
+</style>
 </head>
 <body class="kkp-layout">
 <button class="mobile-toggle" type="button" onclick="toggleSidebar()" aria-label="Menüyü aç veya kapat" aria-controls="sidebar" aria-expanded="false">☰</button>
@@ -712,20 +723,26 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
         <div class="card"><strong>Teknik Borç (Technical Debt):</strong> Yazılıma eklenen her özel kod satırı, gelecekte ödenecek faizli bir borçtur! Yarın yazılımın yeni bir sürümü çıktığında, eklenen özel kodlar çalışmaz, sistem kilitlenir ve bakım masrafları şirketi boğar.
         </div>
       </div>
-      <div class="callout"><strong>Kural: Süreci Yazılıma Uydur.</strong> BPR (Business Process Reengineering) iş süreçlerini baştan düşünüp yeniden tasarlamaktır. Şirketin süreçlerini KKP'nin mantığına uydurmak daha ucuz ve uzun ömürlüdür. Çünkü KKP'nin içindeki akışlar şirketlerin tecrübelerinden çıkmıştır.
+      <div class="callout"><strong>Kural: Süreci Yazılıma Uydur.</strong> BPR (Business Process Reengineering) iş süreçlerini baştan düşünüp yeniden tasarlamaktır. Şirketin süreçlerini KKP'nin mantığına uydurmak daha ucuz ve uzun ömürlüdür. Çünkü KKP'nin içindeki akışlar zaten şirketlerin tecrübelerinden çıkmıştır.
       </div>
     </section>
     <section id="h2-7">
-      <h2><strong>İletişim, Veri ve Kaynak Krizleri</strong>
-      </h2>
+      <h2><strong>İletişim, Veri ve Kaynak Krizleri</strong></h2>
     </section>
     <section id="h2-8">
       <h2><strong>Danışmanlık ve Paydaş İletişimi Eksenindeki Uyuşmazlıklar</strong>
       </h2>
       <div class="grid">
-        <div class="card"><strong>Semantik (Anlamsal) Boşluk:</strong> KKP danışmanı teknik terimlerle (örneğin "BOM patlatma", "Backflush", "G/L hesabı") konuşurken; fabrikadaki usta "Biz sacı keser, arkadaki hurdayı kantara atarız" der. İki taraf da birbirinin dilini anlamaz.
+        <div class="card"><strong>Semantik (Anlamsal) Boşluk:</strong> 👨‍💼 <strong>Danışman:</strong> "Backflush yapacağız, BOM patlatacağız."
+          <br>
+👨‍🏭 <strong>Fabrika çalışanı:</strong> "Biz malzemeyi kesiyoruz, kalan hurdaları kantara gönderiyoruz." <br>
+ ⚠️ İki taraf da birbirinin dilini anlamaz.
         </div>
-        <div class="card"><strong>Çift Yönlü Yetersizlik:</strong> Danışman o fabrikanın gerçek operasyonel dinamiklerini kavrayamaz; işletme personeli de KKP'nin mantığını kavrayamaz. Sonuç: Yanlış tasarlanmış ekranlar, atıl kalan yazılımlar ve çöpe giden aylar.
+        <div class="card"><strong>Çift Yönlü Yetersizlik:</strong> İki tarafın da eksik bilgisi vardır. Bu yüzden yanlış kararlar alınabilir.
+          <br>
+ <strong>Danışman</strong>, fabrikanın nasıl çalıştığını tam bilmez.
+ <br>
+ <strong>Çalışanlar</strong>, KKP'nin nasıl çalıştığını tam bilmez.
         </div>
       </div>
       <h3><strong>Veri Kalitesi ve Çöp Mirası (GIGO Prensibi)</strong>
@@ -750,34 +767,63 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
     <section id="h2-9">
       <h2><strong>Proje Yaşam Eğrisi ve Kritik Başarı Faktörleri (CSF)</strong>
       </h2>
-      <h3><strong>Proje Yaşam Döngüsü ve "Geri Dönüşü Olmayan Nokta" )</strong>
+      <h3><strong>Proje Yaşam Döngüsü ve "Geri Dönüşü Olmayan Nokta"</strong>
       </h3>
       <p>Bir proje şu 5 aşamadan geçer:
       </p>
       <ol class="life-cycle">
-        <li><span>01</span><strong>Kapsam belirleme</strong>
+        <li>
+          <span class="phase-number">01</span>
+          <div class="phase-content">
+            <strong>Kapsam belirleme</strong>
+            <p><strong>"Ne yapacağız?"</strong> sorusu yanıtlanır; projeye hangi süreçlerin dahil olacağı belirlenir.</p>
+            <div class="phase-example"><strong>Örnek:</strong> Satın alma, depo, üretim ve muhasebe süreçlerini sisteme taşıyacağız.</div>
+          </div>
         </li>
-        <li><span>02</span><strong>Kavramsal tasarım</strong>
+        <li>
+          <span class="phase-number">02</span>
+          <div class="phase-content">
+            <strong>Kavramsal tasarım</strong>
+            <p><strong>"Nasıl yapacağız?"</strong> sorusu yanıtlanır; sistemin süreçlerde nasıl çalışacağı planlanır.</p>
+            <div class="phase-example"><strong>Örnek:</strong> Depocu mal kabulü yaptığında stok miktarı sistemde otomatik güncellenecek.</div>
+          </div>
         </li>
-        <li><span>03</span><strong>Geliştirme / uyarlama</strong>
+        <li>
+          <span class="phase-number">03</span>
+          <div class="phase-content">
+            <strong>Geliştirme / uyarlama</strong>
+            <p>Standart sistem, şirketin belirlenen ihtiyaçlarına göre yapılandırılır veya gerektiğinde geliştirilir.</p>
+            <div class="phase-example"><strong>Örnek:</strong> Şirketin kullandığı özel fatura biçimi sisteme eklenir.</div>
+          </div>
         </li>
-        <li><span>04</span><strong>Test</strong>
+        <li>
+          <span class="phase-number">04</span>
+          <div class="phase-content">
+            <strong>Test</strong>
+            <p>Süreçlerin doğru çalıştığı, farklı senaryolar denenerek ve hatalar giderilerek kontrol edilir.</p>
+            <div class="phase-example"><strong>Örnek:</strong> Depoya ürün girişi yapıldığında stok miktarı artıyor mu?</div>
+          </div>
         </li>
-        <li><span>05</span><strong>Canlıya geçiş (Go-Live)</strong>
+        <li>
+          <span class="phase-number">05</span>
+          <div class="phase-content">
+            <strong>Canlıya geçiş (Go-Live)</strong>
+            <p>Hazırlıklar tamamlanınca sistem gerçek şirket işlemlerinde kullanılmaya başlanır.</p>
+            <div class="phase-example"><strong>Örnek:</strong> Şirket artık faturalarını, stoklarını ve üretimini KKP üzerinden yönetir.</div>
+          </div>
         </li>
       </ol>
       <div class="grid">
-        <div class="card"><strong>Maliyet Eğrisi:</strong> Bir tasarım değişikliğinin maliyeti projenin başında küçüktür, hızla artar.**
+        <div class="card"><strong>Maliyet Eğrisi:</strong> Bir tasarım değişikliğinin maliyeti projenin başında küçüktür, hızla artar.
         </div>
-        <div class="card"><strong>Geri Dönüşü Olmayan Nokta (Point of No Return):</strong> Eski sistemlerin kapatıldığı, veritabanlarının dondurulduğu ve yeni sisteme geçişin başladığı eşiktir. Bu noktadan sonra “bu iş olmadı, eskiye dönelim” demek ya imkânsız ya da çok pahalıdır. Köprüden geçtikten sonra köprüyü yıkmışsın gibi düşün.
+        <div class="card"><strong>Geri Dönüşü Olmayan Nokta (Point of No Return):</strong> Eski sistemlerin kapatıldığı, veritabanlarının dondurulduğu ve yeni sisteme geçişin başladığı eşiktir. Bu noktadan sonra “bu iş olmadı, eskiye dönelim” demek ya imkânsız ya da çok pahalıdır. 
+          <br><br> Köprüden geçtikten sonra köprüyü yıkmışsın gibi düşün 😂
         </div>
       </div>
       <h3><strong>Literatürde Kritik Başarı Faktörleri (CSF)</strong>
       </h3>
-      <p>Akademik literatür (Somers &amp; Nelson, Markus &amp; Tanis), projeyi başarıya götüren olmazsa olmaz şartları şöyle modeller:
-      </p>
       <details>
-        <summary><span class="num">1</span><span><strong>CSF 1: Üst Yönetim Desteği ve Liderlik</strong> Genel müdür ve yönetim kurulu projenin arkasında durmalıdır. Departmanlar arası bir kavga çıktığında (örneğin Satış Müdürü "Ben müşteriye 180 gün vade vermek istiyorum" derken Finans Müdürü "Sistem en fazla 60 güne izin versin" diye çatıştığında), üst yönetim masaya nihai kararı vermelidir. Üst yönetimin ilgisini kaybettiği projeleri çalışanlar alttan alta <strong>sabote</strong> eder.</span>
+        <summary><span class="num">1</span><span><strong>CSF 1: Üst Yönetim Desteği ve Liderlik</strong> Genel müdür ve yönetim kurulu projenin arkasında durmalıdır. Departmanlar arası bir kavga çıktığında (örneğin Satış Müdürü "Ben müşteriye 180 gün vade vermek istiyorum" derken Finans Müdürü "Sistem en fazla 60 güne izin versin" diye çatıştığında), üst yönetim nihai kararı verebilmelidir. Üst yönetim projelere ilgi vermezse çalışanlar alttan alta <strong>sabote</strong> eder.</span>
         </summary>
         <div class="dbody">
         </div>
@@ -789,7 +835,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
           <ul class="ul">
             <li>Büyük İkilem: Projeye şirketin en parlak, en vazgeçilmez adamını mı vermeliyiz; yoksa şu an masasında işi az olan boş personeli mi?
             </li>
-            <li>Doğru Cevap: <strong>Eğer bir personeli projeye verdiğinizde fabrikanın canı yanıyorsa, doğru adamı seçmişsiniz demektir!</strong> Projeye şirketin işini en iyi bilen, en parlak yıldızları atanmalı ve bu kişilere yönetsel karar alma yetkisi verilmelidir. Doğru kişiyi verdiğimizde fabrikanın canı yanar çünkü onun yaptığı eski işi artık 2 3 kişi zor zoruna yapıyor, demek ki iyi birini projeye vermişiz.
+            <li>Doğru Cevap: <strong>Eğer bir personeli projeye verdiğinizde fabrikanın canı yanıyorsa, doğru adamı seçmişsiniz demektir.</strong> çünkü onun yaptığı eski işi artık 2 3 kişi zor zoruna yapıyor, demek ki iyi birini projeye vermişiz. Bu kişilere yönetsel karar alma yetkisi verilmelidir. 
             </li>
           </ul>
         </div>
@@ -811,13 +857,11 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
         </div>
         <div class="card"><strong>Gözetlenme Endişesi:</strong> KKP'de kimin ne zaman hangi tuşa bastığı, bir işlemi kaç dakikada bitirdiği zaman damgasıyla (<strong>Audit Log</strong>) kaydedilir. Çalışanlar kendilerini sürekli bir kamerayla izleniyormuş gibi hisseder.
         </div>
-        <div class="card"><strong>Konfor Alanı:</strong> "Biz 20 yıldır bu işi Excel'le tıkır tıkır yapıyorduk, nereden çıktı bu başımıza iş açan sistem?" savunması.
+        <div class="card"><strong>Konfor Alanı:</strong> "Biz 20 yıldır bu işi Excel'le tıkır tıkır yapıyorduk, nereden çıktı bu başımıza iş açan sistem?" düşüncesi.
         </div>
       </div>
       <h3><strong>Kurt Lewin'in 3 Aşamalı Değişim Modeli</strong>
       </h3>
-      <p>Bir organizasyonu değiştirmek için bir buz kalıbını yeniden şekillendirmek gerekir:
-      </p>
       <div class="steps">
         <div class="step"><span class="num">1</span>
           <div><strong>Çözme (Unfreezing):</strong> Mevcut durumun artık ilerlemeyeceğini açıkça göstermek gerekir.. "Eski sistemle gidersek siparişleri yetiştiremiyoruz, rakipler bizi ezecek ve şirket küçülmek zorunda kalacak."
@@ -866,15 +910,15 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
           </h4>
           <div class="steps">
             <div class="step"><span class="num">1</span>
-              <div>Kapasite Uyuşmazlığı: Satın alınan yazılım gecede birkaç bin siparişi işleyebiliyordu; ancak FoxMeyer'ın günde yüz binlerce satırlık ilaç hareketi vardı. Sistem devasa hacmi kaldıramadı ve kilitlendi.
+              <div><strong>Kapasite Uyuşmazlığı:</strong> Satın alınan yazılım gecede birkaç bin siparişi işleyebiliyordu; ancak FoxMeyer'ın günde yüz binlerce satırlık ilaç hareketi vardı. Sistem devasa hacmi kaldıramadı ve kilitlendi.
               </div>
             </div>
             <div class="step"><span class="num">2</span>
-              <div>Çalışan Sabotajı: Şirket depo işçilerine yeni sistem gelince depoların kapanacağını ve işten atılacaklarını hissettirdi. Depo personeli kutuları kasten yanlış barkodladı, sistemi sabote etti.
+              <div><strong>Çalışan Sabotajı:</strong> Şirket depo işçilerine yeni sistem gelince depoların kapanacağını ve işten atılacaklarını hissettirdi. Depo personeli kutuları kasten yanlış barkodladı, sistemi sabote etti.
               </div>
             </div>
             <div class="step"><span class="num">3</span>
-              <div>Erken Canlıya Geçiş: Yeterli stres testleri yapılmadan aşırı iyimser bir takvimle canlıya geçildi.
+              <div><strong>Erken Canlıya Geçiş:</strong> Yeterli stres testleri yapılmadan aşırı iyimser bir takvimle canlıya geçildi.
               </div>
             </div>
           </div>
