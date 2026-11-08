@@ -34,7 +34,13 @@ summary::-webkit-details-marker{display:none}summary::after{content:'+';margin-l
 details[open]>summary{border-bottom:1px solid var(--line);background:var(--soft);border-radius:10px 10px 0 0}.dbody{padding:12px 16px 4px}
 .tl{list-style:none;margin:16px 0;padding:0 0 0 26px;position:relative}.tl::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--navy)}
 .tl li{position:relative;margin-bottom:10px;padding:10px 14px;border:1px solid var(--line);border-radius:10px}
+.tl li.cost-item{background:#edf5fd;border-color:#c5dcef}
+.tl li.pro-item{background:#edf6ef;border-color:#c4ddcb}
+.tl li.con-item{background:#fdf1f1;border-color:#e5c4c4}
 .tl li::before{content:'';position:absolute;left:-26px;top:16px;width:14px;height:14px;border-radius:50%;background:var(--navy);border:3px solid #fff}
+.tl li.cost-item::before{background:#4b91c8}
+.tl li.pro-item::before{background:#4c8b62}
+.tl li.con-item::before{background:#c45a5a}
 .ul{padding-left:20px;margin:8px 0}.ul li{margin-bottom:6px}
 .tabbed{margin:18px 0}.tablist{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .tablist button{font:inherit;font-weight:600;padding:9px 14px;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;cursor:pointer;text-align:left}
@@ -1585,21 +1591,21 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
       <div class="grid">
         <div class="card"><strong>Yerinde Kurulum (On-Premise):</strong> Şirketin bodrum katına devasa sunucu makineleri, klima odaları, jeneratörler koyarsınız. Yazılım burada çalışır. ! Her şey senin ama bütün masraf ve sorumluluk da senin.
           <ol class="tl">
-            <li>Maliyet: <strong>CapEx (Sermaye Harcaması)</strong> – Başta çok büyük bir para yatırıp donanım ve lisans satın alırsınız.
+            <li class="cost-item"><strong>Maliyet</strong>: <strong>CapEx (Sermaye Harcaması)</strong> – Başta çok büyük bir para yatırıp donanım ve lisans satın alırsınız.
             </li>
-            <li>Artısı: Tüm veriler şirketinizin fiziksel çatısı altındadır.
+            <li class="pro-item"><strong>Artısı</strong>: Tüm veriler şirketinizin fiziksel çatısı altındadır.
             </li>
-            <li>Eksisi: Sunucu bozulursa, elektrik kesilirse, güvenlik yamaları gerekirse tüm sorumluluk ve maliyet sizin teknik ekibinizdedir.
+            <li class="con-item"><strong>Eksisi</strong>: Sunucu bozulursa, elektrik kesilirse, güvenlik yamaları gerekirse tüm sorumluluk ve maliyet sizin teknik ekibinizdedir.
             </li>
           </ol>
         </div>
-        <div class="card"><strong>Bulut Tabanlı (SaaS - Software as a Service):</strong> Hiç sunucu almazsınız; yazılımı internet üzerinden, tıpkı Netflix veya Spotify üyeliği gibi çalıştırırsınız. ! Kullanımı kolay ama internete ve hizmet sağlayıcıya bağımlısın.
+        <div class="card"><strong>Bulut Tabanlı (SaaS - Software as a Service):</strong> Hiç sunucu almazsınız; yazılımı internet üzerinden, tıpkı Netflix veya Spotify üyeliği gibi çalıştırırsınız.  Kullanımı kolay ama internete ve hizmet sağlayıcıya bağımlısın.
           <ol class="tl">
-            <li>Maliyet: <strong>OpEx (İşletme Gideri)</strong> – Başlangıçta devasa paralar dökmezsiniz; kullandıkça aylık/yıllık abonelik ödersiniz.
+            <li class="cost-item"><strong>Maliyet</strong>: <strong>OpEx (İşletme Gideri)</strong> – Başlangıçta devasa paralar dökmezsiniz; kullandıkça aylık/yıllık abonelik ödersiniz.
             </li>
-            <li>Artısı: İnternet olan her yerden girilir; yedeklemeleri, güncellemeleri ve sunucu bakımını sağlayıcı firma yapar.
+            <li class="pro-item"><strong>Artısı</strong>: İnternet olan her yerden girilir; yedeklemeleri, güncellemeleri ve sunucu bakımını sağlayıcı firma yapar.
             </li>
-            <li>Eksisi: İnternetiniz koparsa sistem durur; verilerin bulutta saklanması güvenlik ve yasal sorunlara neden olabilir..
+            <li class="con-item"><strong>Eksisi</strong>: İnternetiniz koparsa sistem durur; verilerin bulutta saklanması güvenlik ve yasal sorunlara neden olabilir..
             </li>
           </ol>
         </div>
@@ -1641,7 +1647,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
         </div>
         <div class="card"><strong>RFP (Request for Proposal - Teklif Talebi / İhale Şartnamesi):</strong> En kritik ana belgedir. Şirketin <strong>röntgenidir</strong>. "Benim depomda 20.000 çeşit ürün var, barkodla çalışırım, 3 fabrikam var, şu onay mekanizmalarına ihtiyacım var. Bu ihtiyaçlarımı nasıl çözeceksiniz? Bana metodolojinizle birlikte resmi çözüm önerinizi sunun." denir.
         </div>
-        <div class="card"><strong>RFQ (Request for Quotation - Fiyat Teklifi Talebi): Pazarlık</strong> aşamasıdır. "İhtiyaç listemiz net: 50 kullanıcı lisansı, finans ve üretim modülü, 100 günlük danışmanlık. Bana bunun son ve net fiyatını verin." belgesidir.
+        <div class="card"><strong>RFQ (Request for Quotation - Fiyat Teklifi Talebi): </strong>Pazarlık aşamasıdır. "İhtiyaç listemiz net: 50 kullanıcı lisansı, finans ve üretim modülü, 100 günlük danışmanlık. Bana bunun son ve net fiyatını verin." belgesidir.
         </div>
       </div>
       <h3><strong>Kusursuz Bir RFP (Request for Proposal — Teklif Talebi / Şartname) Dosyasında Neler Bulunur?</strong>
@@ -1688,7 +1694,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
               </td>
               <td><strong>Must Have</strong> (Mutlak Zorunlu)
               </td>
-              <td>Olmazsa olmaz! Bu özellik yoksa sistem çöker, yasa çiğnenir, canlıya geçilem
+              <td>Olmazsa olmaz! Bu özellik yoksa sistem çöker, yasa çiğnenir, canlıya geçilemez.
               </td>
               <td>Resmi e-fatura kesebilmek, KDV hesaplamak.
               </td>
@@ -1696,7 +1702,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
             <tr>
               <td><span class="badge">S</span>
               </td>
-              <td><strong>Should Have</strong> (Yüksek Öncelikli) İşi hızlandırır; ama ilk gün olmasa da birkaç hafta idare edilebilir. lir.
+              <td><strong>Should Have</strong> (Yüksek Öncelikli) 
               </td>
               <td>İşi hızlandırır; ama ilk gün olmasa da manuel olarak birkaç hafta idare edilebilir.
               </td>
@@ -1708,7 +1714,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
               </td>
               <td><strong>Could Have</strong> (Olsa Ne Güzel Olur)
               </td>
-              <td>Projeyi aksatmaz, kullanıcının hayatını kolaylaştıracak lüks detayla
+              <td>Projeyi aksatmaz, kullanıcının hayatını kolaylaştıracak lüks detaylardır.
               </td>
               <td>Rapor ekranının arka plan renginin kişiselleştirilebilmesi.
               </td>
@@ -1718,7 +1724,7 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
               </td>
               <td><strong>Won't Have</strong> (Şimdilik Kapsam Dışı)
               </td>
-              <td>İlk aşamada kesinlikle yapılmayacak, ilerleyen yıllara (Faz 2'ye) ertelenen ler.
+              <td>İlk aşamada kesinlikle yapılmayacak, ilerleyen yıllara (Faz 2'ye) ertelenenler.
               </td>
               <td>Depodaki otonom robotların yapay zeka ile kendi kendine rota çizmesi.
               </td>
@@ -1773,9 +1779,9 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
       <p>Pazarda onlarca yazılım vardır.
       </p>
       <div class="grid">
-        <div class="card"><strong>Uzun Liste (Long-List):</strong> Şirketin sektörüne uygun dikey uzmanlığı olan (örneğin otomotiv yan sanayinde tecrübeli) 5 ila 8 yazılım firması belirlenir ve bunlara RFI yollanır.
+        <div class="card"><strong>Uzun Liste (Long-List):</strong> Şirket, piyasadaki birçok yazılım arasından kendisine uygun 5–8 firmayı seçer ve onlardan bilgi ister (RFI gönderir).
         </div>
-        <div class="card"><strong>Kısa Liste (Short-List):</strong> Bütçesi aşanlar, yerel teknik desteği zayıf olanlar veya şirketin ölçeğine uymayanlar elenir. Gerçek yarış için finalist sayısı <strong>en güçlü 2 veya 3 adaya</strong> indirilir.
+        <div class="card"><strong>Kısa Liste (Short-List):</strong> Bu firmalar arasından pahalı olanlar, desteği yetersiz olanlar veya şirkete uygun olmayanlar elenir. Geriye en iyi 2–3 firma kalır ve asıl değerlendirme bunlar arasında yapılır.
         </div>
       </div>
       <h3><strong>Çok Kriterli Karar Verme: Ağırlıklı Puanlama Modeli</strong>
@@ -1785,11 +1791,11 @@ pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;paddi
       <div class="grid">
         <div class="card"><strong>%35 Fonksiyonel Uygunluk:</strong> Şirketin temel iş süreçlerini yapabiliyor mu?
         </div>
-        <div class="card"><strong>%20 Toplam Sahip Olma Maliyeti (TCO):</strong> 5 yıllık toplam faturası makul mü?
+        <div class="card"><strong>%20 Toplam Sahip Olma Maliyeti (TCO):</strong> 5 yılda bize toplam ne kadara mal olacak?
         </div>
         <div class="card"><strong>%20 Tedarikçi ve Danışman Yetkinliği:</strong> İşi kuracak olan ekip gerçekten usta mı?
         </div>
-        <div class="card"><strong>%15 Teknik Altyapı, Güvenlik &amp; Mimari:</strong> Bulut performansı, API'leri, veri tabanı sağlam mı?
+        <div class="card"><strong>%15 Teknik Altyapı, Güvenlik &amp; Mimari:</strong> Yazılım güvenli, hızlı ve teknik olarak güçlü mü?
         </div>
         <div class="card"><strong>%10 Sektörel Referanslar:</strong> Başka fabrikalarda başarıyla çalışıyor mu?
         </div>
